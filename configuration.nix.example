@@ -1,0 +1,17 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [ 
+    # Select usage profile
+    ./profiles/full.nix
+    # Select desktop stack
+    ./software/sway.nix
+    # Host specific
+    ./hosts/hostname.nix
+    ./hardware/hostname.nix
+    # Additional hardware support
+    #./hardware/yubikey.nix
+  ];
+
+  system.stateVersion = "18.09";
+}
