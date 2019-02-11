@@ -11,13 +11,15 @@
     binutils
     pciutils
     usbutils
-    psmisc
-    lshw
+    
+    psmisc    
     htop
+
     bind
      
     file
     git 
+    gnupg
     p7zip 
     tree
   ];
