@@ -12,6 +12,7 @@
      zotero
      gimp-with-plugins
      inkscape
+     gnucash
    ];
  }
 

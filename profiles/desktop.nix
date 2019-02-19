@@ -54,6 +54,9 @@
   # Enable backlight control
   programs.light.enable = true;
 
+  # Enable network manager tray
+  programs.nm-applet.enable = true;
+  
   # Enable CUPS to print documents.
   #services.printing.enable  = true;
   #services.printing.drivers = [ pkgs.gutenprint ];

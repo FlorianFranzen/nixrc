@@ -13,11 +13,22 @@
     qt5.qtwayland
   ];
 
+  services.udisks2.enable = true;
+  services.upower.enable = true;
+
   # Install sway
   programs.sway-beta = {
     enable = true;
     extraSessionCommands = ''
-      XDG_SESSION_TYPE=wayland
+      # Set default keyboard layout
+      export XKB_DEFAULT_LAYOUT=us
+      export XKB_DEFAULT_OPTIONS=compose:ralt
+
+      # Enable libappindicator support
+      export XDG_CURRENT_DESKTOP=Unity   
+
+      # Enable wayland backend   
+      export XDG_SESSION_TYPE=wayland
 
       # Use GTK3 wayland backend
       export GDK_BACKEND=wayland
@@ -37,12 +48,15 @@
       swaylock
       swayidle
       xwayland
-      kitty
+      termite
       mako
       #waybar # Not in unstable yet...
       rofi
     ];
   };
+  
+  programs.waybar.enable = true;
+
 
   # Give main user access
   users.extraUsers.florian = {
