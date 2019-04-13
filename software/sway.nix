@@ -11,13 +11,16 @@
 
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
+    wl-clipboard
+    grim
+    slurp
   ];
 
   services.udisks2.enable = true;
   services.upower.enable = true;
 
   # Install sway
-  programs.sway-beta = {
+  programs.sway = {
     enable = true;
     extraSessionCommands = ''
       # Set default keyboard layout

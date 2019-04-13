@@ -28,27 +28,33 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-     networkmanagerapplet 
-     pavucontrol
+    shared_mime_info
+   
+    networkmanagerapplet 
+    pavucontrol
      
-     pywal
-#     nerdfonts
-     numix-cursor-theme
-     numix-icon-theme
-     numix-gtk-theme
-     numix-solarized-gtk-theme
-     lxappearance-gtk3
+    pywal
+#    nerdfontis
+    glib
+    gnome3.defaultIconTheme
+    numix-gtk-theme
+    numix-solarized-gtk-theme
+    numix-icon-theme
+    elementary-xfce-icon-theme
+    numix-cursor-theme
+    lxappearance-gtk3
 
-     xfce.mousepad
-     xfce.thunar
-     xfce.thunar-volman
-     xfce.thunar-archive-plugin
-     xfce.ristretto
-     xfce.tumbler
-     xarchiver 
+    xfce.xfconf
+    xfce.mousepad
+    xfce.thunar
+    xfce.thunar-volman
+    xfce.thunar-archive-plugin
+    xfce.ristretto
+    xfce.tumbler
+    xarchiver 
      
-     libnotify
-     nextcloud-client 
+    libnotify
+    nextcloud-client 
   ];
 
   # Enable backlight control
@@ -67,7 +73,11 @@
   # Enable dconf  
   programs.dconf.enable = true;
   services.dbus.packages = [ pkgs.gnome3.dconf ];
- 
+
+  # Enable gvfs 
+  services.gnome3.gvfs.enable = true;
+  environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
+
   # Security settings 
   security.polkit = {
     enable = true;
@@ -86,6 +96,6 @@
   };
 
   users.extraUsers.florian = {
-    extraGroups = [ "networkmanager" ];
+    extraGroups = [ "audio" "video" "networkmanager" ];
   };
 }

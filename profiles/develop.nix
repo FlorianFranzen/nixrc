@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
-{
+{  
+  # Limit unfree software to developer machines
+  nixpkgs.config.allowUnfree = true;  
+ 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
      nixops
@@ -30,7 +33,7 @@
 
      openscad
      librecad
-     freecad
+#     freecad
      kicad 
 
      virtmanager
@@ -51,6 +54,6 @@
     "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
 
   users.extraUsers.florian = {
-    extraGroups = [ "docker" "libvirtd" ]; 
+    extraGroups = [ "dialout" "docker" "libvirtd" ]; 
   };
 }

@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
      mpd
      mpc_cli
-     ncmpcpp
+     (ncmpcpp.override { visualizerSupport = true; })
 #     gmpc
 #     quodlibet
      vlc
