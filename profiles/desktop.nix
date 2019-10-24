@@ -34,7 +34,7 @@
     pavucontrol
      
     pywal
-#    nerdfontis
+#    nerdfonts 
     glib
     gnome3.defaultIconTheme
     numix-gtk-theme
@@ -75,25 +75,8 @@
   services.dbus.packages = [ pkgs.gnome3.dconf ];
 
   # Enable gvfs 
-  services.gnome3.gvfs.enable = true;
+  services.gvfs.enable = true;
   environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
-
-  # Security settings 
-  security.polkit = {
-    enable = true;
-    extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        polkit.log("user " + subject.user + " is attempting action " + action.id + " from PID " + subject.pid);
-      }); 
-
-      polkit.addRule(function(action, subject) { 
-        if (action.id == "org.spice-space.lowlevelusbaccess" &&
-            subject.isInGroup("libvirtd")) {
-          return "yes";
-        }
-      });
-    '';
-  };
 
   users.extraUsers.florian = {
     extraGroups = [ "audio" "video" "networkmanager" ];

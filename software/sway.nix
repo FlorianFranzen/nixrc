@@ -11,6 +11,7 @@
 
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
+    libsForQt5.qtstyleplugins
     wl-clipboard
     grim
     slurp
@@ -22,7 +23,10 @@
   # Install sway
   programs.sway = {
     enable = true;
-    extraSessionCommands = ''
+    extraSessionCommands = let 
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
       # Set default keyboard layout
       export XKB_DEFAULT_LAYOUT=us
       export XKB_DEFAULT_OPTIONS=compose:ralt
@@ -46,11 +50,19 @@
 
       # Fix Java AWT applications
       export _JAVA_AWT_WM_NONREPARENTING=1
+
+      # Use GTK theme and integration
+      export DESKTOP_SESSION=gnome
+      export QT_QPA_PLATFORMTHEME=gtk2
+
+      # Fix gsettings
+      XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
     ''; 
     extraPackages = with pkgs; [ 
       swaylock
       swayidle
       xwayland
+      i3status-rust
       termite
       mako
       #waybar # Not in unstable yet...
@@ -66,7 +78,10 @@
     extraGroups = [ "sway" ];
   };
 
+  # Trigger graphical user session on sway start
   systemd.user.targets.sway-session = {
+    description = "sway compositor session";
+    documentation = [ "man:systemd.special(7)" ];
     bindsTo = [ "graphical-session.target"  ];
     wants = [ "graphical-session-pre.target" ];
     after = [ "graphical-session-pre.target" ];

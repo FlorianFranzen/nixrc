@@ -6,12 +6,20 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
+  # Select internationalisation properties.
+  i18n = {
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "us";
+    defaultLocale = "en_US.UTF-8";
+  };
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     binutils
     pciutils
     usbutils
-    
+    acpitool
+
     psmisc    
     htop
 

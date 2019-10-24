@@ -35,9 +35,6 @@
      librecad
 #     freecad
      kicad 
-
-     virtmanager
-     spice-gtk
   ];
  
   # Enable Emacs
@@ -46,14 +43,7 @@
   # Enable keybase
   services.keybase.enable = true;
 
-  # Container and virtualization
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-
-  security.wrappers.spice-client-glib-usb-acl-helper.source =
-    "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
-
   users.extraUsers.florian = {
-    extraGroups = [ "dialout" "docker" "libvirtd" ]; 
+    extraGroups = [ "dialout" ]; 
   };
 }
