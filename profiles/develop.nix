@@ -12,21 +12,29 @@
      nix-index
 #     cachix
      patchelf
+#    lorri
+#    niv
     
      libfaketime
      glxinfo
      
      stress
      s-tui
-     
+
+     direnv
      git-lfs
      
      sshfs
      encfs
      ntfs3g
 
-     ripgrep
+     du-dust
+     exa
+
+     bat
+     fd
      fzf
+     ripgrep
 
      vimHugeX 
      zeal

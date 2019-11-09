@@ -22,6 +22,7 @@
 
     psmisc    
     htop
+    iftop
 
     bind
      

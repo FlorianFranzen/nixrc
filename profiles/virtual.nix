@@ -7,9 +7,6 @@
      spice-gtk
   ];
  
-  # Enable keybase
-  services.keybase.enable = true;
-
   # Container and virtualization
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
