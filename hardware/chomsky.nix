@@ -10,13 +10,13 @@
 
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "firewire_ohci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "wl" ];
+  boot.kernelModules = [ "kvm-intel" "wl" "xpad" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/79e6a8d4-a32a-41e9-a0e1-a15e18e32b02";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [ "subvol=@" "compress=zstd" ];
     };
 
   boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/95095698-2bd3-4e96-91a1-7a4e327a3412";
@@ -24,7 +24,7 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/79e6a8d4-a32a-41e9-a0e1-a15e18e32b02";
       fsType = "btrfs";
-      options = [ "subvol=@home" ];
+      options = [ "subvol=@home" "compress=zstd" ];
     };
 
   fileSystems."/boot" =
