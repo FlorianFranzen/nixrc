@@ -7,10 +7,13 @@
      spice-gtk
   ];
  
-  # Container and virtualization
-  virtualisation.docker.enable = true;
+  # Enable virtualization
   virtualisation.libvirtd.enable = true;
 
+  # Do not filter DHCP
+  networking.firewall.checkReversePath = false;
+
+  # Allow sbit for spice usb acl helper
   security.wrappers.spice-client-glib-usb-acl-helper.source =
     "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
 
@@ -18,10 +21,6 @@
   security.polkit = {
     enable = true;
     extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        polkit.log("user " + subject.user + " is attempting action " + action.id + " from PID " + subject.pid);
-      }); 
-
       polkit.addRule(function(action, subject) { 
         if (action.id == "org.spice-space.lowlevelusbaccess" &&
             subject.isInGroup("libvirtd")) {
@@ -31,7 +30,8 @@
     '';
   };
 
+  # Give default users access to libvirtd
   users.extraUsers.florian = {
-    extraGroups = [ "docker" "libvirtd" ]; 
+    extraGroups = [ "libvirtd" ]; 
   };
 }
