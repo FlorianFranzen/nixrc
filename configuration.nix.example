@@ -4,8 +4,10 @@
   imports = [ 
     # Select usage profile
     ./profiles/full.nix
+    # Select network stack
+    ./profiles/networkmanager.nix
     # Select desktop stack
-    ./software/sway.nix
+    ./desktops/sway.nix
     # Host specific
     ./hosts/hostname.nix
     ./hardware/hostname.nix
