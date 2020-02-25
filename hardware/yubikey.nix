@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  # Install command line utility
+ # ToDo: Config expects desktop environment 
+
+ # Install command line utility
   environment.systemPackages = with pkgs; [
     yubikey-personalization
     pass
@@ -24,7 +26,13 @@
     # Enable browserpass native handler
     browserpass.enable = true;
   };
-  
+ 
+  nixpkgs.config.packageOverrides = pre: {
+    gnupg = pre.gnupg.override {
+      pinentry = pre.pinentry_qt5;
+    };
+  };
+
   # Give user access to yubikey hardware
   services.udev.packages = with pkgs; [
     yubikey-personalization
