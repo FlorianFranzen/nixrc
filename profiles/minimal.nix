@@ -20,7 +20,8 @@
     usbutils
     acpitool
 
-    psmisc    
+    psmisc
+    lsof    
     htop
     iftop
 

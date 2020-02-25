@@ -2,13 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
-     firefox
-     thunderbird
-
+     zathura
      evince
      pandoc
 #     texlive.combined.scheme-full
-#     tectonic
+     tectonic
 
      libreoffice-fresh
      zotero

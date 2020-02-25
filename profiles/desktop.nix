@@ -3,26 +3,8 @@
 { config, pkgs, ... }:
 
 {
-  # Enable sound.
-  sound.enable = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
-  # Enable pulseaudio with bluetooth 
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull; # Only full has bluetooth
-    support32Bit = true;
-  };
-    
-  nixpkgs.config = {
-    pulseaudio = true;
-  };
-
-  # Use network manager
-  networking.networkmanager = {
-    enable = true;
-    dns = "dnsmasq";
-  };
-  
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
@@ -30,7 +12,6 @@
   environment.systemPackages = with pkgs; [
     shared_mime_info
    
-    networkmanagerapplet 
     pavucontrol
      
     pywal
@@ -51,8 +32,11 @@
     xfce.thunar-archive-plugin
     xfce.ristretto
     xfce.tumbler
+    xfce.orage
     xarchiver 
-     
+    
+    firefox
+ 
     libnotify
     nextcloud-client 
   ];
@@ -60,9 +44,6 @@
   # Enable backlight control
   programs.light.enable = true;
 
-  # Enable network manager tray
-  programs.nm-applet.enable = true;
-  
   # Enable CUPS to print documents.
   #services.printing.enable  = true;
   #services.printing.drivers = [ pkgs.gutenprint ];
@@ -79,6 +60,6 @@
   environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
 
   users.extraUsers.florian = {
-    extraGroups = [ "audio" "video" "networkmanager" ];
+    extraGroups = [ "audio" "video" ];
   };
 }
