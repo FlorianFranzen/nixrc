@@ -6,8 +6,8 @@
     ./minimal.nix
     ./desktop.nix
     ./media.nix
+    ./mail.nix
     ./office.nix
-    ./develop.nix
     ./virtual.nix
   ];
 }
