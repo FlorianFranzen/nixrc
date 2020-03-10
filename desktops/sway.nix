@@ -64,8 +64,9 @@
       xwayland
       i3status-rust
       termite
+      alacritty
       mako
-      #waybar # Not in unstable yet...
+      waybar
       rofi
     ];
   };
@@ -85,5 +86,34 @@
     bindsTo = [ "graphical-session.target"  ];
     wants = [ "graphical-session-pre.target" ];
     after = [ "graphical-session-pre.target" ];
+  };
+
+  environment.etc."sway/config.d/10-systemd".text = ''
+    exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+  '';
+
+  # Start swayidle service
+  systemd.user.services.swayidle = {
+    description = "Idle manager for wayland";
+    documentation = [ "man:swayidle(1)" ];
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    path = with pkgs; [ sway swayidle swaylock ];
+    script = ''
+      swayidle -w \
+        timeout 600 'swaylock -f' \
+        timeout 900 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"'  \
+        before-sleep 'swaylock -f'
+      '';
+  };
+
+  # Start mako service
+  systemd.user.services.mako = {
+    description = "A lightweight Wayland notification daemon";
+    documentation = [ "man:mako(1)" ];
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    script = "${pkgs.mako}/bin/mako";
   };
 }
