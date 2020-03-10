@@ -7,6 +7,7 @@
   environment.systemPackages = with pkgs; [
     yubikey-personalization
     pass
+    #pass-wayland
     pwgen
   ];
  
@@ -28,9 +29,10 @@
   };
  
   nixpkgs.config.packageOverrides = pre: {
-    gnupg = pre.gnupg.override {
-      pinentry = pre.pinentry_qt5;
-    };
+    # Disabled to not build Libreoffice from source
+    #gnupg = pre.gnupg.override {
+    #  pinentry = pre.pinentry_qt5;
+    #};
   };
 
   # Give user access to yubikey hardware

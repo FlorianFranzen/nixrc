@@ -15,6 +15,8 @@
     
      libfaketime
      
+     git-crypt
+
      direnv
      
      bat

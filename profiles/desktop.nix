@@ -33,9 +33,12 @@
     xfce.ristretto
     xfce.tumbler
     xfce.orage
+    
     xarchiver 
+    xdg_utils
     
     firefox
+    evince
  
     libnotify
     nextcloud-client 
