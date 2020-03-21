@@ -25,7 +25,8 @@
       efiSupport = true;
       device = "nodev";
       enableCryptodisk = true; 
-    };
+      efiInstallAsRemovable = true;
+   };
 
     supportedFilesystems = [ "zfs" ]; 
     
