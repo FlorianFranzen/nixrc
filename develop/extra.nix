@@ -4,6 +4,9 @@
   # Enable keybase
   services.keybase.enable = true;
 
+  # Enable ccache
+  programs.ccache.enable = true;
+
   # Useful packages for development
   environment.systemPackages = with pkgs; [
      nix-prefetch
