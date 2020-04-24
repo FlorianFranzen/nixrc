@@ -9,6 +9,8 @@
     dns = "dnsmasq";
   };
 
+  environment.systemPackages = [ pkgs.networkmanagerapplet ];
+
   # Enable network manager tray
   programs.nm-applet.enable = true;
   
