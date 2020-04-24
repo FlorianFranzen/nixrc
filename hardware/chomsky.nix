@@ -13,9 +13,9 @@
   boot.kernelModules = [ "kvm-intel" "wl" "xpad" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
- 
+
   # Primary drive - SSD 256GB
- 
+
   ## efi: FAT32 partition for UEFI booting
   fileSystems."/boot" 	= { 
     device = "/dev/disk/by-uuid/67E3-17ED";
@@ -49,13 +49,19 @@
 
 
   # Secondary drive - HDD 1TB
-  
+
   ## data: main encrypted btrfs data partition
   boot.initrd.luks.devices."data".device = "/dev/disk/by-uuid/2b373cc4-b551-4291-81bc-1327e28f3184";
 
   fileSystems."/tardis/data" = { 
     device = "/dev/disk/by-uuid/351fae51-949f-4af1-9fbc-318b6fcf4f53";
     fsType = "btrfs";
+  };
+
+  fileSystems."/home/florian/Cloud" = { 
+    device = "/dev/disk/by-uuid/351fae51-949f-4af1-9fbc-318b6fcf4f53";
+    fsType = "btrfs";
+    options = [ "subvol=@cloud" "compress=zstd" ];
   };
 
   # CPU settings
