@@ -14,6 +14,9 @@
     
      glxinfo
      
+     gitAndTools.git-extras
+     gitAndTools.git-gone
+     gitAndTools.git-ignore
      git-lfs
      
      sshfs

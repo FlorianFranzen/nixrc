@@ -9,21 +9,24 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
-     nixops
      cachix
+     niv
+     nixops
      patchelf
     
      libfaketime
-     
+
      git-crypt
+     gitAndTools.git-subrepo
 
      direnv
      
      bat
-     lsd
      fd
-     jq
      fzf
+     jq
+     lsd
      ripgrep
+     tldr
   ];
 }
