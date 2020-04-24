@@ -12,7 +12,7 @@
 
   # Enable the X11 windowing system.
   services.xserver = {
-    enable = false;
+    enable = true;
     layout = "us";
     xkbOptions = "compose:ralt, terminate:ctrl_alt_bksp";
  
@@ -25,21 +25,18 @@
       tapping = false;
       tappingDragLock = false;
     };
- 
-    synaptics.enable = false;
   
     # Enable display manager
     displayManager.lightdm.enable = true;
 
     # Use xfce base services
     desktopManager = {
-      #default = "xfce";
       xterm.enable = false;
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
-      };
+#      xfce = {
+#        enable = true;
+#        noDesktop = true;
+#        enableXfwm = false;
+#      };
     };
 
     # Enable i3 window manager
@@ -48,11 +45,11 @@
       package = pkgs.i3-gaps;
       extraPackages = with pkgs; [ 
         i3lock-color 
-        dunst 
+        alacritty 
         polybar 
+        dunst
         rofi
         arandr
-        xorg.xbacklight
       ];
     };
   };
@@ -69,20 +66,15 @@
     shadow = true;
     shadowOpacity = "0.5";
     shadowOffsets = [ 0 0 ];
-    opacityRules = [
-      "95:class_g = 'Termite' && !_NET_WM_STATE@:32a" 
-      "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
-    ];
-    extraOptions = ''
-      xrender-sync = true;
-    '';
+#    opacityRules = [
+#      "95:class_g = 'Termite' && !_NET_WM_STATE@:32a" 
+#      "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
+#    ];
   };
  
   # Enable redshift
   services.redshift = {
     enable = true;
-    latitude = "52.52";
-    longitude = "13.40";
     extraOptions = [ "-m randr" ];
   };
 }
