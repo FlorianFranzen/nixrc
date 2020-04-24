@@ -5,7 +5,7 @@
      zathura
      evince
      pandoc
-#     texlive.combined.scheme-full
+     texlive.combined.scheme-full
      tectonic
 
      libreoffice-fresh
