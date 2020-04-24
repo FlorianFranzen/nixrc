@@ -27,26 +27,31 @@
       schema = pkgs.gsettings-desktop-schemas;
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
     in ''
-      # Set default keyboard layout
+      # Set default keyboard layout (still needed?)
       export XKB_DEFAULT_LAYOUT=us
       export XKB_DEFAULT_OPTIONS=compose:ralt
 
       # Enable libappindicator support
       export XDG_CURRENT_DESKTOP=Unity   
 
-      # Enable wayland backend   
+      # Enable wayland backends 
       export XDG_SESSION_TYPE=wayland
 
-      # Use GTK3 wayland backend
-      export GDK_BACKEND=wayland
+      # Use CLUTTER wayland backend
       export CLUTTER_BACKEND=wayland
+
+      # Enable mozilla wayland backend
+      MOZ_ENABLE_WAYLAND=1
+
+      # Enable LibreOffice gtk3 backend
+      SAL_USE_VCLPLUGIN=gtk3
 
       # Use SDL wayland backend
       export SDL_VIDEODRIVER=wayland
 
-      # Use Qt wayland backend
-      export QT_QPA_PLATFORM=wayland-egl
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+      # Configure Qt wayland backend
+      export QT_WAYLAND_FORCE_DPI=physical
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
       # Fix Java AWT applications
       export _JAVA_AWT_WM_NONREPARENTING=1
@@ -58,12 +63,12 @@
       # Fix gsettings
       XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
     ''; 
+
     extraPackages = with pkgs; [ 
       swaylock
       swayidle
       xwayland
       i3status-rust
-      termite
       alacritty
       mako
       waybar
