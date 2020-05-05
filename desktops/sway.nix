@@ -32,7 +32,7 @@
       export XKB_DEFAULT_OPTIONS=compose:ralt
 
       # Enable libappindicator support
-      export XDG_CURRENT_DESKTOP=Unity   
+      export XDG_CURRENT_DESKTOP=Unity
 
       # Enable wayland backends 
       export XDG_SESSION_TYPE=wayland
@@ -41,10 +41,10 @@
       export CLUTTER_BACKEND=wayland
 
       # Enable mozilla wayland backend
-      MOZ_ENABLE_WAYLAND=1
+      export MOZ_ENABLE_WAYLAND=1
 
       # Enable LibreOffice gtk3 backend
-      SAL_USE_VCLPLUGIN=gtk3
+      export SAL_USE_VCLPLUGIN=gtk3
 
       # Use SDL wayland backend
       export SDL_VIDEODRIVER=wayland
@@ -61,8 +61,8 @@
       export QT_QPA_PLATFORMTHEME=gtk2
 
       # Fix gsettings
-      XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-    ''; 
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+    '';
 
     extraPackages = with pkgs; [ 
       swaylock
