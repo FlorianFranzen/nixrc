@@ -26,6 +26,7 @@
       enable = true; 
       enableSSHSupport = true; 
       enableExtraSocket = true;
+      pinentryFlavor = "qt";
     };
 
     # Enable browserpass native handler
