@@ -28,5 +28,6 @@
      lsd
      ripgrep
      tldr
+     yq
   ];
 }
