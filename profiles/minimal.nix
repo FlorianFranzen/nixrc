@@ -3,6 +3,9 @@
 { config, pkgs, ... }:
 
 {
+  # Enable flake support
+  nix.package = pkgs.nixFlakes;
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
