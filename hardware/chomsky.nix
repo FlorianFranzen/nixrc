@@ -40,6 +40,7 @@
   fileSystems."/tardis/system" = { 
     device = "/dev/disk/by-uuid/79e6a8d4-a32a-41e9-a0e1-a15e18e32b02";
     fsType = "btrfs";
+    options = [ "noatime" ];
   };
 
   ## swap: swap partition
@@ -56,6 +57,7 @@
   fileSystems."/tardis/data" = { 
     device = "/dev/disk/by-uuid/351fae51-949f-4af1-9fbc-318b6fcf4f53";
     fsType = "btrfs";
+    options = [ "noatime" ];
   };
 
   fileSystems."/home/florian/Cloud" = { 
