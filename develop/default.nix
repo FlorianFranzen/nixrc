@@ -7,6 +7,9 @@
   # Enable lorri build  
   services.lorri.enable = true;
 
+  # Enable missing command indexing
+  programs.command-not-found.enable = true;
+
   # Useful packages for development
   environment.systemPackages = with pkgs; [
      cachix

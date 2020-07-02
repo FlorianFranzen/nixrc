@@ -4,7 +4,12 @@
 
 {
   # Enable flake support
-  nix.package = pkgs.nixFlakes;
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes ca-references
+    '';
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
