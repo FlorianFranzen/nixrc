@@ -27,7 +27,8 @@
 
      vimHugeX 
      zeal
-  
+
+     riot-desktop
      mumble
   ];
 
