@@ -1,1 +1,1 @@
-wireless.nix filter=git-crypt diff=git-crypt
+wpasupplicant.nix filter=git-crypt diff=git-crypt
