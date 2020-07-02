@@ -7,6 +7,12 @@
   networking.networkmanager = {
     enable = true;
     dns = "dnsmasq";
+
+    ethernet.macAddress = "random";
+
+    wifi = {
+      macAddress = "random";
+    };
   };
 
   environment.systemPackages = [ pkgs.networkmanagerapplet ];
