@@ -3,6 +3,9 @@
 { config, pkgs, ... }:
 
 {
+  # Enable intel microcode updates
+  hardware.cpu.intel.updateMicrocode = true;
+
   # Enable flake support
   nix = {
     package = pkgs.nixFlakes;
