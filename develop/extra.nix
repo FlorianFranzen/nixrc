@@ -11,26 +11,24 @@
   environment.systemPackages = with pkgs; [
      nix-prefetch
      nix-index
-    
+
      glxinfo
-     
+
      gitAndTools.git-extras
      gitAndTools.git-gone
      gitAndTools.git-ignore
      git-lfs
-     
+
      sshfs
      encfs
      ntfs3g
 
      exa
 
-     vimHugeX 
+     vimHugeX
      zeal
 
      riot-desktop
      mumble
   ];
-
-
 }
