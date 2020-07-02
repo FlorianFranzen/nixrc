@@ -28,7 +28,7 @@
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
     in ''
       # Set default keyboard layout (still needed?)
-      export XKB_DEFAULT_LAYOUT=us
+      export XKB_DEFAULT_LAYOUT=eu
       export XKB_DEFAULT_OPTIONS=compose:ralt
 
       # Enable libappindicator support

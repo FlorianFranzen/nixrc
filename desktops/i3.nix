@@ -13,7 +13,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    layout = "us";
+    layout = "eu";
     xkbOptions = "compose:ralt, terminate:ctrl_alt_bksp";
  
     # Enable touchpad support through libinput
