@@ -11,6 +11,9 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     shared_mime_info
+    libappindicator
+    libnotify
+    xdg_utils
    
     pavucontrol
      
@@ -27,20 +30,24 @@
 
     xfce.xfconf
     xfce.mousepad
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
+    (xfce.thunar.override { thunarPlugins = [
+      xfce.thunar-volman
+      xfce.thunar-archive-plugin
+    ];})
     xfce.ristretto
     xfce.tumbler
     xfce.orage
     
+    lxqt.lxqt-policykit
+    lxqt.lximage-qt
+    lxqt.pcmanfm-qt
+    lxqt.qps
+
     xarchiver 
-    xdg_utils
     
-    firefox
+    firefox-wayland
     evince
  
-    libnotify
     nextcloud-client 
   ];
 
