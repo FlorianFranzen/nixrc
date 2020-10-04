@@ -70,8 +70,8 @@
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
     '';
 
-    extraPackages = with pkgs; [ 
-      swaylock
+    extraPackages = with pkgs; [
+      swaylock-effects
       swayidle
       xwayland
       i3status-rust
