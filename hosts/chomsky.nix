@@ -33,6 +33,8 @@
     zfs.enableUnstable = true;
   };
 
+  services.mbpfan.enable = true;
+
   networking = {
     hostName = "chomsky"; 
     hostId   = "c1093b49";
