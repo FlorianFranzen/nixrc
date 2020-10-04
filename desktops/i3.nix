@@ -55,16 +55,16 @@
   };
 
  # Enable compton
-  services.compton = {
+  services.picom = {
     enable = true;
     backend = "glx";
  #   vSync = "opengl-swc";
     fade = true;
-    activeOpacity = "1.0";
-    inactiveOpacity = "0.9";
-    menuOpacity = "0.9";
+    activeOpacity = 1.0;
+    inactiveOpacity = 0.9;
+    menuOpacity = 0.9;
     shadow = true;
-    shadowOpacity = "0.5";
+    shadowOpacity = 0.5;
     shadowOffsets = [ 0 0 ];
 #    opacityRules = [
 #      "95:class_g = 'Termite' && !_NET_WM_STATE@:32a" 
