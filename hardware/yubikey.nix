@@ -16,9 +16,6 @@
     zbar
   ];
  
-  # Allow the use of u2f devices
-  hardware.u2f.enable = true;
-
   # Enable GnuPG with ssh support
   programs = {
     ssh.startAgent = false;
