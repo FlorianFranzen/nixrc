@@ -26,7 +26,7 @@
     numix-icon-theme
     elementary-xfce-icon-theme
     numix-cursor-theme
-    lxappearance-gtk3
+    lxappearance
 
     xfce.xfconf
     xfce.mousepad
@@ -37,17 +37,16 @@
     xfce.ristretto
     xfce.tumbler
     xfce.orage
-    
+
     lxqt.lxqt-policykit
     lxqt.lximage-qt
     lxqt.pcmanfm-qt
     lxqt.qps
 
     xarchiver 
-    
-    firefox-wayland
-    evince
- 
+
+    firefox
+
     nextcloud-client 
   ];
 

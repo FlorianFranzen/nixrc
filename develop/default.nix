@@ -13,17 +13,15 @@
   # Useful packages for development
   environment.systemPackages = with pkgs; [
      cachix
-     niv
      nixops
      patchelf
-    
+
      libfaketime
 
      git-crypt
-     gitAndTools.git-subrepo
 
      direnv
-     
+
      bat
      fd
      fzf

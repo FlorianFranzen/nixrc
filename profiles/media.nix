@@ -16,17 +16,19 @@
   };
 
   environment.systemPackages = with pkgs; [
-     pavucontrol
+    pavucontrol
 
-     mpd	
-     mpc_cli
-     ncmpcpp
+    mpd	
+    mpc_cli
+    ncmpcpp
 #     (ncmpcpp.override { visualizerSupport = true; })
 #     gmpc
 #     quodlibet
-     vlc
+
+    mpv
+    vlc
  
-     ffmpeg
-     mkvtoolnix
-   ]; 
+    ffmpeg
+    mkvtoolnix
+  ]; 
 }

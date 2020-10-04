@@ -9,26 +9,36 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
-     nix-prefetch
-     nix-index
+    nix-prefetch
+    nix-index
+    nix-diff
+    nix-top
 
-     glxinfo
+    nixpkgs-fmt
+    nixpkgs-review
 
-     gitAndTools.git-extras
-     gitAndTools.git-gone
-     gitAndTools.git-ignore
-     git-lfs
+    glxinfo
 
-     sshfs
-     encfs
-     ntfs3g
+    gitAndTools.git-extras
+    gitAndTools.git-gone
+    gitAndTools.git-ignore
+    git-lfs
 
-     exa
+    gdb
 
-     vimHugeX
-     zeal
+    python3
 
-     element-desktop
-     mumble
+    hugo
+
+    sshfs
+    encfs
+    ntfs3g
+
+    neofetch
+    exa
+
+    vimHugeX
+    keybase-gui
+    zeal
   ];
 }

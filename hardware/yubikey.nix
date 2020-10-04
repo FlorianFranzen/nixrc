@@ -13,6 +13,7 @@
       exts.pass-update
     ]))
     pwgen
+    zbar
   ];
  
   # Allow the use of u2f devices
