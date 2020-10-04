@@ -38,7 +38,7 @@
       export XKB_DEFAULT_OPTIONS=compose:ralt
 
       # Enable libappindicator support
-      export XDG_CURRENT_DESKTOP=Unity
+      export XDG_CURRENT_DESKTOP=sway
 
       # Enable wayland backends 
       export XDG_SESSION_TYPE=wayland
@@ -48,6 +48,12 @@
 
       # Enable mozilla wayland backend
       export MOZ_ENABLE_WAYLAND=1
+
+      # Enable smooth scrolling
+      export MOZ_USE_XINPUT2=1
+
+      # Enable mozilla dbus
+      export MOZ_DBUS_REMOTE=1
 
       # Enable LibreOffice gtk3 backend
       export SAL_USE_VCLPLUGIN=gtk3
@@ -81,9 +87,8 @@
       rofi
     ];
   };
-  
-  programs.waybar.enable = true;
 
+  programs.waybar.enable = true;
 
   # Give main user access
   users.extraUsers.florian = {
