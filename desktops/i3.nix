@@ -72,9 +72,4 @@
 #    ];
   };
  
-  # Enable redshift
-  services.redshift = {
-    enable = true;
-    extraOptions = [ "-m randr" ];
-  };
 }
