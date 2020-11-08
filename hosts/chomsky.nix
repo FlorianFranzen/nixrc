@@ -12,10 +12,7 @@
 #      "usbcore.autosupend=1h"
       "i915.lvds_channel_mode=2"
     ];
-    
-    # Better Intel GPU support
-    kernelPackages = pkgs.linuxPackages_4_19;
- 
+
     extraModprobeConfig = ''
       options sdhci debug_quirks2=4 
     '';
