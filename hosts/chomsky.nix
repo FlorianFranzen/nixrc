@@ -19,17 +19,20 @@
     extraModprobeConfig = ''
       options sdhci debug_quirks2=4 
     '';
-   
+
     loader.grub = {
       enable = true;
       efiSupport = true;
       device = "nodev";
       enableCryptodisk = true; 
       efiInstallAsRemovable = true;
-   };
+    };
+
+    # Add exfat support
+    extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
 
     supportedFilesystems = [ "zfs" ]; 
-    
+
     zfs.enableUnstable = true;
   };
 
