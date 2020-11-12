@@ -4,10 +4,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ 
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-  ];
+  # Enables non-free firmware on devices not recognized by `nixos-generate-config`.
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
+  # Kernel module config
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "firewire_ohci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "wl" "xpad" ];

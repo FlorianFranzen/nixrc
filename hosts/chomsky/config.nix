@@ -42,4 +42,7 @@
 
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
+  networking.resolvconf.dnsExtensionMechanism = false;
+
+  system.stateVersion = "20.03";
 }
