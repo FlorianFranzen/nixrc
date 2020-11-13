@@ -1,6 +1,25 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib,  ... }:
 
+let
+  nixrc = {
+    profiles = [ "full" "virtual" "docker" "gaming" ];
+    develop  = [ "default" "extra" ];
+    desktops = [ "sway" "i3" ];
+    networks = [ "iwd" ];
+    services = [ "btrbk" ];
+    hardware = [ "yubikey" ];
+  };
+
+  attrsToImports = input:
+    lib.lists.flatten
+      (lib.attrsets.mapAttrsToList
+        (dir: map (f: ./../.. + "/${dir}/${f}.nix")) 
+      input);
+in
 {
+
+  imports = attrsToImports nixrc;
+
   # Needed for Wifi driver
   nixpkgs.config.allowUnfree = true;
 
