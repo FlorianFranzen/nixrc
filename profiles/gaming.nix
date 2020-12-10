@@ -29,6 +29,14 @@
     steam-hardware.enable = true;
   };
 
+  nixpkgs.config = {
+    # Preferred wine config
+    wine = {
+      release = "staging";
+      build = "wineWow";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
 #    _20kly
     minecraft
