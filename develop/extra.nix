@@ -24,9 +24,16 @@
     gitAndTools.git-ignore
     git-lfs
 
+    github-cli
+
+    sccache
     gdb
 
     python3
+    jupyter
+    python3Packages.ipython
+
+    python3Packages.binwalk
 
     hugo
 

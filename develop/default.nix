@@ -23,6 +23,7 @@
      direnv
 
      bat
+     dos2unix
      fd
      fzf
      jq
