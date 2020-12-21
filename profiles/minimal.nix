@@ -44,6 +44,7 @@
 
     vim
     file
+    rsync
     git
     gnupg
     p7zip
@@ -77,6 +78,7 @@
   # Add default users
   users.users.florian = {
     isNormalUser = true;
+    uid = 1000;
     description = "Florian Franzen";
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
