@@ -3,7 +3,7 @@
 let
   nixrc = {
     profiles = [ "full" "virtual" "docker" "gaming" ];
-    develop  = [ "default" "extra" ];
+    develop  = [ "default" "extra" "manufac" ];
     desktops = [ "sway" "i3" ];
     networks = [ "iwd" ];
     services = [ "btrbk" ];
