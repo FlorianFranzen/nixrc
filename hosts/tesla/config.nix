@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./../../profiles/minimal.nix
+  ];
+
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.enableUnstable = true;
@@ -20,7 +24,7 @@
     lm_sensors = pkgs.lm_sensors.override { sensord = true; }; 
   };
 
-  # List packages installed in system profile. To search, run:
+  # Additional packages 
   environment.systemPackages = with pkgs; [
     lm_sensors smartmontools
   ];
@@ -54,4 +58,6 @@
     #  (150,  45,  53)
     #  (190,  50, 100) 
   };
+  
+  system.stateVersion = "20.09";
 }
