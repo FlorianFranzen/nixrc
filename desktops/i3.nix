@@ -1,15 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Override polybar 
-  nixpkgs.config.packageOverrides = pkgs: {
-    polybar = pkgs.polybar.override { 
-      i3GapsSupport = true; 
-      mpdSupport = true; 
-      pulseSupport = true; 
-    };
-  };
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -46,7 +37,7 @@
       extraPackages = with pkgs; [ 
         i3lock-color 
         alacritty 
-        polybar 
+        polybarFull
         dunst
         rofi
         arandr
