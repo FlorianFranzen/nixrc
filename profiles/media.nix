@@ -8,7 +8,6 @@
   hardware.pulseaudio = {
     enable = true;
     package = pkgs.pulseaudioFull; # Only full has bluetooth
-#    support32Bit = true;
   };
     
   nixpkgs.config = {

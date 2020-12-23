@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Enable waybar sway support
-  nixpkgs.config.packageOverrides = pkgs: {
-    waybar = pkgs.waybar.override {
-      pulseSupport = true;
-      swaySupport = true;
-    };
-  };
 
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
