@@ -34,6 +34,7 @@
     pciutils
     usbutils
     acpitool
+    ethtool
 
     psmisc
     lsof
