@@ -16,6 +16,7 @@
   networking.firewall.allowedTCPPorts = [ 3000 ];
 
   environment.systemPackages = [
+    pkgs.nix-top
     pkgs.hydra-cli
   ];
 }
