@@ -16,6 +16,9 @@ let
     # Personal NAS
     "tesla"
 
+    # Personal Workstation
+    "pavlov"
+
     # Personal Cloud
     #"turing"
   ];
