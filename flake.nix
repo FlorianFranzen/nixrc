@@ -16,6 +16,9 @@
 
     checks.x86_64-linux = {
       chomsky = self.nixosConfigurations.chomsky.config.system.build.toplevel;
+      hull = self.nixosConfigurations.hull.config.system.build.toplevel;
+      tesla = self.nixosConfigurations.tesla.config.system.build.toplevel;
+      pavlov = self.nixosConfigurations.pavlov.config.system.build.toplevel;
     };
   };
 }
