@@ -4,7 +4,7 @@ let
   nixrc = {
     profiles = [ "minimal" "media" "desktop" ];
     desktops = [ "sway" ];
-    networks = [ "wpasupplicant" ];
+    networks = [ "iwd" ];
     hardware = [ "yubikey" ];
   };
 
