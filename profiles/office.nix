@@ -15,6 +15,7 @@
 #    gimp-with-plugins
     inkscape
     gnucash
+    calibre
    ];
  }
 
