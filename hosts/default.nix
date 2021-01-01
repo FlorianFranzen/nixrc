@@ -1,26 +1,55 @@
-{ pkgs }:
+{ self, nixpkgs }:
 
-with pkgs.lib;
+with nixpkgs.lib;
 
 let
+  mkHost = system: name: nixosSystem {
+    inherit system;
 
-  mkHost = name: nixosSystem (import (./. + "/${name}"));
+    modules = [
+      {
+        imports = [
+          (./. + "/${name}/config.nix")
+          (./. + "/${name}/hardware.nix")
+        ];
 
-  hosts = [
-    # Personal Laptop
-    "chomsky"
+        networking.hostName = name;
 
-    # Personal Netbook
-    "hull"
+        nix.nixPath = [
+          "nixpkgs=${nixpkgs}"
+        ];
 
-    # Personal NAS
-    "tesla"
+        #nixpkgs.pkgs = nixpkgs;
 
-    # Personal Workstation
-    "pavlov"
+        nix.registry = {
+          nixrc.flake = self;
+          nixpkgs.flake = nixpkgs;
+        };
 
-    # Personal Cloud
-    #"turing"
-  ];
+        system.configurationRevision = mkIf (self ? rev) self.rev;
+      }
+    ];
+  };
 
-in genAttrs hosts mkHost
+  systems = {
+    x86_64-linux = [
+      # Personal Laptop
+      "chomsky"
+
+      # Personal Netbook
+      "hull"
+
+      # Personal NAS
+      "tesla"
+
+      # Personal Workstation
+      "pavlov"
+
+      # Personal Cloud
+      #"turing"
+    ];
+  };
+
+  configs = mapAttrs (system: hosts: genAttrs hosts (mkHost system)) systems;
+
+in configs.x86_64-linux

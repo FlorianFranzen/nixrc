@@ -54,10 +54,7 @@ in
 
   services.mbpfan.enable = true;
 
-  networking = {
-    hostName = "chomsky"; 
-    hostId   = "c1093b49";
-  };
+  networking.hostId = "c1093b49";
 
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 

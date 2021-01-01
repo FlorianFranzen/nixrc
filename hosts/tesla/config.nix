@@ -14,10 +14,7 @@
   boot.loader.grub.device = "/dev/sda";
 
   # Network setup
-  networking = {
-    hostName = "tesla";
-    hostId = "bae9037f";
-  }; 
+  networking.hostId = "bae9037f";
 
   nixpkgs.config.packageOverrides = pkgs: {
     # Enable sensord deamon build

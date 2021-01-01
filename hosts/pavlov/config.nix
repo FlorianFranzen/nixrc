@@ -23,10 +23,7 @@ in
   boot.loader.systemd-boot.enable = true;
 
   # Set hostname and id
-  networking = {
-    hostName = "pavlov";
-    hostId = "c58f1731";
-  };
+  networking.hostId = "c58f1731";
 
   # Enable Wake on LAN
   services.wakeonlan.interfaces = [

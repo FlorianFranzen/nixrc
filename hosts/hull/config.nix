@@ -50,8 +50,6 @@ in
     modprobe elan_i2c
   '';
 
-  networking.hostName = "hull";
-
   # Add some software
   environment.systemPackages = with pkgs; [
     libreoffice
