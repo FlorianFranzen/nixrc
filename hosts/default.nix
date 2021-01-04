@@ -1,33 +1,38 @@
-{ self, nixpkgs }:
+{ self, nixpkgs, home-manager }:
 
 with nixpkgs.lib;
 
 let
+  mkConfig = name: {
+    imports = [
+      (./. + "/${name}/config.nix")
+      (./. + "/${name}/hardware.nix")
+    ];
+
+    networking.hostName = name;
+
+    nix.nixPath = [
+      "nixpkgs=${nixpkgs}"
+    ];
+
+    nix.registry = {
+      nixrc.flake = self;
+      nixpkgs.flake = nixpkgs;
+      home-manager.flake = home-manager;
+    };
+
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+
+    system.configurationRevision = mkIf (self ? rev) self.rev;
+  };
+
   mkHost = system: name: nixosSystem {
     inherit system;
 
     modules = [
-      {
-        imports = [
-          (./. + "/${name}/config.nix")
-          (./. + "/${name}/hardware.nix")
-        ];
-
-        networking.hostName = name;
-
-        nix.nixPath = [
-          "nixpkgs=${nixpkgs}"
-        ];
-
-        #nixpkgs.pkgs = nixpkgs;
-
-        nix.registry = {
-          nixrc.flake = self;
-          nixpkgs.flake = nixpkgs;
-        };
-
-        system.configurationRevision = mkIf (self ? rev) self.rev;
-      }
+      home-manager.nixosModules.home-manager
+      (mkConfig name)
     ];
   };
 
