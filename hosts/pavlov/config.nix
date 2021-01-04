@@ -3,6 +3,7 @@
 let
   nixrc = {
     profiles = [ "minimal" ];
+    services = [ "hydra" ];
   };
 
   attrsToImports = input:
