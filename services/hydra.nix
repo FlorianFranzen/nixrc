@@ -11,6 +11,7 @@
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [];
     useSubstitutes = true;
+    minimumDiskFree = 50;	
   };
   
   networking.firewall.allowedTCPPorts = [ 3000 ];
