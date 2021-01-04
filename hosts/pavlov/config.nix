@@ -22,9 +22,6 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
 
-  # Set hostname and id
-  networking.hostId = "c58f1731";
-
   # Enable Wake on LAN
   services.wakeonlan.interfaces = [
     { interface = "enp3s0"; method = "magicpacket"; }

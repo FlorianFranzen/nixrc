@@ -10,6 +10,7 @@ let
     ];
 
     networking.hostName = name;
+    networking.hostId = substring 0 8 (builtins.hashString "md5" name);
 
     nix.nixPath = [
       "nixpkgs=${nixpkgs}"

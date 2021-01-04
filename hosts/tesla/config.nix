@@ -12,9 +12,6 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
 
-  # Network setup
-  networking.hostId = "bae9037f";
-
   nixpkgs.config.packageOverrides = pkgs: {
     # Enable sensord deamon build
     lm_sensors = pkgs.lm_sensors.override { sensord = true; }; 
