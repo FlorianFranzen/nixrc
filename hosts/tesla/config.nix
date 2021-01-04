@@ -7,7 +7,6 @@
 
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.enableUnstable = true;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;

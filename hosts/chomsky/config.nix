@@ -46,15 +46,9 @@ in
 
     # Add exfat support
     extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
-
-    supportedFilesystems = [ "zfs" ]; 
-
-    zfs.enableUnstable = true;
   };
 
   services.mbpfan.enable = true;
-
-  networking.hostId = "c1093b49";
 
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
