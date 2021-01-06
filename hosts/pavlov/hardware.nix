@@ -31,13 +31,19 @@
       options = [ "subvol=@tmp" ];
     };
 
-  fileSystems."/data/media" =
+  fileSystems."/media/addy" =
+    { device = "data/media/addy";
+      fsType = "zfs";
+      options = [ "noauto" ];
+    };
+
+  fileSystems."/media/backup" =
     { device = "data/media/backup";
       fsType = "zfs";
       options = [ "noauto" ];
     };
 
-  fileSystems."/data/music" =
+  fileSystems."/media/music" =
     { device = "data/media/music";
       fsType = "zfs";
       options = [ "noauto" ];
