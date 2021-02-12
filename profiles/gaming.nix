@@ -47,5 +47,7 @@
     steam-run
     superTuxKart
     warzone2100
+    wine
+    winetricks
   ];
 }
