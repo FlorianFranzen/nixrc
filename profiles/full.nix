@@ -8,6 +8,5 @@
     ./media.nix
     ./mail.nix
     ./office.nix
-    ./virtual.nix
   ];
 }
