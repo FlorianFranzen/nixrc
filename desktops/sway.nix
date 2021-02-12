@@ -118,12 +118,6 @@
       '';
   };
 
-  # Enable redshift
-  services.redshift = {
-    enable = true;
-    package = pkgs.gammastep;
-  };
-
   # Start mako service
   systemd.user.services.mako = {
     description = "A lightweight Wayland notification daemon";
