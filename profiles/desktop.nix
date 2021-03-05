@@ -14,9 +14,10 @@
     libappindicator
     libnotify
     xdg_utils
-   
+
     pavucontrol
-     
+    playerctl
+
     pywal
 #    nerdfonts 
     glib
@@ -43,7 +44,7 @@
     lxqt.pcmanfm-qt
     lxqt.qps
 
-    xarchiver 
+    xarchiver
 
     firefox
 
