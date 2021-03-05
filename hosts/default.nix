@@ -1,4 +1,4 @@
-{ self, nixpkgs, home-manager }:
+{ self, nixpkgs, home-manager, emacs-overlay }:
 
 with nixpkgs.lib;
 
@@ -21,6 +21,10 @@ let
       nixpkgs.flake = nixpkgs;
       home-manager.flake = home-manager;
     };
+
+    nixpkgs.overlays = [
+      emacs-overlay.overlay
+    ];
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

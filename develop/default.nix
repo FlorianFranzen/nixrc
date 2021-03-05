@@ -2,7 +2,10 @@
 
 {  
   # Enable Emacs
-  services.emacs.enable = true;
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacsPgtkGcc;
+  };
 
   # Enable lorri build  
   services.lorri.enable = true;
