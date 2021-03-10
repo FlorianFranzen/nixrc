@@ -12,7 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "wl" "xpad" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
-  boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" ];
+  boot.blacklistedKernelModules = [ "b43" "bcma" "radeon" "ssb" ];
 
 
   # Primary drive - SSD 256GB

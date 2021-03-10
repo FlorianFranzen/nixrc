@@ -25,7 +25,6 @@ in
 
   boot = {
     kernelParams = [ 
-      "radeon.modeset=0"
       "i915.modeset=1"
       "i915.enable_fbc=1"
 #      "usbcore.autosupend=1h"
