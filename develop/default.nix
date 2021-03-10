@@ -16,7 +16,7 @@
   # Useful packages for development
   environment.systemPackages = with pkgs; [
      cachix
-     nixops
+     nixopsUnstable
      patchelf
 
      libfaketime
