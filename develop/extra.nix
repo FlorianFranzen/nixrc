@@ -34,6 +34,7 @@
     python3Packages.ipython
 
     python3Packages.binwalk
+    wabt
 
     hugo
 

@@ -15,24 +15,25 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
-     cachix
-     nixopsUnstable
-     patchelf
+    cachix
+    nixopsUnstable
+    patchelf
 
-     libfaketime
+    libfaketime
 
-     git-crypt
+    git-crypt
 
-     direnv
+    editorconfig-core-c
+    direnv
 
-     bat
-     dos2unix
-     fd
-     fzf
-     jq
-     lsd
-     ripgrep
-     tldr
-     yq
+    bat
+    dos2unix
+    fd
+    fzf
+    jq
+    lsd
+    ripgrep
+    tldr
+    yq
   ];
 }
