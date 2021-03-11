@@ -41,6 +41,7 @@
 #    _20kly
     minecraft
     openclonk
+    openjk
     openra
 #    openttd
     steam
