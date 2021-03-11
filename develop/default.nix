@@ -13,6 +13,12 @@
   # Enable missing command indexing
   programs.command-not-found.enable = true;
 
+  # Useful fonts for development
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = [ "AnonymousPro" ]; })
+    emacs-all-the-icons-fonts
+  ];
+
   # Useful packages for development
   environment.systemPackages = with pkgs; [
     cachix
@@ -35,5 +41,6 @@
     ripgrep
     tldr
     yq
+
   ];
 }
