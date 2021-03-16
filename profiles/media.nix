@@ -16,6 +16,7 @@
 
   environment.systemPackages = with pkgs; [
     pavucontrol
+    paprefs
 
     mpd	
     mpc_cli

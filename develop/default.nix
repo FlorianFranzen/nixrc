@@ -33,6 +33,7 @@
     editorconfig-core-c
     direnv
 
+    moreutils
     bat
     dos2unix
     fd
