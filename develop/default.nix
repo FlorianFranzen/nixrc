@@ -15,7 +15,8 @@
 
   # Useful fonts for development
   fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "AnonymousPro" ]; })
+    jetbrains-mono
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     emacs-all-the-icons-fonts
   ];
 
