@@ -37,6 +37,8 @@
     };
   };
 
+  services.ratbagd.enable = true;
+
   environment.systemPackages = with pkgs; [
 #    _20kly
     minecraft
@@ -44,6 +46,7 @@
     openjk
     openra
 #    openttd
+    piper
     steam
     steam-run
     superTuxKart
