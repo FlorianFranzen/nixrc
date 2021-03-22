@@ -3,7 +3,7 @@
 
   inputs = {
     # Basis for configuration
-    nixpkgs.url = "github:nixos/nixpkgs/release-20.09";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
 
     # Useful overlay
     home-manager.url = "github:nix-community/home-manager/release-20.09";
