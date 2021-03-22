@@ -16,9 +16,6 @@
       tapping = false;
       tappingDragLock = false;
     };
-  
-    # Enable display manager
-    displayManager.lightdm.enable = true;
 
     # Use xfce base services
     desktopManager = {

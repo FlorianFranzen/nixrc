@@ -4,7 +4,7 @@ let
   nixrc = {
     profiles = [ "full" "docker" "gaming" ];
     develop  = [ "default" "extra" "manufac" ];
-    desktops = [ "sway" "i3" ];
+    desktops = [ "lightdm" "sway" ];
     networks = [ "iwd" ];
     services = [ "btrbk" ];
     hardware = [ "yubikey" ];
