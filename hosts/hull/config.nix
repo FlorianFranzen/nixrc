@@ -58,10 +58,10 @@ in
   # Compile kernel with opregion support
   nixpkgs.config.packageOverrides = before: {
     linux_latest = before.linux_latest.override {
-      extraConfig = ''
-        I2C y
-        ACPI_I2C_OPREGION y
-      '';
+      structuredExtraConfig = with lib.kernel; {
+        I2C = yes;
+        "ACPI_I2C_OPREGION" = yes;
+      };
     };
   };
 
