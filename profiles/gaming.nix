@@ -32,7 +32,7 @@
   nixpkgs.config = {
     # Preferred wine config
     wine = {
-      release = "staging";
+      # release = "staging"; # Would be preferred, but full staging wine is not in binary cache.
       build = "wineWow";
     };
   };
