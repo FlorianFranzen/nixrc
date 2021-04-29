@@ -76,13 +76,10 @@
       i3status-rust
       alacritty
       mako
-      waybar
       rofi
     ];
     wrapperFeatures.gtk = true;
   };
-
-  programs.waybar.enable = true;
 
   # Give main user access
   users.extraUsers.florian = {
