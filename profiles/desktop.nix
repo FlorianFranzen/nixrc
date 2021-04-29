@@ -19,14 +19,10 @@
     playerctl
 
     pywal
-#    nerdfonts 
     glib
-    gnome3.defaultIconTheme
-    numix-gtk-theme
-    numix-solarized-gtk-theme
-    numix-icon-theme
-    elementary-xfce-icon-theme
     numix-cursor-theme
+    numix-solarized-gtk-theme
+    numix-icon-theme-square
     lxappearance
 
     xfce.xfconf
@@ -40,8 +36,6 @@
     xfce.orage
 
     lxqt.lxqt-policykit
-    lxqt.lximage-qt
-    lxqt.pcmanfm-qt
     lxqt.qps
 
     xarchiver
