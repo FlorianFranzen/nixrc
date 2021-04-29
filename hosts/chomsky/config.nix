@@ -32,7 +32,8 @@ in
     ];
 
     extraModprobeConfig = ''
-      options sdhci debug_quirks2=4 
+      options sdhci debug_quirks2=4
+      options snd-intel-dspcfg dsp_driver=1
     '';
 
     loader.grub = {
