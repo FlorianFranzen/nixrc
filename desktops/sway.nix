@@ -76,7 +76,7 @@
       i3status-rust
       alacritty
       mako
-      rofi
+      wofi
     ];
     wrapperFeatures.gtk = true;
   };
