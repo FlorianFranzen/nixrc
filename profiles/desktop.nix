@@ -15,7 +15,6 @@
     libnotify
     xdg_utils
 
-    pavucontrol
     playerctl
 
     pywal

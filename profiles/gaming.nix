@@ -22,12 +22,10 @@
       ];
     };
 
-    pulseaudio = {
-      support32Bit = true;
-    };
-
     steam-hardware.enable = true;
   };
+
+  services.pipewire.alsa.support32Bit = true;
 
   nixpkgs.config = {
     # Preferred wine config

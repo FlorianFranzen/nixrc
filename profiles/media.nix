@@ -1,22 +1,23 @@
 { config, pkgs, ... }:
 
 {
-  # Enable sound.
-  sound.enable = true;
+  # Enable pipewire
+  security.rtkit.enable = true;
 
-  # Enable pulseaudio with bluetooth 
-  hardware.pulseaudio = {
+  services.pipewire = {
     enable = true;
-    package = pkgs.pulseaudioFull; # Only full has bluetooth
+    alsa.enable = true;
+    pulse.enable = true;
   };
-    
+
+  # Enable pulseaudio clients
   nixpkgs.config = {
     pulseaudio = true;
   };
 
   environment.systemPackages = with pkgs; [
+    pulseaudio # for pactl
     pavucontrol
-    paprefs
 
     mpd	
     mpc_cli
