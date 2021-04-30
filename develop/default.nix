@@ -41,8 +41,8 @@
     jq
     lsd
     ripgrep
+    ncdu
     tldr
     yq
-
   ];
 }

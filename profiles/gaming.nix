@@ -38,17 +38,16 @@
   services.ratbagd.enable = true;
 
   environment.systemPackages = with pkgs; [
-#    _20kly
+    _20kly
     minecraft
     openclonk
     openjk
     openra
-#    openttd
     piper
     steam
     steam-run
     superTuxKart
-    warzone2100
+    (warzone2100.override { withVideos = true; })
     wine
     winetricks
   ];

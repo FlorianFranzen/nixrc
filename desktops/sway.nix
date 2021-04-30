@@ -74,6 +74,7 @@
       swayidle
       xwayland
       i3status-rust
+      workstyle
       alacritty
       mako
       wofi

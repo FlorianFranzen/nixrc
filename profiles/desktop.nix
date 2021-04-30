@@ -40,8 +40,9 @@
     xarchiver
 
     firefox
+    chromium
 
-    nextcloud-client 
+    nextcloud-client
   ];
 
   # Enable backlight control

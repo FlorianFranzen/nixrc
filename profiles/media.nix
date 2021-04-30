@@ -19,12 +19,10 @@
     pulseaudio # for pactl
     pavucontrol
 
-    mpd	
+    mpd
     mpc_cli
-    ncmpcpp
-#     (ncmpcpp.override { visualizerSupport = true; })
-#     gmpc
-#     quodlibet
+    mpdris2
+    (ncmpcpp.override { visualizerSupport = true; })
 
     mpv
     vlc

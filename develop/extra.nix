@@ -20,6 +20,7 @@
     glxinfo
 
     gitAndTools.git-extras
+    gitAndTools.git-filter-repo
     gitAndTools.git-gone
     gitAndTools.git-ignore
     git-lfs
@@ -33,7 +34,10 @@
     jupyter
     python3Packages.ipython
 
+    julia
+
     python3Packages.binwalk
+    python3Packages.base58
     wabt
 
     hugo
@@ -44,6 +48,10 @@
 
     neofetch
     exa
+
+    nmap
+
+    androidenv.androidPkgs_9_0.platform-tools
 
     vimHugeX
     keybase-gui
