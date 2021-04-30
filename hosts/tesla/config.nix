@@ -29,28 +29,31 @@
   services.thinkfan = {
     enable = true;
     smartSupport = true;
-    fan = "pwm_fan /sys/class/hwmon/hwmon0/device/pwm2";
-    sensors = ''
-      atasmart /dev/sdb
-      atasmart /dev/sdc
-      atasmart /dev/sdd
-      atasmart /dev/sde
-      atasmart /dev/sdf
-    '';
-    levels = ''
-      (  0,   0,  28)
-      ( 90,  25,  33)
-      (110,  30,  38) 
-      (130,  35,  43)
-      (150,  40,  48)
-      (170,  45,  53)
-    '';
+    fans = [{
+      type  = "hwmon";
+      query = "/sys/class/hwmon/hwmon0/device/pwm2";
+    }];
+    sensors = [
+      { type = "atasmart"; query = "/dev/sdb"; }
+      { type = "atasmart"; query = "/dev/sdc"; }
+      { type = "atasmart"; query = "/dev/sdd"; }
+      { type = "atasmart"; query = "/dev/sde"; }
+      { type = "atasmart"; query = "/dev/sdf"; }
+    ];
+    levels = [
+      [  0   0  28]
+      [ 90  25  33]
+      [110  30  38]
+      [130  35  43]
+      [150  40  48]
+      [170  45  53]
+    ];
     # Slower curve:
     #  ( 90,  35,  43)
     #  (110,  40,  48)
     #  (150,  45,  53)
     #  (190,  50, 100) 
   };
-  
+
   system.stateVersion = "20.09";
 }
