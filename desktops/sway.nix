@@ -10,6 +10,29 @@
     slurp
   ];
 
+  # Enable ozone wayland backend
+  nixpkgs.overlays = [
+    (self: super: let
+      enableOzoneWayland =  drv: self.symlinkJoin {
+        inherit (drv) name version meta;
+        nativeBuildInputs = [ self.makeWrapper ];
+        paths = [ drv ];
+
+        postBuild = ''
+          for bin in $out/bin/*; do
+            echo "- wrapping $bin..."
+            wrapProgram "$bin" \
+              --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+          done
+        '';
+      };
+    in {
+      element-desktop = enableOzoneWayland super.element-desktop;
+      chromium = enableOzoneWayland super.chromium;
+      signal-desktop = enableOzoneWayland super.signal-desktop;
+    })
+  ];
+
   # Enable desktop portal
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
