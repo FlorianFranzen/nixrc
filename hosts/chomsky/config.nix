@@ -44,8 +44,6 @@ in
       efiInstallAsRemovable = true;
     };
 
-    # Add exfat support
-    extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
   };
 
   services.mbpfan.enable = true;
