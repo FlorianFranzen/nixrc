@@ -51,9 +51,6 @@
       # Enable LibreOffice gtk3 backend
       export SAL_USE_VCLPLUGIN=gtk3
 
-      # Use SDL wayland backend
-      export SDL_VIDEODRIVER=wayland
-
       # Configure Qt wayland backend
       export QT_WAYLAND_FORCE_DPI=physical
       export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
