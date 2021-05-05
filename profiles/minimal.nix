@@ -74,7 +74,7 @@
   security.pam.enableSSHAgentAuth = true;
 
   # Enable time synchronization
-  services.ntp.enable = true;
+  services.timesyncd.enable = true;
 
   # Add default users
   users.users.florian = {
