@@ -8,6 +8,7 @@
     pdftk
     texlive.combined.scheme-full
     tectonic
+    texmacs
 
     (aspellWithDicts (d: [ d.en d.en-computers d.en-science d.de d.es d.fr ]))
 
