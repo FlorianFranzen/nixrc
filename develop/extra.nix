@@ -34,7 +34,7 @@
     jupyter
     python3Packages.ipython
 
-    julia
+    julia-stable
 
     python3Packages.binwalk
     python3Packages.base58
