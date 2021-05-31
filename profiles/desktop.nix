@@ -6,7 +6,22 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Enable bluetooth
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    hsphfpd.enable = true;
+
+    # Add upstream patch to enable experimental mode
+    package = pkgs.bluez.overrideAttrs (old: {
+      patches = [
+        ./bluez_experimental.patch
+      ];
+
+      configureFlags = old.configureFlags ++ [ "--enable-experimental" ];
+    });
+
+    # Enable battery reporting
+    settings.General.Experimental = true;
+  };
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
