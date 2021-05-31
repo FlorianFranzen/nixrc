@@ -7,7 +7,7 @@
     package = pkgs.emacsPgtkGcc;
   };
 
-  # Enable lorri build  
+  # Enable lorri build
   services.lorri.enable = true;
 
   # Enable missing command indexing

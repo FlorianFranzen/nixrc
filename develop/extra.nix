@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-{  
+{
   # Enable keybase
   services.keybase.enable = true;
 

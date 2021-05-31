@@ -13,7 +13,7 @@
   # Enable ozone wayland backend
   nixpkgs.overlays = [
     (self: super: let
-      enableOzoneWayland =  drv: self.symlinkJoin {
+      enableOzoneWayland = drv: self.symlinkJoin {
         inherit (drv) name version meta;
         nativeBuildInputs = [ self.makeWrapper ];
         paths = [ drv ];
