@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 
-{  
-  # Enable Emacs
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacsPgtkGcc;
-  };
-
+{
   # Enable lorri build
   services.lorri.enable = true;
 
@@ -17,7 +11,6 @@
   fonts.fonts = with pkgs; [
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    emacs-all-the-icons-fonts
   ];
 
   # Useful packages for development
@@ -30,7 +23,6 @@
 
     git-crypt
 
-    editorconfig-core-c
     direnv
 
     moreutils
