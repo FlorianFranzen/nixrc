@@ -70,11 +70,11 @@
   # Enable AVAHI
   #services.avahi.enable = true;
 
-  # Enable dconf  
+  # Enable dconf
   programs.dconf.enable = true;
   services.dbus.packages = [ pkgs.gnome3.dconf ];
 
-  # Enable gvfs 
+  # Enable gvfs
   services.gvfs.enable = true;
   environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
 
