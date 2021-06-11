@@ -79,12 +79,8 @@
   environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
 
   location = {
-    # Berlin
-#    latitude = "52.52";
-#    longitude = "13.40";
-    # Bilbao
-    latitude = 43.26;
-    longitude = -2.93;
+    latitude = 47.1;
+    longitude = 8.5;
   };
 
   users.extraUsers.florian = {
