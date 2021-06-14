@@ -3,16 +3,13 @@
 
   inputs = {
     # Basis for configuration
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
 
     # Useful overlay
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.url = "github:nix-community/home-manager/release-21.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-#    w3fpkgs.url = "git+https://gitlab.w3f.tech/florian/w3fpkgs";
-#    w3fpkgs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, emacs-overlay }: {
