@@ -12,7 +12,7 @@
     snapshot_preserve      14d
 
     target_preserve_min    no
-    target_preserve        14d 8w *m
+    target_preserve        14d 8w 6m *y
 
     snapshot_dir           snapshots
 
