@@ -62,8 +62,11 @@
 
     mtr.enable = true;
 
-    zsh = { 
+    zsh = {
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
       enable = true;
+      #enableBashCompletion = true;
       enableGlobalCompInit = false;
     };
   };
