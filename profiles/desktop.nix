@@ -52,8 +52,6 @@
     lxqt.lxqt-policykit
     lxqt.qps
 
-    xarchiver
-
     firefox
     chromium
 
