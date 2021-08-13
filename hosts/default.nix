@@ -55,6 +55,9 @@ let
       # Personal Workstation
       "pavlov"
 
+      # Work Laptop
+      "satoshi"
+
       # Personal Cloud
       #"turing"
     ];

@@ -18,6 +18,10 @@
       inherit self nixpkgs home-manager emacs-overlay;
     };
 
+    homeConfigurations = import ./homes {
+      inherit home-manager;
+    }
+
     checks.x86_64-linux = nixpkgs.lib.mapAttrs
       (_: config: config.config.system.build.toplevel)
       self.nixosConfigurations;
