@@ -10,9 +10,12 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    spacemacs.url = "github:syl20bnr/spacemacs";
+    spacemacs.flake = false;
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay }: {
+  outputs = { self, nixpkgs, home-manager, emacs-overlay, spacemacs }: {
 
     nixosConfigurations = import ./hosts {
       inherit self nixpkgs home-manager emacs-overlay;
@@ -20,7 +23,10 @@
 
     homeConfigurations = import ./homes {
       inherit home-manager;
-    }
+      inherit (nixpkgs) lib;
+
+      sources = { inherit spacemacs; };
+    };
 
     checks.x86_64-linux = nixpkgs.lib.mapAttrs
       (_: config: config.config.system.build.toplevel)

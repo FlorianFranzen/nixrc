@@ -56,7 +56,24 @@
       "inputs": {
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "spacemacs": "spacemacs"
+      }
+    },
+    "spacemacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1628968890,
+        "narHash": "sha256-9a6+GHNo8RCXucIYAAbjYWVKdaE00aZ7ylOrS5E3yno=",
+        "owner": "syl20bnr",
+        "repo": "spacemacs",
+        "rev": "9bb3115bcedf192b52ff2819b02b7844ad84a795",
+        "type": "github"
+      },
+      "original": {
+        "owner": "syl20bnr",
+        "repo": "spacemacs",
+        "type": "github"
       }
     }
   },
