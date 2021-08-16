@@ -28,6 +28,9 @@
     defaultLocale = "en_US.UTF-8";
   };
 
+  # Link zsh completion files
+  environment.pathsToLink = [ "/share/zsh" ];
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     binutils
@@ -62,13 +65,7 @@
 
     mtr.enable = true;
 
-    zsh = {
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-      enable = true;
-      #enableBashCompletion = true;
-      enableGlobalCompInit = false;
-    };
+    zsh.enable = true;
   };
 
   # Enable SSH login via key
