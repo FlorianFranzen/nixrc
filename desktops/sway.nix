@@ -135,13 +135,4 @@
         before-sleep 'swaylock -f'
       '';
   };
-
-  # Start mako service
-  systemd.user.services.mako = {
-    description = "A lightweight Wayland notification daemon";
-    documentation = [ "man:mako(1)" ];
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    script = "${pkgs.mako}/bin/mako";
-  };
 }
