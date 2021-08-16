@@ -19,8 +19,13 @@ in
 
   imports = attrsToImports nixrc;
 
-  # Fix backlight control
-  boot.kernelParams = [ "amdgpu.backlight=0' ];
+  boot = {
+    # Latest kernel for better hardware support
+    kernelPackages = pkgs.linuxPackages_latest;
+
+    # Fix backlight control
+    kernelParams = [ "amdgpu.backlight=0" ];
+  };
 
   # FIXME: Move to correct profile
   nixpkgs.config.allowUnfree = true;
