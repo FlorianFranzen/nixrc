@@ -9,6 +9,10 @@ in {
 
   wayland.windowManager.sway = {
     enable = true;
+
+    # Currently uses system sway
+    package = null;
+
     config = {
       # Default input config
       input."*" = {
@@ -21,6 +25,8 @@ in {
         tap = "disabled";
       };
 
+      # Set some basic sane behaviors
+      workspaceAutoBackAndForth = true;
       focus.followMouse = "no";
 
       # Default tools
