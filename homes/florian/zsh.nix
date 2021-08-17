@@ -10,19 +10,40 @@
       enableAliases = true;
     };
 
+    direnv.enable = true;
+
     # Shell config
     zsh = {
       enable = true;
 
+      defaultKeymap = "viins";
+
+      localVariables = {
+        # Set default 
+        EDITOR = "vim";
+        BROWSER = "firefox";
+
+        # Use default powerlevel config for now
+        POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = true;
+      };
+
+      shellAliases = {
+        cat = "bat --plain";
+
+        sm = "TERM=xterm te";
+        sv = "spacevim";
+
+        incognito = "unset HISTFILE && echo 'History has been disabled.'";
+      };
+
+      # Configure plugins
       enableAutosuggestions = true;
       enableCompletion = true;
       #enableSyntaxHighlighting = true;
 
-      defaultKeymap = "viins";
-
-      localVariables = {
-        # Use default powerlevel config for now
-        POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = true;
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "emacs" "systemd" ];
       };
 
       plugins = [
@@ -32,10 +53,6 @@
           src = pkgs.zsh-powerlevel10k;
         }
       ];
-
-      shellAliases = {
-        cat = "bat --plain";
-      };
     };
   };
 }
