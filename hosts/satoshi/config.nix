@@ -25,6 +25,9 @@ in
 
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" ];
+
+    # Avoid nouveau failing to initialize discrete gpu
+    blacklistedKernelModules = [ "nouveau" ];
   };
 
   # FIXME: Move to correct profile
