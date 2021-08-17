@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./zsh.nix
     ./sway.nix
     ./spacemacs.nix
   ];
