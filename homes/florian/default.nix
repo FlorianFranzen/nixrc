@@ -4,6 +4,7 @@
   imports = [
     ./zsh.nix
     ./sway.nix
+    ./mako.nix
     ./spacemacs.nix
   ];
 
