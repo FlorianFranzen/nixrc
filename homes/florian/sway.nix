@@ -1,6 +1,12 @@
 {config, pkgs, lib, ...}:
 
-{
+let
+  final = config.wayland.windowManager.sway;
+
+  gap = 10;
+in {
+  programs.alacritty.enable = true;
+
   wayland.windowManager.sway = {
     enable = true;
     config = {
@@ -23,7 +29,7 @@
 
       # Basic look
       gaps = {
-        inner = 10;
+        inner = gap;
         outer = 0;
       };
 
@@ -32,7 +38,7 @@
 
       # Extended key bindings
       keybindings = let
-          modifier = config.wayland.windowManager.sway.config.modifier;
+          modifier = final.config.modifier;
       in lib.mkOptionDefault {
         # Browser keys
         "${modifier}+BackSpace" = "exec ${pkgs.firefox}/bin/firefox";
@@ -54,6 +60,33 @@
         "--locked XF86MonBrightnessUp"   = "exec ${pkgs.light}/bin/light -A 10";
         "--locked XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 10";
       };
+
+      # Add i3status-based top and bottom bars
+      bars = [
+        {
+          position = "top";
+
+          fonts = final.config.fonts;
+
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
+
+          extraConfig = ''
+            gaps ${toString gap} ${toString gap} 0 ${toString gap}
+          '';
+        }
+        {
+          position = "bottom";
+          workspaceButtons = false;
+
+          fonts = final.config.fonts;
+
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
+
+          extraConfig = ''
+            gaps 0 ${toString gap} ${toString gap} ${toString gap}
+          '';
+        }
+      ];
     };
   };
 }

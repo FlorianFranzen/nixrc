@@ -5,6 +5,7 @@
     ./zsh.nix
     ./fonts.nix
     ./sway.nix
+    ./i3status.nix
     ./mako.nix
     ./spacemacs.nix
   ];
