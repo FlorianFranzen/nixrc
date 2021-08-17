@@ -1,30 +1,41 @@
 { pkgs, ... }:
 
 {
-  programs.zsh = {
-    enable = true;
+  programs = {
+    # Basic tools
+    bat.enable = true;
 
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    #enableSyntaxHighlighting = true;
-
-    defaultKeymap = "viins";
-
-    localVariables = {
-      # Use default powerlevel config for now
-      POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = true;
+    lsd = {
+      enable = true;
+      enableAliases = true;
     };
 
-    plugins = [
-      {
-        name = "powerlevel10k";
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        src = pkgs.zsh-powerlevel10k;
-      }
-    ];
+    # Shell config
+    zsh = {
+      enable = true;
 
-    shellAliases = {
-      cat = "bat --plain";
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      #enableSyntaxHighlighting = true;
+
+      defaultKeymap = "viins";
+
+      localVariables = {
+        # Use default powerlevel config for now
+        POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = true;
+      };
+
+      plugins = [
+        {
+          name = "powerlevel10k";
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          src = pkgs.zsh-powerlevel10k;
+        }
+      ];
+
+      shellAliases = {
+        cat = "bat --plain";
+      };
     };
   };
 }
