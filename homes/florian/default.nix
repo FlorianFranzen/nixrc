@@ -4,6 +4,7 @@
   imports = [
     ./zsh.nix
     ./fonts.nix
+    ./themes.nix
     ./sway.nix
     ./i3status.nix
     ./mako.nix
