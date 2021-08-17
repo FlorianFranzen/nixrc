@@ -46,9 +46,12 @@ in {
       keybindings = let
           modifier = final.config.modifier;
       in lib.mkOptionDefault {
-        # Browser keys
+        # Web browser keys
         "${modifier}+BackSpace" = "exec ${pkgs.firefox}/bin/firefox";
         "${modifier}+Shift+BackSpace" = "exec ${pkgs.firefox}/bin/firefox --private-window";
+
+        # File browser key
+        "${modifier}+Delete" = "exec thunar";
 
         # Volume control
         "--locked XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
