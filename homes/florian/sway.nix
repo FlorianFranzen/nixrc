@@ -86,6 +86,7 @@ in {
         {
           position = "bottom";
           workspaceButtons = false;
+          trayOutput = "none";
 
           fonts = final.config.fonts;
 
