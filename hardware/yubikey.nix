@@ -5,7 +5,7 @@
 
  # Install command line utility
   environment.systemPackages = with pkgs; [
-    yubikey-personalization
+    yubikey-manager
     (pass-wayland.withExtensions (exts: [
       exts.pass-audit 
       exts.pass-genphrase 
@@ -13,6 +13,7 @@
       exts.pass-update
     ]))
     pwgen
+    xkcdpass
     zbar
   ];
  
