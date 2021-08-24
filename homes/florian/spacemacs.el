@@ -606,10 +606,21 @@ before packages are loaded."
 
   (setq vc-follow-symlinks t)
 
+  (use-package editorconfig
+    :config
+    (editorconfig-mode 1))
+
+  (use-package direnv
+    :after lsp
+    :config
+    ;; Additional hook to fix edge cases in newer emacs versions
+    (add-hook 'prog-mode-hook #'direnv--maybe-update-environment)
+    (direnv-mode 1))
+
   (with-eval-after-load 'org
     (setq org-default-notes-file "~/Org/Inbox.org")
     (setq org-agenda-files '("~/Org/"))
-    )
+  )
 
   (defun org-babel-execute:nix (body params)
     "Execute a block of Nix code with org-babel."
