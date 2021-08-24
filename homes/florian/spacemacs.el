@@ -292,7 +292,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("JetBrainsMono Nerd Font"
-                               :size 10.0
+                               :size 12.0
                                :weight normal
                                :width normal)
 
@@ -602,7 +602,7 @@ before packages are loaded."
 
   (setq exec-path-from-shell-check-startup-files nil)
 
-  (setq comp-async-report-warnings-errors nil)
+  (setq native-comp-async-report-warnings-errors nil)
 
   (setq vc-follow-symlinks t)
 
