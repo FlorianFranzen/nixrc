@@ -12,7 +12,7 @@
 
       status.submoduleSummary = true;
 
-      pull.rebase = "preserve";
+      pull.rebase = true;
 
       push.default = "simple";
 
