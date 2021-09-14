@@ -8,6 +8,7 @@
     ./themes.nix
     ./sway.nix
     ./i3status.nix
+    ./wofi.nix
     ./mako.nix
     ./spacemacs.nix
   ];
