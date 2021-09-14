@@ -25,6 +25,11 @@ in {
         tap = "disabled";
       };
 
+      # Scale high DPI displays
+      output."Unknown 0x1600 0x00000000" = {
+	 scale = "1.25";
+      };
+
       # Set some basic sane behaviors
       workspaceAutoBackAndForth = true;
       focus.followMouse = "no";
