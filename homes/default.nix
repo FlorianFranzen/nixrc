@@ -1,4 +1,4 @@
-{ home-manager, lib, sources }:
+{ home-manager, lib, srcs }:
 
 let
   users = [
@@ -14,7 +14,7 @@ let
     stateVersion = "21.05";
 
     extraSpecialArgs = {
-      inherit sources;
+      inherit srcs;
     };
 
     configuration = import (./. + "/${username}");

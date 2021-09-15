@@ -25,7 +25,7 @@
       inherit home-manager;
       inherit (nixpkgs) lib;
 
-      sources = { inherit spacemacs; };
+      srcs = { inherit self spacemacs; };
     };
 
     checks.x86_64-linux = nixpkgs.lib.mapAttrs

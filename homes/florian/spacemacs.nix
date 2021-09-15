@@ -1,8 +1,8 @@
-{ config, pkgs, sources, ... }:
+{ config, pkgs, srcs, ... }:
 
 {
   home.file.".emacs.d" = {
-    source = sources.spacemacs;
+    source = srcs.spacemacs;
     recursive = true;
   };
   home.file.".spacemacs".source = ./spacemacs.el;
