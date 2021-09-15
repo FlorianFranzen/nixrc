@@ -22,7 +22,7 @@
           for bin in $out/bin/*; do
             echo "- wrapping $bin..."
             wrapProgram "$bin" \
-              --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+              --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
           done
         '';
       };
