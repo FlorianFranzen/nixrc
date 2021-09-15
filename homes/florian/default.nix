@@ -7,6 +7,7 @@
     ./fonts.nix
     ./themes.nix
     ./sway.nix
+    ./swaylock.nix
     ./i3status.nix
     ./wofi.nix
     ./mako.nix

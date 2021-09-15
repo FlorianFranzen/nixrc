@@ -51,6 +51,9 @@ in {
       keybindings = let
           modifier = final.config.modifier;
       in lib.mkOptionDefault {
+	# Lock screen
+	"${modifier}+o" = "exec swaylock";
+
         # Web browser keys
         "${modifier}+BackSpace" = "exec ${pkgs.firefox}/bin/firefox";
         "${modifier}+Shift+BackSpace" = "exec ${pkgs.firefox}/bin/firefox --private-window";
