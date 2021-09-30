@@ -13,6 +13,12 @@ in {
         blocks = [
           {
             block = "sound";
+            max_vol = 100;
+          }
+          {
+            block = "sound";
+            device_kind = "source";
+            format = "";
           }
           {
             block = "cpu";
