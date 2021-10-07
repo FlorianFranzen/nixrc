@@ -2,7 +2,7 @@
 
 let
   nixrc = {
-    profiles = [ "full" "docker" "gaming" ];
+    profiles = [ "full" "docker" ];
     develop  = [ "default" "emacs" "extra" ];
     desktops = [ "lightdm" "sway" ];
     networks = [ "iwd" ];
