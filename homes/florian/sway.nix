@@ -27,7 +27,7 @@ in {
 
       # Scale high DPI displays
       output."Unknown 0x1600 0x00000000" = {
-	 scale = "1.25";
+        scale = "1.25";
       };
 
       # Set some basic sane behaviors
@@ -51,8 +51,9 @@ in {
       keybindings = let
           modifier = final.config.modifier;
       in lib.mkOptionDefault {
-	# Lock screen
-	"${modifier}+o" = "exec swaylock";
+
+        # Lock screen
+        "${modifier}+o" = "exec swaylock";
 
         # Web browser keys
         "${modifier}+BackSpace" = "exec ${pkgs.firefox}/bin/firefox";
