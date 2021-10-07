@@ -2,7 +2,10 @@
 
 {  
   # Enable docker 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false; # Otherwise waits for network-online
+  };
 
   # Useful packages 
   environment.systemPackages = [ pkgs.docker-compose ];
