@@ -64,6 +64,10 @@ in {
         # File browser key
         "${modifier}+Delete" = "exec thunar";
 
+        # Screenshot keys
+        "${modifier}+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save window";
+        "${modifier}+Shift+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save area";
+
         # Volume control
         "--locked XF86AudioLowerVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ -5%";
         "--locked XF86AudioRaiseVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ +5%";
