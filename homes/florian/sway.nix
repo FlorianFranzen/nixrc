@@ -50,33 +50,35 @@ in {
       # Extended key bindings
       keybindings = let
           modifier = final.config.modifier;
+          exec = pkg: exec' pkg pkg.pname;
+          exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
       in lib.mkOptionDefault {
 
         # Lock screen
         "${modifier}+o" = "exec swaylock";
 
         # Web browser keys
-        "${modifier}+BackSpace" = "exec ${pkgs.firefox}/bin/firefox";
-        "${modifier}+Shift+BackSpace" = "exec ${pkgs.firefox}/bin/firefox --private-window";
+        "${modifier}+BackSpace" = exec pkgs.firefox;
+        "${modifier}+Shift+BackSpace" = "${exec pkgs.firefox} --private-window";
 
         # File browser key
         "${modifier}+Delete" = "exec thunar";
 
         # Volume control
-        "--locked XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-        "--locked XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-        "--locked XF86AudioMute"        = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "--locked XF86AudioMicMute"     = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        "--locked XF86AudioLowerVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ -5%";
+        "--locked XF86AudioRaiseVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ +5%";
+        "--locked XF86AudioMute"        = "${exec' pkgs.pulseaudio "pactl"} set-sink-mute @DEFAULT_SINK@ toggle";
+        "--locked XF86AudioMicMute"     = "${exec' pkgs.pulseaudio "pactl"} set-source-mute @DEFAULT_SOURCE@ toggle";
 
         # Playback controls
-        "--locked XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-        "--locked XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "--locked XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "--locked XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
+        "--locked XF86AudioPrev" = "${exec pkgs.playerctl} previous";
+        "--locked XF86AudioNext" = "${exec pkgs.playerctl} next";
+        "--locked XF86AudioPlay" = "${exec pkgs.playerctl} play-pause";
+        "--locked XF86AudioStop" = "${exec pkgs.playerctl} stop";
 
         # Screen brightness controls
-        "--locked XF86MonBrightnessUp"   = "exec ${pkgs.light}/bin/light -A 10";
-        "--locked XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 10";
+        "--locked XF86MonBrightnessUp"   = "${exec pkgs.light} -A 10";
+        "--locked XF86MonBrightnessDown" = "${exec pkgs.light} -U 10";
       };
 
       # Add i3status-based top and bottom bars
