@@ -1,23 +1,19 @@
-{ config, pkgs, lib,  ... }:
+{ config, pkgs, lib, suites, profiles, hardware, ... }:
 
-let
-  nixrc = {
-    profiles = [ "full" "docker" ];
-    develop  = [ "default" "emacs" "extra" ];
-    desktops = [ "lightdm" "sway" ];
-    networks = [ "iwd" ];
-    hardware = [ "yubikey" ];
-  };
-
-  attrsToImports = input:
-    lib.lists.flatten
-      (lib.attrsets.mapAttrsToList
-        (dir: map (f: ./../.. + "/${dir}/${f}.nix")) 
-      input);
-in
 {
 
-  imports = attrsToImports nixrc;
+  imports = suites.full ++
+    [ profiles.docker profiles.networks.iwd ] ++
+    (with profiles.develop; [ minimal emacs extra ]) ++
+    (with profiles.desktops; [ lightdm sway ]) ++
+    (with hardware; [
+      common-cpu-amd
+      common-gpu-amd
+      common-gpu-nvidia-disable
+      common-pc-laptop
+      common-pc-ssd
+      yubikey
+    ]);
 
   boot = {
     # Latest kernel for better hardware support
@@ -25,17 +21,13 @@ in
 
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" ];
-
-    # Avoid nouveau failing to initialize discrete gpu
-    blacklistedKernelModules = [ "nouveau" ];
   };
 
-  # FIXME: Move to correct profile
-  nixpkgs.config.allowUnfree = true;
-
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   system.stateVersion = "21.05"; 
 }

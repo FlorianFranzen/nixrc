@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
- # ToDo: Config expects desktop environment 
-
- # Install command line utility
+  # Install command line utility
   environment.systemPackages = with pkgs; [
     yubikey-manager
     (pass-wayland.withExtensions (exts: [
@@ -25,7 +23,6 @@
       enable = true; 
       enableSSHSupport = true; 
       enableExtraSocket = true;
-      pinentryFlavor = "qt";
     };
 
     # Enable browserpass native handler

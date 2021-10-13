@@ -1,22 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, profiles, hardware, ... }:
 
-let
-  nixrc = {
-    profiles = [ "minimal" "media" "desktop" ];
-    desktops = [ "sway" ];
-    networks = [ "iwd" ];
-    hardware = [ "yubikey" ];
-  };
-
-  attrsToImports = input:
-    lib.lists.flatten
-      (lib.attrsets.mapAttrsToList
-        (dir: map (f: ./../.. + "/${dir}/${f}.nix"))
-      input);
-in
 {
-
-  imports = attrsToImports nixrc;
+  imports = with profiles; [
+    media desktop desktops.sway networks.iwd hardware.yubikey
+  ];
 
   boot = {
     # Hybrid 32bit UEFI but 64bit Atom CPU	  
@@ -27,7 +14,7 @@ in
       forcei686 = true;
     };
 
-    # Full hardware support requires recent kernel (5.4)
+    # Full hardware support requires recent kernel
     kernelPackages = pkgs.linuxPackages_latest;
 
     # Fix for freezing (TODO might be fixed in recent kernel or require patch)

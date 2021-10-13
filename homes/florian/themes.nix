@@ -1,9 +1,9 @@
-{ srcs, pkgs, ...}:
+{ self, pkgs, ...}:
 
 {
   # Set desktop background
   wayland.windowManager.sway.config.output."*" = {
-    background = "${srcs.self}/assets/nixish-dark.png fill";
+    background = "${self}/assets/nixish-dark.png fill";
   };
 
   # Set gtk look and feel

@@ -28,6 +28,9 @@
   services.pipewire.alsa.support32Bit = true;
 
   nixpkgs.config = {
+    # Steam is unfree
+    allowUnfree = true;
+
     # Preferred wine config
     wine = {
       # release = "staging"; # Would be preferred, but full staging wine is not in binary cache.

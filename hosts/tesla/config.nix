@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./../../profiles/minimal.nix
-  ];
-
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
 

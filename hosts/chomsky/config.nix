@@ -1,29 +1,31 @@
-{ config, pkgs, lib,  ... }:
+{ config
+, pkgs
+, lib
+, suites
+, profiles
+, services
+, hardware
+, ...
+}:
 
-let
-  nixrc = {
-    profiles = [ "full" "docker" "gaming" ];
-    develop  = [ "default" "emacs" "embedded" "extra" "manufac" ];
-    desktops = [ "lightdm" "sway" ];
-    networks = [ "iwd" ];
-    services = [ "btrbk" ];
-    hardware = [ "yubikey" ];
-  };
-
-  attrsToImports = input:
-    lib.lists.flatten
-      (lib.attrsets.mapAttrsToList
-        (dir: map (f: ./../.. + "/${dir}/${f}.nix")) 
-      input);
-in
 {
-
-  imports = attrsToImports nixrc;
+  imports = (with suites; full)
+    ++ (with profiles; [ docker gaming ])
+    ++ (with profiles.develop; [ minimal emacs embedded extra manufac ])
+    ++ (with profiles.desktops; [ lightdm sway ])
+    ++ [ profiles.networks.iwd ]
+    ++ (with hardware; [
+      common-cpu-intel-sandy-bridge
+      common-pc-laptop
+      common-pc-laptop-ssd
+      yubikey
+    ]);
 
   # Needed for Wifi driver
   nixpkgs.config.allowUnfree = true;
 
   boot = {
+    # Various kernel and module quirks
     kernelParams = [ 
       "i915.modeset=1"
       "i915.enable_fbc=1"
@@ -36,6 +38,10 @@ in
       options snd-intel-dspcfg dsp_driver=1
     '';
 
+    # Disable broken dedicated GPU
+    blacklistedKernelModules = [ "admgpu" ];
+
+    # Install boot loader to well-known location
     loader.grub = {
       enable = true;
       efiSupport = true;
@@ -43,13 +49,15 @@ in
       enableCryptodisk = true; 
       efiInstallAsRemovable = true;
     };
-
   };
 
+  # Use more optimized fan control
   services.mbpfan.enable = true;
 
-  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+  # Hard disk protection in case of fall
+  services.hdapsd.enable = lib.mkDefault true;
 
+  # TODO Is this generally necessary?
   networking.resolvconf.dnsExtensionMechanism = false;
 
   system.stateVersion = "20.03";

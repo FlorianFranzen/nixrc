@@ -1,34 +1,118 @@
 {
-  description = "Nix and NixOS configurations of Florian Franzen";
+  description = "Home-Manager and NixOS configurations of Florian Franzen";
 
   inputs = {
-    # Basis for configuration
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
+    # Flake helpers
+    digga.url = "github:divnix/digga";
+    digga.inputs.nixpkgs.follows = "nixos";
+    digga.inputs.nixlib.follows = "nixos";
+    digga.inputs.latest.follows = "latest";
+    digga.inputs.home-manager.follows = "home";
 
-    # Useful overlay
-    home-manager.url = "github:nix-community/home-manager/release-21.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    bud.url = "github:divnix/bud";
+    bud.inputs.nixpkgs.follows = "nixos";
+    bud.inputs.devshell.follows = "digga/devshell";
 
+    # Host configurations
+    nixos.url = "github:nixos/nixpkgs/nixos-21.05";
+
+    # Latest package set
+    latest.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Hardware profiles
+    hardware.url = "github:NixOS/nixos-hardware";
+
+    # Home management
+    home.url = "github:nix-community/home-manager/release-21.05";
+    home.inputs.nixpkgs.follows = "nixos";
+
+    # Latest emacs and framework
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     spacemacs.url = "github:syl20bnr/spacemacs";
     spacemacs.flake = false;
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, spacemacs }: {
+  outputs = {
+    self,
+    digga,
+    bud,
+    nixos,
+    latest,
+    hardware,
+    home,
+    emacs-overlay,
+    spacemacs
+  } @ inputs: let
 
-    nixosConfigurations = import ./hosts {
-      inherit self nixpkgs home-manager emacs-overlay;
+    # Recursive import helpers
+    importTree = digga.lib.rakeLeaves;
+
+    importTreeByName = name: importTree (./. + "/${name}");
+
+    importFlatTree = name: dir: builtins.mapAttrs
+      (_: mods: {...}: { ${name} = builtins.attrValues mods; })
+      (importTree dir);
+
+    importModuleTree = dir: builtins.mapAttrs
+      (_: mods: {...}: { imports = builtins.attrValues mods; })
+      (importTree dir);
+
+    # Shared modules across configs
+    common = importTree ./common;
+
+  in digga.lib.mkFlake {
+
+    inherit self inputs;
+
+    # exclude darwin or 32bit linux
+    supportedSystems = ["aarch64-linux" "x86_64-linux"];
+
+    # nixpkgs versions and configs
+    channels.nixos = {
+      overlays = [ emacs-overlay.overlay ];
     };
 
-    homeConfigurations = import ./homes {
-      inherit home-manager;
-      inherit (nixpkgs) lib;
+    # nixos system configs
+    nixos = {
+      hostDefaults = {
+        system = "x86_64-linux";
 
-      srcs = { inherit self spacemacs; };
+        channelName = "nixos";
+
+        modules = [
+          common.hosts
+          #digga.nixosModules.bootstrapIso
+          #digga.nixosModules.nixConfig
+          home.nixosModules.home-manager
+          bud.nixosModules.bud
+        ];
+      };
+
+      hosts = importFlatTree "modules" ./hosts;
+
+      importables = let
+        dirs = [ "hardware" "profiles" "services" ];
+
+        imported = nixos.lib.genAttrs dirs importTreeByName;
+      in imported // {
+        hardware = hardware.nixosModules // imported.hardware;
+
+        suites = {
+          full = with imported.profiles; [ desktop media mail office ];
+        };
+      };
     };
 
-    checks.x86_64-linux = nixpkgs.lib.mapAttrs
+    # home-manager home configs
+    home = {
+      modules = [ common.homes ];
+      importables = { inherit self inputs; };
+      users = importModuleTree ./homes;
+    };
+
+    # system build checks
+    checks.x86_64-linux = builtins.mapAttrs
       (_: config: config.config.system.build.toplevel)
       self.nixosConfigurations;
   };

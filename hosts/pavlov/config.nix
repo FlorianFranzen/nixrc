@@ -1,20 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, services, ... }:
 
-let
-  nixrc = {
-    profiles = [ "minimal" ];
-    services = [ "hydra" "jellyfin" ];
-  };
-
-  attrsToImports = input:
-    lib.lists.flatten
-      (lib.attrsets.mapAttrsToList
-        (dir: map (f: ./../.. + "/${dir}/${f}.nix")) 
-      input);
-in
 {
-
-  imports = attrsToImports nixrc;
+  imports = with services; [ hydra jellyfin ];
    
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
