@@ -70,7 +70,8 @@
 
     # nixpkgs versions and configs
     channels.nixos = {
-      overlays = [ emacs-overlay.overlay ];
+      # TODO Check sharedOverlays
+      overlays = [ emacs-overlay.overlay ./pkgs ];
     };
 
     # nixos system configs
