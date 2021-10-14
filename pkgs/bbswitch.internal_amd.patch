@@ -1,0 +1,22 @@
+diff --git a/bbswitch.c b/bbswitch.c
+index 341608f..3c71eaf 100644
+--- a/bbswitch.c
++++ b/bbswitch.c
+@@ -36,7 +36,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/pm_runtime.h>
+ 
+-#define BBSWITCH_VERSION "0.8"
++#define BBSWITCH_VERSION "0.8-amd"
+ 
+ MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Toggle the discrete graphics card");
+@@ -418,7 +418,7 @@ static int __init bbswitch_init(void) {
+ 
+         acpi_get_name(handle, ACPI_FULL_PATHNAME, &buf);
+ 
+-        if (pdev->vendor == PCI_VENDOR_ID_INTEL) {
++        if (pdev->vendor == PCI_VENDOR_ID_ATI) {
+             igd_handle = handle;
+             pr_info("Found integrated VGA device %s: %s\n",
+                 dev_name(&pdev->dev), (char *)buf.pointer);
