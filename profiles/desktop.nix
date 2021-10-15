@@ -68,9 +68,9 @@
   # Enable AVAHI
   #services.avahi.enable = true;
 
-  # Enable dconf
+  # Enable dconf and gcr
   programs.dconf.enable = true;
-  services.dbus.packages = [ pkgs.gnome3.dconf ];
+  services.dbus.packages = [ pkgs.gnome3.dconf pkgs.gcr ];
 
   # Enable gvfs
   services.gvfs.enable = true;
