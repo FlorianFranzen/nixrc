@@ -1,33 +1,13 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   # Install command line utility
   environment.systemPackages = with pkgs; [
     yubikey-manager
-    (pass-wayland.withExtensions (exts: [
-      exts.pass-audit 
-      exts.pass-genphrase 
-      exts.pass-otp
-      exts.pass-update
-    ]))
-    pwgen
-    xkcdpass
-    zbar
   ];
  
-  # Enable GnuPG with ssh support
-  programs = {
-    ssh.startAgent = false;
-
-    gnupg.agent = { 
-      enable = true; 
-      enableSSHSupport = true; 
-      enableExtraSocket = true;
-    };
-
-    # Enable browserpass native handler
-    browserpass.enable = true;
-  };
+  # Disable ssh agent by default to give users the choice
+  programs.ssh.startAgent = lib.mkDefault false;
 
   # Give user access to yubikey hardware
   services.udev.packages = with pkgs; [
