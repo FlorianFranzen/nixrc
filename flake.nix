@@ -26,6 +26,9 @@
     home.url = "github:nix-community/home-manager/release-21.05";
     home.inputs.nixpkgs.follows = "nixos";
 
+    # Firefox Addons
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+
     # Latest emacs and framework
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
@@ -41,6 +44,7 @@
     latest,
     hardware,
     home,
+    firefox-addons,
     emacs-overlay,
     spacemacs
   } @ inputs: let
@@ -71,7 +75,13 @@
     # nixpkgs versions and configs
     channels.nixos = {
       # TODO Check sharedOverlays
-      overlays = [ emacs-overlay.overlay ./pkgs ];
+      overlays = [ 
+        emacs-overlay.overlay 
+        ./pkgs 
+        (self: super: {
+          firefox-addons = firefox-addons.packages.${super.system};
+        })  
+      ];
     };
 
     # nixos system configs
