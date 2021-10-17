@@ -55,7 +55,11 @@ in {
       in lib.mkOptionDefault {
 
         # Lock screen
-        "${modifier}+o" = "exec swaylock";
+        "${modifier}+o" = exec' pkgs.swaylock-effects "swaylock";
+
+        # Add logout screen 
+        "${modifier}+q" = "kill";
+        "${modifier}+Shift+q" = exec pkgs.wlogout;
 
         # Web browser keys
         "${modifier}+BackSpace" = exec pkgs.firefox;
