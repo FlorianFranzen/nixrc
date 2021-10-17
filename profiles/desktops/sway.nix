@@ -12,24 +12,10 @@
 
   # Enable ozone wayland backend
   nixpkgs.overlays = [
-    (self: super: let
-      enableOzoneWayland = drv: self.symlinkJoin {
-        inherit (drv) name version meta;
-        nativeBuildInputs = [ self.makeWrapper ];
-        paths = [ drv ];
-
-        postBuild = ''
-          for bin in $out/bin/*; do
-            echo "- wrapping $bin..."
-            wrapProgram "$bin" \
-              --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
-          done
-        '';
-      };
-    in {
-      element-desktop = enableOzoneWayland super.element-desktop;
-      chromium = enableOzoneWayland super.chromium;
-      signal-desktop = enableOzoneWayland super.signal-desktop;
+    (self: super: {
+      element-desktop = super.element-desktop-wayland;
+      chromium = super.chromium-wayland;
+      signal-desktop = super.signal-desktop-wayland;
     })
   ];
 

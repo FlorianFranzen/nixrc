@@ -5,8 +5,25 @@ let
     bbswitch = ksuper.callPackage ./bbswitch.nix { linuxPackages = kpkgs; };
     rtw89 = ksuper.callPackage ./rtw89.nix { linuxPackages = kpkgs; };
   });
+
+  enableOzoneWayland = drv: self.symlinkJoin {
+    inherit (drv) name version meta;
+    nativeBuildInputs = [ self.makeWrapper ];
+    paths = [ drv ];
+
+    postBuild = ''
+      for bin in $out/bin/*; do
+        echo "- wrapping $bin..."
+        wrapProgram "$bin" \
+          --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
+      done
+    '';
+  };
 in {
   linuxPackages_latest = extendKernel super.linuxPackages_latest;
-
   linuxPackages = extendKernel super.linuxPackages;
+  
+  element-desktop-wayland = enableOzoneWayland super.element-desktop;
+  chromium-wayland = enableOzoneWayland super.chromium;
+  signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
 }
