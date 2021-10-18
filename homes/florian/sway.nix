@@ -1,10 +1,12 @@
-{config, pkgs, lib, ...}:
+{config, pkgs, lib, themes, ...}:
 
 let
   final = config.wayland.windowManager.sway;
 
   gap = 10;
 in {
+  imports = [ themes.material ];
+
   programs.alacritty.enable = true;
 
   wayland.windowManager.sway = {

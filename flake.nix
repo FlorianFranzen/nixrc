@@ -118,7 +118,11 @@
     # home-manager home configs
     home = {
       modules = [ common.homes ];
-      importables = { inherit self inputs; };
+      importables = { 
+        inherit self inputs; 
+
+        themes = importTree ./themes;
+      };
       users = importModuleTree ./homes;
     };
 

@@ -3,29 +3,22 @@
 {
   # Set desktop background
   wayland.windowManager.sway.config.output."*" = {
-    background = "${self}/assets/nixish-dark.png fill";
+    background = "${self}/themes/assets/snowflake-solarized.png fill";
   };
 
   # Set gtk look and feel
   gtk = {
-    enable = true;
 
-    #TODO: Set cursor theme?
+    # TODO Set cursor theme?
 
     theme = {
-      name = "Materia-dark-compact";
-      package = pkgs.materia-theme;
+      name = "NumixSolarizedDarkGreen";
+      package = pkgs.numix-solarized-gtk-theme;
     };
 
     iconTheme = {
       name = "Numix-Square";
       package = pkgs.numix-icon-theme-square;
     };
-  };
-
-  # Use gtk theme for qt
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
   };
 }
