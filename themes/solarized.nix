@@ -1,6 +1,8 @@
 { self, pkgs, ...}:
 
 {
+  imports = [ ./base.nix ];
+
   # Set desktop background
   wayland.windowManager.sway.config.output."*" = {
     background = "${self}/themes/assets/snowflake-solarized.png fill";
@@ -8,8 +10,6 @@
 
   # Set gtk look and feel
   gtk = {
-
-    # TODO Set cursor theme?
 
     theme = {
       name = "NumixSolarizedDarkGreen";
@@ -20,5 +20,7 @@
       name = "Numix-Square";
       package = pkgs.numix-icon-theme-square;
     };
+
+    # TODO set cursor theme
   };
 }

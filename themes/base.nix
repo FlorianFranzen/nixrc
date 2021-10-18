@@ -1,5 +1,3 @@
-{ self, pkgs, ...}:
-
 {
   # Enable gtk customization
   gtk.enable = true;
