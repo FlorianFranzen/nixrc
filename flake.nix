@@ -52,8 +52,6 @@
     # Recursive import helpers
     importTree = digga.lib.rakeLeaves;
 
-    importTreeByName = name: importTree (./. + "/${name}");
-
     importFlatTree = name: dir: builtins.mapAttrs
       (_: mods: {...}: { ${name} = builtins.attrValues mods; })
       (importTree dir);
@@ -62,8 +60,19 @@
       (_: mods: {...}: { imports = builtins.attrValues mods; })
       (importTree dir);
 
-    # Shared modules across configs
-    common = importTree ./common;
+    # Turn string list of subdirs into attrset of tree imports
+    mkImportables = dirs: nixos.lib.genAttrs dirs (n: importTree (./. + "/${n}"));
+
+    # Shared host and home modules 
+    modules = importModuleTree ./modules;
+
+    # Import custom packages as overlay
+    pkgs-overlay = import ./pkgs;
+
+    # Turn firefox addon collection to overlay
+    firefox-addons-overlay = (self: super: {
+      firefox-addons = firefox-addons.packages.${super.system};
+    });  
 
   in digga.lib.mkFlake {
 
@@ -77,10 +86,8 @@
       # TODO Check sharedOverlays
       overlays = [ 
         emacs-overlay.overlay 
-        ./pkgs 
-        (self: super: {
-          firefox-addons = firefox-addons.packages.${super.system};
-        })  
+        firefox-addons-overlay
+        pkgs-overlay
       ];
     };
 
@@ -92,7 +99,7 @@
         channelName = "nixos";
 
         modules = [
-          common.hosts
+          modules.hosts
           #digga.nixosModules.bootstrapIso
           #digga.nixosModules.nixConfig
           home.nixosModules.home-manager
@@ -103,9 +110,7 @@
       hosts = importFlatTree "modules" ./hosts;
 
       importables = let
-        dirs = [ "hardware" "profiles" "services" ];
-
-        imported = nixos.lib.genAttrs dirs importTreeByName;
+        imported = mkImportables [ "hardware" "profiles" "services" ];
       in imported // {
         hardware = hardware.nixosModules // imported.hardware;
 
@@ -117,11 +122,9 @@
 
     # home-manager home configs
     home = {
-      modules = [ common.homes ];
-      importables = { 
+      modules = [ modules.homes ];
+      importables = mkImportables [ "themes" ] // { 
         inherit self inputs; 
-
-        themes = importTree ./themes;
       };
       users = importModuleTree ./homes;
     };
