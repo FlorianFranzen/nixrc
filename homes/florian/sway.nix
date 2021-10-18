@@ -12,8 +12,9 @@ in {
   wayland.windowManager.sway = {
     enable = true;
 
-    # Currently uses system sway
+    # Use system's sway and Xwayland
     package = null;
+    xwayland = false;
 
     config = {
       # Default input config
