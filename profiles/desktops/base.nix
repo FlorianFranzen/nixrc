@@ -11,16 +11,10 @@
     enable = true;
     hsphfpd.enable = true;
 
-    # Add upstream patch to enable experimental mode
-    package = pkgs.bluez.overrideAttrs (old: {
-      patches = [
-        ./bluez_experimental.patch
-      ];
+    # Use bluez with experimental features
+    package = pkgs.bluez-experimental;
 
-      configureFlags = old.configureFlags ++ [ "--enable-experimental" ];
-    });
-
-    # Enable battery reporting
+    # Enable experimental battery reporting
     settings.General.Experimental = true;
   };
 

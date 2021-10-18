@@ -22,8 +22,12 @@ let
 in {
   linuxPackages_latest = extendKernel super.linuxPackages_latest;
   linuxPackages = extendKernel super.linuxPackages;
-  
+
+  bluez-experimental = super.callPackage ./bluez.nix {};
+
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
 }
+
+
