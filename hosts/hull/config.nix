@@ -2,7 +2,7 @@
 
 {
   imports = with profiles; [
-    media desktop desktops.sway networks.iwd hardware.yubikey
+    media desktops.sway networks.iwd hardware.yubikey
   ];
 
   boot = {

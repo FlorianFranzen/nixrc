@@ -1,12 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  # Enable the X11 windowing system.
+  # Include base desktop profile
+  imports = [ ./base.nix ];
+
+  # Enable the X11 windowing system
   services.xserver = {
     enable = true;
     layout = "eu";
     xkbOptions = "compose:ralt, terminate:ctrl_alt_bksp";
- 
+
     # Enable touchpad support through libinput
     libinput = {
       enable = true;
@@ -17,32 +20,24 @@
       tappingDragLock = false;
     };
 
-    # Use xfce base services
-    desktopManager = {
-      xterm.enable = false;
-#      xfce = {
-#        enable = true;
-#        noDesktop = true;
-#        enableXfwm = false;
-#      };
-    };
+    # Disable default desktop manager
+    desktopManager.xterm.enable = false;
 
     # Enable i3 window manager
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
       extraPackages = with pkgs; [ 
-        i3lock-color 
-        alacritty 
+        i3lock-color
+        alacritty
         polybarFull
         dunst
         rofi
-        arandr
       ];
     };
   };
 
- # Enable compton
+  # Enable compositor
   services.picom = {
     enable = true;
     backend = "glx";
@@ -54,10 +49,5 @@
     shadow = true;
     shadowOpacity = 0.5;
     shadowOffsets = [ 0 0 ];
-#    opacityRules = [
-#      "95:class_g = 'Termite' && !_NET_WM_STATE@:32a" 
-#      "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
-#    ];
   };
- 
 }

@@ -1,13 +1,14 @@
 { config, pkgs, ... }:
 
 {
+  # Include base desktop profile
+  imports = [ ./base.nix ];
 
+  # Some general packages to improve wayland
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
     libsForQt5.qtstyleplugins
     wl-clipboard
-    grim
-    slurp
   ];
 
   # Enable ozone wayland backend
@@ -23,10 +24,6 @@
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
-
-  # Enable userspace mounting
-  services.udisks2.enable = true;
-  services.upower.enable = true;
 
   # Install sway
   programs.sway = {
@@ -76,18 +73,15 @@
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
     '';
 
-    extraPackages = with pkgs; [
-      swaylock-effects
-      swayidle
-      xwayland
-      i3status-rust
-      workstyle
-      alacritty
-      mako
-      wofi
-    ];
+    # Leave all other additional tools to user
+    extraPackages = [];
+
+    # 
     wrapperFeatures.gtk = true;
   };
+
+  # Enable xwayland support
+  programs.xwayland.enable = true;
 
   # Give main user access
   users.extraUsers.florian = {
@@ -107,7 +101,7 @@
     exec "systemctl --user import-environment; systemctl --user start sway-session.target"
   '';
 
-  # Start swayidle service
+  # FIXME Start swayidle service
   systemd.user.services.swayidle = {
     description = "Idle manager for wayland";
     documentation = [ "man:swayidle(1)" ];

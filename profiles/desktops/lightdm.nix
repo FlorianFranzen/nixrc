@@ -3,7 +3,7 @@
 {
   # Enable LightDM display manager
   services.xserver = {
-    # TODO: Switchs to non-X11 greeter
+    # TODO: Switch to non-X11 greeter
     enable = true;
 
     # Add trackpad support

@@ -110,7 +110,7 @@
         hardware = hardware.nixosModules // imported.hardware;
 
         suites = {
-          full = with imported.profiles; [ desktop media mail office ];
+          full = with imported.profiles; [ media mail office ];
         };
       };
     };

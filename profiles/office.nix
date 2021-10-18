@@ -21,6 +21,10 @@
     calibre
    ];
 
+  # Enable CUPS to print documents.
+  #services.printing.enable  = true;
+  #services.printing.drivers = [ pkgs.gutenprint ];
+
   environment.etc."aspell.conf".text = ''
     master en_US
     extra-dicts en-computers.rws

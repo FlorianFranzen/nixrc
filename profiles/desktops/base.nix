@@ -3,6 +3,7 @@
 { config, pkgs, ... }:
 
 {
+  # Enable ntfs support
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Enable bluetooth
@@ -61,21 +62,19 @@
   # Enable backlight control
   programs.light.enable = true;
 
-  # Enable CUPS to print documents.
-  #services.printing.enable  = true;
-  #services.printing.drivers = [ pkgs.gutenprint ];
-
-  # Enable AVAHI
-  #services.avahi.enable = true;
-
   # Enable dconf and gcr
   programs.dconf.enable = true;
   services.dbus.packages = [ pkgs.gnome3.dconf pkgs.gcr ];
+
+  # Enable userspace mounting
+  services.udisks2.enable = true;
+  services.upower.enable = true;
 
   # Enable gvfs
   services.gvfs.enable = true;
   environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
 
+  # Default location: Zürich
   location = {
     latitude = 47.1;
     longitude = 8.5;
