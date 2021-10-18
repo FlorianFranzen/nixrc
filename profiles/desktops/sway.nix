@@ -31,6 +31,7 @@
   # Install sway
   programs.sway = {
     enable = true;
+    extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
     extraSessionCommands = let 
       schema = pkgs.gsettings-desktop-schemas;
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
