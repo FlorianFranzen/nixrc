@@ -17,14 +17,22 @@
     # Reenable gpu
     hardware.nvidiaOptimus.disable = false;
 
-    # Set hardware identifier
-    hardware.nvidia.prime = {
-      amdgpuBusId = "PCI:5:0:0";
-      nvidiaBusId = "PCI:1:0:0";
+    hardware.nvidia = {
+      # Set hardware identifier
+      prime = {
+        amdgpuBusId = "PCI:5:0:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+
+      # Improve prime battery life
+      powerManagement.enable = true;
     };
 
-    # Improve prime battery life
-    hardware.nvidia.powerManagement.enable = true;
+    # Add OpenGL VDPAU support 
+    hardware.opengl = {
+      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
+      extraPackages32 = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
+    };
 
     # Provide command line utils
     environment.systemPackages = [ pkgs.linuxPackages.nvidia_x11 ];
