@@ -74,6 +74,9 @@
     longitude = 8.5;
   };
 
+  # Fix DNS resolution in browsers
+  networking.resolvconf.dnsExtensionMechanism = false;
+
   users.extraUsers.florian = {
     extraGroups = [ "audio" "video" ];
   };

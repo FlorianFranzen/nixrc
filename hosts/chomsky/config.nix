@@ -57,8 +57,5 @@
   # Hard disk protection in case of fall
   services.hdapsd.enable = lib.mkDefault true;
 
-  # TODO Is this generally necessary?
-  networking.resolvconf.dnsExtensionMechanism = false;
-
   system.stateVersion = "20.03";
 }
