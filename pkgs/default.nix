@@ -25,7 +25,13 @@ in {
 
   bluez-experimental = super.callPackage ./bluez.nix {};
 
-  nixFlakes = super.callPackage ./nix-flakes.nix { nixFlakes = super.nixFlakes; }; 
+  nixFlakes = super.callPackage ./nix-flakes.nix { 
+    inherit (super) nixFlakes; 
+  }; 
+
+  pam_ssh_agent_auth = super.callPackage ./pam_ssh_agent_auth.nix { 
+    inherit (super) pam_ssh_agent_auth;
+  };
 
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;

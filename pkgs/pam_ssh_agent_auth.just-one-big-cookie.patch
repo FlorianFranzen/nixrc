@@ -1,0 +1,116 @@
+diff --git a/iterate_ssh_agent_keys.c b/iterate_ssh_agent_keys.c
+index 1f551c2..cb25fb6 100644
+--- a/iterate_ssh_agent_keys.c
++++ b/iterate_ssh_agent_keys.c
+@@ -82,97 +82,15 @@ agent_action(Buffer *buf, char ** action, size_t count)
+ 
+ 
+ void
+-pamsshagentauth_session_id2_gen(Buffer * session_id2, const char * user,
+-                                const char * ruser, const char * servicename)
++pamsshagentauth_session_id2_random(Buffer * session_id2) 
+ {
+-    char *cookie = NULL;
+-    uint8_t i = 0;
+-    uint32_t rnd = 0;
+-    uint8_t cookie_len;
+-    char hostname[256] = { 0 };
+-    char pwd[1024] = { 0 };
+-    time_t ts;
+-    char ** reported_argv = NULL;
+-    size_t count = 0;
+-    char * action_logbuf = NULL;
+-    Buffer action_agentbuf;
+-    uint8_t free_logbuf = 0;
+-    char * retc;
+-    int32_t reti;
+-
+-    rnd = pamsshagentauth_arc4random();
+-    cookie_len = ((uint8_t) rnd);
+-    while (cookie_len < 16) { 
+-        cookie_len += 16;                                          /* Add 16 bytes to the size to ensure that while the length is random, the length is always reasonable; ticket #18 */
+-    }
+-
+-    cookie = pamsshagentauth_xcalloc(1,cookie_len);
++    uint8_t i;
+ 
+-    for (i = 0; i < cookie_len; i++) {
+-        if (i % 4 == 0) {
+-            rnd = pamsshagentauth_arc4random();
+-        }
+-        cookie[i] = (char) rnd;
+-        rnd >>= 8;
++    // Generate 1024 random bits (32 * 4 * 8)
++    for (i = 0; i < 32; i++) {    
++        pamsshagentauth_buffer_put_int(session_id2, pamsshagentauth_arc4random());
+     }
+ 
+-    count = pamsshagentauth_get_command_line(&reported_argv);
+-    if (count > 0) { 
+-        free_logbuf = 1;
+-        action_logbuf = log_action(reported_argv, count);
+-        agent_action(&action_agentbuf, reported_argv, count);
+-        pamsshagentauth_free_command_line(reported_argv, count);
+-    }
+-    else {
+-        action_logbuf = "unknown on this platform";
+-        pamsshagentauth_buffer_init(&action_agentbuf); /* stays empty, means unavailable */
+-    }
+-    
+-    /*
+-    action = getenv("SUDO_COMMAND");
+-    if(!action) {
+-        action = getenv("PAM_AUTHORIZED_ACTION");
+-        if(!action) {
+-            action = empty;
+-        }
+-    }
+-    */
+-
+-    reti = gethostname(hostname, sizeof(hostname) - 1);
+-    retc = getcwd(pwd, sizeof(pwd) - 1);
+-    time(&ts);
+-
+-    pamsshagentauth_buffer_init(session_id2);
+-
+-    pamsshagentauth_buffer_put_int(session_id2, PAM_SSH_AGENT_AUTH_REQUESTv1);
+-    /* pamsshagentauth_debug3("cookie: %s", pamsshagentauth_tohex(cookie, cookie_len)); */
+-    pamsshagentauth_buffer_put_string(session_id2, cookie, cookie_len);
+-    /* pamsshagentauth_debug3("user: %s", user); */
+-    pamsshagentauth_buffer_put_cstring(session_id2, user);
+-    /* pamsshagentauth_debug3("ruser: %s", ruser); */
+-    pamsshagentauth_buffer_put_cstring(session_id2, ruser);
+-    /* pamsshagentauth_debug3("servicename: %s", servicename); */
+-    pamsshagentauth_buffer_put_cstring(session_id2, servicename);
+-    /* pamsshagentauth_debug3("pwd: %s", pwd); */
+-    if(retc)
+-        pamsshagentauth_buffer_put_cstring(session_id2, pwd);
+-    else
+-        pamsshagentauth_buffer_put_cstring(session_id2, "");
+-    /* pamsshagentauth_debug3("action: %s", action_logbuf); */
+-    pamsshagentauth_buffer_put_string(session_id2, action_agentbuf.buf + action_agentbuf.offset, action_agentbuf.end - action_agentbuf.offset);
+-    if (free_logbuf) { 
+-        pamsshagentauth_xfree(action_logbuf);
+-        pamsshagentauth_buffer_free(&action_agentbuf);
+-    }
+-    /* pamsshagentauth_debug3("hostname: %s", hostname); */
+-    if(reti >= 0)
+-        pamsshagentauth_buffer_put_cstring(session_id2, hostname);
+-    else
+-        pamsshagentauth_buffer_put_cstring(session_id2, "");
+-    /* pamsshagentauth_debug3("ts: %ld", ts); */
+-    pamsshagentauth_buffer_put_int64(session_id2, (uint64_t) ts);
+-
+-    free(cookie);
+     return;
+ }
+ 
+@@ -188,7 +106,7 @@ pamsshagentauth_find_authorized_keys(const char * user, const char * ruser, cons
+     uid_t uid = getpwnam(ruser)->pw_uid;
+ 
+     OpenSSL_add_all_digests();
+-    pamsshagentauth_session_id2_gen(&session_id2, user, ruser, servicename);
++    pamsshagentauth_session_id2_random(&session_id2);
+ 
+     if ((ac = ssh_get_authentication_connection(uid))) {
+         pamsshagentauth_verbose("Contacted ssh-agent of user %s (%u)", ruser, uid);
