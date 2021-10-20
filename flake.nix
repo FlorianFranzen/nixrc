@@ -14,7 +14,7 @@
     bud.inputs.devshell.follows = "digga/devshell";
 
     # Host configurations
-    nixos.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixos.url = "github:florianfranzen/nixpkgs/nixos-21.05";
 
     # Latest package set
     latest.url = "github:nixos/nixpkgs/nixos-unstable";

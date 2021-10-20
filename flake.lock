@@ -351,15 +351,15 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1633853057,
-        "narHash": "sha256-TUf/NYJlIw7wVMLFt5G4TRwtrnbz+uuXtTEbulxxI8Y=",
-        "owner": "nixos",
+        "lastModified": 1634766156,
+        "narHash": "sha256-sub9RoxfvleXu8NkSpqX6JCYwvMfhHn74H7ixbg/F54=",
+        "owner": "florianfranzen",
         "repo": "nixpkgs",
-        "rev": "93ca5ab64f78ce778c0bcecf9458263f0f6289b6",
+        "rev": "1a0e6f453ba604ebc93df90a1b1cf2f86cfabcd4",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
+        "owner": "florianfranzen",
         "ref": "nixos-21.05",
         "repo": "nixpkgs",
         "type": "github"
