@@ -25,6 +25,8 @@ in {
 
   bluez-experimental = super.callPackage ./bluez.nix {};
 
+  nixFlakes = super.callPackage ./nix-flakes.nix { nixFlakes = super.nixFlakes; }; 
+
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
