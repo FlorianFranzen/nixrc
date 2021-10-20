@@ -21,6 +21,7 @@
       decentraleyes
       clearurls
       i-dont-care-about-cookies
+      polkadot-js
     ];
 
     profiles.default = {

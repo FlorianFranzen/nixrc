@@ -71,7 +71,8 @@
 
     # Turn firefox addon collection to overlay
     firefox-addons-overlay = (self: super: {
-      firefox-addons = firefox-addons.packages.${super.system};
+      buildFirefoxXpiAddon = firefox-addons.lib.${super.system}.buildFirefoxXpiAddon;
+      firefox-addons = firefox-addons.packages.${super.system};      
     });  
 
   in digga.lib.mkFlake {
