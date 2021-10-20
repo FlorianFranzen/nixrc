@@ -1,10 +1,17 @@
 { config, pkgs, lib, hardware, ... }:
 
-{
+let
+  nvidia-x11 = config.boot.kernelPackages.nvidia_x11;
+in {
   # Remove license warning 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-x11"
   ];
+
+  environment.systemPackages = let
+    wine = pkgs.wineWowPackages.staging;
+    winetricks = pkgs.winetricks.override { inherit wine; };
+  in [ wine winetricks ];
 
   # Specialization that boots with proprietary driver
   specialisation.nvidia.configuration = {
@@ -12,7 +19,7 @@
     imports = [ hardware.common-gpu-nvidia ];
 
     # Provide nvidia kernel module
-    boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    boot.extraModulePackages = [ nvidia-x11 ];
 
     # Reenable gpu
     hardware.nvidiaOptimus.disable = false;
@@ -30,11 +37,11 @@
 
     # Add OpenGL VDPAU support 
     hardware.opengl = {
-      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
-      extraPackages32 = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
+      extraPackages = with pkgs; [ nvidia-x11.out libvdpau-va-gl vaapiVdpau ];
+      extraPackages32 = with pkgs; [ nvidia-x11.lib32 libvdpau-va-gl vaapiVdpau ];
     };
 
     # Provide command line utils
-    environment.systemPackages = [ pkgs.linuxPackages.nvidia_x11 ];
+    environment.systemPackages = [ nvidia-x11 ];
   };
 }
