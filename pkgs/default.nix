@@ -46,6 +46,9 @@ in {
   # Patched to work with yubikey
   pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
 
+  # Latest version to support nvidia
+  xwayland = callOverride ./xwayland.nix {};
+
   # Wayland-backend for electron based apps
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;
