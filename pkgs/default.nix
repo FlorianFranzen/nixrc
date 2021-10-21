@@ -1,9 +1,23 @@
 self: super:
 
 let
+  lib = super.lib;
+
+  callOverrideWith = pkgs: fn: args: 
+    let
+      f = if lib.isFunction fn then fn else import fn;
+      auto = builtins.intersectAttrs (lib.functionArgs f) pkgs;
+    in f (auto // args);
+
+  callOverride = callOverrideWith super;
+
   extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
-    bbswitch = ksuper.callPackage ./bbswitch.nix { linuxPackages = kpkgs; };
-    rtw89 = ksuper.callPackage ./rtw89.nix { linuxPackages = kpkgs; };
+    # Special version of bbswitch for amd cpus
+    bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
+    # Latest version with some stability patches
+    rtw89 = callOverrideWith ksuper ./rtw89.nix {
+      inherit (super) fetchFromGitHub;
+    };
   });
 
   enableOzoneWayland = drv: self.symlinkJoin {
@@ -23,20 +37,21 @@ in {
   linuxPackages_latest = extendKernel super.linuxPackages_latest;
   linuxPackages = extendKernel super.linuxPackages;
 
-  bluez-experimental = super.callPackage ./bluez.nix {};
+  # With experimental features
+  bluez-experimental = callOverride ./bluez.nix {};
 
-  nixFlakes = super.callPackage ./nix-flakes.nix { 
-    inherit (super) nixFlakes; 
-  }; 
+  # Patched to include git submodules
+  nixFlakes = callOverride ./nix-flakes.nix {};
 
-  pam_ssh_agent_auth = super.callPackage ./pam_ssh_agent_auth.nix { 
-    inherit (super) pam_ssh_agent_auth;
-  };
+  # Patched to work with yubikey
+  pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
 
+  # Wayland-backend for electron based apps
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
 
+  # Custom firefox addons
   firefox-addons = super.firefox-addons // { 
     polkadot-js = super.callPackage ./polkadot-js-extension.nix {}; 
   };

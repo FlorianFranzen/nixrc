@@ -1,6 +1,6 @@
-{ linuxPackages, fetchFromGitHub }:
+{ rtw89, fetchFromGitHub }:
 
-linuxPackages.rtw89.overrideAttrs (old: rec {
+rtw89.overrideAttrs (old: rec {
   name = "${old.pname}-${version}";
   version = "v7";
 
