@@ -12,6 +12,11 @@ in {
       top = common // {
         blocks = [
           {
+            block = "focused_window";
+            max_width = 50;
+            show_marks = "visible";
+          }
+          {
             block = "sound";
             max_vol = 100;
           }
