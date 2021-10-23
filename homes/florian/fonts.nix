@@ -3,7 +3,7 @@
 let
   # One font to rule them all
   name = "JetBrainsMono";
-  size = 12;
+  size = 11;
 
   # Helper functions
   toFloat = n: n + 0.0;
