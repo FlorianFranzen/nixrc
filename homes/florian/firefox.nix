@@ -53,6 +53,8 @@
 
         "signon.autofillForms" = false;
         "signon.rememberSignons" = false;
+
+        "svg.context-properties.content.enabled" = true;
       };
     };
   };
