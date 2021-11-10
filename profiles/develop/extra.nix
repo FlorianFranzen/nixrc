@@ -9,10 +9,14 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
-    nix-prefetch
-    nix-index
     nix-diff
+    nix-du
+    nix-index
+    nix-prefetch
     nix-top
+    nix-tree
+
+    nix-query-tree-viewer
 
     nixpkgs-fmt
     nixpkgs-review
