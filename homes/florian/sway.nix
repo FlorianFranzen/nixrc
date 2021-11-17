@@ -75,6 +75,10 @@ in {
         "${modifier}+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save window";
         "${modifier}+Shift+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save area";
 
+        # Transparency control
+        "${modifier}+bracketleft" = "opacity minus 0.05"; 
+        "${modifier}+bracketright" = "opacity plus 0.05"; 
+
         # Volume control
         "--locked XF86AudioLowerVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ -5%";
         "--locked XF86AudioRaiseVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ +5%";
