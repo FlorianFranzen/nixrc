@@ -49,6 +49,9 @@ in {
   # Latest version to support nvidia
   xwayland = callOverride ./xwayland.nix {};
 
+  # Simplify zsa device access
+  zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};
+
   # Wayland-backend for electron based apps
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;

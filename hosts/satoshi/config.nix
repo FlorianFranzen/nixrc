@@ -12,6 +12,7 @@
       common-pc-laptop
       common-pc-ssd
       yubikey
+      zsa
     ]);
 
   # Disable GPU unless overriden in specialization
