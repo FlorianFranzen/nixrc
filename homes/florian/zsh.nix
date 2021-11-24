@@ -22,10 +22,11 @@
         # Set default 
         EDITOR = "vim";
         BROWSER = "firefox";
-
-        # Use default powerlevel config for now
-        POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = true;
       };
+
+      initExtra = ''
+        source ${./zsh.p10k.sh}
+      '';
 
       shellAliases = {
         cat = "bat --plain";
