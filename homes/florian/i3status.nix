@@ -1,4 +1,3 @@
-
 let
   common = {
     icons = "material-nf";

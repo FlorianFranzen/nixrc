@@ -7,8 +7,8 @@
     password-store = {
       enable = true;
       package = pkgs.pass-wayland.withExtensions (exts: [
-        exts.pass-audit 
-        exts.pass-genphrase 
+        exts.pass-audit
+        exts.pass-genphrase
         exts.pass-otp
         exts.pass-update
       ]);

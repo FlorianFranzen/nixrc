@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 let
   # One font to rule them all

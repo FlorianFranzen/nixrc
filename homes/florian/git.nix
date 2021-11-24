@@ -18,7 +18,7 @@
       };
 
       fetch.prune = true;
- 
+
       init.defaultBranch = "main";
 
       pull.rebase = true;

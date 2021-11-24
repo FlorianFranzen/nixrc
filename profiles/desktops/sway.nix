@@ -76,7 +76,7 @@
     # Leave all other additional tools to user
     extraPackages = [];
 
-    # 
+    # Enable gtk for proper app support
     wrapperFeatures.gtk = true;
   };
 

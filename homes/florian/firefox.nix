@@ -27,7 +27,7 @@
     profiles.default = {
       # TODO https://github.com/arkenfox/user.js
       settings = {
-        "browser.aboutConfig.showWarning" = false; 
+        "browser.aboutConfig.showWarning" = false;
 
         "browser.contentblocking.category" = "strict";
 
@@ -37,7 +37,7 @@
 
         "browser.startup.page" = 3;
 
-        "datareporting.healthreport.uploadEnabled" =  false;
+        "datareporting.healthreport.uploadEnabled" = false;
 
         "dom.security.https_only_mode" = true;
 
@@ -49,7 +49,7 @@
         "privacy.trackingprotection.enabled" = true;
         "privacy.trackingprotection.socialtracking.enabled" = true;
 
-        "privacy.webrtc.legacyGlobalIndicator" =  false;
+        "privacy.webrtc.legacyGlobalIndicator" = false;
 
         "signon.autofillForms" = false;
         "signon.rememberSignons" = false;
