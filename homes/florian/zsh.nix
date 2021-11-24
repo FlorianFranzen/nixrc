@@ -34,6 +34,8 @@
         sv = "spacevim";
 
         incognito = "unset HISTFILE && echo 'History has been disabled.'";
+
+        nixos-env = "sudo nix-env -p /nix/var/nix/profiles/system"
       };
 
       # Configure plugins
