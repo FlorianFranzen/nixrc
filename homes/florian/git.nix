@@ -7,10 +7,19 @@
 
     delta.enable = true;
 
-    extraConfig = {
-      init.defaultBranch = "main";
+    aliases = {
+      lg = "log --graph --decorate --pretty=oneline --abbrev-commit";
+    };
 
-      status.submoduleSummary = true;
+    extraConfig = {
+      diff = {
+        colorMoved = "default";
+        submodule = "log";
+      };
+
+      fetch.prune = true;
+ 
+      init.defaultBranch = "main";
 
       pull.rebase = true;
 
@@ -21,10 +30,7 @@
         autoSquash = true;
       };
 
-      diff = {
-        colorMoved = "default";
-        submodule = "log";
-      };
+      status.submoduleSummary = true;
     };
   };
 }
