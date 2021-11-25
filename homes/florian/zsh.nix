@@ -25,6 +25,10 @@
       };
 
       initExtra = ''
+        # Load color scheme
+        [[ -f ~/.cache/wal/sequences ]] && (cat ~/.cache/wal/sequences &)
+
+        # Load powerlevel10k config
         source ${./zsh.p10k.sh}
       '';
 
