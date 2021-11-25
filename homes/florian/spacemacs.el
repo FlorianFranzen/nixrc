@@ -70,6 +70,7 @@ This function should only modify configuration layer settings."
      go
      javascript
      ;; Markup layes
+     asciidoc
      markdown
      yaml
      json
