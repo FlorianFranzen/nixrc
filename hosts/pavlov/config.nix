@@ -10,9 +10,7 @@
   boot.loader.systemd-boot.enable = true;
 
   # Enable Wake on LAN
-  services.wakeonlan.interfaces = [
-    { interface = "enp3s0"; method = "magicpacket"; }
-  ];
+  networking.interfaces.enp3s0.wakeOnLan.enable = true;
 
   # Suspend on power button press
   services.logind.extraConfig = "HandlePowerKey=suspend"; 
