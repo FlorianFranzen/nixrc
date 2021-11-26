@@ -1,11 +1,6 @@
-{ bluez }:
+{ bluez5 }:
 
-bluez.overrideAttrs (old: {
-  # Allow enabling experimental features from config file
-  patches = [
-    ./bluez.experimental.patch
-  ];
-
+bluez5.overrideAttrs (old: {
   # Enable experimental features
   configureFlags = old.configureFlags ++ [ "--enable-experimental" ];
 })

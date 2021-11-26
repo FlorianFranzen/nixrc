@@ -14,7 +14,7 @@ let
   extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
     # Special version of bbswitch for amd cpus
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
-    # Latest version with some stability patches
+    # Latest version with some stability patches (incl in 5.16)
     rtw89 = callOverrideWith ksuper ./rtw89.nix {
       inherit (super) fetchFromGitHub;
     };
@@ -38,16 +38,13 @@ in {
   linuxPackages = extendKernel super.linuxPackages;
 
   # With experimental features
-  bluez-experimental = callOverride ./bluez.nix {};
+  bluez5-experimental = callOverride ./bluez.nix {};
 
   # Patched to include git submodules
   nixFlakes = callOverride ./nix-flakes.nix {};
 
   # Patched to work with yubikey
   pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
-
-  # Latest version to support nvidia
-  xwayland = callOverride ./xwayland.nix {};
 
   # Simplify zsa device access
   zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};

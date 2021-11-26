@@ -67,7 +67,7 @@
           "home"
         ],
         "latest": [
-          "latest"
+          "nixpkgs"
         ],
         "nix": "nix",
         "nixlib": [
@@ -79,11 +79,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1632959483,
-        "narHash": "sha256-jXogai6e+QRtiZFBOrMmYdeLXejzVT91kuDKu2RuJ10=",
+        "lastModified": 1634161492,
+        "narHash": "sha256-7OZz7DqAhO+3axY68xsMXAyD+b5gJgVXuKjslTSCM3Y=",
         "owner": "divnix",
         "repo": "digga",
-        "rev": "6549cf4c87d1a77138cbecbc6bb9483c20572cd7",
+        "rev": "a55450a16d362b6e1c50bb4025aaa604b385d3ba",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1634151232,
-        "narHash": "sha256-cF4eMrDL2AxU1NEq5i9gz44XFTKaZc5ZM29jqJpRn2M=",
+        "lastModified": 1637821871,
+        "narHash": "sha256-fUtP97Ei0GMMNAlA3JIqepJRWP1JcNJSnm8jNlOzLuU=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "0952bf80e04f05671631344b0d39a489b781284a",
+        "rev": "640ff172f47d3c6ae959494b888f19a75d41ffbd",
         "type": "github"
       },
       "original": {
@@ -233,22 +233,6 @@
         "type": "github"
       }
     },
-    "latest": {
-      "locked": {
-        "lastModified": 1633971123,
-        "narHash": "sha256-WmI4NbH1IPGFWVkuBkKoYgOnxgwSfWDgdZplJlQ93vA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "e4ef597edfd8a0ba5f12362932fc9b1dd01a0aef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -315,16 +299,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1634766156,
-        "narHash": "sha256-sub9RoxfvleXu8NkSpqX6JCYwvMfhHn74H7ixbg/F54=",
-        "owner": "florianfranzen",
+        "lastModified": 1637753138,
+        "narHash": "sha256-yo7E4a/miP77fH3Ksp9tmYECAPjxBeweJFeZ4tX9O/U=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1a0e6f453ba604ebc93df90a1b1cf2f86cfabcd4",
+        "rev": "39cb89ef2ffcbef8d2ac2d52267ac69121a6becb",
         "type": "github"
       },
       "original": {
-        "owner": "florianfranzen",
-        "ref": "nixos-21.05",
+        "owner": "nixos",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -336,7 +320,6 @@
         "firefox-addons": "firefox-addons",
         "hardware": "hardware",
         "home": "home",
-        "latest": "latest",
         "nixpkgs": "nixpkgs",
         "spacemacs": "spacemacs"
       }

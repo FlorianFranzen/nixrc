@@ -6,14 +6,11 @@
     digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.nixlib.follows = "nixpkgs";
-    digga.inputs.latest.follows = "latest";
+    digga.inputs.latest.follows = "nixpkgs";
     digga.inputs.home-manager.follows = "home";
 
     # Host configurations
-    nixpkgs.url = "github:florianfranzen/nixpkgs/nixos-21.05";
-
-    # Latest package set
-    latest.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
@@ -37,7 +34,6 @@
     self,
     digga,
     nixpkgs,
-    latest,
     hardware,
     home,
     firefox-addons,

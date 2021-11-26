@@ -8,10 +8,7 @@ in {
     "nvidia-x11"
   ];
 
-  environment.systemPackages = let
-    wine = pkgs.wineWowPackages.staging;
-    winetricks = pkgs.winetricks.override { inherit wine; };
-  in [ wine winetricks ];
+  environment.systemPackages = with pkgs; [ wineWowPackages.staging winetricks ];
 
   # Specialization that boots with proprietary driver
   specialisation.nvidia.configuration = {

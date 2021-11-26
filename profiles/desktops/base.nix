@@ -12,7 +12,7 @@
     hsphfpd.enable = true;
 
     # Use bluez with experimental features
-    package = pkgs.bluez-experimental;
+    package = pkgs.bluez5-experimental;
 
     # Enable experimental battery reporting
     settings.General.Experimental = true;

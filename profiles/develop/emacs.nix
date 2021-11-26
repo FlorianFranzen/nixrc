@@ -25,10 +25,10 @@
     cmake
     cmake-language-server
 
-    python3Packages.python-language-server
+    python3Packages.python-lsp-server
     python3Packages.pyls-isort
-    python3Packages.pyls-mypy
-    python3Packages.pyls-black
+    #python3Packages.pyls-mypy
+    #python3Packages.pyls-black
 
     csslint # replace with stylelint?
   ];
