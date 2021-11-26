@@ -3,7 +3,7 @@
 {
 
   imports = suites.full ++
-    [ profiles.docker profiles.networks.iwd ] ++
+    [ profiles.docker profiles.networks.iwd profiles.waydroid ] ++
     (with profiles.develop; [ minimal emacs extra cross ]) ++
     (with profiles.desktops; [ lightdm sway ]) ++
     (with hardware; [
