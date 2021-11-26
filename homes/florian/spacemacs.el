@@ -103,7 +103,7 @@ This function should only modify configuration layer settings."
      (colors :variables
              colors-colorize-identifiers 'variable
              colors-enable-nyan-cat-progress-bar t)
-     ;;themes-megapack
+     themes-megapack
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -119,7 +119,6 @@ This function should only modify configuration layer settings."
                                       direnv
                                       editorconfig
                                       treemacs-icons-dired
-                                      ;;xresources-theme
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
