@@ -18,6 +18,9 @@
     settings.General.Experimental = true;
   };
 
+  # Disable hsphfpd demo client
+  systemd.user.services.telephony_client.enable = true;
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     shared_mime_info
