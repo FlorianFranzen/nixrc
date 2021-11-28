@@ -3,19 +3,25 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Enable flake support
   nix = {
+    # Enable flake support
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
     '';
 
+    # Allow copy closure by admins
+    trustedUsers = [ "root" "@wheel" ];  
+
+    # Generate nix registry and path from inputs (fup)
     generateRegistryFromInputs = true;
     generateNixPathFromInputs = true;
   };
 
-  # Automatically generate host id from name
-  networking.hostId = lib.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
+  # Automatically generate host id from name (for zfs, etc.)
+  networking.hostId = lib.substring 0 8 (
+    builtins.hashString "md5" config.networking.hostName
+  );
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
