@@ -5,7 +5,7 @@
   imports = suites.full ++
     [ profiles.docker profiles.networks.iwd profiles.waydroid ] ++
     (with profiles.develop; [ minimal emacs extra cross ]) ++
-    (with profiles.desktops; [ lightdm sway ]) ++
+    (with profiles.desktops; [ gdm sway ]) ++
     (with hardware; [
       common-cpu-amd
       common-gpu-amd
