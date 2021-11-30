@@ -15,6 +15,8 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
+    gnumake
+
     cachix
     nixopsUnstable
     patchelf
