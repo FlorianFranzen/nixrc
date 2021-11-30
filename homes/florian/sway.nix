@@ -124,5 +124,10 @@ in {
         }
       ];
     };
+
+    # Forward various environment variables to any dbus services
+    extraConfig = ''
+      exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+    '';
   };
 }
