@@ -1,6 +1,7 @@
 let
   common = {
     icons = "material-nf";
+    theme = "modern";
   };
 in {
   programs.i3status-rust = {
@@ -44,8 +45,11 @@ in {
           }
           {
             block = "battery";
+            driver = "upower";
             interval = 15;
             format = "{percentage} {time}";
+            allow_missing = true;
+            hide_missing = true;
           }
           {
             block = "time";
@@ -60,13 +64,14 @@ in {
           {
             block = "bluetooth";
             mac = "38:18:4C:D3:F5:A0";
-            format = "Headphones";
+            format = "Headphones {percentage}";
+            format_unavailable = "Headphones?";
           }
           {
             block = "music";
             max_width = 50;
             dynamic_width = true;
-            buttons = [ "play" ];
+            buttons = [ "prev" "play" "next" ];
           }
         ];
       };
