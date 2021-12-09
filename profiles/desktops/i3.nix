@@ -13,11 +13,14 @@
     # Enable touchpad support through libinput
     libinput = {
       enable = true;
-      disableWhileTyping = true;
-      naturalScrolling = true;
-      scrollMethod = "twofinger";
-      tapping = false;
-      tappingDragLock = false;
+
+      touchpad = {
+        disableWhileTyping = true;
+        naturalScrolling = true;
+        scrollMethod = "twofinger";
+        tapping = false;
+        tappingDragLock = false;
+      };
     };
 
     # Disable default desktop manager
