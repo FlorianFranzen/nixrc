@@ -100,20 +100,4 @@
   environment.etc."sway/config.d/10-systemd".text = ''
     exec "systemctl --user import-environment; systemctl --user start sway-session.target"
   '';
-
-  # FIXME Start swayidle service
-  systemd.user.services.swayidle = {
-    description = "Idle manager for wayland";
-    documentation = [ "man:swayidle(1)" ];
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    path = with pkgs; [ sway swayidle swaylock ];
-    script = ''
-      swayidle -w \
-        timeout 600 'swaylock -f' \
-        timeout 900 'swaymsg "output * dpms off"' \
-            resume 'swaymsg "output * dpms on"'  \
-        before-sleep 'swaylock -f'
-      '';
-  };
 }
