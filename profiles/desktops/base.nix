@@ -19,7 +19,7 @@
   };
 
   # Disable hsphfpd demo client
-  systemd.user.services.telephony_client.enable = true;
+  systemd.user.services.telephony_client.enable = false;
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
