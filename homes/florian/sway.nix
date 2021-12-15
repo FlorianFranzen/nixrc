@@ -89,6 +89,7 @@ in {
         "--locked XF86AudioPrev" = "${exec pkgs.playerctl} previous";
         "--locked XF86AudioNext" = "${exec pkgs.playerctl} next";
         "--locked XF86AudioPlay" = "${exec pkgs.playerctl} play-pause";
+        "--locked XF86AudioPause" = "${exec pkgs.playerctl} play-pause";
         "--locked XF86AudioStop" = "${exec pkgs.playerctl} stop";
 
         # Screen brightness controls
