@@ -10,4 +10,8 @@ in
     timeout 600 '${swaymsg} "output * dpms off"' resume '${swaymsg} "output * dpms on"'
     before-sleep '${swaylock} -f'
   '';
+
+  wayland.windowManager.sway.extraConfig = ''
+    exec ${pkgs.swayidle}/bin/swayidle -w
+  '';
 }
