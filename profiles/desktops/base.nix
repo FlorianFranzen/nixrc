@@ -69,7 +69,6 @@
 
   # Enable gvfs
   services.gvfs.enable = true;
-  environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
 
   # Default location: Zürich
   location = {
