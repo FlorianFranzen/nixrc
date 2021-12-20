@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 let
   common = {
     icons = "material-nf";
@@ -13,17 +15,8 @@ in {
         blocks = [
           {
             block = "focused_window";
-            max_width = 50;
+            max_width = 100;
             show_marks = "visible";
-          }
-          {
-            block = "sound";
-            max_vol = 100;
-          }
-          {
-            block = "sound";
-            device_kind = "source";
-            format = "";
           }
           {
             block = "cpu";
@@ -40,13 +33,16 @@ in {
             path = "/";
             format = "{icon} {available} {percentage}";
             interval = 20;
-            warning = 20.0;
+            warning = 25.0;
             alert = 10.0;
+          }
+          {
+            block = "net";
+            format = "{ssid} {ip}";
           }
           {
             block = "battery";
             driver = "upower";
-            interval = 15;
             format = "{percentage} {time}";
             allow_missing = true;
             hide_missing = true;
@@ -61,6 +57,18 @@ in {
       # Bottom bar with secondary info
       bottom = common // {
         blocks = [
+          {
+            block = "sound";
+            max_vol = 100;
+            format = "{output_description} {volume}";
+            on_click = "${pkgs.pavucontrol}/bin/pavucontrol --tab=3";
+          }
+          {
+            block = "sound";
+            max_vol = 50;
+            device_kind = "source";
+            on_click = "${pkgs.pavucontrol}/bin/pavucontrol --tab=4";
+          }
           {
             block = "bluetooth";
             mac = "38:18:4C:D3:F5:A0";
