@@ -5,6 +5,8 @@ let
     icons = "material-nf";
     theme = "modern";
   };
+
+  in_terminal = command: "${pkgs.alacritty}/bin/alacritty --command '${command}'";
 in {
   programs.i3status-rust = {
     enable = true;
@@ -21,6 +23,7 @@ in {
           {
             block = "cpu";
             interval = 5;
+            on_click = in_terminal "${pkgs.bottom}/bin/btm";
           }
           {
             block = "memory";
@@ -39,6 +42,7 @@ in {
           {
             block = "net";
             format = "{ssid} {ip}";
+            on_click = in_terminal "${pkgs.iwd}/bin/iwctl";
           }
           {
             block = "battery";
