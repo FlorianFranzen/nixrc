@@ -41,7 +41,7 @@ in {
   };
 
   config = mkIf (cfg != null) {
-    
+
     gtk.gtk2.extraConfig = ''
       gtk-cursor-theme-name="${cfg.name}"
       gtk-cursor-theme-size=${toString cfg.size}

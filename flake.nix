@@ -10,7 +10,8 @@
     digga.inputs.home-manager.follows = "home";
 
     # Host configurations
-    nixpkgs.url = "github:FlorianFranzen/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    unstable.url = "github:FlorianFranzen/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
@@ -34,6 +35,7 @@
     self,
     digga,
     nixpkgs,
+    unstable,
     hardware,
     home,
     firefox-addons,
@@ -64,8 +66,8 @@
     # Turn firefox addon collection to overlay
     firefox-addons-overlay = (self: super: {
       buildFirefoxXpiAddon = firefox-addons.lib.${super.system}.buildFirefoxXpiAddon;
-      firefox-addons = firefox-addons.packages.${super.system};      
-    });  
+      firefox-addons = firefox-addons.packages.${super.system};
+    });
 
   in digga.lib.mkFlake {
 
@@ -120,6 +122,8 @@
       };
       users = importModuleTree ./homes;
     };
+
+    homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
     # system build checks
     checks.x86_64-linux = builtins.mapAttrs
