@@ -3,11 +3,11 @@
 let
   common = {
     icons = "material-nf";
-    theme = "modern";
   };
 
   in_terminal = command: "${pkgs.alacritty}/bin/alacritty --command '${command}'";
 in {
+
   programs.i3status-rust = {
     enable = true;
 
