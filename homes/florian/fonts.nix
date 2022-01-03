@@ -26,5 +26,7 @@ in {
     inherit size;
   };
 
+  programs.foot.settings.main.font = "${name}:size=${toString size}";
+
   programs.mako.font = "${name} ${toString size}";
 }
