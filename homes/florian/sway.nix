@@ -14,7 +14,6 @@ in {
 
     # Use system's sway and Xwayland
     package = null;
-    xwayland = false;
 
     config = {
       # Default input config
