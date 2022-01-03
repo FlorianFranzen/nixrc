@@ -38,7 +38,7 @@ in {
 
       # Default tools
       menu = "${pkgs.wofi}/bin/wofi --show drun";
-      terminal = "${pkgs.alacritty}/bin/alacritty";
+      terminal = "${pkgs.foot}/bin/foot";
 
       # Basic look
       gaps = {
