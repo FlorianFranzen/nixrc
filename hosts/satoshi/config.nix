@@ -18,12 +18,17 @@
   # Disable GPU unless overriden in specialization
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
 
+
   boot = {
     # Latest kernel for better hardware support
     kernelPackages = pkgs.linuxPackages_latest;
 
-    # Avoid nouveau failing to initialize discrete gpu
-    blacklistedKernelModules = [ "nouveau" ];  
+    blacklistedKernelModules = [ 
+      # Avoid nouveau failing to initialize discrete gpu
+      "nouveau" 
+      # Disable, useless without working video
+      "snd_hda_codec_hdmi"
+    ];  
 
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" ];
