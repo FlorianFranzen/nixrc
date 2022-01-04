@@ -52,6 +52,11 @@ in {
       "gtk-cursor-theme-size" = cfg.size;
     };
 
+    gtk.gtk4.extraConfig = {
+      "gtk-cursor-theme-name" = cfg.name;
+      "gtk-cursor-theme-size" = cfg.size;
+    };
+
     home.packages = mkIf (cfg.package != null) [ cfg.package ];
   };
 }
