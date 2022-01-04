@@ -3,9 +3,5 @@
     enable = true;
 
     server.enable = true;
-
-    settings = {
-      main.dpi-aware = "yes";
-    };
   };
 }
