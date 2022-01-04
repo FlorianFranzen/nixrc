@@ -287,11 +287,11 @@
     "spacemacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1638224976,
-        "narHash": "sha256-B0AxrQ1q/Lh2ChjYVec7haSnXyPdjeVXljiazLpHack=",
+        "lastModified": 1641247363,
+        "narHash": "sha256-ATyghwT0L0n0YaX/+qO01ljs3KYdi5FLsMalGebnZbk=",
         "owner": "syl20bnr",
         "repo": "spacemacs",
-        "rev": "33e7f62693baf1a3de87750bf95fd4d6795d190d",
+        "rev": "0206197b224f67e6a4c65bb850758f4affc9cc84",
         "type": "github"
       },
       "original": {
