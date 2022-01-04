@@ -35,6 +35,7 @@
     jq
     lsd
     ripgrep
+    socat
     ncdu
     tldr
     yq
