@@ -3,15 +3,22 @@
 let
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
+
+  cmd_lock = "${swaylock} --daemonize"; 
+  cmd_off = "${swaymsg} 'output * dpms off'"; 
+  cmd_on = "${swaymsg} 'output * dpms on'";
 in
 {
-  home.file.".config/swayidle/config".text = ''
-    timeout 300 '${swaylock} -f'
-    timeout 600 '${swaymsg} "output * dpms off"' resume '${swaymsg} "output * dpms on"'
-    before-sleep '${swaylock} -f'
-  '';
+  services.swayidle = {
+    enable = true;
 
-  wayland.windowManager.sway.extraConfig = ''
-    exec ${pkgs.swayidle}/bin/swayidle -w
-  '';
+    timeouts = [
+      { timeout = 600; command = cmd_lock; }
+      { timeout = 900; command = cmd_off; resumeCommand = cmd_on; }
+    ];
+
+    events = [
+      { event = "before-sleep"; command = cmd_lock; }
+    ];
+  };
 }
