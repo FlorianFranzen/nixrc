@@ -6,6 +6,8 @@
       Unit = {
         Description = "A lightweight overlay volume/backlight/progress/anything bar for Wayland";
         Documentation = [ "man:wob(1)" ];
+
+        ConditionEnvironment = "WAYLAND_DISPLAY";
       };
 
       Service = {
