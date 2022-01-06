@@ -129,10 +129,6 @@ in {
     };
 
     extraConfig = ''
-      # Set up pipe for overlay bar
-      set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-      exec mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob
-
       # Forward various environment variables to any dbus services
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
     '';
