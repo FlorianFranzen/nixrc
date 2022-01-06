@@ -54,6 +54,8 @@ in {
           modifier = final.config.modifier;
           exec = pkg: exec' pkg pkg.pname;
           exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
+
+          WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
       in lib.mkOptionDefault {
 
         # Lock screen
@@ -79,10 +81,11 @@ in {
         "${modifier}+bracketright" = "opacity plus 0.05"; 
 
         # Volume control
-        "--locked XF86AudioLowerVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ -5%";
-        "--locked XF86AudioRaiseVolume" = "${exec' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ +5%";
-        "--locked XF86AudioMute"        = "${exec' pkgs.pulseaudio "pactl"} set-sink-mute @DEFAULT_SINK@ toggle";
-        "--locked XF86AudioMicMute"     = "${exec' pkgs.pulseaudio "pactl"} set-source-mute @DEFAULT_SOURCE@ toggle";
+        "--locked XF86AudioLowerVolume" = "${exec pkgs.pamixer} --decrease 5 --get-volume > ${WOBSOCK}";
+        "--locked XF86AudioRaiseVolume" = "${exec pkgs.pamixer} --increase 5 --get-volume > ${WOBSOCK}";
+
+        "--locked XF86AudioMute"        = "${exec pkgs.pamixer} --toggle-mute";
+        "--locked XF86AudioMicMute"     = "${exec pkgs.pamixer} --default-source --toggle-mute";
 
         # Playback controls
         "--locked XF86AudioPrev" = "${exec pkgs.playerctl} previous";
@@ -125,8 +128,12 @@ in {
       ];
     };
 
-    # Forward various environment variables to any dbus services
     extraConfig = ''
+      # Set up pipe for overlay bar
+      set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+      exec mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob
+
+      # Forward various environment variables to any dbus services
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
     '';
   };
