@@ -17,7 +17,7 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Home management
-    home.url = "github:nix-community/home-manager";
+    home.url = "github:FlorianFranzen/home-manager/nix-profile";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Firefox Addons
