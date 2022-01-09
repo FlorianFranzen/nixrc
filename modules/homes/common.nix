@@ -1,8 +1,12 @@
 # Base config for all homes
+{ lib, ... }:
 
 {
   programs.home-manager.enable = true;
 
-  # FIXME Work around purity issue
-  manual.manpages.enable = false;
+  home = {
+    extraOutputsToInstall = [ "doc" ];
+
+    stateVersion = lib.mkDefault "21.11";
+  };
 }
