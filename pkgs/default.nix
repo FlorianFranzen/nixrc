@@ -42,6 +42,9 @@ in {
   # With experimental features
   bluez5-experimental = callOverride ./bluez.nix {};
 
+  # WSL boot shim maker
+  mkSyschdemd = self.callPackage ./syschdemd.nix {};
+
   # Patched to include git submodules
   nixFlakes = callOverride ./nix-flakes.nix {};
 
