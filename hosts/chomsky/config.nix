@@ -12,7 +12,7 @@
 {
   imports = (with suites; full)
     ++ (with profiles; [ docker gaming ])
-    ++ (with profiles.develop; [ minimal emacs embedded extra manufac ])
+    ++ (with profiles.develop; [ minimal emacs embedded extra manufac linux ])
     ++ (with profiles.desktops; [ lightdm sway ])
     ++ [ profiles.networks.iwd ]
     ++ (with hardware; [

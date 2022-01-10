@@ -1,10 +1,9 @@
 { config, pkgs, lib, suites, profiles, hardware, ... }:
 
 {
-
   imports = suites.full ++
     [ profiles.docker profiles.networks.iwd profiles.waydroid ] ++
-    (with profiles.develop; [ minimal emacs extra cross ]) ++
+    (with profiles.develop; [ minimal emacs extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with hardware; [
       common-cpu-amd
@@ -17,7 +16,6 @@
 
   # Disable GPU unless overriden in specialization
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
-
 
   boot = {
     # Latest kernel for better hardware support
