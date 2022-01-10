@@ -22,8 +22,8 @@
       yubikey
     ]);
 
-  # Install all managed users by default
-  home-manager.users = hmUsers;
+  # Install full desktop environment
+  home.users.florian = hmUsers.florian-desktop;
 
   # Needed for Wifi driver
   nixpkgs.config.allowUnfree = true;

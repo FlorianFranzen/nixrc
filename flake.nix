@@ -43,22 +43,65 @@
     spacemacs
   } @ inputs: let
 
-    # Recursive import helpers
-    importTree = digga.lib.rakeLeaves;
+    inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
 
-    importFlatTree = name: dir: builtins.mapAttrs
-      (_: mods: {...}: { ${name} = builtins.attrValues mods; })
-      (importTree dir);
+    inherit (nixpkgs.lib) filterAttrs mapAttrs';
 
-    importModuleTree = dir: builtins.mapAttrs
-      (_: mods: {...}: { imports = builtins.attrValues mods; })
-      (importTree dir);
+    # Create a module with a key set
+    mkMod = key: val: {...}: { ${key} = val; };
+
+    # Import helpers to walk git directory tree
+    readTree = digga.lib.rakeLeaves;
+
+    flattenTree = digga.lib.flattenTree;
+
+    joinTree = { name ? "imports", recurse ? true }:
+      let
+        recJoin = _: attrs: mkMod name (map
+          (v: if recurse && isAttrs v then recJoin v else v)
+          (attrValues attrs)
+        );
+      in
+        recJoin;
+
+    joinImportsTree = joinTree {};
+
+    joinModulesTree = tree: joinTree
+      { name = "modules"; recurse = false; }
+      (flattenTree tree);
+
+    # Helpers to parse experimental varients directory strucutre
+    readHomeTree = dir: let
+      tree = readTree dir;
+
+      # Ignore all files in subfolders for base config
+      users = builtins.mapAttrs
+        (_: subtree: mkMod "imports" (filter (e: ! isAttrs e) (attrValues subtree)))
+        tree;
+
+      # Helper to extend user config with varient
+      extend = user: (users.${user} {}).imports;
+
+      # Extract each subfolder as varient extending used configs
+      toVarients = user: mods:
+        mapAttrs' (var: mods: {
+          name = "${user}-${var}";
+          value = mkMod "imports" (extend user ++ attrValues mods);
+        }) (filterAttrs (_: v: isAttrs v) mods);
+
+      # Collect varients for all users
+      varients = foldl'
+        (sum: user: sum // (toVarients user tree.${user}))
+        {}
+        (attrNames tree);
+    in
+      users // varients;
 
     # Turn string list of subdirs into attrset of tree imports
-    mkImportables = dirs: nixpkgs.lib.genAttrs dirs (n: importTree (./. + "/${n}"));
+    mkImportables = dirs: nixpkgs.lib.genAttrs dirs (n: readTree (./. + "/${n}"));
 
     # Shared host and home modules 
-    modules = importModuleTree ./modules;
+    modules = mapAttrs joinImportsTree (readTree ./modules);
 
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
@@ -101,7 +144,7 @@
         ];
       };
 
-      hosts = importFlatTree "modules" ./hosts;
+      hosts = mapAttrs joinModulesTree (readTree ./hosts);
 
       importables = let
         imported = mkImportables [ "hardware" "profiles" "services" ];
@@ -117,10 +160,11 @@
     # home-manager home configs
     home = {
       modules = [ modules.homes ];
-      importables = mkImportables [ "themes" ] // { 
+      importables = mkImportables [ "themes" ] // {
         inherit self inputs; 
       };
-      users = importModuleTree ./homes;
+
+      users = readHomeTree ./homes;
     };
 
     homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;

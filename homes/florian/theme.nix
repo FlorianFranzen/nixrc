@@ -1,0 +1,5 @@
+{ themes, ... }:        
+
+{
+  imports = [ themes.material ];       
+}
