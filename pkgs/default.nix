@@ -34,8 +34,10 @@ let
     '';
   };
 in {
+  # Kernel module overrides
   linuxPackages_latest = extendKernel super.linuxPackages_latest;
   linuxPackages = extendKernel super.linuxPackages;
+
 
   # With experimental features
   bluez5-experimental = callOverride ./bluez.nix {};
@@ -46,18 +48,21 @@ in {
   # Patched to work with yubikey
   pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
 
+  # Update to unreleased version with color fix
+  swaylock-effects = callOverride ./swaylock-effects.nix {};
+
   # Simplify zsa device access
   zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};
+
 
   # Wayland-backend for electron based apps
   element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
 
+
   # Custom firefox addons
   firefox-addons = super.firefox-addons // { 
     polkadot-js = super.callPackage ./polkadot-js-extension.nix {}; 
   };
 }
-
-
