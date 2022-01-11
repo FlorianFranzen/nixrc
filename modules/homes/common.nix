@@ -7,6 +7,7 @@
   home = {
     extraOutputsToInstall = [ "doc" ];
 
-    stateVersion = lib.mkDefault "21.11";
+    # Force needed to override default set in homeManagerConfiguration
+    stateVersion = lib.mkForce "21.11";
   };
 }
