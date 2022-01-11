@@ -1,9 +1,12 @@
-{ config, pkgs, lib, profiles, hardware, ... }:
+{ config, pkgs, lib, profiles, hardware, hmUsers, ... }:
 
 {
   imports = with profiles; [
     media desktops.sway networks.iwd hardware.yubikey
   ];
+
+  # Install full desktop environment
+  home-manager.users.florian = hmUsers.florian-desktop;
 
   boot = {
     # Hybrid 32bit UEFI but 64bit Atom CPU	

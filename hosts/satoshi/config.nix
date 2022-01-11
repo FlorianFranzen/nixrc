@@ -1,4 +1,4 @@
-{ config, pkgs, lib, suites, profiles, hardware, ... }:
+{ config, pkgs, lib, suites, profiles, hardware, hmUsers, ... }:
 
 {
   imports = suites.full ++
@@ -13,6 +13,9 @@
       yubikey
       zsa
     ]);
+
+  # Install full desktop environment
+  home-manager.users.florian = hmUsers.florian-desktop;
 
   # Disable GPU unless overriden in specialization
   hardware.nvidiaOptimus.disable = lib.mkDefault true;

@@ -23,7 +23,7 @@
     ]);
 
   # Install full desktop environment
-  home.users.florian = hmUsers.florian-desktop;
+  home-manager.users.florian = hmUsers.florian-desktop;
 
   # Needed for Wifi driver
   nixpkgs.config.allowUnfree = true;
