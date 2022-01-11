@@ -9,4 +9,4 @@ zsa-udev-rules.overrideAttrs (old: rec {
     rev = "${version}-linux";
     sha256 = "mZzXKFKlO/jAitnqzfvmIHp46A+R3xt2gOhVC3qN6gM=";
   };
-}) 
+})

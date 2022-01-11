@@ -18,7 +18,7 @@
   # Primary drive - SSD 256GB
 
   ## efi: FAT32 partition for UEFI booting
-  fileSystems."/boot" 	= { 
+  fileSystems."/boot" 	= {
     device = "/dev/disk/by-uuid/67E3-17ED";
     fsType = "vfat";
   };
@@ -26,19 +26,19 @@
   ## system: encrypted main btrfs partition
   boot.initrd.luks.devices."system".device = "/dev/disk/by-uuid/95095698-2bd3-4e96-91a1-7a4e327a3412";
 
-  fileSystems."/" = { 
+  fileSystems."/" = {
     device = "/dev/disk/by-uuid/79e6a8d4-a32a-41e9-a0e1-a15e18e32b02";
     fsType = "btrfs";
     options = [ "subvol=@" "compress=zstd" ];
   };
 
-  fileSystems."/home" = { 
+  fileSystems."/home" = {
     device = "/dev/disk/by-uuid/79e6a8d4-a32a-41e9-a0e1-a15e18e32b02";
     fsType = "btrfs";
     options = [ "subvol=@home" "compress=zstd" ];
   };
 
-  fileSystems."/tardis/system" = { 
+  fileSystems."/tardis/system" = {
     device = "/dev/disk/by-uuid/79e6a8d4-a32a-41e9-a0e1-a15e18e32b02";
     fsType = "btrfs";
     options = [ "noatime" ];
@@ -55,13 +55,13 @@
   ## data: main encrypted btrfs data partition
   boot.initrd.luks.devices."data".device = "/dev/disk/by-uuid/2b373cc4-b551-4291-81bc-1327e28f3184";
 
-  fileSystems."/tardis/data" = { 
+  fileSystems."/tardis/data" = {
     device = "/dev/disk/by-uuid/351fae51-949f-4af1-9fbc-318b6fcf4f53";
     fsType = "btrfs";
     options = [ "noatime" ];
   };
 
-  fileSystems."/home/florian/Cloud" = { 
+  fileSystems."/home/florian/Cloud" = {
     device = "/dev/disk/by-uuid/351fae51-949f-4af1-9fbc-318b6fcf4f53";
     fsType = "btrfs";
     options = [ "subvol=@cloud" "compress=zstd" ];

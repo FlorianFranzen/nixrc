@@ -10,10 +10,10 @@
 
   nixpkgs.config.packageOverrides = pkgs: {
     # Enable sensord deamon build
-    lm_sensors = pkgs.lm_sensors.override { sensord = true; }; 
+    lm_sensors = pkgs.lm_sensors.override { sensord = true; };
   };
 
-  # Additional packages 
+  # Additional packages
   environment.systemPackages = with pkgs; [
     lm_sensors smartmontools
   ];
@@ -48,7 +48,7 @@
     #  ( 90,  35,  43)
     #  (110,  40,  48)
     #  (150,  45,  53)
-    #  (190,  50, 100) 
+    #  (190,  50, 100)
   };
 
   system.stateVersion = "20.09";

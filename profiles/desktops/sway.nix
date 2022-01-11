@@ -29,7 +29,7 @@
   programs.sway = {
     enable = true;
     extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
-    extraSessionCommands = let 
+    extraSessionCommands = let
       schema = pkgs.gsettings-desktop-schemas;
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
     in ''
@@ -40,7 +40,7 @@
       # Enable libappindicator support
       export XDG_CURRENT_DESKTOP=sway
 
-      # Enable wayland backends 
+      # Enable wayland backends
       export XDG_SESSION_TYPE=wayland
 
       # Use CLUTTER wayland backend

@@ -21,12 +21,12 @@
     # Latest kernel for better hardware support
     kernelPackages = pkgs.linuxPackages_latest;
 
-    blacklistedKernelModules = [ 
+    blacklistedKernelModules = [
       # Avoid nouveau failing to initialize discrete gpu
-      "nouveau" 
+      "nouveau"
       # Disable, useless without working video
       "snd_hda_codec_hdmi"
-    ];  
+    ];
 
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" ];
@@ -38,5 +38,5 @@
     efi.canTouchEfiVariables = true;
   };
 
-  system.stateVersion = "21.05"; 
+  system.stateVersion = "21.05";
 }

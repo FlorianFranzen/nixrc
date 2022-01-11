@@ -1,5 +1,5 @@
 # (c) under Apache 2.0 License, from github:Trundle/NixOS-WSL
-{ lib, substituteAll, daemonize }:  
+{ lib, substituteAll, daemonize }:
 
 { wrapperDir, fsPackages, defaultUser }:
 

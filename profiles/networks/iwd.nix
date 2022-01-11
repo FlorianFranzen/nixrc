@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 
-{ 
+{
   # Enable dynamic configured iwd
   networking.wireless.iwd.enable = true;
 

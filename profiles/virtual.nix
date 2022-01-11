@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
-{  
+{
   # Useful packages for development
   environment.systemPackages = with pkgs; [
      virtmanager
      spice-gtk
   ];
- 
+
   # Enable virtualization
   virtualisation.libvirtd.enable = true;
 
@@ -17,11 +17,11 @@
   security.wrappers.spice-client-glib-usb-acl-helper.source =
     "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
 
-  # Security settings 
+  # Security settings
   security.polkit = {
     enable = true;
     extraConfig = ''
-      polkit.addRule(function(action, subject) { 
+      polkit.addRule(function(action, subject) {
         if (action.id == "org.spice-space.lowlevelusbaccess" &&
             subject.isInGroup("libvirtd")) {
           return "yes";
@@ -32,6 +32,6 @@
 
   # Give default users access to libvirtd
   users.extraUsers.florian = {
-    extraGroups = [ "libvirtd" ]; 
+    extraGroups = [ "libvirtd" ];
   };
 }

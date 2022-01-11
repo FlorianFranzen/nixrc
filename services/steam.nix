@@ -4,7 +4,7 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
- 
+
   # Enable kodi media server
   services.xserver = {
     enable = true;
@@ -15,7 +15,7 @@
       enable = true;
       user = "steam";
     };
-    
+
     desktopManager.steam.enable = true;
     desktopManager.steam.package = pkgs.steamos-compositor-plus;
   };

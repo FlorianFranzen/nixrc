@@ -5,12 +5,12 @@ with lib;
 
 let
   defaultUser = "nixos";
-  
-  syschdemd = pkgs.mkSyschdemd { 
+
+  syschdemd = pkgs.mkSyschdemd {
     inherit (config.security) wrapperDir;
     inherit (config.system) fsPackages;
     inherit defaultUser;
-  };  
+  };
 in {
   imports = [
     "${modulesPath}/profiles/minimal.nix"

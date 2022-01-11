@@ -19,7 +19,7 @@
 
   # Enable network manager tray
   programs.nm-applet.enable = true;
-  
+
   # List of users able to control network manager
   users.extraUsers.florian = {
     extraGroups = [ "networkmanager" ];

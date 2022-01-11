@@ -30,7 +30,7 @@
 
   boot = {
     # Various kernel and module quirks
-    kernelParams = [ 
+    kernelParams = [
       "i915.modeset=1"
       "i915.enable_fbc=1"
 #      "usbcore.autosupend=1h"
@@ -50,7 +50,7 @@
       enable = true;
       efiSupport = true;
       device = "nodev";
-      enableCryptodisk = true; 
+      enableCryptodisk = true;
       efiInstallAsRemovable = true;
     };
   };

@@ -4,11 +4,11 @@
 
   nixpkgs.config = {
     #allowUnfree = true;
-   
-    kodi = { 
-      #enableAdvancedLauncher = true;      
+
+    kodi = {
+      #enableAdvancedLauncher = true;
       #enableAdvancedEmulatorLauncher = true;
-      #enableControllers = true;      
+      #enableControllers = true;
       #enableExodus = true;
       #enableHyperLauncher = true;
       #enableJoystick = true;

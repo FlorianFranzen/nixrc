@@ -2,7 +2,7 @@
 
 {
   imports = with services; [ hydra jellyfin ];
-   
+
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
 
@@ -13,18 +13,18 @@
   networking.interfaces.enp3s0.wakeOnLan.enable = true;
 
   # Suspend on power button press
-  services.logind.extraConfig = "HandlePowerKey=suspend"; 
+  services.logind.extraConfig = "HandlePowerKey=suspend";
 
   # Backup samba share
 #  services.samba = {
 #    enable = true;
 #    extraConfig = ''
 #      guest account = nobody
-#      map to guest = bad user  
+#      map to guest = bad user
 #    '';
 #    shares = {
 #      wanderer = {
-#	browsable = true;       
+#	browsable = true;
 #	writable = true;
 #	public = true;
 #        path = "/data/wanderer";

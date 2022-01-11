@@ -6,7 +6,7 @@
   ];
 
   boot = {
-    # Hybrid 32bit UEFI but 64bit Atom CPU	  
+    # Hybrid 32bit UEFI but 64bit Atom CPU	
     loader.grub = {
       enable = true;
       efiSupport = true;
@@ -19,7 +19,7 @@
 
     # Fix for freezing (TODO might be fixed in recent kernel or require patch)
     kernelParams = [
-      "intel_idle.max_cstate=1" 
+      "intel_idle.max_cstate=1"
     ];
 
     # Add necessary modules for internal keyboard support during early boot

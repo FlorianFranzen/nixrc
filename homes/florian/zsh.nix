@@ -19,7 +19,7 @@
       defaultKeymap = "viins";
 
       localVariables = {
-        # Set default 
+        # Set default
         EDITOR = "vim";
         BROWSER = "firefox";
       };

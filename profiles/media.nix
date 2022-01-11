@@ -26,8 +26,8 @@
 
     mpv
     vlc
- 
+
     ffmpeg
     mkvtoolnix
-  ]; 
+  ];
 }

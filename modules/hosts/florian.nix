@@ -1,6 +1,6 @@
 { pkgs, hmUsers, lib, ... }:
 
-{ 
+{
   # Install default managed home folder
   home-manager.users.florian = hmUsers.florian;
 

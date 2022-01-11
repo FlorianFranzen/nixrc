@@ -10,7 +10,7 @@
     '';
 
     # Allow copy closure by admins
-    trustedUsers = [ "root" "@wheel" ];  
+    trustedUsers = [ "root" "@wheel" ];
 
     # Generate nix registry and path from inputs (fup)
     generateRegistryFromInputs = true;

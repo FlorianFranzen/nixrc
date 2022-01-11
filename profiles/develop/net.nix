@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-{  
+{
   # Enable wireshark and ui
   programs.wireshark = {
     enable = true;
@@ -8,6 +8,6 @@
   };
 
   users.extraUsers.florian = {
-    extraGroups = [ "wireshark" ]; 
+    extraGroups = [ "wireshark" ];
   };
 }

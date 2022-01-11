@@ -3,7 +3,7 @@ self: super:
 let
   lib = super.lib;
 
-  callOverrideWith = pkgs: fn: args: 
+  callOverrideWith = pkgs: fn: args:
     let
       f = if lib.isFunction fn then fn else import fn;
       auto = builtins.intersectAttrs (lib.functionArgs f) pkgs;
@@ -65,7 +65,7 @@ in {
 
 
   # Custom firefox addons
-  firefox-addons = super.firefox-addons // { 
-    polkadot-js = super.callPackage ./polkadot-js-extension.nix {}; 
+  firefox-addons = super.firefox-addons // {
+    polkadot-js = super.callPackage ./polkadot-js-extension.nix {};
   };
 }

@@ -59,7 +59,7 @@ in {
         # Lock screen
         "${modifier}+o" = exec' pkgs.swaylock-effects "swaylock";
 
-        # Add logout screen 
+        # Add logout screen
         "${modifier}+q" = "kill";
         "${modifier}+Shift+q" = exec pkgs.wlogout;
 
@@ -75,8 +75,8 @@ in {
         "${modifier}+Shift+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save area";
 
         # Transparency control
-        "${modifier}+bracketleft" = "opacity minus 0.05"; 
-        "${modifier}+bracketright" = "opacity plus 0.05"; 
+        "${modifier}+bracketleft" = "opacity minus 0.05";
+        "${modifier}+bracketright" = "opacity plus 0.05";
 
         # Volume control
         "--locked XF86AudioLowerVolume" = "${exec pkgs.pamixer} --decrease 5 --get-volume > ${WOBSOCK}";

@@ -25,8 +25,8 @@
         noauto yes
   '';
 
-  systemd = { 
-    services.btrbk = { 
+  systemd = {
+    services.btrbk = {
       description = "btrbk snapshot and backup service";
       requires = [ "local-fs.target" ];
       serviceConfig = {
@@ -34,8 +34,8 @@
         ExecStart = "${pkgs.btrbk}/bin/btrbk run";
       };
     };
-    
-    timers.btrbk = {    
+
+    timers.btrbk = {
       description = "Run btrbk service on a regular basis";
       wantedBy = [ "timers.target" ];
       timerConfig = {

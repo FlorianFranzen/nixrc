@@ -7,7 +7,7 @@
     defaultPackages = with pkgs; [
       git perl rsync strace
     ];
-    
+
     # Link common completion files
     pathsToLink = [ "/share/bash" "/share/zsh" ];
 

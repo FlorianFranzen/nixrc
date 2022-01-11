@@ -4,8 +4,8 @@ let
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
 
-  cmd_lock = "${swaylock} --daemonize"; 
-  cmd_off = "${swaymsg} 'output * dpms off'"; 
+  cmd_lock = "${swaylock} --daemonize";
+  cmd_off = "${swaymsg} 'output * dpms off'";
   cmd_on = "${swaymsg} 'output * dpms on'";
 in
 {

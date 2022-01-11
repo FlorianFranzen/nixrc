@@ -100,7 +100,7 @@
     # Turn string list of subdirs into attrset of tree imports
     mkImportables = dirs: nixpkgs.lib.genAttrs dirs (n: readTree (./. + "/${n}"));
 
-    # Shared host and home modules 
+    # Shared host and home modules
     modules = mapAttrs joinImportsTree (readTree ./modules);
 
     # Import custom packages as overlay
@@ -122,8 +122,8 @@
     # nixpkgs versions and configs
     channels.nixpkgs = {
       # TODO Check sharedOverlays
-      overlays = [ 
-        emacs-overlay.overlay 
+      overlays = [
+        emacs-overlay.overlay
         firefox-addons-overlay
         pkgs-overlay
       ];
@@ -161,7 +161,7 @@
     home = {
       modules = [ modules.homes ];
       importables = mkImportables [ "themes" ] // {
-        inherit self inputs; 
+        inherit self inputs;
       };
 
       users = readHomeTree ./homes;

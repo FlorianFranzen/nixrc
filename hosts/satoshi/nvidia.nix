@@ -3,7 +3,7 @@
 let
   nvidia-x11 = config.boot.kernelPackages.nvidia_x11;
 in {
-  # Remove license warning 
+  # Remove license warning
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-x11"
   ];
@@ -32,7 +32,7 @@ in {
       powerManagement.enable = true;
     };
 
-    # Add OpenGL VDPAU support 
+    # Add OpenGL VDPAU support
     hardware.opengl = {
       extraPackages = with pkgs; [ nvidia-x11.out libvdpau-va-gl vaapiVdpau ];
       extraPackages32 = with pkgs; [ nvidia-x11.lib32 libvdpau-va-gl vaapiVdpau ];

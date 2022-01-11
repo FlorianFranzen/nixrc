@@ -5,7 +5,7 @@
   environment.systemPackages = with pkgs; [
     yubikey-manager
   ];
- 
+
   # Disable ssh agent by default to give users the choice
   programs.ssh.startAgent = lib.mkDefault false;
 

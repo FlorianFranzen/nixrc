@@ -30,7 +30,7 @@
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
-      extraPackages = with pkgs; [ 
+      extraPackages = with pkgs; [
         i3lock-color
         alacritty
         polybarFull
