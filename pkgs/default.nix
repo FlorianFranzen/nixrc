@@ -54,6 +54,9 @@ in {
   # Update to unreleased version with color fix
   swaylock-effects = callOverride ./swaylock-effects.nix {};
 
+  # Add swayest workstyle
+  sworkstyle = self.callPackage ./sworkstyle.nix {};
+
   # Simplify zsa device access
   zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};
 
