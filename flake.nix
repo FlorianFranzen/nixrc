@@ -74,19 +74,28 @@
     readHomeTree = dir: let
       tree = readTree dir;
 
-      # Ignore all files in subfolders for base config
-      users = builtins.mapAttrs
-        (_: subtree: mkMod "imports" (filter (e: ! isAttrs e) (attrValues subtree)))
-        tree;
+      # Ignore all files in subfolders for base user config
+      mkUser = _: mods:
+        mkMod "imports" (filter (e: ! isAttrs e) (attrValues mods));
 
-      # Helper to extend user config with varient
-      extend = user: (users.${user} {}).imports;
+      users = builtins.mapAttrs mkUser tree;
 
-      # Extract each subfolder as varient extending used configs
+      # Extend user config with varient and username fix
+      mkVarient = user: mods:
+        mkMod "imports" (
+          (users.${user} {}).imports ++
+          (attrValues mods) ++
+          [({ lib, ... }: {
+            home.username = lib.mkForce user;
+            home.homeDirectory = lib.mkForce "/home/${user}";
+          })]
+        );
+
+      # Extract each subfolder as varient
       toVarients = user: mods:
         mapAttrs' (var: mods: {
           name = "${user}-${var}";
-          value = mkMod "imports" (extend user ++ attrValues mods);
+          value = mkVarient user mods;
         }) (filterAttrs (_: v: isAttrs v) mods);
 
       # Collect varients for all users
