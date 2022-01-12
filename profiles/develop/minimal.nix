@@ -15,28 +15,22 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
-    gnumake
-
     cachix
-    nixopsUnstable
-    patchelf
-
-    libfaketime
-
-    git-crypt
-
     direnv
-
-    moreutils
-    bat
     dos2unix
     fd
     fzf
+    git-crypt
+    gnumake
     jq
-    lsd
+    libfaketime
+    moreutils
+    ncdu
+    nixopsUnstable
+    patchelf
     ripgrep
     socat
-    ncdu
+    tree
     tldr
     yq
   ];
