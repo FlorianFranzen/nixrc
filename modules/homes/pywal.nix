@@ -7,9 +7,7 @@ let
 
   mkWalCache = theme: pkgs.runCommand "wal-cache-${theme}" {} ''
     export HOME=$(mktemp -d)
-
     ${pkgs.pywal}/bin/wal --theme ${theme} -enst
-
     mv $HOME/.cache/wal $out
   '';
 
@@ -34,6 +32,21 @@ in {
       # Load color scheme
       (cat ${cache}/sequences &)
     '';
+
+    programs.mako = with result.colors; {
+      backgroundColor = "${color0}f2";
+      borderColor = "${color8}f2";
+      progressColor = "${color6}f2";
+      textColor = "${color7}f2";
+    };
+
+    services.wob = {
+      extraArgs = with result.colors; [
+        "--border-color=${color8}f2"
+        "--background-color=${color0}f2"
+        "--bar-color=${color7}f2"
+      ];
+    };
 
     wayland.windowManager.sway.config.colors = with result.colors;
       let
