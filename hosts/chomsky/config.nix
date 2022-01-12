@@ -13,7 +13,7 @@
   imports = (with suites; full)
     ++ (with profiles; [ docker gaming ])
     ++ (with profiles.develop; [ minimal emacs embedded extra manufac linux ])
-    ++ (with profiles.desktops; [ lightdm sway ])
+    ++ (with profiles.desktops; [ gdm sway ])
     ++ [ profiles.networks.iwd ]
     ++ (with hardware; [
       common-cpu-intel-sandy-bridge
