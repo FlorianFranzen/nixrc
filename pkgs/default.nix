@@ -62,7 +62,6 @@ in {
 
 
   # Wayland-backend for electron based apps
-  element-desktop-wayland = enableOzoneWayland super.element-desktop;
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
 
