@@ -11,7 +11,7 @@
 
     # Host configurations
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
-    unstable.url = "github:FlorianFranzen/nixpkgs/nixos-unstable";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
@@ -19,6 +19,10 @@
     # Home management
     home.url = "github:FlorianFranzen/home-manager/nix-profile";
     home.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Latest wayland tools
+    wayland.url = "github:FlorianFranzen/nixpkgs-wayland/patch-1";
+    wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Firefox Addons
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -38,6 +42,7 @@
     unstable,
     hardware,
     home,
+    wayland,
     firefox-addons,
     emacs-overlay,
     spacemacs
@@ -115,6 +120,9 @@
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
 
+    # Import unstable overlay 
+    unstable-overlay = import ./pkgs/unstable.nix;
+
     # Turn firefox addon collection to overlay
     firefox-addons-overlay = (self: super: {
       buildFirefoxXpiAddon = firefox-addons.lib.${super.system}.buildFirefoxXpiAddon;
@@ -132,11 +140,15 @@
     channels.nixpkgs = {
       # TODO Check sharedOverlays
       overlays = [
+        wayland.overlay
         emacs-overlay.overlay
         firefox-addons-overlay
+        unstable-overlay
         pkgs-overlay
       ];
     };
+
+    channels.unstable = {};
 
     # nixos system configs
     nixos = {

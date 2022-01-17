@@ -15,6 +15,22 @@
         "type": "github"
       }
     },
+    "cachix": {
+      "locked": {
+        "lastModified": 1641229786,
+        "narHash": "sha256-WPPcLNbVu6ryj772GooUpF285LOvRHdOo/UNJgPnFYI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "88579effa7e88c25087faf6de6388d0cd1738dc0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-21.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "deploy": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -282,7 +298,8 @@
         "home": "home",
         "nixpkgs": "nixpkgs",
         "spacemacs": "spacemacs",
-        "unstable": "unstable"
+        "unstable": "unstable",
+        "wayland": "wayland"
       }
     },
     "spacemacs": {
@@ -303,17 +320,39 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1639053832,
-        "narHash": "sha256-ecikMlArBrj7ZqZMkx+D+s4j4TQKpu6FWFsClfTN9ZQ=",
-        "owner": "FlorianFranzen",
+        "lastModified": 1641887635,
+        "narHash": "sha256-kDGpufwzVaiGe5e1sBUBPo9f1YN+nYHJlYqCaVpZTQQ=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4e941cea623e2b1c0f6ef86307b4a6369c878201",
+        "rev": "b2737d4980a17cc2b7d600d7d0b32fd7333aca88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "wayland": {
+      "inputs": {
+        "cachix": "cachix",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1642169804,
+        "narHash": "sha256-SweqqGwk2jaKWbmzfYQMDJnk+TZoChGWSMknePGZLTM=",
+        "owner": "FlorianFranzen",
+        "repo": "nixpkgs-wayland",
+        "rev": "3164fb29394475b38bf784095145e77d010b02d3",
         "type": "github"
       },
       "original": {
         "owner": "FlorianFranzen",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
+        "ref": "patch-1",
+        "repo": "nixpkgs-wayland",
         "type": "github"
       }
     }

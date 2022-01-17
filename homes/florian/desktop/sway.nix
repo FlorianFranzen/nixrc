@@ -11,7 +11,7 @@ in {
 
     wrapperFeatures.gtk = true;
 
-    extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
+    extraOptions = [ "--unsupported-gpu" ];
 
     extraSessionCommands = let
       schema = pkgs.gsettings-desktop-schemas;
