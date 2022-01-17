@@ -1,4 +1,8 @@
+{ pkgs, ... }:
+
 {
+  home.packages = [ pkgs.sequoia ];
+
   services.gpg-agent = {
     enable = true;
     enableExtraSocket = true;
