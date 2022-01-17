@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   hardware = {
@@ -27,18 +27,10 @@
 
   services.pipewire.alsa.support32Bit = true;
 
-  nixpkgs.config = {
-    # Steam is unfree
-    allowUnfree = true;
 
-    # Preferred wine config
-    wine = {
-      # release = "staging"; # Would be preferred, but full staging wine is not in binary cache.
-      build = "wineWow";
-    };
-  };
-
-  services.ratbagd.enable = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam" "steam-run"
+  ];
 
   environment.systemPackages = with pkgs; [
     _20kly
@@ -46,12 +38,11 @@
     openclonk
     openjk
     openra
-    piper
     steam
     steam-run
     superTuxKart
     (warzone2100.override { withVideos = true; })
-    wine
+    wineWowPackages.staging 
     winetricks
   ];
 }

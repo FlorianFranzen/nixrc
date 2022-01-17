@@ -8,8 +8,6 @@ in {
     "nvidia-x11"
   ];
 
-  environment.systemPackages = with pkgs; [ wineWowPackages.staging winetricks ];
-
   # Specialization that boots with proprietary driver
   specialisation.nvidia.configuration = {
     # Enable prime offloading
