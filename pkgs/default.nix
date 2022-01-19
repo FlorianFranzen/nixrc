@@ -14,10 +14,6 @@ let
   extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
     # Special version of bbswitch for amd cpus
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
-    # Latest version with some stability patches (incl in 5.16)
-    rtw89 = callOverrideWith ksuper ./rtw89.nix {
-      inherit (super) fetchFromGitHub;
-    };
   });
 
   enableOzoneWayland = drv: self.symlinkJoin {
