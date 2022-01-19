@@ -27,7 +27,11 @@ in {
   };
  
   # Latest sway depends on broken wlroots
-  sway-unwrapped = prev.sway-unwrapped.override {
+  sway-unwrapped = (prev.sway-unwrapped.override {
     inherit wlroots;
-  };
+  }).overrideAttrs (old: {
+    patches = old.patches ++ [ 
+      ./sway.no-flicker.patch
+    ];
+  });
 }

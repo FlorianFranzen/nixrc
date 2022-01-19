@@ -1,0 +1,38 @@
+From 53d02ced55834d13bcdb4cc3a49e931f472fe267 Mon Sep 17 00:00:00 2001
+From: Rouven Czerwinski <rouven@czerwinskis.de>
+Date: Tue, 18 Jan 2022 19:13:01 +0100
+Subject: [PATCH] transaction: destroying nodes aren't hidden
+
+Commit 37d7bc69986f ("transaction: Only wait for ack from visible
+views") introduced a check which uses view_is_visible() to check if a view
+is still visible on the screen. However view_is_visible() will early
+return in case the node is in the destroying state. This is incorrect
+for transactions, since a destroying view which is visible will trigger
+configure events for other clients. This bug was visible when repeatedly
+opening and closing two views side by side, since we ignore the
+destroying node we get a frame where the still open view is shown with
+the old configure values and the rest is the desktop background. The
+next frame is than correct again.
+
+Fix this by considering destroying views as visible, we correctly wait
+for them and send the configure events to other views in time, fixing
+the background flicker.
+
+Fixes #6473
+---
+ sway/desktop/transaction.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sway/desktop/transaction.c b/sway/desktop/transaction.c
+index b1f3fb326e..f5a3a053f3 100644
+--- a/sway/desktop/transaction.c
++++ b/sway/desktop/transaction.c
+@@ -402,7 +402,7 @@ static void transaction_commit(struct sway_transaction *transaction) {
+ 		struct sway_transaction_instruction *instruction =
+ 			transaction->instructions->items[i];
+ 		struct sway_node *node = instruction->node;
+-		bool hidden = node_is_view(node) &&
++		bool hidden = node_is_view(node) && !node->destroying &&
+ 			!view_is_visible(node->sway_container->view);
+ 		if (should_configure(node, instruction)) {
+ 			instruction->serial = view_configure(node->sway_container->view,
