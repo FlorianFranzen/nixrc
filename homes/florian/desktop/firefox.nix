@@ -22,6 +22,7 @@
       clearurls
       i-dont-care-about-cookies
       polkadot-js
+      metamask
     ];
 
     profiles.default = {
