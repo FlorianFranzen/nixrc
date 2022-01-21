@@ -161,12 +161,22 @@ in {
 
           extraConfig = ''
             gaps 0 ${toString gap} ${toString gap} ${toString gap}
+            binding_mode_indicator no
           '';
         }
       ];
     };
 
     extraConfig = ''
+      bindgesture swipe:right workspace prev
+      bindgesture swipe:left workspace next
+
+      bindgesture swipe:up move scratchpad
+      bindgesture swipe:down scratchpad show
+
+      bindgesture pinch:inward floating enable
+      bindgesture pinch:outward floating disable
+
       # Forward various environment variables to any dbus services
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
     '';

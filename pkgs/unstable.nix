@@ -25,13 +25,22 @@ in {
   xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.override {
     inherit pipewire;
   };
- 
+
+  i3status-rust = prev.i3status-rust.overrideAttrs (old: {
+    cargoDeps = old.cargoDeps.overrideAttrs (prev.lib.const {
+      outputHash = "VJYeG7TBFy1+JDFjmb1TuSFgNavi2Ap7/jiYsll0f78=";
+    }); 
+  });
+
   # Latest sway depends on broken wlroots
   sway-unwrapped = (prev.sway-unwrapped.override {
     inherit wlroots;
   }).overrideAttrs (old: {
-    patches = old.patches ++ [ 
-      ./sway.no-flicker.patch
-    ];
+    src = prev.fetchFromGitHub {
+      owner = "FlorianFranzen";
+      repo = "sway";
+      rev = "pointer-gestures";
+      sha256 = "7oqoxu1tTluGxJSF3V8sAcoG7h0g20SPbL2+ZqWzrRk=";
+    };
   });
 }

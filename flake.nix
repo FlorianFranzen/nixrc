@@ -21,7 +21,7 @@
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest wayland tools
-    wayland.url = "github:FlorianFranzen/nixpkgs-wayland/patch-1";
+    wayland.url = "github:nix-community/nixpkgs-wayland";
     wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Firefox Addons
