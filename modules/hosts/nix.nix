@@ -4,9 +4,9 @@
 {
   nix = {
     # Enable flake support
-    package = pkgs.nixFlakes;
+    package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
+      experimental-features = nix-command flakes
     '';
 
     # Allow copy closure by admins
