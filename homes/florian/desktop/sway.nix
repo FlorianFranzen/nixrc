@@ -171,8 +171,8 @@ in {
       bindgesture swipe:right workspace prev
       bindgesture swipe:left workspace next
 
-      bindgesture swipe:up move scratchpad
-      bindgesture swipe:down scratchpad show
+      bindgesture swipe:4:up move scratchpad
+      bindgesture swipe:4:down scratchpad show
 
       bindgesture pinch:inward floating enable
       bindgesture pinch:outward floating disable
