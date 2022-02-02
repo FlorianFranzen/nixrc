@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   common = {
     icons = "material-nf";
   };
 
-  in_terminal = command: "${pkgs.alacritty}/bin/alacritty --command '${command}'";
+  terminal = config.wayland.windowManager.sway.config.terminal;
 in {
 
   programs.i3status-rust = {
@@ -23,7 +23,7 @@ in {
           {
             block = "cpu";
             interval = 5;
-            on_click = in_terminal "${pkgs.bottom}/bin/btm";
+            on_click = "${terminal} ${pkgs.bottom}/bin/btm";
           }
           {
             block = "memory";
@@ -42,11 +42,12 @@ in {
           {
             block = "net";
             format = "{ssid} {ip}";
-            on_click = in_terminal "${pkgs.iwd}/bin/iwctl";
+            on_click = "${terminal} ${pkgs.iwd}/bin/iwctl";
           }
           {
             block = "battery";
             driver = "upower";
+            device = "battery_BAT0";
             format = "{percentage} {time}";
             allow_missing = true;
             hide_missing = true;
