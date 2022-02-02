@@ -592,11 +592,15 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  (pixel-scroll-precision-mode)
+
   (setq user-full-name "Florian Franzen"
         user-mail-address "Florian.Franzen@gmail.com")
   (prefer-coding-system 'utf-8)
 
   (setq python-shell-interpreter "/usr/bin/env python3")
+
+  (add-to-list 'term-file-aliases '("foot" . "xterm"))
 
   (setq neo-theme 'icons)
 
