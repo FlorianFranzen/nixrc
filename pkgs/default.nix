@@ -3,6 +3,7 @@ self: super:
 let
   lib = super.lib;
 
+
   callOverrideWith = pkgs: fn: args:
     let
       f = if lib.isFunction fn then fn else import fn;
@@ -11,10 +12,12 @@ let
 
   callOverride = callOverrideWith super;
 
+
   extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
     # Special version of bbswitch for amd cpus
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
+
 
   enableOzoneWayland = drv: self.symlinkJoin {
     inherit (drv) name version meta;
@@ -30,10 +33,10 @@ let
     '';
   };
 in {
-  # Kernel module overrides
-  linuxPackages_latest = extendKernel super.linuxPackages_latest;
-  linuxPackages = extendKernel super.linuxPackages;
-
+  # Custom testing kernel with speaker patches 
+  linuxPackages_legion = extendKernel (super.linuxPackagesFor 
+    (super.callPackage ./kernel-legion.nix {})
+  );
 
   # With experimental features
   bluez5-experimental = callOverride ./bluez.nix {};

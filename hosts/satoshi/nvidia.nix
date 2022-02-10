@@ -1,7 +1,7 @@
 { config, pkgs, lib, hardware, ... }:
 
 let
-  nvidia-x11 = config.boot.kernelPackages.nvidia_x11;
+  nvidia-x11 = config.boot.kernelPackages.nvidia_x11_beta;
 in {
   # Remove license warning
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
