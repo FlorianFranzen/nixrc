@@ -28,7 +28,7 @@ in {
 
   i3status-rust = prev.i3status-rust.overrideAttrs (old: {
     cargoDeps = old.cargoDeps.overrideAttrs (prev.lib.const {
-      outputHash = "VJYeG7TBFy1+JDFjmb1TuSFgNavi2Ap7/jiYsll0f78=";
+      outputHash = "MrvJ2psn/+kzmuzrUcScFC586s3DPM+zcUeFv+DPD7s=";
     }); 
   });
 
