@@ -61,7 +61,7 @@
 
   # Enable dconf and gcr
   programs.dconf.enable = true;
-  services.dbus.packages = [ pkgs.gnome3.dconf pkgs.gcr ];
+  services.dbus.packages = [ pkgs.dconf pkgs.gcr ];
 
   # Enable userspace mounting
   services.udisks2.enable = true;
