@@ -81,7 +81,7 @@ in {
 
       # Default tools
       menu = "${pkgs.wofi}/bin/wofi --show drun";
-      terminal = "${pkgs.foot}/bin/footclient";
+      terminal = "${pkgs.foot}/bin/foot";
 
       # Basic look
       gaps = {
