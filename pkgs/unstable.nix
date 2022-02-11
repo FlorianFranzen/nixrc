@@ -21,9 +21,6 @@ in {
   # Fix newer sway builds
   grim = prev.grim.override { inherit meson; };
 
-  # Do not use broken wayland support for now
-  element-desktop-wayland = channels.unstable.element-desktop;
-
   # Latest desktop portal needs newer pipewire
   xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.override {
     inherit pipewire;
