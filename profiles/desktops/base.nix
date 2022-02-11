@@ -51,7 +51,7 @@
     lxqt.qps
 
     firefox
-    chromium
+    ungoogled-chromium
 
     nextcloud-client
   ];
