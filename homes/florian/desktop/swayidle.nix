@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
+  sway = config.wayland.windowManager.sway.package;
+
   swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
-  swaymsg = "${pkgs.sway}/bin/swaymsg";
+  swaymsg = "${sway}/bin/swaymsg";
 
   cmd_lock = "${swaylock} --daemonize";
   cmd_off = "${swaymsg} 'output * dpms off'";
