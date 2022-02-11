@@ -39,8 +39,13 @@ in {
       export SAL_USE_VCLPLUGIN=gtk3
 
       # Configure Qt wayland backend
+      export QT_QPA_PLATFORM=wayland
+      export QT_AUTO_SCREEN_SCALE_FACTOR=1
       export QT_WAYLAND_FORCE_DPI=physical
       export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+      # Configure SDL wayland backend
+      export SDL_VIDEODRIVER=wayland
 
       # Fix Java AWT applications
       export _JAVA_AWT_WM_NONREPARENTING=1

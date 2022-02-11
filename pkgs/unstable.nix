@@ -4,7 +4,7 @@ final: prev:
 
 let
   # Unstable packages we can use to override dependencies
-  inherit (channels.unstable) libdrm mesa pipewire wayland xwayland;
+  inherit (channels.unstable) libdrm mesa meson pipewire wayland xwayland;
 
   # wlroots needs newer libdrm (incl in mesa and xwayland)
   wlroots = prev.wlroots.override {
@@ -17,6 +17,9 @@ in {
   
   # Unstable packages we can use right away
   inherit (channels.unstable) wofi;
+
+  # Fix newer sway builds
+  grim = prev.grim.override { inherit meson; };
 
   # Do not use broken wayland support for now
   element-desktop-wayland = channels.unstable.element-desktop;
