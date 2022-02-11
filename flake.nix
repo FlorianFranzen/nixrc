@@ -50,10 +50,7 @@
 
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
 
-    inherit (nixpkgs.lib) filterAttrs mapAttrs';
-
-    # Create a module with a key set
-    mkMod = key: val: {...}: { ${key} = val; };
+    inherit (nixpkgs.lib) filterAttrs mapAttrs' recursiveUpdate;
 
     # Import helpers to walk git directory tree
     readTree = digga.lib.rakeLeaves;
@@ -62,11 +59,14 @@
 
     joinTree = { name ? "imports", recurse ? true }:
       let
-        recJoin = _: attrs: mkMod name 
-        (map (v: if isAttrs v 
-                 then (if recurse then recJoin v else flattenTree v)
-                 else v)
-            (attrValues attrs));
+        recJoin = _: attrs: { 
+          ${name} = (map 
+            (v: if isAttrs v 
+                then (if recurse then recJoin v else flattenTree v)
+                else v)
+                (attrValues attrs)
+          );
+        };
       in
         recJoin;
 
@@ -77,6 +77,9 @@
     readHostTree = dir: mapAttrs 
       (joinTree { name = "modules"; recurse = false; })
       (readTree dir);
+
+    # Create a module with a key set
+    mkMod = key: val: {...}: { ${key} = val; };
 
     # Helpers to parse experimental varients directory strucutre
     readHomeTree = dir: let
@@ -140,18 +143,23 @@
     supportedSystems = ["aarch64-linux" "x86_64-linux"];
 
     # nixpkgs versions and configs
-    channels.nixpkgs = {
+    channels = {
       # TODO Check sharedOverlays
-      overlays = [
+      nixpkgs.overlays = [
         wayland.overlay
         emacs-overlay.overlay
         firefox-addons-overlay
         unstable-overlay
         pkgs-overlay
       ];
-    };
 
-    channels.unstable = {};
+      unstable.overlays = [
+        wayland.overlay
+        emacs-overlay.overlay
+        firefox-addons-overlay
+        pkgs-overlay
+      ];
+    };
 
     # nixos system configs
     nixos = {
@@ -168,7 +176,9 @@
         ];
       };
 
-      hosts = readHostTree ./hosts;
+      hosts = recursiveUpdate (readHostTree ./hosts) {
+        satoshi.channelName = "unstable";
+      };
 
       importables = let
         imported = mkImportables [ "hardware" "profiles" "services" ];
