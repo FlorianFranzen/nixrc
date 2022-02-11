@@ -35,12 +35,5 @@ in {
   # Latest sway depends on broken wlroots
   sway-unwrapped = (prev.sway-unwrapped.override {
     inherit wlroots;
-  }).overrideAttrs (old: {
-    src = prev.fetchFromGitHub {
-      owner = "FlorianFranzen";
-      repo = "sway";
-      rev = "pointer-gestures";
-      sha256 = "7oqoxu1tTluGxJSF3V8sAcoG7h0g20SPbL2+ZqWzrRk=";
-    };
   });
 }

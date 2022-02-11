@@ -51,6 +51,16 @@ in {
   # Patched to work with yubikey
   pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
 
+  # Sway with gestures
+  sway-unwrapped = super.sway-unwrapped.overrideAttrs (old: {
+    src = super.fetchFromGitHub {
+      owner = "FlorianFranzen";
+      repo = "sway";
+      rev = "pointer-gestures";
+      sha256 = "7oqoxu1tTluGxJSF3V8sAcoG7h0g20SPbL2+ZqWzrRk=";
+    };
+  });
+
   # Update to unreleased version with color fix
   swaylock-effects = callOverride ./swaylock-effects.nix {};
 
