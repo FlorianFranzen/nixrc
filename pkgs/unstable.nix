@@ -32,6 +32,9 @@ in {
     }); 
   });
 
+  # Update kernel modules. e.g. nvidia-x11
+  linuxPackagesFor = channels.unstable.linuxPackagesFor;
+
   # Latest sway depends on broken wlroots
   sway-unwrapped = (prev.sway-unwrapped.override {
     inherit wlroots;
