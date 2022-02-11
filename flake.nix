@@ -62,18 +62,21 @@
 
     joinTree = { name ? "imports", recurse ? true }:
       let
-        recJoin = _: attrs: mkMod name (map
-          (v: if recurse && isAttrs v then recJoin v else v)
-          (attrValues attrs)
-        );
+        recJoin = _: attrs: mkMod name 
+        (map (v: if isAttrs v 
+                 then (if recurse then recJoin v else flattenTree v)
+                 else v)
+            (attrValues attrs));
       in
         recJoin;
 
-    joinImportsTree = joinTree {};
+    # Helpers to parse module folder structure
+    readModuleTree = dir: mapAttrs (joinTree {}) (readTree dir);
 
-    joinModulesTree = tree: joinTree
-      { name = "modules"; recurse = false; }
-      (flattenTree tree);
+    # Helpers to parse host folder structure
+    readHostTree = dir: mapAttrs 
+      (joinTree { name = "modules"; recurse = false; })
+      (readTree dir);
 
     # Helpers to parse experimental varients directory strucutre
     readHomeTree = dir: let
@@ -115,7 +118,7 @@
     mkImportables = dirs: nixpkgs.lib.genAttrs dirs (n: readTree (./. + "/${n}"));
 
     # Shared host and home modules
-    modules = mapAttrs joinImportsTree (readTree ./modules);
+    modules = readModuleTree ./modules;
 
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
@@ -165,7 +168,7 @@
         ];
       };
 
-      hosts = mapAttrs joinModulesTree (readTree ./hosts);
+      hosts = readHostTree ./hosts;
 
       importables = let
         imported = mkImportables [ "hardware" "profiles" "services" ];
