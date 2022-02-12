@@ -22,25 +22,27 @@ in {
     hardware.nvidia = {
       package = nvidia-x11;
 
-      # Set hardware identifier
+      # Enable prime offloading
       prime = {
-        #TODO set offload?
-
+        offload.enable = true;
         amdgpuBusId = "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
 
-      # 
+      # Needed for wayland support
       modesetting.enable = true;
 
       # Improve prime battery life
-      powerManagement.enable = true;
+      powerManagement = {
+        enable = true;
+        finegrained = true;
+      };
     };
 
     # Add OpenGL VDPAU support
     hardware.opengl = {
-      extraPackages = with pkgs; [ nvidia-x11.out libvdpau-va-gl vaapiVdpau ];
-      extraPackages32 = with pkgs; [ nvidia-x11.lib32 libvdpau-va-gl vaapiVdpau ];
+      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
+      extraPackages32 = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
     };
 
     # Provide command line utils
