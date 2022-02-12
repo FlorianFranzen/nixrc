@@ -8,6 +8,15 @@ in {
     "nvidia-x11"
   ];
 
+  # FIXME Specialization should be able to set kernel params
+  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
+
+  # FIXME Specialization should stay activate on switch
+  hardware.opengl = {
+    extraPackages = with pkgs; [ nvidia-x11.out libvdpau-va-gl vaapiVdpau ];
+    extraPackages32 = with pkgs; [ nvidia-x11.lib32 libvdpau-va-gl vaapiVdpau ];
+  };
+
   # Specialization that boots with proprietary driver
   specialisation.nvidia.configuration = {
     # Enable prime offloading
@@ -19,6 +28,7 @@ in {
     # Reenable gpu
     hardware.nvidiaOptimus.disable = false;
 
+    # Enable various hardware integrations
     hardware.nvidia = {
       package = nvidia-x11;
 
@@ -39,12 +49,6 @@ in {
       };
     };
 
-    # Add OpenGL VDPAU support
-    hardware.opengl = {
-      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
-      extraPackages32 = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
-    };
-
     # Provide command line utils
     environment.systemPackages = [ 
       nvidia-x11 
@@ -61,7 +65,8 @@ in {
 
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      WLR_NO_HARDWARE_CURSORS = "1"; 
+      WLR_DRM_DEVICES = "/dev/dri/card1";  
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
   };
 }
