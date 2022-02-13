@@ -5,11 +5,8 @@ let
 in {
   # Remove license warning
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "nvidia-x11"
+    "nvidia-x11" "nvidia-persistenced" "nvidia-settings"
   ];
-
-  # FIXME Specialization should be able to set kernel params
-  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 
   # FIXME Specialization should stay activate on switch
   hardware.opengl = {
@@ -19,11 +16,11 @@ in {
 
   # Specialization that boots with proprietary driver
   specialisation.nvidia.configuration = {
-    # Enable prime offloading
+    # Enable prime offloading (incl. nvidia-offload wrapper)
     imports = [ hardware.common-gpu-nvidia ];
 
-    # Provide nvidia kernel module
-    boot.extraModulePackages = [ nvidia-x11 ];
+    # FIXME hardware.nvidia should not require this to be set
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     # Reenable gpu
     hardware.nvidiaOptimus.disable = false;
@@ -32,15 +29,17 @@ in {
     hardware.nvidia = {
       package = nvidia-x11;
 
-      # Enable prime offloading
+      # Set hardware addresses
       prime = {
-        offload.enable = true;
         amdgpuBusId = "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
 
       # Needed for wayland support
       modesetting.enable = true;
+
+      # Keep unused device in kernel
+      nvidiaPersistenced = true;
 
       # Improve prime battery life
       powerManagement = {
@@ -58,15 +57,10 @@ in {
 
     # Use nvidia on wayland
     environment.variables = {
-      # TODO Investigate these
-      __GL_GSYNC_ALLOWED = "0";
-      __GL_VRR_ALLOWED = "0";
-      WLR_DRM_NO_ATOMIC = "1";
-
+      # Use internal card by default, with prime offloading
+      WLR_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";  
+      # Use nvidia gbm backend
       GBM_BACKEND = "nvidia-drm";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      WLR_DRM_DEVICES = "/dev/dri/card1";  
-      WLR_NO_HARDWARE_CURSORS = "1";
     };
   };
 }
