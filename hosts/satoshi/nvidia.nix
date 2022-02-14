@@ -1,6 +1,44 @@
 { config, pkgs, lib, hardware, ... }:
 
 let
+  mkDesktopFile = name: exec: ''
+    [Desktop Entry]
+    Name=${name}
+    Exec=${exec}
+    Type=Application
+  '';
+
+  mkWaylandSession = name: exec: command:
+    pkgs.runCommand name {
+      inherit command;
+      desktop = mkDesktopFile name exec;
+      passAsFile = [ "command" "desktop" ];
+
+      passthru = {
+        providedSessions = [ exec ];
+      };
+
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    } ''
+      mkdir -p $out/{bin,share/wayland-sessions}
+
+      session=$out/bin/${exec}
+      echo "#!${pkgs.runtimeShell}" > $session
+      cat $commandPath >> $session
+      chmod +x $session
+
+      mv $desktopPath $out/share/wayland-sessions/${exec}.desktop
+    '';
+
+  # Provide nvidia based sway session at login
+  nvidia-sway = mkWaylandSession "Sway (Nvidia)" "nvidia-sway" ''
+      export WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0
+      export WLR_NO_HARDWARE_CURSORS=1
+      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      exec -a nvidia-sway sway $@
+  '';
+
   nvidia-x11 = config.boot.kernelPackages.nvidia_x11;
 in {
   # Remove license warning
@@ -50,10 +88,12 @@ in {
 
     # Provide command line utils
     environment.systemPackages = [ 
-      nvidia-x11 
+      nvidia-sway
       pkgs.vulkan-tools
       pkgs.glmark2
     ];
+
+    services.xserver.displayManager.sessionPackages = [ nvidia-sway ];
 
     # Use nvidia on wayland
     environment.variables = {
