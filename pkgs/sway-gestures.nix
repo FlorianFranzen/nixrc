@@ -45,4 +45,13 @@ in {
   sway = super.sway.override {
     inherit (self) sway-unwrapped;
   };
+
+  glpaper = super.glpaper.overrideAttrs (old: {
+    patches = [
+      (super.fetchpatch {
+        url = "https://lists.sr.ht/~scoopta/glpaper/%3C6eb52d49af8270c3df0d.1644834735%40localhost%3E/raw";
+        sha256 = "C9mogxU/9mPIqo+sbkiYRbBCg6yOc8srS/CvzyMaJMQ=";
+      })
+    ];
+  });
 }
