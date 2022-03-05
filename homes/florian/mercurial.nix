@@ -1,4 +1,8 @@
+{ pkgs, ...}:
+
 {
+  home.packages = [ pkgs.mercurial ];
+
   programs.mercurial = rec {
     enable = true;
     userName = "Florian Franzen";

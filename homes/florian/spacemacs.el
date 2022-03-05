@@ -68,6 +68,7 @@ This function should only modify configuration layer settings."
            lsp-rust-server 'rust-analyzer)
      julia
      go
+     ruby
      javascript
      ;; Markup layes
      asciidoc
