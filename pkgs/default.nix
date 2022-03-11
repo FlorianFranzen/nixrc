@@ -67,10 +67,4 @@ in {
   # Wayland-backend for electron based apps
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
-
-
-  # Custom firefox addons
-  firefox-addons = super.firefox-addons // {
-    polkadot-js = super.callPackage ./polkadot-js-extension.nix {};
-  };
 }
