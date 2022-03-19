@@ -37,6 +37,12 @@
     numix-icon-theme-square
     lxappearance
 
+    gnome.eog
+    gnome.ghex
+    gnome.file-roller
+    gnome.nautilus
+    gnome.sushi
+
     xfce.xfconf
     xfce.mousepad
     (xfce.thunar.override { thunarPlugins = [
