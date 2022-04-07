@@ -97,9 +97,7 @@ in {
 
     # Use nvidia on wayland
     environment.variables = {
-      # Use internal card by default, with prime offloading
-      WLR_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";  
-      # Use nvidia gbm backend
+      # Try nvidia gbm backend first
       GBM_BACKEND = "nvidia-drm";
     };
   };
