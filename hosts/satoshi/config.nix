@@ -22,7 +22,11 @@
 
   boot = {
     # Latest kernel for better hardware support
-    kernelPackages = pkgs.linuxPackages_legion;
+    kernelPackages = pkgs.linuxPackages_latest;
+    
+    kernelPatches = [
+      { name = "legion7-speaker"; patch = ./kernel-legion.speaker.patch; }
+    ];
 
     blacklistedKernelModules = [
       # Avoid nouveau failing to initialize discrete gpu

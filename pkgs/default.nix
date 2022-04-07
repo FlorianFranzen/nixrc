@@ -33,10 +33,8 @@ let
     '';
   };
 in {
-  # Custom testing kernel with speaker patches 
-  linuxPackages_legion = extendKernel (super.linuxPackagesFor 
-    (super.callPackage ./kernel-legion.nix {})
-  );
+  # Kernel module overrides
+  linuxPackages_latest = extendKernel super.linuxPackages_latest;
 
   # With experimental features
   bluez5-experimental = callOverride ./bluez.nix {};
