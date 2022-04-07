@@ -30,6 +30,8 @@
     #python3Packages.pyls-mypy
     #python3Packages.pyls-black
 
+    solargraph
+
     csslint # replace with stylelint?
   ];
 }

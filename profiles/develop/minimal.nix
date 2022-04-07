@@ -32,6 +32,5 @@
     socat
     tree
     tldr
-    yq
   ];
 }
