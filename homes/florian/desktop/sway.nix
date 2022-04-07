@@ -44,6 +44,9 @@ in {
       export QT_WAYLAND_FORCE_DPI=physical
       export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
+      # Configure ozone backend for chromium apps
+      export NIXOS_OZONE_WL=1
+
       # Configure SDL wayland backend
       export SDL_VIDEODRIVER=wayland
 
