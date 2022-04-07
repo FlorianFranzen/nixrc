@@ -17,7 +17,7 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Home management
-    home.url = "github:FlorianFranzen/home-manager/nix-profile";
+    home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest wayland tools
