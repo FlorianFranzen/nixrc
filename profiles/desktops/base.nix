@@ -23,7 +23,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    shared_mime_info
+    shared-mime-info
     libappindicator
     libnotify
     xdg_utils
