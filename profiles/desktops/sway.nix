@@ -14,10 +14,9 @@
   # Enable ozone wayland backend
   nixpkgs.overlays = [
     (self: super: {
-      # Chromium broken on newer Wayland
-      #element-desktop = super.element-desktop-wayland;
-      #chromium = super.chromium-wayland;
-      #signal-desktop = super.signal-desktop-wayland;
+      element-desktop = super.element-desktop-wayland;
+      chromium = super.chromium-wayland;
+      signal-desktop = super.signal-desktop-wayland;
     })
   ];
 
