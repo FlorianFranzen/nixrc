@@ -157,6 +157,7 @@
       ];
 
       unstable.overlays = [
+        wayland.overlay
         sway-overlay
         emacs-overlay.overlay
         firefox-addons-overlay
