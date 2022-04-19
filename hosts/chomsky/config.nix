@@ -12,7 +12,14 @@
 {
   imports = (with suites; full)
     ++ (with profiles; [ docker gaming ])
-    ++ (with profiles.develop; [ minimal emacs embedded extra manufac linux ])
+    ++ (with profiles.develop; [
+      minimal
+      emacs
+      embedded
+      extra
+      cad
+      manufac
+      linux ])
     ++ (with profiles.desktops; [ gdm sway ])
     ++ [ profiles.networks.iwd ]
     ++ (with hardware; [
@@ -29,6 +36,9 @@
   nixpkgs.config.allowUnfree = true;
 
   boot = {
+    # Latest kernel without wifi issues
+    kernelPackages = pkgs.linuxPackages_5_16;
+
     # Various kernel and module quirks
     kernelParams = [
       "i915.modeset=1"
