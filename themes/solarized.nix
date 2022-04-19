@@ -3,9 +3,16 @@
 {
   imports = [ ./base.nix ];
 
-  # Set desktop background
-  wayland.windowManager.sway.config.output."*" = {
-    background = "${self}/themes/assets/snowflake-solarized.png fill";
+  wayland.windowManager.sway.config ={
+    # Set cursor theme
+    seat."*" = {
+      xcursor_theme = "Numix-Cursor";
+    };
+
+    # Set desktop background
+    output."*" = {
+      background = "${self}/themes/assets/snowflake-solarized.png fill";
+    };
   };
 
   pywal.theme = "solarized";
