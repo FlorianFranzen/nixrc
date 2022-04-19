@@ -14,6 +14,7 @@
     extensions = with pkgs.firefox-addons; [
       multi-account-containers
       simple-tab-groups
+      tab-stash
       browserpass
       tridactyl
       ublock-origin

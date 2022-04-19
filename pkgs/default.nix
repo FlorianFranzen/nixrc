@@ -61,8 +61,12 @@ in {
   # Simplify zsa device access
   zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};
 
-
   # Wayland-backend for electron based apps
   chromium-wayland = enableOzoneWayland super.chromium;
   signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
+
+  # Custom firefox addons
+  firefox-addons = super.firefox-addons // {
+    tab-stash = super.callPackage ./tab-stash.nix {};
+  };
 }
