@@ -4,7 +4,7 @@ final: prev:
 
 let
   # Unstable packages we can use to override dependencies
-  inherit (channels.unstable) libdrm mesa meson pipewire wayland xwayland;
+  inherit (channels.unstable) fcft libdrm mesa meson pipewire stdenv wayland xwayland;
 
   # wlroots needs newer libdrm (incl in mesa and xwayland)
   wlroots = prev.wlroots.override {
@@ -18,19 +18,15 @@ in {
   # Unstable packages we can use right away
   inherit (channels.unstable) wofi;
 
-  # Fix newer sway builds
+  # Fix newer meson builds
+  foot = prev.foot.override { inherit stdenv meson fcft; };
   grim = prev.grim.override { inherit meson; };
+  mako = prev.mako.override { inherit meson; };
 
   # Latest desktop portal needs newer pipewire
   xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.override {
     inherit pipewire;
   };
-
-  i3status-rust = prev.i3status-rust.overrideAttrs (old: {
-    cargoDeps = old.cargoDeps.overrideAttrs (prev.lib.const {
-      outputHash = "MrvJ2psn/+kzmuzrUcScFC586s3DPM+zcUeFv+DPD7s=";
-    }); 
-  });
 
   # Update kernel modules. e.g. nvidia-x11
   linuxPackagesFor = channels.unstable.linuxPackagesFor;
