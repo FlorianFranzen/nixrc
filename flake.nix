@@ -127,6 +127,7 @@
     pkgs-overlay = import ./pkgs;
 
     # Import unstable overlay 
+    # TODO: Currently broken and unused
     unstable-overlay = import ./pkgs/unstable.nix;
 
     # Import sway gestures overlay
@@ -149,10 +150,8 @@
     channels = {
       # TODO Check sharedOverlays
       nixpkgs.overlays = [
-        wayland.overlay
         emacs-overlay.overlay
         firefox-addons-overlay
-        unstable-overlay
         pkgs-overlay
       ];
 
