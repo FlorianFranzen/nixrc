@@ -35,6 +35,12 @@
 
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" ];
+
+    # Avoid touchpad race condition
+    extraModprobeConfig = ''
+      softdep i2c_hid pre: pinctrl_amd
+      softdep usbhid pre: pinctrl_amd
+    '';
   };
 
   # Use the systemd-boot EFI boot loader.
