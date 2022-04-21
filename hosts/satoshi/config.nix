@@ -30,7 +30,7 @@
 
     blacklistedKernelModules = [
       # Avoid nouveau failing to initialize discrete gpu
-      "nouveau"
+      #"nouveau"
     ];
 
     # Fix backlight control
