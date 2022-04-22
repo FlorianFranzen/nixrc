@@ -2,7 +2,7 @@
 
 {
   imports = with profiles; [
-    media desktops.sway develop.manufac networks.iwd hardware.yubikey
+    desktops.sway develop.manufac networks.iwd hardware.pulseaudio hardware.yubikey
   ];
 
   # Install full desktop environment

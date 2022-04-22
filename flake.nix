@@ -185,11 +185,11 @@
 
       importables = let
         imported = mkImportables [ "hardware" "profiles" "services" ];
-      in imported // {
+      in imported // rec {
         hardware = hardware.nixosModules // imported.hardware;
 
         suites = {
-          full = with imported.profiles; [ media mail office ];
+          full = with imported.profiles; [ hardware.pipewire media mail office ];
         };
       };
     };
