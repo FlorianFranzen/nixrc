@@ -18,7 +18,7 @@
     };
 
     # Full hardware support requires recent kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_5_17;
 
     # Fix for freezing (TODO might be fixed in recent kernel or require patch)
     kernelParams = [
@@ -46,8 +46,8 @@
   ];
 
   # Compile kernel with opregion support
-  nixpkgs.config.packageOverrides = before: {
-    linux_latest = before.linux_latest.override {
+  nixpkgs.config.packageOverrides = pkgs: pkgs.lib.recursiveUpdate pkgs {
+    linuxKernel.kernels.linux_5_17 = pkgs.linuxKernel.kernels.linux_5_17.override {
       structuredExtraConfig = with lib.kernel; {
         I2C = yes;
         "ACPI_I2C_OPREGION" = yes;
