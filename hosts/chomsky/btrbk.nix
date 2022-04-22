@@ -6,15 +6,18 @@
   ];
 
   environment.etc."btrbk.conf".text = ''
-    timestamp_format       long
+    timestamp_format      long
 
-    snapshot_preserve_min   7d
-    snapshot_preserve      14d
+    snapshot_preserve_min  7d
+    snapshot_preserve     14d
 
-    target_preserve_min    no
-    target_preserve        14d 8w 6m *y
+    target_preserve_min   no
+    target_preserve       14d 8w 6m *y
 
-    snapshot_dir           snapshots
+    archive_preserve_min  latest
+    archive_exclude       @
+
+    snapshot_dir          snapshots
 
     volume /tardis/system
       subvolume @home
