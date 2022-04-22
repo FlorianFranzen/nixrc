@@ -34,6 +34,9 @@
     '';
   };
 
+  # Needed for intel sst and wifi
+  hardware.firmware = [ pkgs.firmwareLinuxNonfree ];
+
   # Fix trackpad on resume
   powerManagement.resumeCommands = ''
     rmmod elan_i2c
