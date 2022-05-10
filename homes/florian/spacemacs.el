@@ -90,6 +90,7 @@ This function should only modify configuration layer settings."
      (cmake :variables
             cmake-backend 'lsp
             cmake-enable-cmake-ide-support t)
+     dtrt-indent
      (treemacs :variables
                treemacs-use-git-mode 'simple
                treemacs-resize-icons 18)
