@@ -43,8 +43,7 @@ in {
   mkSyschdemd = self.callPackage ./syschdemd.nix {};
 
   # Patched to include git submodules
-  nixFlakes = callOverride ./nix-flakes.nix {};
-  nixUnstable = callOverride ./nix-unstable.nix {};
+  nixSubmodule = callOverride ./nix-submodule.nix {};
 
   # Patched to work with yubikey
   pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
