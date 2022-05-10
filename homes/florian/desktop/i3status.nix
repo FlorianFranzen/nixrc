@@ -23,13 +23,14 @@ in {
           {
             block = "cpu";
             interval = 5;
-            on_click = "${terminal} ${pkgs.bottom}/bin/btm";
+            on_click = "${terminal} ${pkgs.s-tui}/bin/s-tui";
           }
           {
             block = "memory";
             interval = 5;
             format_mem = "{mem_used_percents}";
             format_swap = "{swap_used_percents}";
+            on_click = "${terminal} ${pkgs.bottom}/bin/btm";
           }
           {
             block = "disk_space";
@@ -38,11 +39,6 @@ in {
             interval = 20;
             warning = 25.0;
             alert = 10.0;
-          }
-          {
-            block = "net";
-            format = "{ssid} {ip}";
-            on_click = "${terminal} ${pkgs.iwd}/bin/iwctl";
           }
           {
             block = "battery";
@@ -63,6 +59,12 @@ in {
       bottom = common // {
         blocks = [
           {
+            block = "music";
+            max_width = 50;
+            dynamic_width = true;
+            buttons = [ "prev" "play" "next" ];
+          }   
+          {
             block = "sound";
             max_vol = 100;
             format = "{output_description} {volume}";
@@ -81,10 +83,9 @@ in {
             format_unavailable = "Headphones?";
           }
           {
-            block = "music";
-            max_width = 50;
-            dynamic_width = true;
-            buttons = [ "prev" "play" "next" ];
+            block = "net";
+            format = "{ssid} {ip}";
+            on_click = "${terminal} ${pkgs.iwd}/bin/iwctl";
           }
         ];
       };
