@@ -13,6 +13,7 @@
     trustedUsers = [ "root" "@wheel" ];
 
     # Generate nix registry and path from inputs (fup)
+    linkInputs = true;
     generateRegistryFromInputs = true;
     generateNixPathFromInputs = true;
   };
