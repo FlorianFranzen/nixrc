@@ -6,7 +6,8 @@
     digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.nixlib.follows = "nixpkgs";
-    digga.inputs.latest.follows = "nixpkgs";
+    digga.inputs.latest.follows = "unstable";
+    digga.inputs.nixpkgs-unstable.follows = "unstable";
     digga.inputs.home-manager.follows = "home";
 
     # Host configurations
@@ -30,6 +31,7 @@
 
     # Latest emacs and framework
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     spacemacs.url = "github:syl20bnr/spacemacs";
     spacemacs.flake = false;
