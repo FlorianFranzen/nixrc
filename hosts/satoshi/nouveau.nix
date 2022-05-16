@@ -46,9 +46,9 @@ in {
 
     # Enable various hardware integrations
     hardware.bumblebee = {
-      enable = false;
+      enable = true;
       driver = "nouveau";
-      pmMethod = "auto";
+      pmMethod = "bbswitch";
       connectDisplay = true;
     };
     

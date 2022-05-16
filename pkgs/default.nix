@@ -14,7 +14,7 @@ let
 
 
   extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
-    # Special version of bbswitch for amd cpus
+    # Special version of bbswitch for AMD CPUs
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
 
@@ -38,6 +38,9 @@ in {
 
   # With experimental features
   bluez5-experimental = callOverride ./bluez.nix {};
+
+  # Special version of bbswitch AMD CPUs
+  bumblebee = callOverride ./bumblebee.nix {};
 
   # WSL boot shim maker
   mkSyschdemd = self.callPackage ./syschdemd.nix {};
