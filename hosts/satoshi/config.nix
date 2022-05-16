@@ -23,14 +23,10 @@
   boot = {
     # Latest kernel for better hardware support
     kernelPackages = pkgs.linuxPackages_latest;
-    
+
+    # Add speaker support    
     kernelPatches = [
       { name = "legion7-speaker"; patch = ./kernel-legion.speaker.patch; }
-    ];
-
-    blacklistedKernelModules = [
-      # Avoid nouveau failing to initialize discrete gpu
-      #"nouveau"
     ];
 
     # Fix backlight control
@@ -49,5 +45,5 @@
     efi.canTouchEfiVariables = true;
   };
 
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
 }
