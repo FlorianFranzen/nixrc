@@ -26,7 +26,12 @@
     ];
 
     # Add necessary modules for internal keyboard support during early boot
-    initrd.availableKernelModules = [ "i2c_designware_platform" "i2c_hid" "hid_asus" ];
+    initrd.availableKernelModules = [
+      "hid_asus"
+      "i2c_designware_platform"
+      "i2c_hid"
+      "i2c_hid_acpi"
+    ];
 
     # Fix for quirky sdio sound card
     extraModprobeConfig = ''
