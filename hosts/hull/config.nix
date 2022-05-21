@@ -48,6 +48,14 @@
     modprobe elan_i2c
   '';
 
+  # Enable octoprint service
+  services.octoprint = {
+    enable = true;
+    port = 80;
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 ];
+
   # Add some software
   environment.systemPackages = with pkgs; [
     libreoffice
