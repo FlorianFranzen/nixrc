@@ -37,7 +37,7 @@
 
   boot = {
     # Latest kernel without wifi issues
-    kernelPackages = pkgs.linuxPackages_5_16;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     # Various kernel and module quirks
     kernelParams = [
