@@ -5,8 +5,8 @@
     desktops.sway develop.manufac networks.iwd hardware.pulseaudio hardware.yubikey
   ];
 
-  # Install full desktop environment
-  home-manager.users.florian = hmUsers.florian-desktop;
+  # Do not use home-manager on this host
+  home-manager.users.florian = {};
 
   boot = {
     # Hybrid 32bit UEFI but 64bit Atom CPU	

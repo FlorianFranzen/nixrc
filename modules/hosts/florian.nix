@@ -2,7 +2,7 @@
 
 {
   # Install default managed home folder
-  home-manager.users.florian = hmUsers.florian;
+  home-manager.users.florian = lib.mkDefault hmUsers.florian;
 
   # Setup sytem user account
   users.users.florian = {
