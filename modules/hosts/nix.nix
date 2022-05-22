@@ -3,8 +3,10 @@
 
 {
   nix = {
+    # Use same nix version on all hosts
+    package = pkgs.nix;
+
     # Enable flake support
-    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
