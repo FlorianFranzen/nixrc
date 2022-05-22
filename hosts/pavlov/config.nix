@@ -3,6 +3,9 @@
 {
   imports = with services; [ hydra jellyfin ];
 
+  # Do not use home-manager on this host
+  home-manager.users.florian = {};
+
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
 
