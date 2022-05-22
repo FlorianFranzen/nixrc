@@ -10,7 +10,7 @@ self: super:
       owner = "FlorianFranzen";
       repo = "sway";
       rev = "pointer-gestures";
-      sha256 = "FjYSVzwbvxphHmiX9WQXeQVBnDrB7FpZsQ4ryzTx2no=";
+      sha256 = "kKvYajLyyRKZ1Quw5VS2Fj64lfE1rNv2tQWAPYngWH4=";
     };
   });
 
