@@ -44,9 +44,6 @@ in {
   # Add swayest workstyle
   sworkstyle = self.callPackage ./sworkstyle.nix {};
 
-  # Simplify zsa device access
-  zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};
-
   # Custom firefox addons
   firefox-addons = super.firefox-addons // {
     tab-stash = super.callPackage ./tab-stash.nix {};

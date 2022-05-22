@@ -7,5 +7,5 @@ final: prev:
   __dontExport = true; 
 
   # Packages to take from unstable
-  inherit (channels.unstable) nix wofi;
+  inherit (channels.unstable) nix wofi zsa-udev-rules;
 }
