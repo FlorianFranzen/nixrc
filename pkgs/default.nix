@@ -3,7 +3,6 @@ self: super:
 let
   lib = super.lib;
 
-
   callOverrideWith = pkgs: fn: args:
     let
       f = if lib.isFunction fn then fn else import fn;
@@ -12,26 +11,11 @@ let
 
   callOverride = callOverrideWith super;
 
-
   extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
     # Special version of bbswitch for AMD CPUs
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
 
-
-  enableOzoneWayland = drv: self.symlinkJoin {
-    inherit (drv) name version meta;
-    nativeBuildInputs = [ self.makeWrapper ];
-    paths = [ drv ];
-
-    postBuild = ''
-      for bin in $out/bin/*; do
-        echo "- wrapping $bin..."
-        wrapProgram "$bin" \
-          --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland --gtk-version=4"
-      done
-    '';
-  };
 in {
   # Kernel module overrides
   linuxPackages_latest = extendKernel super.linuxPackages_latest;
@@ -62,10 +46,6 @@ in {
 
   # Simplify zsa device access
   zsa-udev-rules = callOverride ./zsa-udev-rules.nix {};
-
-  # Wayland-backend for electron based apps
-  chromium-wayland = enableOzoneWayland super.chromium;
-  signal-desktop-wayland = enableOzoneWayland super.signal-desktop;
 
   # Custom firefox addons
   firefox-addons = super.firefox-addons // {
