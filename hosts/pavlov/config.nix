@@ -12,6 +12,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
 
+  # Enable cross compiling of aarch64
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Enable Wake on LAN
   networking.interfaces.enp3s0.wakeOnLan.enable = true;
 
