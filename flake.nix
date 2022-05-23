@@ -21,15 +21,6 @@
     home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Latest nix version
-    nix.url = "github:NixOS/nix/2.8.1";
-    nix.inputs.nixpkgs.follows = "unstable";
-
-    # Latest hydra version
-    hydra.url = "github:NixOS/hydra";
-    hydra.inputs.nix.follows = "nix";
-    hydra.inputs.nixpkgs.follows = "nixpkgs";
-
     # Latest wayland tools
     wayland.url = "github:nix-community/nixpkgs-wayland";
     wayland.inputs.nixpkgs.follows = "unstable";
@@ -53,8 +44,6 @@
     unstable,
     hardware,
     home,
-    nix,
-    hydra,
     wayland,
     firefox-addons,
     emacs-overlay,
@@ -139,14 +128,6 @@
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
 
-    # Override default nix and hydra install 
-    core-overlay = final: prev: let
-      mkIfSupported = flake: flake.defaultPackage.${prev.system} or null;
-    in {
-      nix = mkIfSupported nix;
-      hydra-unstable = mkIfSupported hydra; 
-    };  
-
     # Import unstable overlay 
     unstable-overlay = import ./pkgs/unstable.nix;
 
@@ -170,7 +151,6 @@
     channels = {
       # TODO Check sharedOverlays
       nixpkgs.overlays = [
-        core-overlay
         emacs-overlay.overlay
         firefox-addons-overlay
         unstable-overlay
@@ -178,7 +158,6 @@
       ];
 
       unstable.overlays = [
-        core-overlay
         wayland.overlay
         sway-overlay
         emacs-overlay.overlay
