@@ -4,7 +4,7 @@
 {
   nix = {
     # Use same nix version on all hosts
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.nix_2_8;
 
     # Enable flake support
     extraOptions = ''
