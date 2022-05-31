@@ -2,11 +2,9 @@
 
 {
   nix = {
-    # Garbage collect nix store once a week
-    gc = {
-      automatic = true;
-      dates = "weekly";
-    };
+    # Collect garbage and optimise store once a day
+    gc.automatic = true;
+    optimise.automatic = true;
 
     # Allow access to needed external ressources
     extraOptions = ''
