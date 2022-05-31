@@ -21,7 +21,7 @@ in {
   bluez5-experimental = callOverride ./bluez.nix {};
 
   # Special version of bumblebee for AMD CPUs
-  bumblebee = callOverride ./bumblebee.nix {};
+  bumblebee_amd = callOverride ./bumblebee.nix {};
 
   # WSL boot shim maker
   mkSyschdemd = self.callPackage ./syschdemd.nix {};

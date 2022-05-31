@@ -45,5 +45,10 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # Use AMD CPU compatible bumblebee
+  nixpkgs.overlays = [
+    (self: super: { bumblebee = super.bumblebee_amd; })
+  ];
+
   system.stateVersion = "21.11";
 }
