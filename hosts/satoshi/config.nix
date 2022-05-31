@@ -21,8 +21,8 @@
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
 
   boot = {
-    # Latest kernel for better hardware support
-    kernelPackages = pkgs.linuxPackages_latest;
+    # Recent and patched kernel for full hardware support
+    kernelPackages = pkgs.linuxPackages_amd;
 
     # Add speaker support    
     kernelPatches = [

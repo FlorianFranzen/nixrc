@@ -11,19 +11,16 @@ let
 
   callOverride = callOverrideWith super;
 
-  extendKernel = kpkgs: kpkgs.extend (kself: ksuper: {
-    # Special version of bbswitch for AMD CPUs
+in {
+  # Support bbswitch on AMD CPUs
+  linuxPackages_amd = super.linuxPackages_5_17.extend (kself: ksuper: {
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
-
-in {
-  # Kernel module overrides
-  linuxPackages_latest = extendKernel super.linuxPackages_latest;
 
   # With experimental features
   bluez5-experimental = callOverride ./bluez.nix {};
 
-  # Special version of bbswitch AMD CPUs
+  # Special version of bumblebee for AMD CPUs
   bumblebee = callOverride ./bumblebee.nix {};
 
   # WSL boot shim maker
