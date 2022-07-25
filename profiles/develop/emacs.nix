@@ -1,10 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
-{
+let
+  emacsPkgs = inputs.emacs-overlay.packages.${pkgs.system};
+in {
   # Enable Emacs
   services.emacs = {
     enable = true;
-    package = pkgs.emacsPgtkGcc;
+    package = emacsPkgs.emacsPgtkNativeComp;
   };
 
   # Useful fonts for development

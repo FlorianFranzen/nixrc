@@ -48,7 +48,7 @@
     firefox-addons,
     emacs-overlay,
     spacemacs
-  } @ inputs: let
+  } @ inputs': let
 
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
 
@@ -125,6 +125,19 @@
     # Shared host and home modules
     modules = readModuleTree ./modules;
 
+    # Protect overlays from instrusive digga magic
+    protect-overlay = overlay:
+      final: prev:
+        if prev == null || (prev.isFakePkgs or false)
+        then {} else overlay final prev;
+
+    emacs-overlay_fixed = emacs-overlay // {
+      overlay = protect-overlay emacs-overlay.overlay;
+    };
+
+    # Protect all inputs to digga
+    inputs = inputs' // { emacs-overlay = emacs-overlay_fixed; };
+
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
 
@@ -151,7 +164,7 @@
     channels = {
       # TODO Check sharedOverlays
       nixpkgs.overlays = [
-        emacs-overlay.overlay
+        #emacs-overlay_fixed
         firefox-addons-overlay
         unstable-overlay
         pkgs-overlay
@@ -160,7 +173,7 @@
       unstable.overlays = [
         wayland.overlay
         sway-overlay
-        emacs-overlay.overlay
+        #emacs-overlay_fixed
         firefox-addons-overlay
         pkgs-overlay
       ];
