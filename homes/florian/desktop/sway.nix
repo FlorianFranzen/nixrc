@@ -57,6 +57,9 @@ in {
       export DESKTOP_SESSION=gnome
       export QT_QPA_PLATFORMTHEME=gtk2
 
+      # Use GTK portal if possible
+      export GTK_USE_PORTAL=1
+
       # Fix gsettings
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
     '';
