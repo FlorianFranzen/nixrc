@@ -4,7 +4,7 @@
 {
   nix = {
     # Use same nix version on all hosts
-    package = pkgs.nixVersions.nix_2_8;
+    package = pkgs.hydra-unstable.nix;
 
     # Enable flake support
     extraOptions = ''
@@ -12,7 +12,7 @@
     '';
 
     # Allow copy closure by admins
-    trustedUsers = [ "root" "@wheel" ];
+    settings.trusted-users = [ "root" "@wheel" ];
 
     # Generate nix registry and path from inputs (fup)
     linkInputs = true;
