@@ -77,7 +77,7 @@ in {
       };
 
       # Scale high DPI displays
-      output."Unknown 0x1600 0x00000000" = {
+      output."California Institute of Technology 0x1600 Unknown" = {
         scale = "1.25";
       };
 
