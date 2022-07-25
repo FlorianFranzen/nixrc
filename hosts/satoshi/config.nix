@@ -24,11 +24,6 @@
     # Recent and patched kernel for full hardware support
     kernelPackages = pkgs.linuxPackages_amd;
 
-    # Add speaker support    
-    kernelPatches = [
-      { name = "legion7-speaker"; patch = ./kernel-legion.speaker.patch; }
-    ];
-
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" ];
 

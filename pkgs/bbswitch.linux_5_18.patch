@@ -1,0 +1,17 @@
+diff --git a/bbswitch.c b/bbswitch.c
+index 55d78ff..078d31e 100644
+--- a/bbswitch.c
++++ b/bbswitch.c
+@@ -242,10 +242,8 @@ static char const* acpi_power_state_to_string(int state) {
+ 
+ static int acpi_get_power_state(acpi_handle dis_handle) {
+     struct acpi_device *ad = NULL;
+-    int r;
+-
+-    r = acpi_bus_get_device(dis_handle, &ad);
+-    if (r || !ad) {
++    ad = acpi_fetch_acpi_dev(dis_handle);
++    if (!ad) {
+         pr_warn("Cannot get ACPI device for PCI device\n");
+         return ACPI_STATE_UNKNOWN;
+     }

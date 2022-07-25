@@ -6,5 +6,10 @@ bbswitch.overrideAttrs (old: rec {
 
   name = "${pname}-${version}-${kernel.version}";
 
-  patches = old.patches ++ [ ./bbswitch.internal_amd.patch ];
+  patches = old.patches ++ [ 
+    ./bbswitch.internal_amd.patch 
+    ./bbswitch.linux_5_18.patch
+  ];
+
+  meta.broken = false;
 })
