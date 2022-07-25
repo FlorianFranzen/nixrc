@@ -12,6 +12,8 @@
     };
 
     extraConfig = {
+      advice.skippedCherryPicks = false;
+
       diff = {
         colorMoved = "default";
         submodule = "log";
