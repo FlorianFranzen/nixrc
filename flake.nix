@@ -144,9 +144,6 @@
     # Import unstable overlay 
     unstable-overlay = import ./pkgs/unstable.nix;
 
-    # Import sway gestures overlay
-    sway-overlay = import ./pkgs/sway-gestures.nix;
-
     # Turn firefox addon collection to overlay
     firefox-addons-overlay = (self: super: {
       buildFirefoxXpiAddon = firefox-addons.lib.${super.system}.buildFirefoxXpiAddon;
@@ -172,7 +169,6 @@
 
       unstable.overlays = [
         wayland.overlay
-        sway-overlay
         #emacs-overlay_fixed
         firefox-addons-overlay
         pkgs-overlay
