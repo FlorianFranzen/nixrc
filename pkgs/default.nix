@@ -45,4 +45,7 @@ in {
   firefox-addons = super.firefox-addons // {
     tab-stash = super.callPackage ./tab-stash.nix {};
   };
+
+  # Update zeal slightly
+  zeal = callOverride ./zeal.nix {};
 }
