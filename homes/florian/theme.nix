@@ -1,5 +1,5 @@
 { themes, ... }:
 
 {
-  imports = [ themes.material ];
+  imports = [ themes.pop ];
 }

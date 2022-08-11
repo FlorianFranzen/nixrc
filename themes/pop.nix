@@ -6,7 +6,7 @@
   wayland.windowManager.sway.config ={
     # Set cursor theme
     seat."*" = {
-      xcursor_theme = "Numix-Cursor";
+      xcursor_theme = "Pop";
     };
 
     # Set desktop background
@@ -23,20 +23,18 @@
 
   # Set gtk look and feel
   gtk = {
-
     theme = {
-      name = "Materia-dark-compact";
-      package = pkgs.materia-theme;
+      name = "Pop-dark";
+      package = pkgs.pop-gtk-theme;
     };
 
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      name = "Pop";
+      package = pkgs.pop-icon-theme;
     };
 
     cursorTheme = {
-      name = "Bibata-Original-Ice";
-      package = pkgs.bibata-cursors;
+      name = "Pop";
     };
   };
 }
