@@ -5,9 +5,11 @@ with lib;
 let
   cfg = config.pywal;
 
+  themeArg = theme: if theme == "pop" then ./pop.json else theme;
+
   mkWalCache = theme: pkgs.runCommand "wal-cache-${theme}" {} ''
     export HOME=$(mktemp -d)
-    ${pkgs.pywal}/bin/wal --theme ${theme} -enst
+    ${pkgs.pywal}/bin/wal --theme ${themeArg theme} -enst
     mv $HOME/.cache/wal $out
   '';
 
