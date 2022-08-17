@@ -129,6 +129,10 @@ in {
         "${modifier}+bracketleft" = "opacity minus 0.05";
         "${modifier}+bracketright" = "opacity plus 0.05";
 
+        # Mark and switch
+        "${modifier}+m" = "mode mark";
+        "${modifier}+t" = "mode switch";
+
         # Volume control
         "--locked XF86AudioLowerVolume" = "${exec pkgs.pamixer} --decrease 5 --get-volume > ${WOBSOCK}";
         "--locked XF86AudioRaiseVolume" = "${exec pkgs.pamixer} --increase 5 --get-volume > ${WOBSOCK}";
@@ -146,6 +150,38 @@ in {
         # Screen brightness controls
         "--locked XF86MonBrightnessUp"   = "${exec pkgs.light} -A 10";
         "--locked XF86MonBrightnessDown" = "${exec pkgs.light} -U 10";
+      };
+
+      modes = {
+        # Mark and switch
+        mark = {
+          "1" = "mark 1; mode default";
+          "2" = "mark 2; mode default";
+          "3" = "mark 3; mode default";
+          "4" = "mark 4; mode default";
+          "5" = "mark 5; mode default";
+          "6" = "mark 6; mode default";
+          "7" = "mark 7; mode default";
+          "8" = "mark 8; mode default";
+          "9" = "mark 9; mode default";
+          "0" = "mark 0; mode default";
+          Return = "mode default";
+          Escape = "mode default";
+        };
+        switch = {
+          "1" = "[con_mark=1] focus; mode default";
+          "2" = "[con_mark=2] focus; mode default";
+          "3" = "[con_mark=3] focus; mode default";
+          "4" = "[con_mark=4] focus; mode default";
+          "5" = "[con_mark=5] focus; mode default";
+          "6" = "[con_mark=6] focus; mode default";
+          "7" = "[con_mark=7] focus; mode default";
+          "8" = "[con_mark=8] focus; mode default";
+          "9" = "[con_mark=9] focus; mode default";
+          "0" = "[con_mark=0] focus; mode default";
+          Return = "mode default";
+          Escape = "mode default";
+        };
       };
 
       # Add i3status-based top and bottom bars
