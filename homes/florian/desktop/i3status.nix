@@ -17,35 +17,41 @@ in {
         blocks = [
           {
             block = "focused_window";
-            max_width = 100;
-            show_marks = "visible";
+            format = "$title{ $visible_marks|}";
           }
           {
             block = "cpu";
             interval = 5;
-            on_click = "${terminal} ${pkgs.s-tui}/bin/s-tui";
+            click = [
+              {
+                button = "left";
+                cmd = "${terminal} ${pkgs.bottom}/bin/btm";
+              }
+              {
+                button = "right";
+                cmd = "${terminal} ${pkgs.s-tui}/bin/s-tui";
+              }
+            ];
           }
           {
             block = "memory";
             interval = 5;
-            format_mem = "{mem_used_percents}";
-            format_swap = "{swap_used_percents}";
-            on_click = "${terminal} ${pkgs.bottom}/bin/btm";
+            format_mem = "$mem_used_percents";
+            format_swap = "$swap_used_percents";
           }
           {
             block = "disk_space";
             path = "/";
-            format = "{icon} {available} {percentage}";
-            interval = 20;
+            format = "$available $percentage";
+            interval = 15;
             warning = 25.0;
             alert = 10.0;
           }
           {
             block = "battery";
             driver = "upower";
-            device = "battery_BAT0";
-            format = "{percentage} {time}";
-            allow_missing = true;
+            #device = "battery_BAT0";
+            format = "$percentage $time";
             hide_missing = true;
           }
           {
@@ -60,32 +66,39 @@ in {
         blocks = [
           {
             block = "music";
-            max_width = 50;
-            dynamic_width = true;
-            buttons = [ "prev" "play" "next" ];
+            format = "{$combo |}$prev $play $next";
+            hide_when_empty = true;
           }   
           {
             block = "sound";
             max_vol = 100;
-            format = "{output_description} {volume}";
-            on_click = "${pkgs.pavucontrol}/bin/pavucontrol --tab=3";
+            format = "$output_description.rot-str(20){ $volume|}";
+            click = [{
+              button = "left";
+              cmd = "${pkgs.pavucontrol}/bin/pavucontrol --tab=3";
+            }];
           }
           {
             block = "sound";
             max_vol = 50;
             device_kind = "source";
-            on_click = "${pkgs.pavucontrol}/bin/pavucontrol --tab=4";
+            click = [{
+              button = "left";
+              cmd = "${pkgs.pavucontrol}/bin/pavucontrol --tab=4";
+            }];
           }
           {
             block = "bluetooth";
             mac = "38:18:4C:D3:F5:A0";
-            format = "Headphones {percentage}";
-            format_unavailable = "Headphones?";
+            format = "Headphones{ $percentage|}";
           }
           {
             block = "net";
-            format = "{ssid} {ip}";
-            on_click = "${terminal} ${pkgs.iwd}/bin/iwctl";
+            format = "{$ssid ($signal_strength $frequency)|$device}";
+            click = [{
+              button = "left";
+              cmd = "${terminal} ${pkgs.iwd}/bin/iwctl";
+            }];
           }
         ];
       };
