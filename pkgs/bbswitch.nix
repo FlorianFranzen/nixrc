@@ -8,7 +8,6 @@ bbswitch.overrideAttrs (old: rec {
 
   patches = old.patches ++ [ 
     ./bbswitch.internal_amd.patch 
-    ./bbswitch.linux_5_18.patch
   ];
 
   meta.broken = false;
