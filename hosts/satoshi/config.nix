@@ -21,6 +21,9 @@
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
 
   boot = {
+    # Disable broken rfkill state detection
+    blacklistedKernelModules = [ "ideapad-laptop" ];
+
     # Recent and patched kernel for full hardware support
     kernelPackages = pkgs.linuxPackages_amd;
 
