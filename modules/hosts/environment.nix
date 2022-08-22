@@ -15,7 +15,6 @@
     systemPackages = with pkgs; [
       bind
       file
-      gnupg
       lsof
       p7zip
       psmisc

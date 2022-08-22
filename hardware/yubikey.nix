@@ -1,6 +1,9 @@
 { lib, config, pkgs, ... }:
 
 {
+  # Add smartcard udev rules
+  hardware.gpgSmartcards.enable = true;
+
   # Install command line utility
   environment.systemPackages = with pkgs; [
     yubikey-manager
