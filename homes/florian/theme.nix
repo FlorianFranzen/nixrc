@@ -1,5 +1,5 @@
 { themes, ... }:
 
 {
-  imports = [ themes.pop ];
+  imports = [ themes.dracula ];
 }
