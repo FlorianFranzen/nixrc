@@ -7,12 +7,6 @@
   # Enable missing command indexing
   programs.command-not-found.enable = true;
 
-  # Useful fonts for development
-  fonts.fonts = with pkgs; [
-    jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
-
   # Useful packages for development
   environment.systemPackages = with pkgs; [
     cachix

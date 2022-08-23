@@ -33,8 +33,9 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
-    spacemacs.url = "github:syl20bnr/spacemacs";
-    spacemacs.flake = false;
+    emacs-doom.url = "github:nix-community/nix-doom-emacs";
+    emacs-doom.inputs.emacs-overlay.follows = "emacs-overlay";
+    emacs-doom.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -47,7 +48,7 @@
     wayland,
     firefox-addons,
     emacs-overlay,
-    spacemacs
+    emacs-doom 
   } @ inputs': let
 
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
@@ -207,7 +208,8 @@
 
     # home-manager home configs
     home = {
-      modules = [ modules.homes ];
+      modules = [ modules.homes emacs-doom.hmModule ];
+
       importables = mkImportables [ "themes" ] // {
         inherit self inputs;
       };

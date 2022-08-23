@@ -14,7 +14,6 @@
     ++ (with profiles; [ docker gaming ])
     ++ (with profiles.develop; [
       minimal
-      emacs
       embedded
       extra
       cad

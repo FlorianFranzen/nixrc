@@ -3,7 +3,7 @@
 {
   imports = suites.full ++
     [ profiles.docker profiles.networks.iwd ] ++
-    (with profiles.develop; [ minimal emacs extra cross linux ]) ++
+    (with profiles.develop; [ minimal extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with hardware; [
       common-cpu-amd

@@ -8,13 +8,16 @@ let
   # Helper functions
   toFloat = n: n + 0.0;
 in {
-  # TODO: Use user installed font
-  #fonts.fontconfig.enable = true;
-  #home.packages = with pkgs; [
-  #  jetbrains-mono
-  #  (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  #];
+  # Manage fonts in usersapce
+  fonts.fontconfig.enable = true;
 
+  # Install default font 
+  home.packages = with pkgs; [
+    jetbrains-mono
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  ];
+
+  # Configure font
   wayland.windowManager.sway.config.fonts = {
     names = [ name "${name} Nerd Font" ];
     style = "Regular";
