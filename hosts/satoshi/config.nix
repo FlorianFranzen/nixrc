@@ -10,7 +10,7 @@
       common-gpu-amd
       common-pc-laptop
       common-pc-ssd
-      yubikey
+      smartcard
       zsa
     ]);
 

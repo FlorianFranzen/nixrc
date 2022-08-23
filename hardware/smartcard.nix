@@ -1,22 +1,25 @@
 { lib, config, pkgs, ... }:
 
 {
-  # Add smartcard udev rules
+  # Add gpg smartcard udev rules
   hardware.gpgSmartcards.enable = true;
+
+  # Add nitrokey udev rules
+  hardware.nitrokey.enable = true;
+
+  # Add yubikey udev rules
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+  ];
 
   # Install command line utility
   environment.systemPackages = with pkgs; [
-    yubikey-manager
+    pynitrokey yubikey-manager
   ];
 
   # Disable ssh agent by default to give users the choice
   programs.ssh.startAgent = lib.mkDefault false;
 
-  # Give user access to yubikey hardware
-  services.udev.packages = with pkgs; [
-    yubikey-personalization
-  ];
-
-  # Enable SmartCard support
+  # Enable SmartCard daemon
   services.pcscd.enable = true;
 }

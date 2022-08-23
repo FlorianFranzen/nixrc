@@ -26,7 +26,7 @@
       common-cpu-intel-sandy-bridge
       common-pc-laptop
       common-pc-laptop-ssd
-      yubikey
+      smartcard
     ]);
 
   # Install full desktop environment
