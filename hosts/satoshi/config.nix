@@ -21,14 +21,18 @@
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
 
   boot = {
-    # Disable broken rfkill state detection
-    blacklistedKernelModules = [ "ideapad-laptop" ];
-
     # Recent and patched kernel for full hardware support
     kernelPackages = pkgs.linuxPackages_amd;
 
     # Fix backlight control
-    kernelParams = [ "amdgpu.backlight=0" ];
+    kernelParams = [ "amdgpu.backlight=0" "ideapad-laptop.no_rfkill=1" ];
+
+    kernelPatches = [
+      {
+        name = "ideapad-laptop.no_rfkill.patch";
+        patch = ./ideapad-laptop.no_rfkill.patch;
+      }
+    ];
 
     # Avoid touchpad race condition
     extraModprobeConfig = ''
