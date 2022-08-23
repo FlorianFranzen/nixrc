@@ -23,6 +23,16 @@ in {
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 
+  iw = super.iw.overrideAttrs (old: rec {
+    version = "5.19";
+    name = "${old.pname}-${version}";
+
+    src = super.fetchurl {
+      url = "https://www.kernel.org/pub/software/network/${old.pname}/${old.pname}-${version}.tar.xz";
+      sha256 = "sha256-8We76UfdU7uevAwdzvXbatc6wdYITyxvk3bFw2DMTU4=";
+    };
+  });
+
   # WSL boot shim maker
   mkSyschdemd = self.callPackage ./syschdemd.nix {};
 
