@@ -6,8 +6,6 @@
   ];
 
   home.file.".config/workstyle/config.toml".text = ''
-    "alacritty" = ""
-    "foot" = ""
     "picture-in-picture" = ""
     "private browsing" = ""
     "firefox" = ""
@@ -23,17 +21,10 @@
     "menu" = ""
     "element" = ""
     "calculator" = ""
-    "transmission" = ""
-    "videostream" = ""
-    "mpv" = ""
-    "music" = ""
     "steam" = ""
     "skype" = ""
-    "disk usage" = ""
-    "documents" = ""
-    ".pdf" = ""
 
     [other]
-    "fallback_icon" = ""
+    "fallback_icon" = ""
   '';
 }
