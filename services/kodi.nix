@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-
   nixpkgs.config = {
-    #allowUnfree = true;
 
     kodi = {
       #enableAdvancedLauncher = true;

@@ -32,9 +32,6 @@
   # Install full desktop environment
   home-manager.users.florian = hmUsers.florian-desktop;
 
-  # Needed for Wifi driver
-  nixpkgs.config.allowUnfree = true;
-
   boot = {
     # Latest kernel without wifi issues
     kernelPackages = pkgs.linuxPackages_latest;

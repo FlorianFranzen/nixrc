@@ -41,11 +41,6 @@ let
 
   nvidia-x11 = config.boot.kernelPackages.nvidia_x11;
 in {
-  # Remove license warning
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "nvidia-x11" "nvidia-persistenced" "nvidia-settings"
-  ];
-
   # FIXME Specialization should stay activate on switch
   hardware.opengl = {
     extraPackages = with pkgs; [ nvidia-x11.out libvdpau-va-gl vaapiVdpau ];

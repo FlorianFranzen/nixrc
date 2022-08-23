@@ -27,11 +27,6 @@
 
   services.pipewire.alsa.support32Bit = true;
 
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam" "steam-run"
-  ];
-
   environment.systemPackages = with pkgs; [
     _20kly
     minecraft

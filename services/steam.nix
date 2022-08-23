@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   # Enable kodi media server
   services.xserver = {
     enable = true;
