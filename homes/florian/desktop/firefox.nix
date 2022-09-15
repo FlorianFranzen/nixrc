@@ -22,6 +22,7 @@
       decentraleyes
       clearurls
       i-dont-care-about-cookies
+      ipfs-companion
       polkadot-js
       metamask
     ];
