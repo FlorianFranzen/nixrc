@@ -42,6 +42,9 @@ in {
   # Patched to work with yubikey
   pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
 
+  # Add radicle link
+  radicle-link = self.callPackage ./radicle-link.nix {};
+
   # Add rotki tracker
   rotki = self.callPackage ./rotki.nix {};
 
