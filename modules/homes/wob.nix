@@ -32,9 +32,10 @@ in {
       };
 
       sockets.wob = {
-       Socket = {
-         ListenFIFO = "%t/wob.sock";
-         SocketMode = "0600";
+        Socket = {
+          ListenFIFO = "%t/wob.sock";
+          SocketMode = "0600";
+          WantedBy = "sockets.target";
         };
       };
     };
