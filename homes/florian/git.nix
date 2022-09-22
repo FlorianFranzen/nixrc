@@ -14,12 +14,17 @@
     extraConfig = {
       advice.skippedCherryPicks = false;
 
+      bitbucket.user = "FlorianFranzen";
+
       diff = {
         colorMoved = "default";
         submodule = "log";
       };
 
       fetch.prune = true;
+
+      github.user = "FlorianFranzen";
+      gitlab.user = "FlorianFranzen";
 
       init.defaultBranch = "main";
 
