@@ -12,7 +12,7 @@
 
     # Host configurations
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
-    unstable.url = "github:FlorianFranzen/nixpkgs/nixos-unstable";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
