@@ -1,6 +1,57 @@
 { config, pkgs, lib, hardware, ... }:
 
 let
+  # Specialization that boots with proprietary driver
+  mkConfig = hwOverride: {
+    # Enable prime offloading (incl. nvidia-offload wrapper)
+    imports = [ hardware.common-gpu-nvidia ];
+
+    # FIXME hardware.nvidia should not require this to be set
+    services.xserver.videoDrivers = [ "nvidia" ];
+
+    # Reenable gpu
+    hardware.nvidiaOptimus.disable = false;
+
+    # Enable various hardware integrations
+    hardware.nvidia = {
+      # Set hardware addresses
+      prime = {
+        amdgpuBusId = "PCI:5:0:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+
+      # Needed for wayland support
+      modesetting.enable = true;
+
+      # Keep unused device in kernel
+      nvidiaPersistenced = true;
+
+      # Improve prime battery life
+      powerManagement = {
+        enable = true;
+        finegrained = true;
+      };
+    } // hwOverride;
+
+    # Provide command line utils
+    environment = {
+
+      systemPackages = [ 
+        nvidia-sway
+        pkgs.vulkan-tools
+        pkgs.glmark2
+      ];
+
+      # Use nvidia on wayland
+      variables = {
+        # Try nvidia gbm backend first
+        GBM_BACKEND = "nvidia-drm";
+      };
+    };
+
+    services.xserver.displayManager.sessionPackages = [ nvidia-sway ];
+  };
+
   mkDesktopFile = name: exec: ''
     [Desktop Entry]
     Name=${name}
@@ -43,57 +94,13 @@ let
 in {
   # FIXME Specialization should stay activate on switch
   hardware.opengl = {
-    extraPackages = with pkgs; [ nvidia-x11.out libvdpau-va-gl vaapiVdpau ];
+    extraPackages = with pkgs; [ nvidia-x11.out nvidia-x11.open libvdpau-va-gl vaapiVdpau ];
     extraPackages32 = with pkgs; [ nvidia-x11.lib32 libvdpau-va-gl vaapiVdpau ];
   };
 
   # Specialization that boots with proprietary driver
-  specialisation.nvidia.configuration = {
-    # Enable prime offloading (incl. nvidia-offload wrapper)
-    imports = [ hardware.common-gpu-nvidia ];
-
-    # FIXME hardware.nvidia should not require this to be set
-    services.xserver.videoDrivers = [ "nvidia" ];
-
-    # Reenable gpu
-    hardware.nvidiaOptimus.disable = false;
-
-    # Enable various hardware integrations
-    hardware.nvidia = {
-      package = nvidia-x11;
-
-      # Set hardware addresses
-      prime = {
-        amdgpuBusId = "PCI:5:0:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-
-      # Needed for wayland support
-      modesetting.enable = true;
-
-      # Keep unused device in kernel
-      nvidiaPersistenced = true;
-
-      # Improve prime battery life
-      powerManagement = {
-        enable = true;
-        finegrained = true;
-      };
-    };
-
-    # Provide command line utils
-    environment.systemPackages = [ 
-      nvidia-sway
-      pkgs.vulkan-tools
-      pkgs.glmark2
-    ];
-
-    services.xserver.displayManager.sessionPackages = [ nvidia-sway ];
-
-    # Use nvidia on wayland
-    environment.variables = {
-      # Try nvidia gbm backend first
-      GBM_BACKEND = "nvidia-drm";
-    };
+  specialisation = {
+    nvidia.configuration = mkConfig {};
+    nvopen.configuration = mkConfig { open = true; }; 
   };
 }
