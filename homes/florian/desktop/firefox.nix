@@ -43,9 +43,6 @@
 
         "dom.security.https_only_mode" = true;
 
-        "gfx.webrender.all" = true;
-        "gfx.webrender.compositor.force-enabled" = true;
-
         "media.ffmpeg.vaapi.enabled" = "true";
 
         "permissions.fullscreen.allowed" = true;
