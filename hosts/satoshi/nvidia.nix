@@ -1,13 +1,16 @@
 { config, pkgs, lib, hardware, ... }:
 
 let
+  # Select latest release for bug fixes
+  nvidiaPackage = config.boot.kernelPackages.nvidiaPackages.beta;
+
   # Specialization that boots with proprietary driver
   mkConfig = hwOverride: {
     # Enable prime offloading (incl. nvidia-offload wrapper)
     imports = [ hardware.common-gpu-nvidia ];
 
     # FIXME hardware.nvidia should not require this to be set
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = lib.mkForce [ "nvidia" ];
 
     # Reenable gpu
     hardware.nvidiaOptimus.disable = false;
@@ -25,6 +28,9 @@ let
 
       # Keep unused device in kernel
       nvidiaPersistenced = true;
+
+      # Use same package version to set up module
+      package = nvidiaPackage; 
 
       # Improve prime battery life
       powerManagement = {
@@ -89,13 +95,11 @@ let
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
       exec -a nvidia-sway sway $@
   '';
-
-  nvidia-x11 = config.boot.kernelPackages.nvidia_x11;
 in {
   # FIXME Specialization should stay activate on switch
   hardware.opengl = {
-    extraPackages = with pkgs; [ nvidia-x11.out nvidia-x11.open libvdpau-va-gl vaapiVdpau ];
-    extraPackages32 = with pkgs; [ nvidia-x11.lib32 libvdpau-va-gl vaapiVdpau ];
+    extraPackages = with pkgs; [ nvidiaPackage.out nvidiaPackage.open libvdpau-va-gl vaapiVdpau ];
+    extraPackages32 = with pkgs; [ nvidiaPackage.lib32 libvdpau-va-gl vaapiVdpau ];
   };
 
   # Specialization that boots with proprietary driver
