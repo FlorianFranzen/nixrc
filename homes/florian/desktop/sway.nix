@@ -100,38 +100,52 @@ in {
 
       # Extended key bindings
       keybindings = let
-          modifier = final.config.modifier;
+          cfg = final.config;
+
           exec = pkg: exec' pkg pkg.pname;
           exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
 
           WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
       in lib.mkOptionDefault {
+        # Move workspace between outputs
+        "${cfg.modifier}+Ctrl+${cfg.left}"  = "move workspace output left";
+        "${cfg.modifier}+Ctrl+${cfg.down}"  = "move workspace output down";
+        "${cfg.modifier}+Ctrl+${cfg.up}"    = "move workspace output up";
+        "${cfg.modifier}+Ctrl+${cfg.right}" = "move workspace output right";
+
+        "${cfg.modifier}+Ctrl+Left"  = "move workspace output left";
+        "${cfg.modifier}+Ctrl+Down"  = "move workspace output down";
+        "${cfg.modifier}+Ctrl+Up"    = "move workspace output up";
+        "${cfg.modifier}+Ctrl+Right" = "move workspace output right";
+
+        # Fullscreen container in split parent  
+        "${cfg.modifier}+Shift+f" = "split v; focus parent; fullscreen toggle; focus child";    
 
         # Lock screen
-        "${modifier}+o" = exec' pkgs.swaylock-effects "swaylock";
+        "${cfg.modifier}+o" = exec' pkgs.swaylock-effects "swaylock";
 
         # Add logout screen
-        "${modifier}+q" = "kill";
-        "${modifier}+Shift+q" = exec pkgs.wlogout;
+        "${cfg.modifier}+q"       = "kill";
+        "${cfg.modifier}+Shift+q" = exec pkgs.wlogout;
 
         # Web browser keys
-        "${modifier}+BackSpace" = exec pkgs.firefox;
-        "${modifier}+Shift+BackSpace" = "${exec pkgs.firefox} --private-window";
+        "${cfg.modifier}+BackSpace"       = exec pkgs.firefox;
+        "${cfg.modifier}+Shift+BackSpace" = "${exec pkgs.firefox} --private-window";
 
         # File browser key
-        "${modifier}+Delete" = "exec thunar";
+        "${cfg.modifier}+Delete" = "exec thunar";
 
         # Screenshot keys
-        "${modifier}+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save window";
-        "${modifier}+Shift+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save area";
+        "${cfg.modifier}+Print"       = "${exec pkgs.sway-contrib.grimshot} --notify save window";
+        "${cfg.modifier}+Shift+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save area";
 
         # Transparency control
-        "${modifier}+bracketleft" = "opacity minus 0.05";
-        "${modifier}+bracketright" = "opacity plus 0.05";
+        "${cfg.modifier}+bracketleft"  = "opacity minus 0.05";
+        "${cfg.modifier}+bracketright" = "opacity plus 0.05";
 
         # Mark and switch
-        "${modifier}+m" = "mode mark";
-        "${modifier}+t" = "mode switch";
+        "${cfg.modifier}+m" = "mode mark";
+        "${cfg.modifier}+t" = "mode switch";
 
         # Volume control
         "--locked XF86AudioLowerVolume" = "${exec pkgs.pamixer} --decrease 5 --get-volume > ${WOBSOCK}";
@@ -141,18 +155,18 @@ in {
         "--locked XF86AudioMicMute"     = "${exec pkgs.pamixer} --default-source --toggle-mute";
 
         # Playback controls
-        "--locked XF86AudioPrev" = "${exec pkgs.playerctl} previous";
-        "--locked XF86AudioNext" = "${exec pkgs.playerctl} next";
-        "--locked XF86AudioPlay" = "${exec pkgs.playerctl} play-pause";
+        "--locked XF86AudioPrev"  = "${exec pkgs.playerctl} previous";
+        "--locked XF86AudioNext"  = "${exec pkgs.playerctl} next";
+        "--locked XF86AudioPlay"  = "${exec pkgs.playerctl} play-pause";
         "--locked XF86AudioPause" = "${exec pkgs.playerctl} play-pause";
-        "--locked XF86AudioStop" = "${exec pkgs.playerctl} stop";
+        "--locked XF86AudioStop"  = "${exec pkgs.playerctl} stop";
 
         # Screen brightness controls
         "--locked XF86MonBrightnessUp"   = "${exec pkgs.light} -A 10";
         "--locked XF86MonBrightnessDown" = "${exec pkgs.light} -U 10";
       };
 
-      modes = {
+      modes = lib.mkOptionDefault {
         # Mark and switch
         mark = {
           "1" = "mark 1; mode default";
