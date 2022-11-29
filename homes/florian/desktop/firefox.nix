@@ -13,7 +13,6 @@
 
     extensions = with pkgs.firefox-addons; [
       multi-account-containers
-      simple-tab-groups
       tab-stash
       browserpass
       tridactyl
@@ -56,6 +55,8 @@
         "signon.rememberSignons" = false;
 
         "svg.context-properties.content.enabled" = true;
+
+        "webgl.force-enabled" = true;
       };
     };
   };
