@@ -35,12 +35,11 @@
       shellAliases = {
         cat = "bat --plain";
 
-        sm = "TERM=xterm te";
-        sv = "spacevim";
-
         incognito = "unset HISTFILE && echo 'History has been disabled.'";
 
         nixos-env = "sudo nix-env -p /nix/var/nix/profiles/system";
+
+        tree = "lsd --tree";
       };
 
       # Configure plugins
