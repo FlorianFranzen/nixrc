@@ -80,7 +80,7 @@ in {
           }
           {
             block = "sound";
-            max_vol = 50;
+            max_vol = 100;
             device_kind = "source";
             click = [{
               button = "left";
