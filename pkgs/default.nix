@@ -39,9 +39,6 @@ in {
   # Add rotki tracker
   rotki = self.callPackage ./rotki.nix {};
 
-  # Update to unreleased version with color fix
-  swaylock-effects = callOverride ./swaylock-effects.nix {};
-
   # Add swayest workstyle
   sworkstyle = self.callPackage ./sworkstyle.nix {};
 
