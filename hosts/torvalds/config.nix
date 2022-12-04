@@ -53,4 +53,7 @@ in {
 
   # Don't allow emergency mode, because we don't have a console.
   systemd.enableEmergencyMode = false;
+
+  # Current state version
+  system.stateVersion = "22.05";
 }
