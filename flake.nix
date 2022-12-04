@@ -17,7 +17,7 @@
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
-    # Home management
+    # Home management (update blocked by digga)
     home.url = "github:nix-community/home-manager/release-22.05";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -192,9 +192,11 @@
       };
 
       hosts = recursiveUpdate (readHostTree ./hosts) {
+        # Satoshi is on unstable for better hardware support
         satoshi.channelName = "unstable";
       };
 
+      # OS modules are provided with profiles from hardware flake and various subfolders
       importables = let
         imported = mkImportables [ "hardware" "profiles" "services" ];
       in imported // {
@@ -210,6 +212,7 @@
     home = {
       modules = [ modules.homes emacs-doom.hmModule ];
 
+      # Home modules are provided with themes
       importables = mkImportables [ "themes" ] // {
         inherit self inputs;
       };
@@ -217,6 +220,7 @@
       users = readHomeTree ./homes;
     };
 
+    # Export home configurations with the help of digga
     homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
     # system build checks
