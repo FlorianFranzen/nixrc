@@ -26,7 +26,7 @@
     shared-mime-info
     libappindicator
     libnotify
-    xdg_utils
+    xdg-utils
 
     playerctl
 
