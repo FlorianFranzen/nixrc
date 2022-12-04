@@ -66,18 +66,26 @@ in {
 
     config = {
       # Default input config
-      input."*" = {
-        xkb_layout = "eu";
-        xkb_options = "compose:ralt";
-        xkb_numlock = "enabled";
+      input = { 
+        "type:keyboard" = {
+          xkb_layout = "eu";
+          xkb_options = "compose:ralt";
+          xkb_numlock = "enabled";
+        };
 
-        natural_scroll = "enabled";
-        scroll_method = "two_finger";
-        tap = "disabled";
+        "type:touchpad" = {
+          natural_scroll = "enabled";
+          scroll_method = "two_finger";
+          tap = "disabled";
+        };
+
+        "type:pointer" = {
+          natural_scroll = "enabled";
+        };
       };
 
       # Scale high DPI displays
-      output."California Institute of Technology 0x1600 Unknown" = {
+      output."Unknown 0x1600 Unknown" = {
         scale = "1.25";
       };
 
