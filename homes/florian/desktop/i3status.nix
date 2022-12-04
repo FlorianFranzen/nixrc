@@ -36,8 +36,8 @@ in {
           {
             block = "memory";
             interval = 5;
-            format_mem = "$mem_used_percents";
-            format_swap = "$swap_used_percents";
+            format = "$mem_used_percents";
+            format_alt = "$swap_used_percents";
           }
           {
             block = "disk_space";
@@ -52,7 +52,6 @@ in {
             driver = "upower";
             #device = "battery_BAT0";
             format = "$percentage $time";
-            hide_missing = true;
           }
           {
             block = "time";

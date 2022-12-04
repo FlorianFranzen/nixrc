@@ -18,7 +18,7 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Home management (update blocked by digga)
-    home.url = "github:nix-community/home-manager/release-22.05";
+    home.url = "github:FlorianFranzen/home-manager/wayland-22.05";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest wayland tools
