@@ -7,6 +7,9 @@
   # Enable missing command indexing
   programs.command-not-found.enable = true;
 
+  # Helper to run precompiled binaries
+  programs.nix-ld.enable = true;
+
   # Useful packages for development
   environment.systemPackages = with pkgs; [
     cachix
