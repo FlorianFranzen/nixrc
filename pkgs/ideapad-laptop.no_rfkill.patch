@@ -1,0 +1,83 @@
+diff --git a/drivers/platform/x86/ideapad-laptop.c b/drivers/platform/x86/ideapad-laptop.c
+index abd0c81d62c4..07b1e5c3c0a7 100644
+--- a/drivers/platform/x86/ideapad-laptop.c
++++ b/drivers/platform/x86/ideapad-laptop.c
+@@ -152,6 +152,10 @@ static bool no_bt_rfkill;
+ module_param(no_bt_rfkill, bool, 0444);
+ MODULE_PARM_DESC(no_bt_rfkill, "No rfkill for bluetooth.");
+ 
++static bool no_rfkill;
++module_param(no_rfkill, bool, 0444);
++MODULE_PARM_DESC(no_rfkill, "Disable rfkill integration.");
++
+ static bool allow_v4_dytc;
+ module_param(allow_v4_dytc, bool, 0444);
+ MODULE_PARM_DESC(allow_v4_dytc, "Enable DYTC version 4 platform-profile support.");
+@@ -1456,7 +1460,7 @@ static void ideapad_acpi_notify(acpi_handle handle, u32 event, void *data)
+ 			 */
+ 			break;
+ 		case 9:
+-			ideapad_sync_rfk_state(priv);
++			if (!no_rfkill) ideapad_sync_rfk_state(priv);
+ 			break;
+ 		case 5:
+ 			ideapad_sync_touchpad_state(priv);
+@@ -1614,15 +1618,18 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+ 	if (!priv->features.hw_rfkill_switch)
+ 		write_ec_cmd(priv->adev->handle, VPCCMD_W_RF, 1);
+ 
++	if (!no_rfkill) {
++		for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
++			if (test_bit(ideapad_rfk_data[i].cfgbit, &priv->cfg))
++				ideapad_register_rfkill(priv, i);
++
++		ideapad_sync_rfk_state(priv);
++	}
++
+ 	/* The same for Touchpad */
+ 	if (!priv->features.touchpad_ctrl_via_ec)
+ 		write_ec_cmd(priv->adev->handle, VPCCMD_W_TOUCHPAD, 1);
+ 
+-	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
+-		if (test_bit(ideapad_rfk_data[i].cfgbit, &priv->cfg))
+-			ideapad_register_rfkill(priv, i);
+-
+-	ideapad_sync_rfk_state(priv);
+ 	ideapad_sync_touchpad_state(priv);
+ 
+ 	err = ideapad_dytc_profile_init(priv);
+@@ -1678,8 +1685,9 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+ backlight_failed:
+ 	ideapad_dytc_profile_exit(priv);
+ 
+-	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
+-		ideapad_unregister_rfkill(priv, i);
++	if (!no_rfkill) 
++		for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
++			ideapad_unregister_rfkill(priv, i);
+ 
+ 	ideapad_kbd_bl_exit(priv);
+ 	ideapad_input_exit(priv);
+@@ -1708,8 +1716,9 @@ static int ideapad_acpi_remove(struct platform_device *pdev)
+ 	ideapad_backlight_exit(priv);
+ 	ideapad_dytc_profile_exit(priv);
+ 
+-	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
+-		ideapad_unregister_rfkill(priv, i);
++	if (!no_rfkill)
++		for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
++			ideapad_unregister_rfkill(priv, i);
+ 
+ 	ideapad_kbd_bl_exit(priv);
+ 	ideapad_input_exit(priv);
+@@ -1724,7 +1733,9 @@ static int ideapad_acpi_resume(struct device *dev)
+ {
+ 	struct ideapad_private *priv = dev_get_drvdata(dev);
+ 
+-	ideapad_sync_rfk_state(priv);
++	if (!no_rfkill)
++		ideapad_sync_rfk_state(priv);
++
+ 	ideapad_sync_touchpad_state(priv);
+ 
+ 	if (priv->dytc)

@@ -24,15 +24,11 @@
     # Recent and patched kernel for full hardware support
     kernelPackages = pkgs.linuxPackages_amd;
 
+    # Use patched ideapad-laptop
+    extraModulePackages = [ pkgs.linuxPackages_amd.ideapad-laptop ];
+
     # Fix backlight control
     kernelParams = [ "amdgpu.backlight=0" "ideapad-laptop.no_rfkill=1" ];
-
-    kernelPatches = [
-      {
-        name = "ideapad-laptop.no_rfkill.patch";
-        patch = ./ideapad-laptop.no_rfkill.patch;
-      }
-    ];
 
     # Avoid touchpad race condition
     extraModprobeConfig = ''
