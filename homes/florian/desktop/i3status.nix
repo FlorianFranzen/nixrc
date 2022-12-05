@@ -17,7 +17,7 @@ in {
         blocks = [
           {
             block = "focused_window";
-            format = "$title{ $visible_marks|}";
+            format = "{$title|}{ $visible_marks|}";
           }
           {
             block = "cpu";
@@ -50,7 +50,6 @@ in {
           {
             block = "battery";
             driver = "upower";
-            #device = "battery_BAT0";
             format = "$percentage $time";
           }
           {
