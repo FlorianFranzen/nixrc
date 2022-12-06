@@ -10,6 +10,7 @@
       common-gpu-amd
       common-pc-laptop
       common-pc-ssd
+      android
       smartcard
       zsa
     ]);

@@ -55,8 +55,6 @@
 
     nmap
 
-    androidenv.androidPkgs_9_0.platform-tools
-
     vimHugeX
     keybase-gui
     zeal
