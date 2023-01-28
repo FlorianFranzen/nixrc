@@ -22,7 +22,7 @@
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest wayland tools
-    wayland.url = "github:nix-community/nixpkgs-wayland";
+    wayland.url = "github:FlorianFranzen/nixpkgs-wayland/freerdp3";
     wayland.inputs.nixpkgs.follows = "unstable";
 
     # Firefox Addons

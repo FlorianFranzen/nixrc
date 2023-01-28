@@ -674,11 +674,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1674436393,
-        "narHash": "sha256-xVMIdvyA3R/stDifjRjJr+xFu6NpFn8IQ3kDSpd9nAk=",
+        "lastModified": 1674855670,
+        "narHash": "sha256-T9cMo2bjXihpCYGooRNvhzdBEYcSZWQv1eJKgZkFwwI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6992a4c3a69ab0d61d1c929d80d15b0cf4bf1404",
+        "rev": "cc5916d64c9e4fce56ecc7b44e7accab6272af5f",
         "type": "github"
       },
       "original": {
@@ -917,15 +917,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1674661127,
-        "narHash": "sha256-j6qdUpmGT0yJg0TUxRtscqWJbUR4EpWOhvyjImQbbnE=",
-        "owner": "nix-community",
+        "lastModified": 1674855696,
+        "narHash": "sha256-dDhjbA6nuNqitfPsDU2BtVjorpivTAMpbXL2B/Uv11c=",
+        "owner": "FlorianFranzen",
         "repo": "nixpkgs-wayland",
-        "rev": "7b35168cc21e79cda65e8a9659c510edcb7c8ea4",
+        "rev": "605703839a1f1b56e2206fba1b3c529d92be4481",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "FlorianFranzen",
+        "ref": "freerdp3",
         "repo": "nixpkgs-wayland",
         "type": "github"
       }
