@@ -11,14 +11,14 @@
     digga.inputs.home-manager.follows = "home";
 
     # Host configurations
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Home management (update blocked by digga)
-    home.url = "github:FlorianFranzen/home-manager/wayland-22.05";
+    home.url = "github:FlorianFranzen/home-manager/wayland-22.11";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest wayland tools
