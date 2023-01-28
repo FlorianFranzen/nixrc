@@ -13,7 +13,7 @@ in {
     enable = true;
     doomPrivateDir = "${self}/emacs";
 
-    emacsPackage = emacsPkgs.emacsPgtkNativeComp;
+    emacsPackage = emacsPkgs.emacsPgtk;
   };
 
   # Enable emacs server

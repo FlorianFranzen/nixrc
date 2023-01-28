@@ -65,8 +65,7 @@ in {
         blocks = [
           {
             block = "music";
-            format = " {$combo |}$prev $play $next ";
-            hide_when_empty = true;
+            format = "{ $icon $combo $prev $play $next |}";
           }   
           {
             block = "sound";

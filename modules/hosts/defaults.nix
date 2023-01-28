@@ -14,7 +14,7 @@ in {
   # Enable SSH login via key by default
   services.openssh.enable = lib.mkDefault true;
 
-  services.openssh.passwordAuthentication = lib.mkIf hasSshd false;
+  services.openssh.settings.PasswordAuthentication = lib.mkIf hasSshd false;
   security.pam.enableSSHAgentAuth = lib.mkIf hasSshd true;
 
   # Enable time synchronization
