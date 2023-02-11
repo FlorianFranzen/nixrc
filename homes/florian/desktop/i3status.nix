@@ -55,7 +55,7 @@ in {
           }
           {
             block = "time";
-            interval = 60;
+            interval = 10;
             format = " $icon %a %d.%m.%Y %R ";
           }
         ];
