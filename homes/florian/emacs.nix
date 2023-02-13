@@ -17,7 +17,14 @@ in {
   };
 
   # Enable emacs server
-  services.emacs.enable = true;
+  services.emacs = {
+    enable = true;
+    client.enable = true;
+    #defaultEditor = true;
+  };
+
+  # Provide server with access to user ssh auth socket
+  systemd.user.services.emacs.Service.Environment = "SSH_AUTH_SOCK=/run/user/%U/gnupg/S.gpg-agent.ssh";
 }
 
 

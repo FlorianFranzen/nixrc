@@ -42,6 +42,16 @@ in {
   # Add swayest workstyle
   sworkstyle = self.callPackage ./sworkstyle.nix {};
 
+  # Fix tree sitter grammar abi incompatibility 
+  tree-sitter-grammars = super.tree-sitter-grammars // {
+    tree-sitter-python = super.tree-sitter-grammars.tree-sitter-python.overrideAttrs (_: {
+      nativeBuildInputs = [ self.nodejs self.tree-sitter ];
+      configurePhase = ''
+        tree-sitter generate --abi 13 src/grammar.json
+      '';
+    });
+  };
+
   # Custom firefox addons
   firefox-addons = super.firefox-addons // {
     tab-stash = super.callPackage ./tab-stash.nix {};
