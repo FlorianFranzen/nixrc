@@ -9,7 +9,6 @@
   # Enable bluetooth
   hardware.bluetooth = {
     enable = true;
-    hsphfpd.enable = true;
 
     # Use bluez with experimental features
     package = pkgs.bluez5-experimental;
@@ -17,9 +16,6 @@
     # Enable experimental battery reporting
     settings.General.Experimental = true;
   };
-
-  # Disable hsphfpd demo client
-  systemd.user.services.telephony_client.enable = false;
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
