@@ -22,4 +22,7 @@
   users.extraUsers.florian = {
     extraGroups = [ "sway" ];
   };
+
+  # Allow swaylock to check passwords
+  security.pam.services.swaylock = {};
 }
