@@ -29,7 +29,7 @@
     extraModulePackages = [ pkgs.linuxPackages_amd.ideapad-laptop ];
 
     # Fix backlight control
-    kernelParams = [ "amdgpu.backlight=0" "ideapad-laptop.no_rfkill=1" ];
+    kernelParams = [ "amd_pstate=passive" "amdgpu.backlight=0" "ideapad-laptop.no_rfkill=1" ];
 
     # Avoid touchpad race condition
     extraModprobeConfig = ''
