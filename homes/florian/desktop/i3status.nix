@@ -70,7 +70,7 @@ in {
           {
             block = "sound";
             max_vol = 100;
-            format = " $icon $output_description.rot-str(20){ $volume|} ";
+            format = " $icon $output_description.str(max_w:20){ $volume|} ";
             click = [{
               button = "left";
               cmd = "${pkgs.pavucontrol}/bin/pavucontrol --tab=3";
