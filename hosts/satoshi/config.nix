@@ -49,5 +49,5 @@
     (self: super: { bumblebee = super.bumblebee_amd; })
   ];
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.11";
 }
