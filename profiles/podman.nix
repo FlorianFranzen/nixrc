@@ -2,9 +2,10 @@
 
 {
   # Enable docker
-  virtualisation.docker = {
+  virtualisation.podman = {
     enable = true;
-    enableOnBoot = false; # Otherwise waits for network-online
+    dockerCompat = true;
+    dockerSocket.enable = true;
   };
 
   # Useful packages
@@ -12,6 +13,6 @@
 
   # Give certain users direct access
   users.extraUsers.florian = {
-    extraGroups = [ "docker" ];
+    extraGroups = [ "podman" ];
   };
 }

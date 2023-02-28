@@ -11,7 +11,7 @@
 
 {
   imports = (with suites; full)
-    ++ (with profiles; [ docker gaming ])
+    ++ (with profiles; [ podman gaming ])
     ++ (with profiles.develop; [
       minimal
       embedded
