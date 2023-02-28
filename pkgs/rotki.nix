@@ -4,7 +4,7 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "rotki";
-  version = "1.26.3";
+  version = "1.27.1";
   name = "${pname}-${version}";
 
   suffix = {
@@ -15,7 +15,7 @@ let
   src = fetchurl {
     url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-${suffix}";
     sha256 = {
-      x86_64-linux = "uAXvp1hPKdAsy3xwLMDvLh+DNUysvu/agnBWI99Kbi0=";
+      x86_64-linux = "Vbe4aHchja6A2O2zWOvJREGop3pFl0Hl/iDqee+/OfM=";
       x86_64-darwin = lib.fakeSha256;
     }.${system} or throwSystem;
   };
