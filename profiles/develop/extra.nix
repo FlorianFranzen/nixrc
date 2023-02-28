@@ -59,4 +59,6 @@
     keybase-gui
     zeal
   ];
+
+  users.extraUsers.florian.extraGroups = [ "dialout" ];
 }

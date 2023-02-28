@@ -8,8 +8,6 @@
     super-slicer
   ];
 
-  users.extraUsers.florian = {
-    extraGroups = [ "dialout" ];
-  };
+  users.extraUsers.florian.extraGroups = [ "dialout" ];
 }
 

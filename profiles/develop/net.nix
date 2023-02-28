@@ -7,7 +7,5 @@
     package = pkgs.wireshark-qt;
   };
 
-  users.extraUsers.florian = {
-    extraGroups = [ "wireshark" ];
-  };
+  users.extraUsers.florian.extraGroups = [ "wireshark" ];
 }
