@@ -8,6 +8,7 @@
       cfg = {
         enableBrowserpass = true;
         enableTridactylNative = true;
+        extraNativeMessagingHosts = [ pkgs.gpgme.dev ];
       };
     };
 
@@ -23,6 +24,7 @@
       ipfs-companion
       polkadot-js
       metamask
+      mailvelope
     ];
 
     profiles.default = {
@@ -59,5 +61,14 @@
         "webgl.force-enabled" = true;
       };
     };
+  };
+
+  # Allow access to users gnupg environment
+  home.file.".mozilla/native-messaging-hosts/gpgmejson.json".text = builtins.toJSON {
+    name = "gpgmejson";
+    description = "JavaScript binding for GnuPG";
+    path = "${pkgs.gpgme.dev}/bin/gpgme-json";
+    type = "stdio";
+    allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
   };
 }
