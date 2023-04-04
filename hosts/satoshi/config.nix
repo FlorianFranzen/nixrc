@@ -2,7 +2,7 @@
 
 {
   imports = suites.full ++
-    [ profiles.podman profiles.networks.iwd ] ++
+    [ profiles.corp profiles.podman profiles.networks.iwd ] ++
     (with profiles.develop; [ minimal extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with hardware; [

@@ -11,5 +11,7 @@
     "nrfutil" "pc-ble-driver-py" "pc-ble-driver" "pypemicro"
     # Steam Gaming
     "steam" "steam-run"
+    # Some corpoware
+    "slack" "zoom"
   ];
 }
