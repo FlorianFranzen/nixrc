@@ -1,19 +1,28 @@
 { config, pkgs, lib, hardware, ... }:
 
 let
-  # Select latest release for bug fixes
-  nvidiaPackage = config.boot.kernelPackages.nvidiaPackages.beta;
+  # Select latest release for hardware support and bug fixes
+  nvidiaPackage = config.boot.kernelPackages.nvidiaPackages.latest;
 
-  # Specialization that boots with proprietary driver
+  # Specialization that boots with nvidia driver
   mkConfig = hwOverride: {
     # Enable prime offloading (incl. nvidia-offload wrapper)
     imports = [ hardware.common-gpu-nvidia ];
+
+    # Enable resizable BAR support
+    boot.kernelParams = [ "NVreg_EnableResizableBar=1" ];
 
     # FIXME hardware.nvidia should not require this to be set
     services.xserver.videoDrivers = lib.mkForce [ "nvidia" ];
 
     # Reenable gpu
     hardware.nvidiaOptimus.disable = false;
+
+    # Add full opengl support
+    hardware.opengl = {
+      extraPackages = with pkgs; [ nvidiaPackage.out nvidiaPackage.open libvdpau-va-gl vaapiVdpau ];
+      extraPackages32 = with pkgs; [ nvidiaPackage.lib32 libvdpau-va-gl vaapiVdpau ];
+    };
 
     # Enable various hardware integrations
     hardware.nvidia = {
@@ -96,13 +105,7 @@ let
       exec -a nvidia-sway sway $@
   '';
 in {
-  # FIXME Specialization should stay activate on switch
-  hardware.opengl = {
-    extraPackages = with pkgs; [ nvidiaPackage.out nvidiaPackage.open libvdpau-va-gl vaapiVdpau ];
-    extraPackages32 = with pkgs; [ nvidiaPackage.lib32 libvdpau-va-gl vaapiVdpau ];
-  };
-
-  # Specialization that boots with proprietary driver
+  # Specialization that boots with proprietary and open nvidia driver
   specialisation = {
     nvidia.configuration = mkConfig {};
     nvopen.configuration = mkConfig { open = true; }; 
