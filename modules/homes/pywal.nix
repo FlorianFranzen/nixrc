@@ -35,7 +35,7 @@ in {
       (cat ${cache}/sequences &)
     '';
 
-    programs.mako = with result.colors; {
+    services.mako = with result.colors; {
       backgroundColor = "${color0}f2";
       borderColor = "${color8}f2";
       progressColor = "${color6}f2";

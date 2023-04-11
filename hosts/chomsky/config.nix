@@ -67,5 +67,5 @@
   # Hard disk protection in case of fall
   services.hdapsd.enable = lib.mkDefault true;
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.11";
 }

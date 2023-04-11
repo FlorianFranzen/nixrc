@@ -9,17 +9,15 @@ let
       auto = builtins.intersectAttrs (lib.functionArgs f) pkgs;
     in f (auto // args);
 
-  callOverride = callOverrideWith super;
+  callOverride = callOverrideWith super; 
 
 in {
   # Support bbswitch on AMD CPUs
   linuxPackages_amd = super.linuxPackages_latest.extend (kself: ksuper: {
     ideapad-laptop = ksuper.callPackage ./ideapad-laptop.nix {}; 
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
-  });
 
-  # With experimental features
-  bluez5-experimental = callOverride ./bluez.nix {};
+  });
 
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};

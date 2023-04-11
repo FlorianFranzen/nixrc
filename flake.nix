@@ -4,33 +4,31 @@
   inputs = {
     # Flake helpers
     digga.url = "github:divnix/digga";
-    digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.nixlib.follows = "nixpkgs";
-    digga.inputs.latest.follows = "unstable";
-    digga.inputs.nixpkgs-unstable.follows = "unstable";
+    digga.inputs.nixpkgs.follows = "nixpkgs";
+    digga.inputs.nixpkgs-unstable.follows = "nixpkgs";
     digga.inputs.home-manager.follows = "home";
 
     # Host configurations
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Home management (update blocked by digga)
-    home.url = "github:FlorianFranzen/home-manager/wayland-22.11";
+    home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest wayland tools
-    wayland.url = "github:FlorianFranzen/nixpkgs-wayland/freerdp3";
-    wayland.inputs.nixpkgs.follows = "unstable";
+    wayland.url = "github:nix-community/nixpkgs-wayland";
+    wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Firefox Addons
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
     # Latest emacs and framework
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/c16be6de78ea878aedd0292aa5d4a1ee0a5da501";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-doom.url = "github:nix-community/nix-doom-emacs";
@@ -42,7 +40,6 @@
     self,
     digga,
     nixpkgs,
-    unstable,
     hardware,
     home,
     wayland,
@@ -142,9 +139,6 @@
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
 
-    # Import unstable overlay 
-    unstable-overlay = import ./pkgs/unstable.nix;
-
     # Turn firefox addon collection to overlay
     firefox-addons-overlay = (self: super: {
       buildFirefoxXpiAddon = firefox-addons.lib.${super.system}.buildFirefoxXpiAddon;
@@ -160,17 +154,9 @@
 
     # nixpkgs versions and configs
     channels = {
-      # TODO Check sharedOverlays
-      nixpkgs.overlays = [
-        #emacs-overlay_fixed
-        firefox-addons-overlay
-        unstable-overlay
-        pkgs-overlay
-      ];
 
-      unstable.overlays = [
+      nixpkgs.overlays = [
         wayland.overlay
-        #emacs-overlay_fixed
         firefox-addons-overlay
         pkgs-overlay
       ];
@@ -191,10 +177,7 @@
         ];
       };
 
-      hosts = recursiveUpdate (readHostTree ./hosts) {
-        # Satoshi is on unstable for better hardware support
-        satoshi.channelName = "unstable";
-      };
+      hosts = readHostTree ./hosts;
 
       # OS modules are provided with profiles from hardware flake and various subfolders
       importables = let

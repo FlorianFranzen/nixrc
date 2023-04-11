@@ -12,22 +12,22 @@
       };
     };
 
-    extensions = with pkgs.firefox-addons; [
-      multi-account-containers
-      tab-stash
-      browserpass
-      tridactyl
-      ublock-origin
-      privacy-badger
-      decentraleyes
-      clearurls
-      ipfs-companion
-      polkadot-js
-      metamask
-      mailvelope
-    ];
-
     profiles.default = {
+      extensions = with pkgs.firefox-addons; [
+        multi-account-containers
+        tab-stash
+        browserpass
+        tridactyl
+        ublock-origin
+        privacy-badger
+        decentraleyes
+        clearurls
+        ipfs-companion
+        polkadot-js
+        metamask
+        mailvelope
+      ];
+
       # TODO https://github.com/arkenfox/user.js
       settings = {
         "browser.aboutConfig.showWarning" = false;

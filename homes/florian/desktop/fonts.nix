@@ -31,5 +31,5 @@ in {
 
   programs.foot.settings.main.font = "${name}:size=${toString size}";
 
-  programs.mako.font = "${name} ${toString size}";
+  services.mako.font = "${name} ${toString size}";
 }
