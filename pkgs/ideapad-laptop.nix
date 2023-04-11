@@ -18,6 +18,8 @@ in stdenv.mkDerivation rec {
     ./ideapad-laptop.no_rfkill.patch  
   ];
 
+  nativeBuildInputs = [ kernel.moduleBuildDependencies ];
+
   makeFlags = [ 
     "-C" "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" 
     "M=$(PWD)/${modPath}" "${modName}.ko" 

@@ -11,9 +11,11 @@
     wl-clipboard
   ];
 
-  # Enable desktop portal
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+  # Enable desktop portal for screen sharing
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+  };
 
   # Enable xwayland support
   programs.xwayland.enable = true;
