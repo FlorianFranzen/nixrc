@@ -15,13 +15,9 @@
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
-    # Home management (update blocked by digga)
+    # Home management 
     home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Latest wayland tools
-    wayland.url = "github:nix-community/nixpkgs-wayland";
-    wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     # Firefox Addons
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -42,11 +38,10 @@
     nixpkgs,
     hardware,
     home,
-    wayland,
     firefox-addons,
     emacs-overlay,
     emacs-doom 
-  } @ inputs': let
+  } @ inputs: let
 
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
 
@@ -123,19 +118,6 @@
     # Shared host and home modules
     modules = readModuleTree ./modules;
 
-    # Protect overlays from instrusive digga magic
-    protect-overlay = overlay:
-      final: prev:
-        if prev == null || (prev.isFakePkgs or false)
-        then {} else overlay final prev;
-
-    emacs-overlay_fixed = emacs-overlay // {
-      overlay = protect-overlay emacs-overlay.overlay;
-    };
-
-    # Protect all inputs to digga
-    inputs = inputs' // { emacs-overlay = emacs-overlay_fixed; };
-
     # Import custom packages as overlay
     pkgs-overlay = import ./pkgs;
 
@@ -154,9 +136,7 @@
 
     # nixpkgs versions and configs
     channels = {
-
       nixpkgs.overlays = [
-        wayland.overlay
         firefox-addons-overlay
         pkgs-overlay
       ];
