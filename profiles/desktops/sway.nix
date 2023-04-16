@@ -11,10 +11,14 @@
     wl-clipboard
   ];
 
+  # Add sway to supported sessions
+  services.xserver.displayManager.sessionPackages = [ pkgs.sway ];
+
   # Enable desktop portal for screen sharing
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   # Enable xwayland support
