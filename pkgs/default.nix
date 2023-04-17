@@ -41,13 +41,7 @@ in {
   sway = super.sway.override {
     extraOptions = [ "--unsupported-gpu" ];
 
-    extraSessionCommands = let
-      schema = self.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in ''
-      # Enable libappindicator support
-      export XDG_CURRENT_DESKTOP=sway
-
+    extraSessionCommands = ''
       # Enable wayland backends
       export XDG_SESSION_TYPE=wayland
 
@@ -88,11 +82,8 @@ in {
       # Use GTK portal if possible
       export GTK_USE_PORTAL=1
 
-      # Set WLRoots renderer to Vulkan to avoid flickering
+      # Set wlroots renderer to Vulkan to avoid flickering
       export WLR_RENDERER=vulkan
-
-      # Fix gsettings
-      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
     '';
 
     withBaseWrapper = true;
