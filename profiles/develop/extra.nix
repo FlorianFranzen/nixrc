@@ -55,7 +55,6 @@
 
     nmap
 
-    vimHugeX
     keybase-gui
     zeal
   ];

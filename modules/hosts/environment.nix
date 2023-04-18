@@ -41,7 +41,7 @@
     };
 
     vim = {
-      package = pkgs.vimHugeX.override { guiSupport = false; };
+      package = pkgs.vim-full.override { guiSupport = false; };
       defaultEditor = true;
     };
 
