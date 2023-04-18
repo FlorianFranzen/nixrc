@@ -58,8 +58,6 @@ in {
     tab-stash = super.callPackage ./tab-stash.nix {};
   };
 
-  waydroid = super.callPackage ./waydroid.nix {};
-
   # Update zeal slightly
   zeal = callOverride ./zeal.nix {};
 }
