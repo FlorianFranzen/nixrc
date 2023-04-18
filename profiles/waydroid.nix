@@ -32,11 +32,4 @@ in {
 
   # FIXME: Provide working Android 11 image
   #environment.etc."waydroid-extra/images".source = images;
-
-  # TODO: Is this still needed?
-  environment.etc."gbinder.d/anbox.conf".source = pkgs.writeText "anbox.cfg" binderConf;
-
-  # Override some outdated settings
-  systemd.services.waydroid-container.serviceConfig.ExecStart = lib.mkForce "${pkgs.waydroid}/bin/waydroid -w container start";
-  environment.etc."gbinder.d/waydroid.conf".source = lib.mkForce (pkgs.writeText "waydroid.cfg" binderConf;
 }
