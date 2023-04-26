@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   systemd.user.services.swaynag-battery = {
@@ -8,6 +8,7 @@
     };
 
     Service = {
+      Environment = "PATH=${config.wayland.windowManager.sway.package}/bin";
       Type = "simple";
       ExecStart = "${pkgs.swaynag-battery}/bin/swaynag-battery";
       Restart = "on-failure";
