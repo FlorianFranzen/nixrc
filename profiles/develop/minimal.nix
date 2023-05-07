@@ -23,7 +23,6 @@
     libfaketime
     moreutils
     ncdu
-    nixopsUnstable
     patchelf
     ripgrep
     socat
