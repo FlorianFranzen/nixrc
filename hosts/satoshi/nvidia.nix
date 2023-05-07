@@ -99,9 +99,9 @@ let
 
   # Provide nvidia based sway session at login
   nvidia-sway = mkWaylandSession "Sway (Nvidia)" "nvidia-sway" ''
-      export WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0
       export WLR_NO_HARDWARE_CURSORS=1
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      export LIBVA_DRIVER_NAME=nvidia
       exec -a nvidia-sway sway $@
   '';
 in {
