@@ -1,19 +1,23 @@
-{ config, pkgs, lib, services, ... }:
+{ config, pkgs, lib, services, profiles, hardware, hmUsers, ... }:
 
 {
-  imports = with services; [ hydra jellyfin ];
+  imports = (with services; [ hydra jellyfin ])
+         ++ (with profiles.develop; [ minimal cross linux ])
+         ++ (with profiles.desktops; [ gdm hyprland ])
+         ++ (with hardware; [ 
+           common-cpu-intel common-gpu-intel 
+           common-gpu-nvidia-disable
+           common-pc-ssd
+         ]);
 
-  # Do not use home-manager on this host
-  home-manager.users.florian = {};
+  # Install full desktop environment
+  home-manager.users.florian = hmUsers.florian-desktop;
 
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-
-  # Enable cross compiling of aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Enable Wake on LAN
   networking.interfaces.enp3s0.wakeOnLan.enable = true;
