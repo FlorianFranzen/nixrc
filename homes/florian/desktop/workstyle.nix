@@ -2,24 +2,26 @@
 
 {
   wayland.windowManager.sway.config.startup = [
-    { command = "${pkgs.workstyle}/bin/workstyle"; }
+    { command = "${pkgs.workstyle}/bin/workstyle"; always = true; }
   ];
 
   home.file.".config/workstyle/config.toml".text = ''
     "picture-in-picture" = ""
     "private browsing" = ""
+    "github" = ""
     "firefox" = ""
     "chromium" = ""
+    "thunderbird" = "󰇮"
     "file manager" = ""
     "libreoffice calc" = ""
     "libreoffice writer" = ""
     "libreoffice" = ""
     "inkscape" = ""
     "gnu image manipulation program" = ""
-    "emacs" = ""
+    "emacs" = ""
     "gthumb" = ""
-    "menu" = ""
     "element" = ""
+    "slack" = "󰒱"
     "calculator" = ""
     "steam" = ""
     "skype" = ""
