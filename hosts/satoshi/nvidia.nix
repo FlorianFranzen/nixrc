@@ -49,60 +49,38 @@ let
     } // hwOverride;
 
     # Provide command line utils
-    environment = {
+    environment.systemPackages = [
+      sway-nvidia-session
+      pkgs.vulkan-tools
+      pkgs.glmark2
+    ];
 
-      systemPackages = [ 
-        nvidia-sway
-        pkgs.vulkan-tools
-        pkgs.glmark2
-      ];
+    home-manager.users.florian.wayland.windowManager.sway.package = lib.mkForce pkgs.sway-nvidia;
 
-      # Use nvidia on wayland
-      variables = {
-        # Try nvidia gbm backend first
-        GBM_BACKEND = "nvidia-drm";
-      };
-    };
-
-    services.xserver.displayManager.sessionPackages = [ nvidia-sway ];
+    services.xserver.displayManager.sessionPackages = [ sway-nvidia-session ];
   };
 
-  mkDesktopFile = name: exec: ''
-    [Desktop Entry]
-    Name=${name}
-    Exec=${exec}
-    Type=Application
-  '';
-
-  mkWaylandSession = name: exec: command:
-    pkgs.runCommand name {
-      inherit command;
-      desktop = mkDesktopFile name exec;
-      passAsFile = [ "command" "desktop" ];
-
-      passthru = {
-        providedSessions = [ exec ];
-      };
-
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    } ''
-      mkdir -p $out/{bin,share/wayland-sessions}
-
-      session=$out/bin/${exec}
-      echo "#!${pkgs.runtimeShell}" > $session
-      cat $commandPath >> $session
-      chmod +x $session
-
-      mv $desktopPath $out/share/wayland-sessions/${exec}.desktop
-    '';
-
   # Provide nvidia based sway session at login
-  nvidia-sway = mkWaylandSession "Sway (Nvidia)" "nvidia-sway" ''
-      export WLR_NO_HARDWARE_CURSORS=1
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export LIBVA_DRIVER_NAME=nvidia
-      exec -a nvidia-sway sway $@
+  sway-nvidia-session = pkgs.runCommand "sway-nvidia-session" {
+    session = ''
+      [Desktop Entry]
+      Name=Sway (Nvidia)
+      Exec=sway-nvidia
+      Type=Application
+    '';
+    passAsFile = [ "session" ];
+
+    passthru = {
+      providedSessions = [ "sway-nvidia" ];
+    };
+
+    preferLocalBuild = true;
+    allowSubstitutes = false;
+  } ''
+    mkdir -p $out/{bin,share/wayland-sessions}
+
+    ln -s ${pkgs.sway-nvidia}/bin/sway $out/bin/sway-nvidia
+    mv $sessionPath $out/share/wayland-sessions/sway-nvidia.desktop
   '';
 in {
   # Specialization that boots with proprietary and open nvidia driver
