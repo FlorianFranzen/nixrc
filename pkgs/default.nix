@@ -34,7 +34,7 @@ let
       owner = "FlorianFranzen";
       repo = "sway";
       rev = "feature/tray-dbus-menu";
-      hash = "sha256-ckZeEXMGZuX9umRAlYu3O+snvX6cLaDKrjijIgg013k=";
+      hash = "sha256-5E3HzqOregvKjGmvYPUctgPlaDD2McCjQaGdI1CUOlI=";
     };
 
     patches = let 
