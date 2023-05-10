@@ -1,8 +1,15 @@
-{ sway }:
+{ lib
+, sway
+, sway-unwrapped
+, withNvidia ? false 
+}:
 
 sway.override {
+  # Allow override unwrapped binary
+  inherit sway-unwrapped;
+
   # Enable nvidia support
-  extraOptions = [ "--unsupported-gpu" ];
+  extraOptions = lib.optional withNvidia "--unsupported-gpu";
 
   # Set some sane default environment variables
   extraSessionCommands = ''
@@ -45,6 +52,13 @@ sway.override {
 
     # Use GTK portal if possible
     export GTK_USE_PORTAL=1
+  '' + lib.optionalString withNvidia ''
+
+    # Use nvidia backends
+    export GBM_BACKEND=nvidia-drm
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export LIBVA_DRIVER_NAME=nvidia
+    export WLR_NO_HARDWARE_CURSORS=1
   '';
 
   withBaseWrapper = true;

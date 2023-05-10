@@ -11,6 +11,37 @@ let
 
   callOverride = callOverrideWith super; 
 
+  # Internal packages not exported
+  wlroots-nvidia = (self.callPackage
+    "${self.path}/pkgs/applications/window-managers/hyprwm/hyprland/wlroots.nix" { nvidiaPatches = true; }
+  ).overrideAttrs (old: {
+    src = self.fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "wlroots";
+      repo = "wlroots";
+      rev = "18139f4d87a42d64a03af26aa750ff5e59ec6c89";
+      hash = "sha256-3yzP5HRd979BDCoA5ivY/TsXVWECZkD3pIZL5YewWds=";
+    };
+  });
+
+  sway-unwrapped-nvidia = (self.sway-unwrapped.override { 
+    wlroots_0_16 = wlroots-nvidia;
+  }).overrideAttrs (old: {
+    pname = "${old.pname}-nvidia";
+    version = "2023-01-16+tray";
+
+    src = self.fetchFromGitHub {
+      owner = "FlorianFranzen";
+      repo = "sway";
+      rev = "feature/tray-dbus-menu";
+      hash = "sha256-ckZeEXMGZuX9umRAlYu3O+snvX6cLaDKrjijIgg013k=";
+    };
+
+    patches = let 
+      target = "/nix/store/bvxqmqg6pxninhds3padj7ilp9qs3ykm-LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch";
+      patchFilter = p: (p.outPath or p) != target;
+    in builtins.filter patchFilter old.patches; 
+  });
 in {
   # Support bbswitch on AMD CPUs
   linuxPackages_amd = super.linuxPackages_latest.extend (kself: ksuper: {
@@ -39,6 +70,11 @@ in {
 
   # Provide a more complete sway environment
   sway = callOverride ./sway.nix {};
+
+  sway-nvidia = callOverride ./sway.nix { 
+    sway-unwrapped = sway-unwrapped-nvidia;
+    withNvidia = true;
+  };
 
   # Add swayest workstyle
   sworkstyle = self.callPackage ./sworkstyle.nix {};
