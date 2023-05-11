@@ -3,7 +3,7 @@
 let
   final = config.wayland.windowManager.sway;
 
-  gap = 10;
+  gap = 20;
 in {
 
   wayland.windowManager.sway = {
@@ -75,6 +75,9 @@ in {
 
         # Fullscreen container in split parent  
         "${cfg.modifier}+Shift+f" = "split v; focus parent; fullscreen toggle; focus child";    
+
+        # Regular PATH-based run menu
+        "${cfg.modifier}+Shift+d" = "${exec pkgs.wofi} --show run";
 
         # Lock screen
         "${cfg.modifier}+o" = exec' pkgs.swaylock-effects "swaylock";

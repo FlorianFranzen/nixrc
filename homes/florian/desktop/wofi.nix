@@ -4,6 +4,8 @@
     allow_markup=true
     gtk-dark=true
     image_size=32
+    matching=fuzzy
+    insensitive=true
     term=alacritty
   '';
 
