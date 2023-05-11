@@ -8,7 +8,7 @@
 
     # Allow access to needed external ressources
     extraOptions = ''
-      allowed-uris = https://github.com/ git://github.com/ https://static.rust-lang.org/dist/
+      allowed-uris = https://github.com/ git://github.com/ https://static.rust-lang.org/dist/ https://git.sr.ht/
     '';
   };
 
