@@ -15,6 +15,9 @@
       zsa
     ]);
 
+  # Add some fancontrol 
+  services.thermald.enable = true;
+
   # Install full desktop environment
   home-manager.users.florian = hmUsers.florian-desktop;
 
