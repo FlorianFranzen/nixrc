@@ -14,7 +14,9 @@
 
   # Install command line utility
   environment.systemPackages = with pkgs; [
-    pynitrokey yubikey-manager
+    pynitrokey
+    solo2-cli
+    yubikey-manager
   ];
 
   # Disable ssh agent by default to give users the choice
