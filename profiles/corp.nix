@@ -8,6 +8,7 @@
     obs-studio
 
     slack
+    teams-for-linux
     zoom-us
   ];
 

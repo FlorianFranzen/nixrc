@@ -12,6 +12,6 @@
     # Steam Gaming
     "steam" "steam-run"
     # Some corpoware
-    "slack" "zoom"
+    "slack" "teams-on-linux" "zoom"
   ];
 }
