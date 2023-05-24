@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+  # Include base desktop profile
+  imports = [ ./base.nix ];
+
   hardware.opengl.enable = true;
 
   fonts.enableDefaultPackages = true;

@@ -3,11 +3,12 @@
 {
   imports = (with profiles.services; [ hydra jellyfin ])
          ++ (with profiles.develop; [ minimal cross linux ])
-         ++ (with profiles.desktops; [ gdm hyprland ])
+         ++ (with profiles.desktops; [ lightdm hyprland ])
          ++ (with profiles.hardware; [ 
            common-cpu-intel common-gpu-intel 
            common-gpu-nvidia-disable
            common-pc-ssd
+           pipewire
          ]);
 
   # Install full desktop environment
