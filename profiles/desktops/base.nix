@@ -19,38 +19,31 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    shared-mime-info
+    glib
     libappindicator
     libnotify
+    playerctl
+    shared-mime-info
     xdg-utils
 
-    playerctl
-
-    pywal
-    glib
-    numix-cursor-theme
-    numix-solarized-gtk-theme
-    numix-icon-theme-square
-    lxappearance
-
-    gnome.eog
+    #gnome.eog
     gnome.ghex
     gnome.file-roller
-    gnome.nautilus
-    gnome.sushi
+    #gnome.nautilus
+    #gnome.sushi
 
-    xfce.xfconf
-    xfce.mousepad
+    #xfce.xfconf
+    #xfce.mousepad
     (xfce.thunar.override { thunarPlugins = [
       xfce.thunar-volman
       xfce.thunar-archive-plugin
     ];})
     xfce.ristretto
     xfce.tumbler
-    xfce.orage
+    #xfce.orage
 
-    lxqt.lxqt-policykit
-    lxqt.qps
+    #lxqt.lxqt-policykit
+    #lxqt.qps
 
     firefox
     ungoogled-chromium

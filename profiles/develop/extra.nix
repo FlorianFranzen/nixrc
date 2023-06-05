@@ -2,7 +2,7 @@
 
 {
   # Enable keybase
-  services.keybase.enable = true;
+  #services.keybase.enable = true;
 
   # Enable ccache
   programs.ccache.enable = true;
@@ -20,6 +20,8 @@
 
     nixpkgs-fmt
     nixpkgs-review
+
+    #nixopsUnstable
 
     glxinfo
 

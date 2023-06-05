@@ -60,7 +60,7 @@ in {
   nixSubmodule = callOverride ./nix-submodule.nix {};
 
   # Patched to work with yubikey
-  pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
+  #pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
 
   # Add radicle link
   radicle-link = self.callPackage ./radicle-link.nix {};
