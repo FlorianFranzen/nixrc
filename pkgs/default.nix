@@ -19,8 +19,8 @@ let
       domain = "gitlab.freedesktop.org";
       owner = "wlroots";
       repo = "wlroots";
-      rev = "18139f4d87a42d64a03af26aa750ff5e59ec6c89";
-      hash = "sha256-3yzP5HRd979BDCoA5ivY/TsXVWECZkD3pIZL5YewWds=";
+      rev = "15f2f6642fb5020c1b69e5424a8463569ea6a3e9";
+      hash = "sha256-XC+Qks62cOLtkpO6es1XH7WZ/jBbf0uwWhMBz3GwmLA=";
     };
   });
 
@@ -34,7 +34,7 @@ let
       owner = "FlorianFranzen";
       repo = "sway";
       rev = "feature/tray-dbus-menu";
-      hash = "sha256-5E3HzqOregvKjGmvYPUctgPlaDD2McCjQaGdI1CUOlI=";
+      hash = "sha256-I6KRGt2XHYWhxP5Q1GUNlSeYVINKTqFa9dvasDgdGPg=";
     };
 
     patches = let 
