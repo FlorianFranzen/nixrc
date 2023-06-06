@@ -7,7 +7,7 @@ let
   hasSshd = config.services.openssh.enable;
 in {
   # Automatically generate default host id if zfs is enabled
-  networking.hostId = lib.mkIf hasZfs (lib.mkDefault (
+  networking.hostId = lib.mkIf hasZfs (lib.mkOverride 999 (
     lib.substring 0 8 (builtins.hashString "md5" config.networking.hostName)
   ));
 

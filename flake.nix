@@ -190,5 +190,7 @@
     checks.x86_64-linux = builtins.mapAttrs
       (_: config: config.config.system.build.toplevel)
       self.nixosConfigurations;
+
+    packages.x86_64-linux.iso = self.nixosConfigurations.installer.config.system.build.isoImage;
   };
 }
