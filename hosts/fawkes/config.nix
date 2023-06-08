@@ -1,22 +1,23 @@
-{ config, ... }:
-
+{ config, pkgs, lib, suites, profiles, hardware, hmUsers, ... }:
 {
-  boot.loader.efi.canTouchEfiVariables = true;
+  imports = suites.full ++
+    [ profiles.corp profiles.podman profiles.networks.iwd ] ++
+    (with profiles.develop; [ minimal extra cross linux ]) ++
+    (with profiles.desktops; [ gdm sway ]) ++
+    (with hardware; [
+      common-cpu-amd
+      common-gpu-amd
+      common-pc-ssd
+      android
+      smartcard
+      zsa
+    ]);
 
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev";
+  # Install full desktop environment
+  home-manager.users.florian = hmUsers.florian-desktop;
 
-    mirroredBoots = [{
-      devices = [ "/dev/disk/by-uuid/19E4-40FD" ];
-      path = "/boot-mirror"; 
-    }];
-  };
-
-  boot.kernelParams = [ "amd_pstate=passive" ]; 
-
-  boot.supportedFilesystems = [ "zfs" ];
+  # Use latest kernel for better compatibility
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   system.stateVersion = "23.11";
 }
