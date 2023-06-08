@@ -13,8 +13,4 @@
       path = "/boot-mirror"; 
     }];
   };
-
-  boot.kernelParams = [ "amd_pstate=passive" ]; 
-
-  boot.supportedFilesystems = [ "zfs" ];
 }

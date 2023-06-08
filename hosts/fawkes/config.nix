@@ -5,7 +5,8 @@
     (with profiles.develop; [ minimal extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with hardware; [
-      common-cpu-amd
+      common-cpu-amd-pstate
+      common-cpu-amd-raphael-igpu
       common-gpu-amd
       common-pc-ssd
       android
@@ -19,5 +20,9 @@
   # Use latest kernel for better compatibility
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Allow use of zfs
+  boot.supportedFilesystems = [ "zfs" ];
+
+  # Current state version
   system.stateVersion = "23.11";
 }
