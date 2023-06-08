@@ -12,6 +12,9 @@
         exts.pass-otp
         exts.pass-update
       ]);
+      settings = { 
+        PASSWORD_STORE_DIR = "$HOME/Sync/.password-store"; 
+      }; 
     };
 
     browserpass = {
