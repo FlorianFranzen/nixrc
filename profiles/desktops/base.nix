@@ -65,12 +65,6 @@
   # Enable gvfs
   services.gvfs.enable = true;
 
-  # Default location: Zürich
-  location = {
-    latitude = 47.1;
-    longitude = 8.5;
-  };
-
   # Fix DNS resolution in browsers
   networking.resolvconf.dnsExtensionMechanism = false;
 
