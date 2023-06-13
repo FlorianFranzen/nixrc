@@ -52,7 +52,7 @@ in {
             block = "battery";
             driver = "upower";
             format = " $icon $percentage $time ";
-            if_command = "test -f /sys/class/power_supply/BAT0";
+            if_command = "test -e /sys/class/power_supply/BAT0";
           }
           {
             block = "time";
