@@ -86,6 +86,9 @@ in {
         "${cfg.modifier}+q"       = "kill";
         "${cfg.modifier}+Shift+q" = exec pkgs.wlogout;
 
+        # Add emacs pgtk ui
+        "${cfg.modifier}+Shift+Return" = "exec emacsclient --create-frame";
+
         # Web browser keys
         "${cfg.modifier}+BackSpace"       = exec pkgs.firefox;
         "${cfg.modifier}+Shift+BackSpace" = "${exec pkgs.firefox} --private-window";
@@ -193,8 +196,8 @@ in {
       bindgesture swipe:4:up move scratchpad
       bindgesture swipe:4:down [floating] scratchpad show
 
-      bindgesture pinch:inward floating enable
-      bindgesture pinch:outward floating disable
+      bindgesture pinch:inward fullscreen disable
+      bindgesture pinch:outward fullscreen enable
     '';
   };
 }

@@ -35,6 +35,9 @@
       shellAliases = {
         cat = "bat --plain";
 
+        e = "emacsclient --reuse-frame --no-wait";
+        te = "emacsclient --tty";
+
         incognito = "unset HISTFILE && echo 'History has been disabled.'";
 
         nixos-env = "sudo nix-env -p /nix/var/nix/profiles/system";
@@ -49,7 +52,7 @@
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "emacs" "systemd" ];
+        plugins = [ "systemd" ];
       };
 
       plugins = [

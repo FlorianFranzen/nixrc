@@ -18,9 +18,14 @@ in {
 
   # Enable emacs server
   services.emacs = {
+    # Use local emacs server
     enable = true;
     client.enable = true;
     #defaultEditor = true;
+
+    # Only autostart in graphical session, otherwise socket activate
+    startWithUserSession = "graphical";
+    socketActivation.enable = true;
   };
 
   # Provide server with access to user ssh auth socket
