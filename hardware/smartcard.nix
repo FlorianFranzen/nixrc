@@ -7,9 +7,10 @@
   # Add nitrokey udev rules
   hardware.nitrokey.enable = true;
 
-  # Add yubikey udev rules
+  # Add yubikey and solo2 udev rules
   services.udev.packages = with pkgs; [
     yubikey-personalization
+    solo2-cli
   ];
 
   # Install command line utility
