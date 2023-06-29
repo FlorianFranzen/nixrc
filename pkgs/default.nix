@@ -96,4 +96,7 @@ in {
 
   # Update zeal slightly
   zeal = callOverride ./zeal.nix {};
+
+  # Force zoom to run on x11
+  zoom-us = callOverride ./zoom-us.nix {};
 }
