@@ -30,6 +30,7 @@
     gitAndTools.git-gone
     gitAndTools.git-ignore
     git-lfs
+    gitoxide
 
     github-cli
 
