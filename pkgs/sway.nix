@@ -52,6 +52,9 @@ sway.override {
 
     # Use GTK portal if possible
     export GTK_USE_PORTAL=1
+
+    # Set some default dirs
+    export XDG_SCREENSHOTS_DIR=$HOME/Screenshots
   '' + lib.optionalString withNvidia ''
 
     # Use nvidia backends
