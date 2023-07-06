@@ -7,9 +7,13 @@
   # Some general packages to improve wayland
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
+    qt6.qtwayland
     libsForQt5.qtstyleplugins
+    qt6gtk2
     wl-clipboard
   ];
+
+  environment.variables.QT_PLUGIN_PATH = [ "${pkgs.qt6gtk2}/lib/qt-6/plugins" ];
 
   # Add sway to supported sessions
   services.xserver.displayManager.sessionPackages = [ pkgs.sway ];
