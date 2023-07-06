@@ -59,7 +59,7 @@
     nmap
 
     keybase-gui
-    zeal
+    zeal-qt6
   ];
 
   users.extraUsers.florian.extraGroups = [ "dialout" ];
