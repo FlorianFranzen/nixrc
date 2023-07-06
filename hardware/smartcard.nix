@@ -7,15 +7,19 @@
   # Add nitrokey udev rules
   hardware.nitrokey.enable = true;
 
+  # Add ledger udev rules
+  hardware.ledger.enable = true;
+
   # Add yubikey and solo2 udev rules
   services.udev.packages = with pkgs; [
     yubikey-personalization
     solo2-cli
   ];
 
-  # Install command line utility
+  # Install required management utility
   environment.systemPackages = with pkgs; [
     pynitrokey
+    ledger-live-desktop
     solo2-cli
     yubikey-manager
   ];
