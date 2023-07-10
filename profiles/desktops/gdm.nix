@@ -6,7 +6,10 @@
     enable = true;
 
     # Enable GDM display manager
-    displayManager.gdm.enable = true;
+    displayManager.gdm = {
+      enable = true;
+      autoSuspend = false;
+    };
   };
 
   # Do not enable ask password with xserver
