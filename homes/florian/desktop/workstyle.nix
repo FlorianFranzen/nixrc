@@ -10,6 +10,7 @@
     "private browsing" = ""
     "github" = ""
     "firefox" = ""
+    "calibre" = ""
     "chromium" = ""
     "thunderbird" = "󰇮"
     "file manager" = ""
@@ -25,6 +26,8 @@
     "calculator" = ""
     "steam" = ""
     "skype" = ""
+    "zoom" = "󰵰"
+    "zotero" = ""
 
     [other]
     "fallback_icon" = ""

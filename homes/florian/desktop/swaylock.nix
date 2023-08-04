@@ -10,6 +10,8 @@
     clock
     screenshots
 
+    datestr=%a, %F
+
     fade-in=1
     effect-blur=5x2
   '';
