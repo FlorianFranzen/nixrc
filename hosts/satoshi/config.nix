@@ -31,8 +31,16 @@
     # Use patched ideapad-laptop
     extraModulePackages = [ pkgs.linuxPackages_amd.ideapad-laptop ];
 
-    # Fix backlight control
-    kernelParams = [ "amd_pstate=passive" "amdgpu.backlight=0" "ideapad-laptop.no_rfkill=1" ];
+    kernelParams = [
+      # Use amd power management
+      "amd_pstate=active"
+      # Disable broken scatter/gather
+      "amdgpu.sg_display=0"
+      # Fix backlight control
+      "amdgpu.backlight=0"
+      # Enable kernel rfkill hack
+      "ideapad-laptop.no_rfkill=1"
+    ];
 
     # Avoid touchpad race condition
     extraModprobeConfig = ''
