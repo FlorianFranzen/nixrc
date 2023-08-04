@@ -9,8 +9,8 @@
     "broadcom-sta"
     # Nitrokey firmware updates
     "nrfutil" "pc-ble-driver-py" "pc-ble-driver" "pypemicro"
-    # Steam Gaming
-    "steam" "steam-run"
+    # Steam and other gaming
+    "steam" "steam-original" "steam-run" "minecraft-launcher"
     # Some corpoware
     "slack" "teams-on-linux" "zoom"
   ];
