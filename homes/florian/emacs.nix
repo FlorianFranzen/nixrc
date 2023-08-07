@@ -1,19 +1,17 @@
-{ config, pkgs, inputs, self, ... }:
+{ config, pkgs, lib, self, ... }:
 
-let
-  emacsPkgs = inputs.emacs-overlay.packages.${pkgs.system};
-in {
+{
   # Install various dependencies
-  home.packages = with pkgs; [ 
+  home.packages = with pkgs; [
     editorconfig-core-c
+    emacs-all-the-icons-fonts
   ];
-
-  # Enable doom framework
-  programs.doom-emacs = {
+ 
+  # Setups regular emacs while doom is unmanaged  
+  programs.emacs = {
     enable = true;
-    doomPrivateDir = "${self}/emacs";
-
-    emacsPackage = emacsPkgs.emacsPgtk;
+    # Special wayland friendly version
+    package = lib.mkDefault pkgs.emacs29-pgtk;
   };
 
   # Enable emacs server
@@ -23,6 +21,9 @@ in {
     client.enable = true;
     #defaultEditor = true;
 
+    # Use same package for server
+    package = lib.mkDefault pkgs.emacs29-pgtk;
+
     # Only autostart in graphical session, otherwise socket activate
     startWithUserSession = "graphical";
     socketActivation.enable = true;
@@ -31,6 +32,3 @@ in {
   # Provide server with access to user ssh auth socket
   systemd.user.services.emacs.Service.Environment = "SSH_AUTH_SOCK=/run/user/%U/gnupg/S.gpg-agent.ssh";
 }
-
-
-

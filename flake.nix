@@ -10,7 +10,8 @@
     digga.inputs.home-manager.follows = "home";
 
     # Host configurations
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:FlorianFranzen/nixpkgs/emacs29";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
@@ -22,14 +23,6 @@
     # Firefox Addons
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Latest emacs and framework
-    emacs-overlay.url = "github:nix-community/emacs-overlay/c16be6de78ea878aedd0292aa5d4a1ee0a5da501";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-
-    emacs-doom.url = "github:nix-community/nix-doom-emacs";
-    emacs-doom.inputs.emacs-overlay.follows = "emacs-overlay";
-    emacs-doom.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -39,8 +32,6 @@
     hardware,
     home,
     firefox-addons,
-    emacs-overlay,
-    emacs-doom 
   } @ inputs: let
 
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
@@ -129,7 +120,10 @@
 
   in digga.lib.mkFlake {
 
-    inherit self inputs;
+    inherit self;
+
+    # Random nix/digga bug workaround
+    inputs = removeAttrs inputs ["firefox-addons"];
 
     # exclude darwin or 32bit linux
     supportedSystems = ["aarch64-linux" "x86_64-linux"];
@@ -173,7 +167,7 @@
 
     # home-manager home configs
     home = {
-      modules = [ modules.homes emacs-doom.hmModule ];
+      modules = [ modules.homes ];
 
       # Home modules are provided with themes
       importables = mkImportables [ "themes" ] // {

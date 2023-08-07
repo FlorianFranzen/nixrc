@@ -22,10 +22,12 @@ let
       rev = "15f2f6642fb5020c1b69e5424a8463569ea6a3e9";
       hash = "sha256-XC+Qks62cOLtkpO6es1XH7WZ/jBbf0uwWhMBz3GwmLA=";
     };
+
+    #patches = old.patches ++ [ ./wlroots.swcursor.patch ];
   });
 
   sway-unwrapped-nvidia = (self.sway-unwrapped.override { 
-    wlroots_0_16 = wlroots-nvidia;
+    wlroots = wlroots-nvidia;
   }).overrideAttrs (old: {
     pname = "${old.pname}-nvidia";
     version = "2023-01-16+tray";

@@ -30,14 +30,14 @@
   environment.systemPackages = with pkgs; [
     _20kly
     minecraft
-    openclonk
+    #openclonk
     openjk
     openra
     steam
     steam-run
     superTuxKart
     (warzone2100.override { withVideos = true; })
-    wineWowPackages.staging 
+    wineWowPackages.wayland
     winetricks
   ];
 }
