@@ -22,15 +22,12 @@ in {
           {
             block = "cpu";
             interval = 5;
-            format_alt = " $icon $frequency{ $boost|} ";
+            format = " $icon $barchart $utilization ";
+            format_alt = " $icon $frequency avg, $max_frequency max ";
             click = [
               {
-                button = "left";
-                cmd = "${terminal} ${pkgs.bottom}/bin/btm";
-              }
-              {
                 button = "right";
-                cmd = "${terminal} ${pkgs.s-tui}/bin/s-tui";
+                cmd = "${terminal} ${pkgs.bottom}/bin/btm";
               }
             ];
           }
@@ -39,6 +36,14 @@ in {
             interval = 5;
             format = " $icon $mem_used_percents ";
             format_alt = " $icon $swap_used_percents ";
+          }
+          {
+            block = "temperature";
+            chip = "k10temp-*";
+          }
+          {
+            block = "temperature";
+            chip = "amdgpu-*";
           }
           {
             block = "disk_space";
