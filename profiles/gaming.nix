@@ -1,40 +1,34 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
+  # Additional video accelaration
   hardware = {
     opengl = {
-      enable = true;
-
-      driSupport = true;
-
       extraPackages = with pkgs; [
-        vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
       ];
-
-      driSupport32Bit = true;
 
       extraPackages32 = with pkgs.pkgsi686Linux; [
-        vaapiIntel
-        libvdpau-va-gl
         vaapiVdpau
+        libvdpau-va-gl
       ];
     };
-
-    steam-hardware.enable = true;
   };
 
-  services.pipewire.alsa.support32Bit = true;
+  # Enable 32bit pipewire alsa, if pipewire alsa is enabled
+  services.pipewire.alsa.support32Bit = config.services.pipewire.alsa.enable;
 
+  # Setup steam environment
+  programs.steam.enable = true;
+
+  # Additional games to install
   environment.systemPackages = with pkgs; [
     _20kly
     minecraft
-    #openclonk
+    mindustry
     openjk
     openra
-    steam
-    steam-run
     superTuxKart
     (warzone2100.override { withVideos = true; })
     wineWowPackages.wayland
