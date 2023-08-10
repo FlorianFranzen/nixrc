@@ -22,8 +22,8 @@ in {
           {
             block = "cpu";
             interval = 5;
-            format = " $icon $barchart $utilization ";
-            format_alt = " $icon $frequency avg, $max_frequency max ";
+            format = " $icon $utilization $frequency";
+            format_alt = " $icon $barchart ";
             click = [
               {
                 button = "right";
@@ -33,13 +33,16 @@ in {
           }
           {
             block = "memory";
-            interval = 5;
             format = " $icon $mem_used_percents ";
-            format_alt = " $icon $swap_used_percents ";
+            format_alt = " $icon_swap $swap_used_percents ";
           }
           {
             block = "temperature";
             chip = "k10temp-*";
+          }
+          {
+            block = "amd_gpu";
+            format = " $icon $utilization $vram_used_percents ";
           }
           {
             block = "temperature";
@@ -97,9 +100,10 @@ in {
           }
           {
             block = "net";
-            format = " $icon {$ssid ($signal_strength $frequency)|$device} ";
+            format = " $icon {$ssid ($signal_strength $frequency)|$device} ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) ";
+            format_alt = " $icon $ip $ipv6 ";
             click = [{
-              button = "left";
+              button = "right";
               cmd = "${terminal} ${pkgs.iwd}/bin/iwctl";
             }];
           }
