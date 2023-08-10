@@ -260,11 +260,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1691264754,
-        "narHash": "sha256-WTH3AV73m0g76XM35oE+LTXdptDbzcjcltE/9EqjOfs=",
+        "lastModified": 1691536579,
+        "narHash": "sha256-rnAr0RsMmV8gM4Q0Hd3A8/9+6I9wszXKo9P8ZtGMTJY=",
         "owner": "FlorianFranzen",
         "repo": "nixpkgs",
-        "rev": "f2e67fc55969739cc235e7a9be386073ca91bdf0",
+        "rev": "d110fafdb7b9b629e32962ce9cfe7fefc2317edc",
         "type": "github"
       },
       "original": {
