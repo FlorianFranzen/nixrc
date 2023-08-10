@@ -49,7 +49,11 @@ in {
   linuxPackages_amd = super.linuxPackages_latest.extend (kself: ksuper: {
     ideapad-laptop = ksuper.callPackage ./ideapad-laptop.nix {}; 
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
+  });
 
+  # Support latest asus mainboard monitoring
+  linuxPackages_latest = super.linuxPackages_latest.extend (kself: ksuper: {
+    nct6775 = ksuper.callPackage ./nct6775.nix {};
   });
 
   # Special version of bumblebee for AMD CPUs
