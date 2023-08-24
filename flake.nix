@@ -33,7 +33,7 @@
     # Bring some useful builtins and nixpkgs lib helpers into scope
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
 
-    inherit (nixpkgs.lib) filterAttrs mapAttrs';
+    inherit (nixpkgs.lib) filterAttrs genAttrs mapAttrs' recursiveUpdate;
 
     # List supported systems (no darwin or 32bit linux support)
     supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
@@ -50,10 +50,17 @@
       self.overlays.default
     ];
 
-    # Instantiate of package collection per system
-    pkgs = nixpkgs.lib.genAttrs supportedSystems (system: import nixpkgs {
+    # Initialize one package collection per system
+    pkgs = genAttrs supportedSystems (system: import nixpkgs {
       inherit overlays system;
     });
+
+    # Output all attributes added via overlay as packages
+    overlayPackages = let
+      names = attrNames (self.overlays.default {} {});
+    in genAttrs supportedSystems (system:
+      genAttrs names (name: pkgs.${system}.${name})
+    );
 
     # Import all host profiles, modules and configs as paths
     hosts = haumea.lib.load {
@@ -198,13 +205,16 @@
         }
       ) homeVariants;
 
-    # system build checks
+    # System and home config build checks
     checks.x86_64-linux = hostChecks // homeChecks;
 
-    # Import custom packages as overlay
+    # Import custom packages via overlay
     overlays.default = import ./pkgs;
 
-    # Export some selected packages
-    packages.x86_64-linux.iso = self.nixosConfigurations.installer.config.system.build.isoImage;
+    # Export all packages from overlay as well as some installers
+    packages = recursiveUpdate overlayPackages {
+      # FIXME: Properly "systemize" installer
+      x86_64-linux.iso = self.nixosConfigurations.installer.config.system.build.isoImage;
+    };
   };
 }
