@@ -2,23 +2,19 @@
   description = "Home-Manager and NixOS configurations of Florian Franzen";
 
   inputs = {
-    # Flake helpers
-    digga.url = "github:divnix/digga";
-    digga.inputs.nixlib.follows = "nixpkgs";
-    digga.inputs.nixpkgs.follows = "nixpkgs";
-    digga.inputs.nixpkgs-unstable.follows = "nixpkgs";
-    digga.inputs.home-manager.follows = "home";
+    # Nix Import helper
+    haumea.url = "github:nix-community/haumea/v0.2.2";
+    haumea.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Host configurations
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:FlorianFranzen/nixpkgs/emacs29";
+    # Base packages and configurations
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Home management 
-    home.url = "github:nix-community/home-manager";
-    home.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Firefox Addons
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -27,164 +23,188 @@
 
   outputs = {
     self,
-    digga,
+    haumea,
     nixpkgs,
     hardware,
-    home,
+    home-manager,
     firefox-addons,
   } @ inputs: let
 
+    # Bring some useful builtins and nixpkgs lib helpers into scope
     inherit (builtins) attrNames attrValues filter foldl' mapAttrs isAttrs;
 
-    inherit (nixpkgs.lib) filterAttrs mapAttrs' recursiveUpdate;
+    inherit (nixpkgs.lib) filterAttrs mapAttrs';
 
-    # Import helpers to walk git directory tree
-    readTree = digga.lib.rakeLeaves;
+    # List supported systems (no darwin or 32bit linux support)
+    supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
 
-    flattenTree = digga.lib.flattenTree;
-
-    joinTree = { name ? "imports", recurse ? true }:
-      let
-        recJoin = _: attrs: { 
-          ${name} = (map 
-            (v: if isAttrs v 
-                then (if recurse then recJoin v else flattenTree v)
-                else v)
-                (attrValues attrs)
-          );
-        };
-      in
-        recJoin;
-
-    # Helpers to parse module folder structure
-    readModuleTree = dir: mapAttrs (joinTree {}) (readTree dir);
-
-    # Helpers to parse host folder structure
-    readHostTree = dir: mapAttrs 
-      (joinTree { name = "modules"; recurse = false; })
-      (readTree dir);
-
-    # Create a module with a key set
-    mkMod = key: val: {...}: { ${key} = val; };
-
-    # Helpers to parse experimental varients directory strucutre
-    readHomeTree = dir: let
-      tree = readTree dir;
-
-      # Ignore all files in subfolders for base user config
-      mkUser = _: mods:
-        mkMod "imports" (filter (e: ! isAttrs e) (attrValues mods));
-
-      users = builtins.mapAttrs mkUser tree;
-
-      # Extend user config with varient and username fix
-      mkVarient = user: mods:
-        mkMod "imports" (
-          (users.${user} {}).imports ++
-          (attrValues mods) ++
-          [({ lib, ... }: {
-            home.username = lib.mkForce user;
-            home.homeDirectory = lib.mkForce "/home/${user}";
-          })]
-        );
-
-      # Extract each subfolder as varient
-      toVarients = user: mods:
-        mapAttrs' (var: mods: {
-          name = "${user}-${var}";
-          value = mkVarient user mods;
-        }) (filterAttrs (_: v: isAttrs v) mods);
-
-      # Collect varients for all users
-      varients = foldl'
-        (sum: user: sum // (toVarients user tree.${user}))
-        {}
-        (attrNames tree);
-    in
-      users // varients;
-
-    # Turn string list of subdirs into attrset of tree imports
-    mkImportables = dirs: nixpkgs.lib.genAttrs dirs (n: readTree (./. + "/${n}"));
-
-    # Shared host and home modules
-    modules = readModuleTree ./modules;
-
-    # Import custom packages as overlay
-    pkgs-overlay = import ./pkgs;
-
-    # Turn firefox addon collection to overlay
-    firefox-addons-overlay = (self: super: {
-      buildFirefoxXpiAddon = firefox-addons.lib.${super.system}.buildFirefoxXpiAddon;
-      firefox-addons = firefox-addons.packages.${super.system};
+    # Turn firefox addons collection to overlay
+    firefox-addons-overlay = (final: prev: {
+      buildFirefoxXpiAddon = firefox-addons.lib.${prev.system}.buildFirefoxXpiAddon;
+      firefox-addons = firefox-addons.packages.${prev.system};
     });
 
-  in digga.lib.mkFlake {
+    # Provide default list of overlays
+    overlays = [
+      firefox-addons-overlay
+      self.overlays.default
+    ];
 
-    inherit self;
+    # Instantiate of package collection per system
+    pkgs = nixpkgs.lib.genAttrs supportedSystems (system: import nixpkgs {
+      inherit overlays system;
+    });
 
-    # Random nix/digga bug workaround
-    inputs = removeAttrs inputs ["firefox-addons"];
-
-    # exclude darwin or 32bit linux
-    supportedSystems = ["aarch64-linux" "x86_64-linux"];
-
-    # nixpkgs versions and configs
-    channels = {
-      nixpkgs.overlays = [
-        firefox-addons-overlay
-        pkgs-overlay
-      ];
+    # Import all host profiles, modules and configs as paths
+    hosts = haumea.lib.load {
+      src = ./hosts;
+      loader = haumea.lib.loaders.path;
     };
 
-    # nixos system configs
-    nixos = {
-      hostDefaults = {
-        system = "x86_64-linux";
+    # Import all home profiles, modules and configs as paths
+    homes = haumea.lib.load {
+      src = ./homes;
+      loader = haumea.lib.loaders.path;
+    };
 
-        channelName = "nixpkgs";
+    # Helpers to parse experimental variants directory structure
+    # For each set of modules under homes/configs/<username>
+    # And each variant under homes/configs/<username>/<variant>
+    homeVariants = let
+      # Create a module for specified username and imports
+      mkModule = name: imports: {lib, ...}: {
+        inherit imports;
 
-        modules = [
-          modules.hosts
-          #digga.nixosModules.bootstrapIso
-          #digga.nixosModules.nixConfig
-          home.nixosModules.home-manager
-        ];
-      };
-
-      hosts = readHostTree ./hosts;
-
-      # OS modules are provided with profiles from hardware flake and various subfolders
-      importables = let
-        imported = mkImportables [ "hardware" "profiles" "services" ];
-      in imported // {
-        hardware = hardware.nixosModules // imported.hardware;
-
-        suites = {
-          full = with imported.profiles; [ imported.hardware.pipewire media mail office ];
+        # Add portable defaults for use outside of NixOS
+        home = {
+          username = lib.mkDefault name;
+          homeDirectory = lib.mkDefault "/home/${name}";
         };
       };
-    };
 
-    # home-manager home configs
-    home = {
-      modules = [ modules.homes ];
+      # Ignore all files in subfolders for base user config
+      bases = mapAttrs
+        (_: mods: (filter (e: ! isAttrs e) (attrValues mods)))
+        homes.configs;
 
-      # Home modules are provided with themes
-      importables = mkImportables [ "themes" ] // {
-        inherit self inputs;
-      };
+      # Extract each subfolder as variants
+      toVariants = user: mods:
+        mapAttrs' (var: mods: {
+          name = "${user}-${var}";
+          value = mkModule user (bases.${user} ++ (attrValues mods));
+        }) (filterAttrs (_: v: isAttrs v) mods);
 
-      users = readHomeTree ./homes;
-    };
+      # Collect variants for all users
+      variants = foldl'
+        (sum: user: sum // (toVariants user homes.configs.${user}))
+        {}
+        (attrNames homes.configs);
+    in
+      (mapAttrs mkModule bases) // variants;
 
-    # Export home configurations with the help of digga
-    homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
-
-    # system build checks
-    checks.x86_64-linux = builtins.mapAttrs
+    # Output each system toplevel build as a check
+    hostChecks = mapAttrs
       (_: config: config.config.system.build.toplevel)
       self.nixosConfigurations;
 
+    # Output each home activation package as a check
+    homeChecks = mapAttrs
+      (_: config: config.activationPackage)
+      self.homeConfigurations;
+
+  in {
+    # All nix files under hosts/modules
+    nixosModules = hosts.modules;
+
+    # All nix files under hosts/profiles
+    nixosProfiles = hosts.profiles;
+
+    # For each set of modules under hosts/configs/<hostname>
+    nixosConfigurations = mapAttrs
+      (name: configs:
+        nixpkgs.lib.nixosSystem {
+          # Assemble modules
+          modules = [
+              # Additional upstream modules
+              home-manager.nixosModules.home-manager
+              # Module for various flake integration
+              ({ lib,... }: {
+                # Apply overlays with priority
+                nixpkgs.overlays = lib.mkBefore overlays;
+
+                # Set flake based properties
+                networking.hostName = name;
+                system.configurationRevision = lib.mkIf (self ? rev) self.rev;
+
+                # Provide certain inputs via the registry
+                nix.registry = lib.genAttrs
+                  ["self" "nixpkgs" "home-manager"]
+                  (name: { flake = inputs.${name}; });
+
+                # Configure home-manager module
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+
+                  # Shared modules in homes/modules
+                  sharedModules = attrValues self.homeModules;
+
+                  # Provide profiles as additional module inputs
+                  extraSpecialArgs = {
+                    # Profiles in homes/profiles
+                    profiles = self.homeProfiles;
+                  };
+                };
+              })
+          ] ++ (attrValues self.nixosModules) # Shared modules in hosts/modules
+            ++ (attrValues configs); # Individual config in hosts/configs/<name>
+
+          # Provide profiles and home configurations as additional module inputs
+          specialArgs = {
+            profiles = self.nixosProfiles // {
+              # Inject and overlay nixos-hardware in/with profiles
+              hardware = hardware.nixosModules // self.nixosProfiles.hardware;
+            };
+            # Provide raw module configs for use with home-manager nixos module
+            homes = homeVariants;
+          };
+        }
+      ) hosts.configs;
+
+    # All nix files under homes/modules
+    homeModules = homes.modules;
+
+    # All nix files under homes/modules
+    homeProfiles = homes.profiles;
+
+    # For each set of modules under homes/configs/<username>
+    # And each variant under homes/configs/<username>/<variant>
+    homeConfigurations = mapAttrs
+      (name: config:
+        home-manager.lib.homeManagerConfiguration {
+
+          # Shared modules in homes/modules and user modules in homes/configs/<name>
+          # Optionally extended by variant modules in homes/configs/<name>/<variant>
+          modules = (attrValues self.homeModules) ++ [ config ];
+
+          # FIXME: Properly "systemize" output
+          pkgs = pkgs.x86_64-linux;
+
+          # Provide profiles as additional module inputs
+          extraSpecialArgs = {
+            # Profiles in homes/profiles
+            profiles = self.homeProfiles;
+          };
+        }
+      ) homeVariants;
+
+    # system build checks
+    checks.x86_64-linux = hostChecks // homeChecks;
+
+    # Import custom packages as overlay
+    overlays.default = import ./pkgs;
+
+    # Export some selected packages
     packages.x86_64-linux.iso = self.nixosConfigurations.installer.config.system.build.isoImage;
   };
 }

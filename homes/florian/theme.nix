@@ -1,5 +1,0 @@
-{ themes, ... }:
-
-{
-  imports = [ themes.dracula ];
-}
