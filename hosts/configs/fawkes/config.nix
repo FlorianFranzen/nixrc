@@ -1,7 +1,7 @@
 { config, pkgs, lib, profiles, homes, ... }:
 {
   imports = 
-    (with profiles; [ corp media mail office podman ]) ++
+    (with profiles; [ corp gaming media mail office podman ]) ++
     (with profiles.develop; [ minimal extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++

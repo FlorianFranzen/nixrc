@@ -1,4 +1,4 @@
-{ self, pkgs, ...}:
+{ pkgs, ...}:
 
 {
   imports = [ ./base.nix ];
@@ -11,7 +11,7 @@
 
     # Set desktop background
     output."*" = {
-      background = "${self}/themes/assets/nixish-dark.png fill";
+      background = "${./assets/nixish-dark.png} fill";
     };
   };
 
