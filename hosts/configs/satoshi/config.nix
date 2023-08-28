@@ -8,6 +8,7 @@
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
       common-cpu-amd
+      common-cpu-amd-pstate
       common-gpu-amd
       common-pc-laptop
       common-pc-ssd
@@ -34,10 +35,6 @@
     extraModulePackages = [ pkgs.linuxPackages_amd.ideapad-laptop ];
 
     kernelParams = [
-      # Use amd power management
-      "amd_pstate=active"
-      # Disable broken scatter/gather
-      "amdgpu.sg_display=0"
       # Fix backlight control
       "amdgpu.backlight=0"
       # Enable kernel rfkill hack

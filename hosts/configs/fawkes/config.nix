@@ -6,6 +6,7 @@
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
+      common-cpu-amd
       common-cpu-amd-pstate
       common-gpu-amd
       common-pc-ssd
@@ -20,13 +21,16 @@
 
   # Use latest kernel for better compatibility
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "amdgpu.sg_display=0" "amdgpu.hw_i2c=1" "amdgpu.dc=1" ];
 
+  # Blacklist false detections
   boot.blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_latest.nct6775 ];
 
-  # Allow use of zfs
-  boot.supportedFilesystems = [ "zfs" ];
+  # Support mainboard sensors
+  boot.extraModulePackages = [ pkgs.linuxPackages_latest.nct6775 ];
+  boot.kernelModules = [ "nct6775" ];
+
+  # Allow use of zfs (FIXME often broken on latest kernel)
+  #boot.supportedFilesystems = [ "zfs" ];
 
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
