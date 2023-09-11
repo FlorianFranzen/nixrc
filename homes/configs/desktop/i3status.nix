@@ -21,7 +21,6 @@ in {
           }
           {
             block = "cpu";
-            interval = 5;
             format = " $icon $utilization $frequency ";
             format_alt = " $icon $barchart ";
             click = [
@@ -43,16 +42,24 @@ in {
           {
             block = "amd_gpu";
             format = " $icon $utilization $vram_used_percents ";
+            if_command = "compgen -G '/sys/module/amdgpu/drivers/pci:amdgpu/0000:*'";
           }
           {
             block = "temperature";
             chip = "amdgpu-*";
+            interval = 5;
+            if_command = "compgen -G '/sys/module/amdgpu/drivers/pci:amdgpu/0000:*'";
+          }
+          {
+            block = "nvidia_gpu";
+            interval = 5;
+            if_command = "compgen -G '/sys/module/amdgpu/drivers/pci:nvidia/0000:*'";
           }
           {
             block = "disk_space";
             path = "/";
             format = " $icon $available $percentage ";
-            interval = 15;
+            interval = 10;
             warning = 25.0;
             alert = 10.0;
           }
