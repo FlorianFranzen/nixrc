@@ -13,7 +13,7 @@ let
 
 in {
   # Support bbswitch on AMD CPUs
-  linuxPackages_amd = prev.linuxPackages_latest.extend (kself: ksuper: {
+  linuxPackages_amd = prev.linuxPackages.extend (kself: ksuper: {
     ideapad-laptop = ksuper.callPackage ./ideapad-laptop.nix {}; 
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
