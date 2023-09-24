@@ -38,6 +38,9 @@
     # List supported systems (no darwin or 32bit linux support)
     supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
 
+    # Username to use for home-manager outputs
+    username = "florian";
+
     # Turn firefox addons collection to overlay
     firefox-addons-overlay = (final: prev: {
       buildFirefoxXpiAddon = firefox-addons.lib.${prev.system}.buildFirefoxXpiAddon;
@@ -75,49 +78,45 @@
     };
 
     # Helpers to parse experimental variants directory structure
-    # For each set of modules under homes/configs/<username>
-    # And each variant under homes/configs/<username>/<variant>
+    # Create a base config from homes/configs and on for each 
+    # variant under homes/configs/<variant>
     homeVariants = let
       # Create a module for specified username and imports
-      mkModule = name: imports: {lib, ...}: {
+      mkModule = imports: {lib, ...}: {
         inherit imports;
 
         # Add portable defaults for use outside of NixOS
         home = {
-          username = lib.mkDefault name;
-          homeDirectory = lib.mkDefault "/home/${name}";
+          username = lib.mkDefault username;
+          homeDirectory = lib.mkDefault "/home/${username}";
         };
       };
 
-      # Ignore all files in subfolders for base user config
-      bases = mapAttrs
-        (_: mods: (filter (e: ! isAttrs e) (attrValues mods)))
-        homes.configs;
+      # Ignore all files in subfolders for base config
+      base = filter (e: ! isAttrs e) (attrValues homes.configs);
 
-      # Extract each subfolder as variants
-      toVariants = user: mods:
-        mapAttrs' (var: mods: {
-          name = "${user}-${var}";
-          value = mkModule user (bases.${user} ++ (attrValues mods));
-        }) (filterAttrs (_: v: isAttrs v) mods);
-
-      # Collect variants for all users
-      variants = foldl'
-        (sum: user: sum // (toVariants user homes.configs.${user}))
-        {}
-        (attrNames homes.configs);
-    in
-      (mapAttrs mkModule bases) // variants;
+      # Separate subfolders for base config
+      variants = filterAttrs (_: v: isAttrs v) homes.configs;
+    in {
+      # Build base config
+      ${username} = mkModule base; 
+    } // (mapAttrs' (variant: modules: {
+      # Build variant config
+      name = "${username}-${variant}";
+      value = mkModule (base ++ (attrValues modules));
+    }) variants);
 
     # Output each system toplevel build as a check
-    hostChecks = mapAttrs
-      (_: config: config.config.system.build.toplevel)
-      self.nixosConfigurations;
+    hostChecks = mapAttrs' (name: config: {
+      name = "host-${name}";
+      value = config.config.system.build.toplevel;
+    }) self.nixosConfigurations;
 
     # Output each home activation package as a check
-    homeChecks = mapAttrs
-      (_: config: config.activationPackage)
-      self.homeConfigurations;
+    homeChecks = mapAttrs' (name: config: {
+      name = "home=${name}";
+      value = config.activationPackage;
+    }) self.homeConfigurations;
 
   in {
     # All nix files under hosts/modules

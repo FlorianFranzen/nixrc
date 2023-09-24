@@ -22,6 +22,7 @@
         privacy-badger
         decentraleyes
         clearurls
+        sponsorblock
         ipfs-companion
         polkadot-js
         metamask
