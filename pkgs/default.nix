@@ -32,9 +32,6 @@ in {
   # Patched to include git submodules
   nixSubmodule = callOverride ./nix-submodule.nix {};
 
-  # Patched to work with yubikey
-  #pam_ssh_agent_auth = callOverride ./pam_ssh_agent_auth.nix {};
-
   # Qt6 theming plugin
   qt6gtk2 = final.qt6Packages.callPackage ./qt6gtk2.nix {};
 
