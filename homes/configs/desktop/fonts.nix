@@ -1,8 +1,11 @@
 { pkgs, ... }:
 
 let
-  # One font to rule them all
-  name = "JetBrainsMono";
+  # Fonts to use across configs
+  monoFont = "JetBrains Mono";
+  iconFont = "JetBrainsMono Nerd Font";
+
+  # Default font size
   size = 12;
 
   # Helper functions
@@ -15,21 +18,22 @@ in {
   home.packages = with pkgs; [
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    noto-fonts-emoji
   ];
 
   # Configure font
   wayland.windowManager.sway.config.fonts = {
-    names = [ name "${name} Nerd Font" ];
+    names = [ monoFont iconFont ];
     style = "Regular";
     size = toFloat size;
   };
 
   programs.alacritty.settings.font = {
-    normal.family = name;
+    normal.family = iconFont;
     inherit size;
   };
 
-  programs.foot.settings.main.font = "${name}:size=${toString size}";
+  programs.foot.settings.main.font = "${iconFont}:size=${toString size}";
 
-  services.mako.font = "${name} ${toString size}";
+  services.mako.font = "${iconFont} ${toString size}";
 }

@@ -22,7 +22,7 @@ in {
           {
             block = "cpu";
             interval = 5;
-            format = " $icon $utilization $frequency";
+            format = " $icon $utilization $frequency ";
             format_alt = " $icon $barchart ";
             click = [
               {

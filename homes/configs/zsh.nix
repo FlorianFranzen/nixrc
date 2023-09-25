@@ -30,6 +30,9 @@
 
         # Load powerlevel10k config
         source ${./zsh.p10k.sh}
+
+        # Add local doom emacs install
+        export PATH="$PATH:$HOME/.config/emacs/bin"
       '';
 
       shellAliases = {

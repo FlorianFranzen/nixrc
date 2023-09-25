@@ -21,8 +21,12 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "JetBrains Mono" :size 13)
-      doom-unicode-font (font-spec :family "Symbols Nerd Font" :size 13))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 13)
+      doom-unicode-font (font-spec :family "Noto Color Emoji" :size 13))
+;;
+;; Somehow the default pure symbol font can not be found
+;;
+(setq nerd-icons-font-family "JetBrainsMono Nerd Font")
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
