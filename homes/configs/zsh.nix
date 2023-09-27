@@ -5,6 +5,11 @@
     # Basic tools
     bat.enable = true;
 
+    broot = {
+      enable = true;
+      settings.default_flags = "gh";
+    };
+
     lsd = {
       enable = true;
       enableAliases = true;

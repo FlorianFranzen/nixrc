@@ -19,6 +19,7 @@
     fzf
     git-crypt
     gnumake
+    hexyl
     jq
     libfaketime
     moreutils
