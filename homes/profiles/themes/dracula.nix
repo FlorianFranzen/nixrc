@@ -17,6 +17,9 @@
 
   pywal.theme = "base16-dracula";
 
+  # Theme command line tools
+  programs.bat.config.theme = "Dracula";
+
   # Theme status bars
   programs.i3status-rust.bars.top.theme = "dracula";
   programs.i3status-rust.bars.bottom.theme = "dracula";

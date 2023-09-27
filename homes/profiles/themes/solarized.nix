@@ -17,6 +17,11 @@
 
   pywal.theme = "solarized";
 
+  # Theme command line tools
+  programs.bat.config.theme = "Solarized (dark)";
+  programs.broot.settings.syntax_theme = "SolarizedDark";
+  programs.broot.settings.imports = [ "skins/solarized-dark.hjson" ];
+
   # Theme status bars
   programs.i3status-rust.bars.top.theme = "solarized-dark";
   programs.i3status-rust.bars.bottom.theme = "solarized-dark";
