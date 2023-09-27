@@ -15,6 +15,7 @@
       android
       pipewire
       smartcard
+      wooting
       zsa
     ]);
 
