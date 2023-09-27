@@ -142,6 +142,9 @@
                 networking.hostName = name;
                 system.configurationRevision = lib.mkIf (self ? rev) self.rev;
 
+                # Provide backward compatibility
+                nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
                 # Provide certain inputs via the registry
                 nix.registry = lib.genAttrs
                   ["self" "nixpkgs" "home-manager"]
