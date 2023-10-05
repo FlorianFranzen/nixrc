@@ -22,6 +22,7 @@
     hexyl
     jq
     libfaketime
+    linux-manual
     moreutils
     ncdu
     patchelf

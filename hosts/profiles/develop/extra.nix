@@ -54,7 +54,6 @@
     ntfs3g
 
     neofetch
-    exa
 
     nmap
 
