@@ -40,8 +40,9 @@ sway.override {
     # Configure ozone backend for chromium apps
     export NIXOS_OZONE_WL=1
 
-    # Configure SDL wayland backend
+    # Configure SDL2 and SDL3 wayland backend
     export SDL_VIDEODRIVER=wayland
+    export SDL_VIDEO_DRIVER=wayland
 
     # Fix Java AWT applications
     export _JAVA_AWT_WM_NONREPARENTING=1
