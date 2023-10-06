@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs = {
@@ -72,4 +72,9 @@
       ];
     };
   };
+
+  # Enable lorri background service
+  services.lorri.enable = true;
+
+  systemd.user.services.lorri.Service.ProtectHome = lib.mkForce "no";
 }
