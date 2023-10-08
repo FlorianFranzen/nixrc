@@ -55,6 +55,12 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # Support printing on home printer
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.cups-brother-mfcl2710dw ];
+  };
+
   # Use AMD CPU compatible bumblebee
   nixpkgs.overlays = [
     (self: super: { bumblebee = super.bumblebee_amd; })

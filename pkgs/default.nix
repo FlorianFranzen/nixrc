@@ -23,6 +23,9 @@ in {
     nct6775 = ksuper.callPackage ./nct6775.nix {};
   });
 
+  # Printer driver to be upstreamed
+  cups-brother-mfcl2710dw = prev.callPackage ./cups-brother-mfcl2710dw.nix {};
+
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 

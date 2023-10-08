@@ -11,6 +11,8 @@
     "nrfutil" "pc-ble-driver-py" "pc-ble-driver" "pypemicro"
     # Steam and other gaming
     "steam" "steam-original" "steam-run" "minecraft-launcher"
+    # Printer drivers
+    "cups-brother-mfcl2710dw"
     # Some corpoware
     "slack" "teams-on-linux" "zoom"
   ];
