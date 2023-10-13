@@ -145,6 +145,9 @@
                 # Provide backward compatibility
                 nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
+                # Undo weird upstream "fix"
+                nix.settings.nix-path = "nixpkgs=${inputs.nixpkgs}";
+
                 # Provide certain inputs via the registry
                 nix.registry = lib.genAttrs
                   ["self" "nixpkgs" "home-manager"]
