@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  home.packages = [ pkgs.filezilla ];
+
   programs.firefox = {
     enable = true;
 
