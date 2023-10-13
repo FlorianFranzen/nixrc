@@ -1,8 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Enable lorri build
   services.lorri.enable = true;
+
+  systemd.user.services.lorri.serviceConfig = {
+    ProtectHome = lib.mkForce "no";
+  };
 
   # Enable missing command indexing
   programs.command-not-found.enable = true;
