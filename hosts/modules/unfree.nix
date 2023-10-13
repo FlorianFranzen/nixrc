@@ -10,7 +10,7 @@
     # Nitrokey firmware updates
     "nrfutil" "pc-ble-driver-py" "pc-ble-driver" "pypemicro"
     # Steam and other gaming
-    "steam" "steam-original" "steam-run" "minecraft-launcher"
+    "steam" "steam-original" "steam-run" "minecraft-launcher" "discord"
     # Printer drivers
     "cups-brother-mfcl2710dw"
     # Some corpoware

@@ -25,6 +25,7 @@
   # Additional games to install
   environment.systemPackages = with pkgs; [
     _20kly
+    discord
     minecraft
     mindustry
     openjk
