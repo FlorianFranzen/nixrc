@@ -119,7 +119,7 @@
 
     # Output each home activation package as a check
     homeChecks = mapAttrs' (name: config: {
-      name = "home=${name}";
+      name = "home-${name}";
       value = config.activationPackage;
     }) self.homeConfigurations;
 
