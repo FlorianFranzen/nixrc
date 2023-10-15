@@ -1,18 +1,26 @@
+{ pkgs, ... }:
+
 {
-  home.file.".config/swaylock/config".text = ''
-    indicator-radius=100
-    indicator-thickness=5
+  programs.swaylock = {
+    enable = true;
 
-    ignore-empty-password
-    indicator-caps-lock
+    package = pkgs.swaylock-effects;
 
-    indicator
-    clock
-    screenshots
+    settings = {
+      indicator-radius = 100;
+      indicator-thickness = 5;
 
-    datestr=%a, %F
+      ignore-empty-password = true;
+      indicator-caps-lock = true;
 
-    fade-in=1
-    effect-blur=5x2
-  '';
+      screenshots = true;
+
+      indicator = true;
+      clock = true;
+      datestr = "%a, %F";
+
+      fade-in = 1;
+      effect-blur = "5x2";
+    };
+  };
 }
