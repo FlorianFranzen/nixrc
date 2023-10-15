@@ -7,6 +7,7 @@
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
+      secure-boot
       common-cpu-amd
       common-cpu-amd-pstate
       common-gpu-amd
@@ -47,12 +48,6 @@
       softdep i2c_hid pre: pinctrl_amd
       softdep usbhid pre: pinctrl_amd
     '';
-  };
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
   };
 
   # Support printing on home printer

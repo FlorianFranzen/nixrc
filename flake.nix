@@ -12,6 +12,10 @@
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
+    # Secure boot support
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.3.0";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+
     # Home management 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +30,7 @@
     haumea,
     nixpkgs,
     hardware,
+    lanzaboote,
     home-manager,
     firefox-addons,
   } @ inputs: let
@@ -132,6 +137,7 @@
           # Assemble modules
           modules = [
               # Additional upstream modules
+              lanzaboote.nixosModules.lanzaboote
               home-manager.nixosModules.home-manager
               # Module for various flake integration
               ({ lib,... }: {
