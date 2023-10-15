@@ -14,6 +14,7 @@
     "chromium" = ""
     "thunderbird" = "󰇮"
     "file manager" = ""
+    "thunar" = ""
     "libreoffice calc" = ""
     "libreoffice writer" = ""
     "libreoffice" = ""
