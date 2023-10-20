@@ -15,7 +15,11 @@
       enableAliases = true;
     };
 
-    direnv.enable = true;
+    # Enable direnv with nix integration
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
 
     # Shell config
     zsh = {
@@ -72,9 +76,4 @@
       ];
     };
   };
-
-  # Enable lorri background service
-  services.lorri.enable = true;
-
-  systemd.user.services.lorri.Service.ProtectHome = lib.mkForce "no";
 }

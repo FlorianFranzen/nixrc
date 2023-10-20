@@ -8,7 +8,4 @@
   };
 
   home.packages = [ pkgs.libsixel ];
-
-  # Enable notification
-  services.lorri.enableNotifications = true;
 }
