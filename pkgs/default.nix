@@ -53,12 +53,7 @@ in {
 
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
-
-  # Custom firefox addons
-  firefox-addons = prev.firefox-addons // {
-    tab-stash = prev.callPackage ./tab-stash.nix {};
-  };
-
+ 
   # Update zeal slightly
   zeal-qt6 = callOverride ./zeal.nix {};
 
