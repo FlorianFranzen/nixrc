@@ -2,7 +2,7 @@
 
 {
   imports =
-    (with profiles; [ corp media mail office podman ]) ++
+    (with profiles; [ corp media mail office docker ]) ++
     (with profiles.develop; [ minimal extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++

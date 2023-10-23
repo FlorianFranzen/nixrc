@@ -9,7 +9,7 @@
   };
 
   # Useful packages
-  environment.systemPackages = [ pkgs.docker-compose ];
+  environment.systemPackages = [ pkgs.podman-compose ];
 
   # Give certain users direct access
   users.extraUsers.florian = {
