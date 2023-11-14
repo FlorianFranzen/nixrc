@@ -53,7 +53,7 @@ in {
           {
             block = "nvidia_gpu";
             interval = 5;
-            if_command = "compgen -G '/sys/module/amdgpu/drivers/pci:nvidia/0000:*'";
+            if_command = "compgen -G '/sys/module/nvidia/drivers/pci:nvidia/0000:*'";
           }
           {
             block = "disk_space";
