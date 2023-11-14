@@ -3,6 +3,9 @@
 let
   final = config.wayland.windowManager.sway;
 
+  exec = pkg: exec' pkg pkg.pname;
+  exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
+
   gap = 20;
 in {
 
@@ -56,9 +59,6 @@ in {
       # Extended key bindings
       keybindings = let
           cfg = final.config;
-
-          exec = pkg: exec' pkg pkg.pname;
-          exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
 
           WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
       in lib.mkOptionDefault {
