@@ -25,6 +25,7 @@
     "element" = ""
     "slack" = "󰒱"
     "calculator" = ""
+    "signal" = "󰭹"
     "steam" = ""
     "skype" = ""
     "zoom" = "󰵰"
