@@ -7,11 +7,7 @@
     enable = true;
 
     package = pkgs.firefox.override {
-      cfg = {
-        enableBrowserpass = true;
-        enableTridactylNative = true;
-        extraNativeMessagingHosts = [ pkgs.gpgme.dev ];
-      };
+      nativeMessagingHosts = with pkgs; [ browserpass tridactyl-native ];
     };
 
     profiles.default = {
