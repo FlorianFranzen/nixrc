@@ -10,6 +10,7 @@
     qt6.qtwayland
     libsForQt5.qtstyleplugins
     qt6gtk2
+    vulkan-validation-layers
     wl-clipboard
   ];
 

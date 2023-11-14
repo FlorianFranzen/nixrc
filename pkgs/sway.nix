@@ -13,6 +13,9 @@ sway.override {
 
   # Set some sane default environment variables
   extraSessionCommands = ''
+    # Force use of vulkan backend
+    export WLR_RENDERER=vulkan
+
     # Enable wayland backends
     export XDG_SESSION_TYPE=wayland
 
