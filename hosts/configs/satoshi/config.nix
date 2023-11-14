@@ -2,12 +2,12 @@
 
 {
   imports =
-    (with profiles; [ corp docker laptop media mail office ]) ++
+    (with profiles; [ corp docker gaming laptop media mail office ]) ++
     (with profiles.develop; [ minimal extra cross linux ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
-      secure-boot
+      #secure-boot #FIXME: Add support for mirrored boot
       common-cpu-amd
       common-cpu-amd-pstate
       common-gpu-amd

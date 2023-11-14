@@ -1,16 +1,23 @@
 { config, pkgs, lib, profiles, ... }:
 
 let
+  # Shorthand for current kernel package set
+  kernelPkgs = config.boot.kernelPackages;
+
   # Select latest release for hardware support and bug fixes
-  nvidiaPackage = config.boot.kernelPackages.nvidiaPackages.latest;
+  nvidiaPackage = kernelPkgs.nvidiaPackages.latest;
 
   # Specialization that boots with nvidia driver
   mkConfig = hwOverride: {
     # Enable prime offloading (incl. nvidia-offload wrapper)
     imports = [ profiles.hardware.common-gpu-nvidia ];
 
-    # Enable resizable BAR support
-    boot.kernelParams = [ "NVreg_EnableResizableBar=1" ];
+    # Enable bbswitch module
+    boot.kernelModules = [ "bbswitch" ];
+    boot.extraModulePackages = [ kernelPkgs.bbswitch ];
+
+    # Enable resizable BAR support and fix bbswitch power management
+    boot.kernelParams = [ "NVreg_EnableResizableBar=1" "pcie_port_pm=off" ];
 
     # FIXME hardware.nvidia should not require this to be set
     services.xserver.videoDrivers = lib.mkForce [ "nvidia" ];
