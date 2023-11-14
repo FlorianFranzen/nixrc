@@ -14,7 +14,8 @@
       ]);
       settings = { 
         PASSWORD_STORE_DIR = "$HOME/Sync/.password-store"; 
-      }; 
+        PASSWORD_STORE_GENERATED_LENGTH = "32";
+      };
     };
 
     browserpass = {
