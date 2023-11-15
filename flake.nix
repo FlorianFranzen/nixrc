@@ -82,9 +82,10 @@
       loader = haumea.lib.loaders.path;
     };
 
-    # Helpers to parse experimental variants directory structure
-    # Create a base config from homes/configs and on for each 
-    # variant under homes/configs/<variant>
+    # Helpers to parse home directory structure:
+    #  - homes/terminal  default base config
+    #  - homes/desktop   default desktop environment
+    #  - homes/variants  variants, themes, special environments
     homeVariants = let
       # Create a module for specified username and imports
       mkModule = imports: {lib, ...}: {
@@ -97,19 +98,32 @@
         };
       };
 
-      # Ignore all files in subfolders for base config
-      base = filter (e: ! isAttrs e) (attrValues homes.configs);
+      # Base config for basic terminal integration
+      terminal-modules = attrValues homes.terminal;
 
-      # Separate subfolders for base config
-      variants = filterAttrs (_: v: isAttrs v) homes.configs;
-    in {
-      # Build base config
-      ${username} = mkModule base; 
-    } // (mapAttrs' (variant: modules: {
-      # Build variant config
-      name = "${username}-${variant}";
-      value = mkModule (base ++ (attrValues modules));
-    }) variants);
+      terminals = mapAttrs' (name: config: {
+          name = "terminal-${name}";
+          value = mkModule (terminal-modules ++ [ config ]);
+        }) homes.variants;
+
+      # Fancier config for full desktop environment
+      desktop-modules = attrValues homes.desktop;
+
+      desktops = mapAttrs' (name: config: {
+          name = "desktop-${name}";
+          value = mkModule (terminal-modules ++ desktop-modules ++ [ config ]); 
+        }) homes.variants;
+
+    in (terminals // desktops);
+
+    # Various assets used in home config
+    homeAssets = {
+      # Some wallpapers to be used in theming
+      wallpaper-astronaut-gruvbox = ./homes/assets/astronaut-gruvbox.jpg;
+      wallpaper-nixish-dark = ./homes/assets/nixish-dark.png;
+      wallpaper-snowflake-solarized = ./homes/assets/snowflake-solarized.png;
+      wallpaper-mojave-dark = ./homes/assets/mojave-dark.jpg;
+    };
 
     # Output each system toplevel build as a check
     hostChecks = mapAttrs' (name: config: {
@@ -171,6 +185,9 @@
                   extraSpecialArgs = {
                     # Profiles in homes/profiles
                     profiles = self.homeProfiles;
+
+                    # Various assets used in config
+                    assets = homeAssets;
                   };
                 };
               })
@@ -212,6 +229,9 @@
           extraSpecialArgs = {
             # Profiles in homes/profiles
             profiles = self.homeProfiles;
+
+            # Various assets used in config
+            assets = homeAssets;
           };
         }
       ) homeVariants;

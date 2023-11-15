@@ -6,7 +6,10 @@
     editorconfig-core-c
     emacs-all-the-icons-fonts
   ];
- 
+
+  # Include unmanaged doom in path
+  home.sessionPath = [ "$HOME/.config/emacs/bin" ];
+
   # Setups regular emacs while doom is unmanaged  
   programs.emacs = {
     enable = true;
@@ -14,18 +17,22 @@
     package = lib.mkDefault pkgs.emacs29-pgtk;
   };
 
-  # Enable emacs server
+  # Setup emacs ...
   services.emacs = {
-    # Use local emacs server
+    # ... via local emacs server ...
     enable = true;
+
+    # ... to be used by default
     client.enable = true;
-    #defaultEditor = true;
+    defaultEditor = true;
 
     # Use same package for server
     package = lib.mkDefault pkgs.emacs29-pgtk;
 
-    # Only autostart in graphical session, otherwise socket activate
+    # Only autostart in graphical session ...
     startWithUserSession = "graphical";
+
+    # ... otherwise socket activate
     socketActivation.enable = true;
   };
 

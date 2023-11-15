@@ -1,17 +1,15 @@
-{ pkgs, ...}:
+{ pkgs, assets, ...}:
 
 {
-  imports = [ ./base.nix ];
-
   wayland.windowManager.sway.config ={
     # Set cursor theme
     seat."*" = {
-      xcursor_theme = "Capitainei\\ Cursors\\ (Gruvbox)\\ -\\ White";
+      xcursor_theme = "Capitaine\\ Cursors\\ (Gruvbox)\\ -\\ White";
     };
 
     # Set desktop background
     output."*" = {
-      background = "${./assets/astronaut-gruvbox.jpg} fill";
+      background = "${assets.wallpaper-astronaut-gruvbox} fill";
     };
   };
 

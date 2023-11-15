@@ -21,7 +21,7 @@ in {
     noto-fonts-emoji
   ];
 
-  # Configure font
+  # Configure font in various apps
   wayland.windowManager.sway.config.fonts = {
     names = [ monoFont iconFont ];
     style = "Regular";

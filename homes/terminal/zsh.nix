@@ -28,8 +28,7 @@
       defaultKeymap = "viins";
 
       localVariables = {
-        # Set default
-        EDITOR = "vim";
+        # Set additional defaults
         BROWSER = "firefox";
       };
 
@@ -39,9 +38,6 @@
 
         # Load powerlevel10k config
         source ${./zsh.p10k.sh}
-
-        # Add local doom emacs install
-        export PATH="$PATH:$HOME/.config/emacs/bin"
       '';
 
       shellAliases = {

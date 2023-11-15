@@ -11,7 +11,7 @@
          ]);
 
   # Install full desktop environment
-  home-manager.users.florian = homes.florian-desktop;
+  home-manager.users.florian = homes.desktop-solarized;
 
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];

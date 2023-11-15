@@ -22,7 +22,7 @@
     ]);
 
   # Install full desktop environment
-  home-manager.users.florian = homes.florian-desktop;
+  home-manager.users.florian = homes.desktop-solarized;
 
   boot = {
     # Latest kernel without wifi issues

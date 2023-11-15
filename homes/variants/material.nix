@@ -1,8 +1,6 @@
-{ pkgs, ...}:
+{ pkgs, assets, ...}:
 
 {
-  imports = [ ./base.nix ];
-
   wayland.windowManager.sway.config ={
     # Set cursor theme
     seat."*" = {
@@ -11,7 +9,7 @@
 
     # Set desktop background
     output."*" = {
-      background = "${./assets/nixish-dark.png} fill";
+      background = "${assets.wallpaper-nixish-dark} fill";
     };
   };
 

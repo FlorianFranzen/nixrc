@@ -18,7 +18,7 @@
     ]);
 
   # Install full desktop environment
-  home-manager.users.florian = homes.florian-desktop;
+  home-manager.users.florian = homes.desktop-gruvbox;
 
   # Use latest kernel for better compatibility
   boot.kernelPackages = pkgs.linuxPackages_latest;

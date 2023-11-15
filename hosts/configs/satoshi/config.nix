@@ -24,7 +24,7 @@
   services.thermald.enable = true;
 
   # Install full desktop environment
-  home-manager.users.florian = homes.florian-desktop;
+  home-manager.users.florian = homes.desktop-solarized;
 
   # Disable GPU unless overriden in specialization
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
