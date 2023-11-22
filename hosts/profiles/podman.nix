@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Enable docker
@@ -12,7 +12,7 @@
   environment.systemPackages = [ pkgs.podman-compose ];
 
   # Give certain users direct access
-  users.extraUsers.florian = {
+  users.extraUsers.${username} = {
     extraGroups = [ "podman" ];
   };
 }

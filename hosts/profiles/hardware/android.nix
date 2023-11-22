@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   programs.adb.enable = true;
 
-  users.extraUsers.florian.extraGroups = [ "adbusers" ];
+  users.extraUsers.${username}.extraGroups = [ "adbusers" ];
 }

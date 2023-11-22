@@ -43,7 +43,7 @@
     # List supported systems (no darwin or 32bit linux support)
     supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
 
-    # Username to use for home-manager outputs
+    # Main user name to use in system and home-manager outputs
     username = "florian";
 
     # Turn firefox addons collection to overlay
@@ -202,6 +202,9 @@
             };
             # Provide raw module configs for use with home-manager nixos module
             homes = homeVariants;
+
+            # Provide default user name to system configs
+            inherit username;
           };
         }
       ) hosts.configs;

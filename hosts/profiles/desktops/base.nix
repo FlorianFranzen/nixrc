@@ -1,6 +1,6 @@
 # Base config to run a desktop environment
 
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Enable ntfs support
@@ -68,7 +68,7 @@
   # Fix DNS resolution in browsers
   networking.resolvconf.dnsExtensionMechanism = false;
 
-  users.extraUsers.florian = {
+  users.extraUsers.${username} = {
     extraGroups = [ "audio" "video" ];
   };
 }

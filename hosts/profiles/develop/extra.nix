@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Enable keybase
@@ -61,5 +61,5 @@
     zeal-qt6
   ];
 
-  users.extraUsers.florian.extraGroups = [ "dialout" ];
+  users.extraUsers.${username}.extraGroups = [ "dialout" ];
 }

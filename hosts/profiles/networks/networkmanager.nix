@@ -1,6 +1,4 @@
-# Base config to run a desktop environment
-
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Use network manager
@@ -21,7 +19,7 @@
   programs.nm-applet.enable = true;
 
   # List of users able to control network manager
-  users.extraUsers.florian = {
+  users.extraUsers.${username} = {
     extraGroups = [ "networkmanager" ];
   };
 }

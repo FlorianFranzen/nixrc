@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Useful packages for development
@@ -31,7 +31,7 @@
   };
 
   # Give default users access to libvirtd
-  users.extraUsers.florian = {
+  users.extraUsers.${username} = {
     extraGroups = [ "libvirtd" ];
   };
 }

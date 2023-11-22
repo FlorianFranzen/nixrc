@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Include base desktop profile
@@ -30,7 +30,7 @@
   programs.xwayland.enable = true;
 
   # Give main user access
-  users.extraUsers.florian = {
+  users.extraUsers.${username} = {
     extraGroups = [ "sway" ];
   };
 

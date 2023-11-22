@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   # Enable wireshark and ui
@@ -7,5 +7,5 @@
     package = pkgs.wireshark-qt;
   };
 
-  users.extraUsers.florian.extraGroups = [ "wireshark" ];
+  users.extraUsers.${username}.extraGroups = [ "wireshark" ];
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
 
@@ -8,6 +8,6 @@
     super-slicer
   ];
 
-  users.extraUsers.florian.extraGroups = [ "dialout" ];
+  users.extraUsers.${username}.extraGroups = [ "dialout" ];
 }
 
