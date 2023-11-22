@@ -46,7 +46,7 @@
     #lxqt.lxqt-policykit
     #lxqt.qps
 
-    firefox
+    librewolf
     ungoogled-chromium
 
     nextcloud-client
