@@ -53,7 +53,12 @@ in {
 
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
- 
+
+  # Fix udev rules
+  wooting-udev-rules = prev.wooting-udev-rules.overrideAttrs (_: {
+    src = [ ./wooting.rules ];
+  });
+
   # Update zeal slightly
   zeal-qt6 = callOverride ./zeal.nix {};
 }
