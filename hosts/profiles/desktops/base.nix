@@ -19,6 +19,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    bluez-tools
     glib
     libappindicator
     libnotify
