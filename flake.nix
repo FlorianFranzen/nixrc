@@ -13,7 +13,7 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Secure boot support
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.3.0";
+    lanzaboote.url = "github:FlorianFranzen/lanzaboote/v0.3.0-mirror";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     # Home management 

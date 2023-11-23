@@ -7,7 +7,7 @@
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
-      #secure-boot #FIXME: Add support for mirrored boot
+      secure-boot
       common-cpu-amd
       common-cpu-amd-pstate
       common-gpu-amd
@@ -19,6 +19,12 @@
       wooting
       zsa
     ]);
+
+  # EFI boot variables are safe to be modified
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Install signed bootloader to efi mirror
+  boot.lanzaboote.extraEfiSysMountPoints = [ "/boot-mirror" ];
 
   # Add some fancontrol 
   services.thermald.enable = true;
