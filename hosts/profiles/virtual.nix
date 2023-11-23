@@ -31,7 +31,5 @@
   };
 
   # Give default users access to libvirtd
-  users.extraUsers.${username} = {
-    extraGroups = [ "libvirtd" ];
-  };
+  users.extraUsers.${username}.extraGroups = [ "libvirtd" ];
 }

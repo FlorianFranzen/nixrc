@@ -1,7 +1,6 @@
 { config, pkgs, username, ... }:
 
 {
-
   environment.systemPackages = with pkgs; [
     cura
     prusa-slicer

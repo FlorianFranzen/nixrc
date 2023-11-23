@@ -19,7 +19,5 @@
   programs.nm-applet.enable = true;
 
   # List of users able to control network manager
-  users.extraUsers.${username} = {
-    extraGroups = [ "networkmanager" ];
-  };
+  users.extraUsers.${username}.extraGroups = [ "networkmanager" ];
 }

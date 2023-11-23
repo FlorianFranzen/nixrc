@@ -11,8 +11,6 @@
   # Useful packages
   environment.systemPackages = [ pkgs.docker-compose ];
 
-  # Give certain users direct access
-  users.extraUsers.${username} = {
-    extraGroups = [ "docker" ];
-  };
+  # Give default users direct access
+  users.extraUsers.${username}.extraGroups = [ "docker" ];
 }

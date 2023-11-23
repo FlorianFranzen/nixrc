@@ -29,10 +29,8 @@
   # Enable xwayland support
   programs.xwayland.enable = true;
 
-  # Give main user access
-  users.extraUsers.${username} = {
-    extraGroups = [ "sway" ];
-  };
+  # Give main user access to sway
+  users.extraUsers.${username}.extraGroups = [ "sway" ];
 
   # Allow swaylock to check passwords
   security.pam.services.swaylock = {};

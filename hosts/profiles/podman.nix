@@ -12,7 +12,5 @@
   environment.systemPackages = [ pkgs.podman-compose ];
 
   # Give certain users direct access
-  users.extraUsers.${username} = {
-    extraGroups = [ "podman" ];
-  };
+  users.extraUsers.${username}.extraGroups = [ "podman" ];
 }

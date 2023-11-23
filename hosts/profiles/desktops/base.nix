@@ -69,7 +69,6 @@
   # Fix DNS resolution in browsers
   networking.resolvconf.dnsExtensionMechanism = false;
 
-  users.extraUsers.${username} = {
-    extraGroups = [ "audio" "video" ];
-  };
+  # Give default user additional access to devices
+  users.extraUsers.${username}.extraGroups = [ "audio" "video" ];
 }
