@@ -29,29 +29,6 @@
   # Suspend on power button press
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  # Backup samba share
-#  services.samba = {
-#    enable = true;
-#    extraConfig = ''
-#      guest account = nobody
-#      map to guest = bad user
-#    '';
-#    shares = {
-#      wanderer = {
-#	browsable = true;
-#	writable = true;
-#	public = true;
-#        path = "/data/wanderer";
-#      };
-#      addy = {
-#        browseable = true;
-#	writable = true;
-#        public = true;
-#	path = "/data/addy";
-#      };
-#    };
-#  };
-
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
 

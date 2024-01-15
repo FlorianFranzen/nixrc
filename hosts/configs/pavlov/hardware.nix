@@ -40,25 +40,6 @@
       options = [ "subvol=@tmp" ];
     };
 
-  # Various ZFS media drives
-  fileSystems."/media/addy" =
-    { device = "data/media/addy";
-      fsType = "zfs";
-      options = [ "noauto" ];
-    };
-
-  fileSystems."/media/backup" =
-    { device = "data/media/backup";
-      fsType = "zfs";
-      options = [ "noauto" ];
-    };
-
-  fileSystems."/media/music" =
-    { device = "data/media/music";
-      fsType = "zfs";
-      options = [ "noauto" ];
-    };
-
   swapDevices =
     [ { device = "/dev/disk/by-uuid/4fc7b43b-d553-4ddb-bb41-b0a25d308f83"; }
     ];
