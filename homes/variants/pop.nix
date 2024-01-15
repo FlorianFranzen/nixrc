@@ -13,6 +13,10 @@
     };
   };
 
+  wayland.windowManager.hyprland.extraConfig = ''
+    exec-once = ${pkgs.swaybg}/bin/swaybg -m fill -i ${assets.wallpaper-mojave-dark}
+  '';
+
   pywal.theme = "pop";
 
   # Theme status bars

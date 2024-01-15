@@ -18,4 +18,7 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
+
+  # Allow swaylock to check passwords
+  security.pam.services.swaylock = {};
 }

@@ -12,7 +12,10 @@
          ]);
 
   # Install full desktop environment
-  home-manager.users.florian = homes.desktop-solarized;
+  home-manager.users.florian = homes.desktop-pop;
+
+  # Fix nouveau boot
+  boot.kernelParams = [ "nouveau.modeset=0" ];
 
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
