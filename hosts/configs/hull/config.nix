@@ -2,7 +2,7 @@
 
 {
   imports = with profiles; [
-    desktops.sway develop.manufac networks.iwd hardware.pulseaudio hardware.smartcard
+    desktops.sway develop.manufac networks.iwd hardware.pulseaudio hardware.smartcard services.octoprint
   ];
 
   # Do not use home-manager on this host
@@ -47,14 +47,6 @@
     rmmod elan_i2c
     modprobe elan_i2c
   '';
-
-  # Enable octoprint service
-  services.octoprint = {
-    enable = true;
-    port = 80;
-  };
-
-  networking.firewall.allowedTCPPorts = [ 80 ];
 
   # Add some software
   environment.systemPackages = with pkgs; [
