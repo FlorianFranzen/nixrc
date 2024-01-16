@@ -3,7 +3,7 @@
 {
   imports =
     (with profiles; [ corp docker gaming laptop media mail office ]) ++
-    (with profiles.develop; [ minimal extra cross linux ]) ++
+    (with profiles.develop; [ minimal extra cross linux manufac cad ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
