@@ -1,29 +1,30 @@
 # Default config for all hosts
 { config, lib, ... }:
 
-let
-  # Config option aliases
-  hasZfs = config.boot.zfs.enabled;
-  hasSshd = config.services.openssh.enable;
-in {
+{
   # Automatically generate default host id if zfs is enabled
-  networking.hostId = lib.mkIf hasZfs (lib.mkOverride 999 (
+  networking.hostId = lib.mkIf config.boot.zfs.enabled (lib.mkOverride 999 (
     lib.substring 0 8 (builtins.hashString "md5" config.networking.hostName)
   ));
 
   # Enable SSH login via key by default
   services.openssh.enable = lib.mkDefault true;
+  services.openssh.settings.PasswordAuthentication = lib.mkDefault false;
 
-  services.openssh.settings.PasswordAuthentication = lib.mkIf hasSshd false;
-  security.pam.enableSSHAgentAuth = lib.mkIf hasSshd true;
+  # Only allow nix managed keys (local or remote)
+  services.openssh.authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
+
+  # Allow key-based auth (local and via ssh)
+  security.pam.sshAgentAuth = {
+    enable = lib.mkDefault true;
+  };
 
   # Enable time synchronization
   services.timesyncd.enable = lib.mkDefault true;
 
   # Set default your time zone.
-  time.timeZone = lib.mkDefault "Europe/Berlin";
+  time.timeZone = lib.mkDefault "Europe/Zurich";
 
-  # Override digga default
-  # TODO Add encrypted passwd hashes
-  users.mutableUsers = true;
+  # Allow locally managed user by default
+  users.mutableUsers = lib.mkDefault true;
 }	
