@@ -33,6 +33,7 @@
     gitoxide
 
     github-cli
+    glab
 
     sccache
     gdb
