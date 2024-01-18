@@ -15,15 +15,10 @@
     libreoffice-fresh
     zotero
     gimp
-#    gimp-with-plugins
     inkscape
-    gnucash
+    ledger
     calibre
    ];
-
-  # Enable CUPS to print documents.
-  #services.printing.enable  = true;
-  #services.printing.drivers = [ pkgs.gutenprint ];
 
   environment.etc."aspell.conf".text = ''
     master en_US
