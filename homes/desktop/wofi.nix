@@ -4,9 +4,9 @@
     allow_markup=true
     gtk-dark=true
     image_size=32
-    matching=fuzzy
+    matching=multi-contains
     insensitive=true
-    term=alacritty
+    term=foot
   '';
 
   home.file.".config/wofi/style.css".text = ''
