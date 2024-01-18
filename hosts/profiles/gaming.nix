@@ -19,7 +19,6 @@
     mangohud
     minecraft
     mindustry
-    openjk
     openra
     superTuxKart
     (warzone2100.override { withVideos = true; })
