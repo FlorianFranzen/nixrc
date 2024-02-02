@@ -20,22 +20,18 @@
   # Install full desktop environment
   home-manager.users.florian = homes.desktop-gruvbox;
 
-  # Use latest kernel for better compatibility
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Provided updated cpu microcode and basic firmwares
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
 
-  # Blacklist false detections
-  boot.blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" ];
-
-  # Support mainboard sensors
-  boot.extraModulePackages = [ pkgs.linuxPackages_latest.nct6775 ];
-  boot.kernelModules = [ "nct6775" ];
-
-  # Allow use of zfs (FIXME often broken on latest kernel)
-  #boot.supportedFilesystems = [ "zfs" ];
+  # Make hip available at known-path
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
 
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
 
   # Current state version
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }
