@@ -35,6 +35,11 @@ in {
   # Patched to include git submodules
   nixSubmodule = callOverride ./nix-submodule.nix {};
 
+  # Milkdrop Vizualizer
+  projectM-sdl2 = final.callPackage ./projectM-sdl2.nix {
+    libprojectM = final.callPackage ./libprojectM.nix {};
+  };
+
   # Qt6 theming plugin
   qt6gtk2 = final.qt6Packages.callPackage ./qt6gtk2.nix {};
 
