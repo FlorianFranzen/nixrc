@@ -13,8 +13,16 @@
     # Use bluez with experimental features
     package = pkgs.bluez5-experimental;
 
-    # Enable experimental battery reporting
-    settings.General.Experimental = true;
+    settings.General = {
+      # Enable experimental battery reporting
+      Experimental = true;
+
+      # Allow faster connection
+      FastConnectable = true;
+    };
+
+    # Allow the sharing of gamepads
+    input.General.ClassicBondedOnly = false;
   };
 
   # List packages installed in system profile.
