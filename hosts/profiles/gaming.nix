@@ -7,6 +7,9 @@
   # Setup steam environment
   programs.steam.enable = true;
 
+  # Support Switch Joycon
+  services.joycond.enable = true;
+
   # Provide microphone noide filtering
   programs.noisetorch.enable = true;
 
