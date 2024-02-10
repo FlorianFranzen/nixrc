@@ -29,6 +29,18 @@ in {
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 
+  # Temporary fix to be merged upstream
+  bluez5-experimental = prev.bluez5-experimental.overrideAttrs (old: rec {
+    version = "5.72";
+
+    src = prev.fetchurl {
+      url = "mirror://kernel/linux/bluetooth/bluez-${version}.tar.xz";
+      hash = "sha256-SZ1/o0WplsG7ZQ9cZ0nh2SkRH6bs4L4OmGh/7mEkU24=";
+    };
+
+    nativeBuildInputs = old.nativeBuildInputs ++ [ prev.python3.pkgs.pygments ];
+  });
+
   # WSL boot shim maker
   mkSyschdemd = final.callPackage ./syschdemd.nix {};
 
