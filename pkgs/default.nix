@@ -18,11 +18,6 @@ in {
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
 
-  # Support latest asus mainboard monitoring
-  linuxPackages_latest = prev.linuxPackages_latest.extend (kself: ksuper: {
-    nct6775 = ksuper.callPackage ./nct6775.nix {};
-  });
-
   # Printer driver to be upstreamed
   cups-brother-mfcl2710dw = prev.callPackage ./cups-brother-mfcl2710dw.nix {};
 
