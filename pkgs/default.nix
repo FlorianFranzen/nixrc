@@ -11,6 +11,20 @@ let
 
   callOverride = callOverrideWith prev; 
 
+  # Temporary override till upstream catches up
+  sway-unwrapped = (prev.sway-unwrapped.overrideAttrs (old: {
+    version = "1.9-rc3";
+
+    src = prev.fetchFromGitHub {
+      owner = "swaywm";
+      repo = "sway";
+      rev = "1.9-rc3";
+      hash = "sha256-1NhXFRVV+jMcjs+p8MK+4imt8yBBAEuzl/1aAcS+bPM=";
+    };
+
+    patches = [];
+  })).override { wlroots_0_16 = prev.wlroots_0_17; };
+
 in {
   # Support bbswitch on AMD CPUs
   linuxPackages_amd = prev.linuxPackages.extend (kself: ksuper: {
@@ -57,9 +71,13 @@ in {
   rotki = final.callPackage ./rotki.nix {};
 
   # Provide a more complete sway environment
-  sway = callOverride ./sway.nix {};
+  sway = callOverride ./sway.nix {
+    inherit sway-unwrapped;
+  };
 
   sway-nvidia = callOverride ./sway.nix { 
+    inherit sway-unwrapped;
+
     withNvidia = true;
   };
 
