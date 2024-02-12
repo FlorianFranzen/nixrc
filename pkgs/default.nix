@@ -26,8 +26,8 @@ let
   })).override { wlroots_0_16 = prev.wlroots_0_17; };
 
 in {
-  # Support bbswitch on AMD CPUs
-  linuxPackages_amd = prev.linuxPackages.extend (kself: ksuper: {
+  # Support bbswitch on AMD CPUs on recent kernel
+  linuxPackages_amd = prev.linuxPackages_6_6.extend (kself: ksuper: {
     ideapad-laptop = ksuper.callPackage ./ideapad-laptop.nix {}; 
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
