@@ -39,6 +39,12 @@ in {
         scale = "1.25";
       };
 
+      # Enable fancy features on fancy displays
+      output."GIGA-BYTE TECHNOLOGY CO., LTD. M34WQ 0x000005B5" = {
+        adaptive_sync = "on";
+        render_bit_depth = "10";
+      };
+
       # Set some basic sane behaviors
       workspaceAutoBackAndForth = true;
       focus.followMouse = "no";
