@@ -5,7 +5,7 @@ let
   kernelPkgs = config.boot.kernelPackages;
 
   # Select latest release for hardware support and bug fixes
-  nvidiaPackage = kernelPkgs.nvidiaPackages.latest;
+  nvidiaPackage = kernelPkgs.nvidiaPackages.beta;
 
   # Specialization that boots with nvidia driver
   mkConfig = hwOverride: {
