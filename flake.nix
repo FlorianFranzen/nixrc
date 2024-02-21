@@ -183,9 +183,6 @@
 
                   # Provide profiles as additional module inputs
                   extraSpecialArgs = {
-                    # Profiles in homes/profiles
-                    profiles = self.homeProfiles;
-
                     # Various assets used in config
                     assets = homeAssets;
                   };
@@ -212,9 +209,6 @@
     # All nix files under homes/modules
     homeModules = homes.modules;
 
-    # All nix files under homes/modules
-    homeProfiles = homes.profiles;
-
     # For each set of modules under homes/configs/<username>
     # And each variant under homes/configs/<username>/<variant>
     homeConfigurations = mapAttrs
@@ -230,9 +224,6 @@
 
           # Provide profiles as additional module inputs
           extraSpecialArgs = {
-            # Profiles in homes/profiles
-            profiles = self.homeProfiles;
-
             # Various assets used in config
             assets = homeAssets;
           };
