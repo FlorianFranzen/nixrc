@@ -44,7 +44,7 @@ in {
       textColor = "${color7}f2";
     };
 
-    services.wob.settings.default = with justColors; {
+    services.wob.settings."" = with justColors; {
         border_color = "${color8}f2";
         background_color = "${color0}f2";
         bar_color = "${color7}f2";
