@@ -12,17 +12,17 @@ let
   callOverride = callOverrideWith prev; 
 
   # Temporary override till upstream catches up
-  sway-unwrapped = (prev.sway-unwrapped.overrideAttrs (old: {
-    version = "1.9-rc3";
+  sway-unwrapped = (prev.sway-unwrapped.overrideAttrs (old: rec {
+    version = "1.9";
 
     src = prev.fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "1.9-rc3";
-      hash = "sha256-1NhXFRVV+jMcjs+p8MK+4imt8yBBAEuzl/1aAcS+bPM=";
+      rev = version;
+      hash = "sha256-/6+iDkQfdLcL/pTJaqNc6QdP4SRVOYLjfOItEu/bZtg=";
     };
 
-    patches = [];
+    patches = builtins.filter (p: p ? name -> p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") old.patches;
   })).override { wlroots_0_16 = prev.wlroots_0_17; };
 
 in {
