@@ -11,20 +11,6 @@ let
 
   callOverride = callOverrideWith prev; 
 
-  # Temporary override till upstream catches up
-  sway-unwrapped = (prev.sway-unwrapped.overrideAttrs (old: rec {
-    version = "1.9";
-
-    src = prev.fetchFromGitHub {
-      owner = "swaywm";
-      repo = "sway";
-      rev = version;
-      hash = "sha256-/6+iDkQfdLcL/pTJaqNc6QdP4SRVOYLjfOItEu/bZtg=";
-    };
-
-    patches = builtins.filter (p: p ? name -> p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") old.patches;
-  })).override { wlroots_0_16 = prev.wlroots_0_17; };
-
 in {
   # Support bbswitch on AMD CPUs on recent kernel
   # Speaker support seems to become broken somewhere between 6.2 and 6.6  
@@ -38,18 +24,6 @@ in {
 
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
-
-  # Temporary fix to be merged upstream
-  bluez5-experimental = prev.bluez5-experimental.overrideAttrs (old: rec {
-    version = "5.72";
-
-    src = prev.fetchurl {
-      url = "mirror://kernel/linux/bluetooth/bluez-${version}.tar.xz";
-      hash = "sha256-SZ1/o0WplsG7ZQ9cZ0nh2SkRH6bs4L4OmGh/7mEkU24=";
-    };
-
-    nativeBuildInputs = old.nativeBuildInputs ++ [ prev.python3.pkgs.pygments ];
-  });
 
   # WSL boot shim maker
   mkSyschdemd = final.callPackage ./syschdemd.nix {};
@@ -72,15 +46,9 @@ in {
   rotki = final.callPackage ./rotki.nix {};
 
   # Provide a more complete sway environment
-  sway = callOverride ./sway.nix {
-    inherit sway-unwrapped;
-  };
+  sway = callOverride ./sway.nix {};
 
-  sway-nvidia = callOverride ./sway.nix { 
-    inherit sway-unwrapped;
-
-    withNvidia = true;
-  };
+  sway-nvidia = callOverride ./sway.nix { withNvidia = true; };
 
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
