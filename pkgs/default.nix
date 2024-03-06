@@ -58,6 +58,9 @@ in {
     src = [ ./wooting.rules ];
   });
 
+  # dbus integration for idle inhibiting
+  wscreensaver-bridge = final.callPackage ./wscreensaver-bridge.nix {};
+
   # Update zeal slightly
   zeal-qt6 = callOverride ./zeal.nix {};
 }
