@@ -53,6 +53,9 @@ in {
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
 
+  # joypad idle inhibition
+  wljoywake = final.callPackage ./wljoywake.nix {};
+
   # Fix udev rules
   wooting-udev-rules = prev.wooting-udev-rules.overrideAttrs (_: {
     src = [ ./wooting.rules ];
