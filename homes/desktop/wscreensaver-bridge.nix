@@ -4,7 +4,9 @@
   systemd.user.services.wscreensaver-bridge = {
     Unit = {
       Description = "Wayland Screensaver Bridge";
-      After = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" "swayidle.service" ];
+      Requires = [ "swayidle.service" ];
+      BindsTo = [ "swayidle.service" ];
       PartOf = [ "graphical-session.target" ];
     };
     Service = {
