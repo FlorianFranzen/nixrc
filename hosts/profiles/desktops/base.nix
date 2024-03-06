@@ -67,12 +67,10 @@
   programs.dconf.enable = true;
   services.dbus.packages = [ pkgs.dconf pkgs.gcr ];
 
-  # Enable userspace mounting
+  # Enable dbus disk, fs and power integration
   services.udisks2.enable = true;
-  services.upower.enable = true;
-
-  # Enable gvfs
   services.gvfs.enable = true;
+  services.upower.enable = true;
 
   # Fix DNS resolution in browsers
   networking.resolvconf.dnsExtensionMechanism = false;
