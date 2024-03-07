@@ -6,7 +6,7 @@
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "/dev/disk/by-path/pci-0000:00:1f.2-ata-1.0";
 
   nixpkgs.config.packageOverrides = pkgs: {
     # Enable sensord deamon build
@@ -27,7 +27,7 @@
     smartSupport = true;
     fans = [{
       type  = "hwmon";
-      query = "/sys/class/hwmon/hwmon0/device/pwm2";
+      query = "/sys/class/hwmon/hwmon0/pwm1";
     }];
     sensors = [
       { type = "atasmart"; query = "/dev/sdb"; }
