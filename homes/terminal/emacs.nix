@@ -13,8 +13,8 @@
   # Setups regular emacs while doom is unmanaged  
   programs.emacs = {
     enable = true;
-    # Special wayland friendly version
-    package = lib.mkDefault pkgs.emacs29-pgtk;
+    # Do not include any ui toolkit by default
+    package = lib.mkDefault pkgs.emacs29-nox;
   };
 
   # Setup emacs ...
@@ -26,8 +26,8 @@
     client.enable = true;
     defaultEditor = true;
 
-    # Use same package for server
-    package = lib.mkDefault pkgs.emacs29-pgtk;
+    # Use same ui-less package for server by default
+    package = lib.mkDefault pkgs.emacs29-nox;
 
     # Only autostart in graphical session ...
     startWithUserSession = "graphical";
