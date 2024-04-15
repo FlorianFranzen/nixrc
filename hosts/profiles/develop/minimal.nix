@@ -17,6 +17,7 @@
     git-crypt
     gnumake
     hexyl
+    hydra-check
     jq
     libfaketime
     linux-manual

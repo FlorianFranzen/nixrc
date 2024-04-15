@@ -12,18 +12,18 @@
 
   # Additional games to install
   environment.systemPackages = with pkgs; [
-    _20kly
     cemu
     discord
     goverlay
+    joycond
     mangohud
     minecraft
     mindustry
     openra
+    ryujinx
     superTuxKart
     (warzone2100.override { withVideos = true; })
     wineWowPackages.wayland
     winetricks
-    yuzu
   ];
 }

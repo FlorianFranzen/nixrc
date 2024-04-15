@@ -21,8 +21,6 @@
     nixpkgs-fmt
     nixpkgs-review
 
-    #nixopsUnstable
-
     glxinfo
 
     gitAndTools.git-extras
@@ -30,7 +28,6 @@
     gitAndTools.git-gone
     gitAndTools.git-ignore
     git-lfs
-    gitoxide
 
     github-cli
     glab
