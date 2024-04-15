@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 {
   programs.git = {
     enable = true;
@@ -5,7 +7,10 @@
     userEmail = "Florian.Franzen@gmail.com";
     userName = "Florian Franzen";
 
-    delta.enable = true;
+    difftastic = {
+      enable = true;
+      background = lib.mkDefault "dark";
+    };
 
     aliases = {
       lg = "log --graph --decorate --pretty=oneline --abbrev-commit";
