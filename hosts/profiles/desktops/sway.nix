@@ -17,7 +17,7 @@
   environment.variables.QT_PLUGIN_PATH = [ "${pkgs.qt6gtk2}/lib/qt-6/plugins" ];
 
   # Add sway to supported sessions
-  services.xserver.displayManager.sessionPackages = [ pkgs.sway ];
+  services.displayManager.sessionPackages = [ pkgs.sway ];
 
   # Enable desktop portal for screen sharing
   xdg.portal = {

@@ -54,7 +54,7 @@
       };
 
       # Configure plugins
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       #enableSyntaxHighlighting = true;
 
