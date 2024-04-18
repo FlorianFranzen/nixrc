@@ -10,6 +10,7 @@
   # Useful packages for development
   environment.systemPackages = with pkgs; [
     cachix
+    comma
     direnv
     dos2unix
     fd
