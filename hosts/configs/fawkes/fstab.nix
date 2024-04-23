@@ -30,6 +30,11 @@
       fsType = "vfat";
     };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/" ];
+  };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/adbaba96-3f04-45d3-ad7a-82ab8af0f863"; }
       { device = "/dev/disk/by-uuid/83222a20-7d97-49d8-a127-6ff4cc20f855"; }
