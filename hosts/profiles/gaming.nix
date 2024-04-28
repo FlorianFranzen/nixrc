@@ -25,5 +25,6 @@
     (warzone2100.override { withVideos = true; })
     wineWowPackages.wayland
     winetricks
+    yuzu
   ];
 }

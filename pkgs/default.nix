@@ -64,6 +64,12 @@ in {
   # dbus integration for idle inhibiting
   wscreensaver-bridge = final.callPackage ./wscreensaver-bridge.nix {};
 
+  # ...
+  yuzu = final.qt6.callPackage ./yuzu.nix {
+    compat-list = final.callPackage ./yuzu.compat-list.nix {};
+    nx_tzdb = final.callPackage ./yuzu.nx_tzdb.nix {};
+  };
+
   # Update zeal slightly
   zeal-qt6 = callOverride ./zeal.nix {};
 }
