@@ -119,7 +119,7 @@
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
-       ;;data              ; config/data formats
+       data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;dhall
        ;;elixir            ; erlang done right
@@ -140,12 +140,12 @@
        ;;idris             ; a language you can depend on
        json              ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        (julia +lsp +tree-sitter)             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        (latex +fold +latexmk +lsp)             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
-       ;;ledger            ; be audit you can be
+       ledger            ; be audit you can be
        ;;lua               ; one-based indices? one-based indices
        (markdown +grip)    ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
@@ -167,7 +167,7 @@
        ;;(scheme +guile)   ; a fully conniving family of lisps
        (sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
-       ;;solidity          ; do you need a blockchain? No.
+       solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        (web +lsp +tree-sitter)               ; the tubes
