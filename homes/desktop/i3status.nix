@@ -23,12 +23,11 @@ in {
             block = "cpu";
             format = " $icon $utilization $frequency ";
             format_alt = " $icon $barchart ";
-            click = [
-              {
-                button = "right";
-                cmd = "${terminal} ${pkgs.bottom}/bin/btm";
-              }
-            ];
+            merge_with_next = true;
+            click = [{
+              button = "right";
+              cmd = "${terminal} ${pkgs.bottom}/bin/btm";
+            }];
           }
           {
             block = "memory";
@@ -43,11 +42,11 @@ in {
             block = "amd_gpu";
             format = " $icon $utilization $vram_used_percents ";
             if_command = "compgen -G '/sys/module/amdgpu/drivers/pci:amdgpu/0000:*'";
+            merge_with_next = true;
           }
           {
             block = "temperature";
             chip = "amdgpu-*";
-            interval = 5;
             if_command = "compgen -G '/sys/module/amdgpu/drivers/pci:amdgpu/0000:*'";
           }
           {
@@ -58,10 +57,8 @@ in {
           {
             block = "disk_space";
             path = "/";
-            format = " $icon $available $percentage ";
-            interval = 10;
-            warning = 25.0;
-            alert = 10.0;
+            format = " $icon $available.eng(p:Gi) $percentage ";
+            click = [{ button = "right"; cmd = "update"; }];
           }
           {
             block = "battery";
