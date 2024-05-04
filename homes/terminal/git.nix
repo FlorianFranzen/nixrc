@@ -35,7 +35,10 @@
 
       pull.rebase = true;
 
-      push.default = "simple";
+      push = {
+        default = "simple";
+        autoSetupRemote = true;
+      };
 
       rebase = {
         autoStash = true;
