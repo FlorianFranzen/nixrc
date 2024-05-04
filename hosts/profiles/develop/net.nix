@@ -1,6 +1,9 @@
 { config, pkgs, username, ... }:
 
 {
+  # Enable sniffnet
+  programs.sniffnet.enable = true;
+
   # Enable wireshark and ui
   programs.wireshark = {
     enable = true;
