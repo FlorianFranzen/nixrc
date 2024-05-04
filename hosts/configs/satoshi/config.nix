@@ -3,7 +3,7 @@
 {
   imports =
     (with profiles; [ corp docker gaming laptop media mail office ]) ++
-    (with profiles.develop; [ minimal extra cross linux manufac cad ]) ++
+    (with profiles.develop; [ minimal extra cross linux manufac cad net ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
@@ -54,6 +54,8 @@
       softdep i2c_hid pre: pinctrl_amd
       softdep usbhid pre: pinctrl_amd
     '';
+
+    supportedFilesystems = [ "ntfs" "zfs" ];
   };
 
   # Support printing on home printer
