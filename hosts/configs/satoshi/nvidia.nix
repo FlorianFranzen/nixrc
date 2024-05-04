@@ -64,7 +64,7 @@ let
 
     home-manager.users.florian.wayland.windowManager.sway.package = lib.mkForce pkgs.sway-nvidia;
 
-    services.xserver.displayManager.sessionPackages = [ sway-nvidia-session ];
+    services.displayManager.sessionPackages = [ sway-nvidia-session ];
   };
 
   # Provide nvidia based sway session at login

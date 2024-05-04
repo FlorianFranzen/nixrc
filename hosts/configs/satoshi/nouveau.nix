@@ -54,6 +54,6 @@ in {
     
     # Provide wrapped session command
     environment.systemPackages = [ nouveau-sway ];
-    services.xserver.displayManager.sessionPackages = [ nouveau-sway ];
+    services.displayManager.sessionPackages = [ nouveau-sway ];
   };
 }
