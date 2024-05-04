@@ -13,6 +13,7 @@
   # Additional games to install
   environment.systemPackages = with pkgs; [
     cemu
+    clonehero
     discord
     goverlay
     joycond
