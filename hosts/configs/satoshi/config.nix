@@ -55,7 +55,11 @@
       softdep usbhid pre: pinctrl_amd
     '';
 
+    # Add additional filesystem support
     supportedFilesystems = [ "ntfs" "zfs" ];
+
+    # Use unstable zfs to support newer kernels
+    zfs.package = pkgs.zfs_unstable;
   };
 
   # Support printing on home printer
