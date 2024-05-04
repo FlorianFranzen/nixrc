@@ -21,7 +21,7 @@ in {
           }
           {
             block = "cpu";
-            format = " $icon $utilization $frequency ";
+            format = " $icon $utilization ";
             format_alt = " $icon $barchart ";
             merge_with_next = true;
             click = [{
@@ -33,6 +33,7 @@ in {
             block = "memory";
             format = " $icon $mem_used_percents ";
             format_alt = " $icon_swap $swap_used_percents ";
+            merge_with_next = true;
           }
           {
             block = "temperature";
@@ -57,7 +58,7 @@ in {
           {
             block = "disk_space";
             path = "/";
-            format = " $icon $available.eng(p:Gi) $percentage ";
+            format = " $icon $available.eng(p:Gi,force_prefix:true) $percentage ";
             click = [{ button = "right"; cmd = "update"; }];
           }
           {
