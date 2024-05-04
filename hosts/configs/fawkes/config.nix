@@ -2,7 +2,7 @@
 {
   imports = 
     (with profiles; [ corp gaming media mail office podman ]) ++
-    (with profiles.develop; [ minimal extra cross linux ]) ++
+    (with profiles.develop; [ minimal extra cross cad linux net ]) ++
     (with profiles.desktops; [ gdm sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
