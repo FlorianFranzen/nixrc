@@ -1,12 +1,13 @@
 { lib
 , sway
 , sway-unwrapped
+, wlroots
 , withNvidia ? false 
 }:
 
 sway.override {
   # Allow override unwrapped binary
-  inherit sway-unwrapped;
+  sway-unwrapped = sway-unwrapped.override { inherit wlroots; };
 
   # Enable nvidia support
   extraOptions = lib.optional withNvidia "--unsupported-gpu";

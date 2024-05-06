@@ -48,7 +48,16 @@ in {
   # Provide a more complete sway environment
   sway = callOverride ./sway.nix {};
 
-  sway-nvidia = callOverride ./sway.nix { withNvidia = true; };
+  sway-nvidia = callOverride ./sway.nix {
+    withNvidia = true;
+
+    # Patched wlroots to fix flickering
+    wlroots = prev.wlroots.overrideAttrs (old: {
+      patches = old.patches ++ [
+        ./wlroots.nvidia.patch
+      ];
+    });
+  };
 
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
