@@ -5,6 +5,6 @@
   # Use gtk theme for qt
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk3";
   };
 }
