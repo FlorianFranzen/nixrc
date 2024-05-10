@@ -15,8 +15,7 @@
     (with profiles.networks; [ iwd ]) ++ 
     (with profiles.hardware; [
       common-cpu-intel-sandy-bridge
-      common-pc-laptop
-      common-pc-laptop-ssd
+      common-pc-ssd
       pipewire
       smartcard
     ]);
