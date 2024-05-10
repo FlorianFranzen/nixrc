@@ -10,9 +10,12 @@ let
 in {
 
   wayland.windowManager.sway = {
+    # Enable and use default package after overlays
     enable = true;
-
     package = pkgs.sway;
+
+    # Disabled, broken on vulkan renderer
+    checkConfig = false;
 
     config = {
       # Default input config
