@@ -2,7 +2,7 @@
 
 {
   imports = 
-    (with profiles; [ media mail office podman ]) ++
+    (with profiles; [ laptop media mail office podman ]) ++
     (with profiles.develop; [
       minimal
       embedded

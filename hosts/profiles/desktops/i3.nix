@@ -34,8 +34,11 @@
         i3lock-color
         alacritty
         polybarFull
+        libappindicator
+        libnotify
         dunst
         rofi
+        shared-mime-info
       ];
     };
   };

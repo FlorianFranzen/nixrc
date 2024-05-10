@@ -2,7 +2,7 @@
 
 {
   imports = with profiles; [
-    desktops.sway develop.manufac networks.iwd hardware.pulseaudio hardware.smartcard services.octoprint
+    laptop desktops.sway develop.manufac networks.iwd hardware.pulseaudio hardware.smartcard services.octoprint
   ];
 
   # Do not use home-manager on this host

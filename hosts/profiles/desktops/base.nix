@@ -1,6 +1,5 @@
 # Base config to run a desktop environment
-
-{ config, pkgs, username, ... }:
+{ pkgs, username, ... }:
 
 {
   # Enable ntfs support
@@ -25,43 +24,8 @@
     input.General.ClassicBondedOnly = false;
   };
 
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    bluez-tools
-    glib
-    libappindicator
-    libnotify
-    playerctl
-    shared-mime-info
-    xdg-utils
-
-    #gnome.eog
-    gnome.ghex
-    gnome.file-roller
-    #gnome.nautilus
-    #gnome.sushi
-
-    #xfce.xfconf
-    #xfce.mousepad
-    (xfce.thunar.override { thunarPlugins = [
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
-    ];})
-    xfce.ristretto
-    xfce.tumbler
-    #xfce.orage
-
-    #lxqt.lxqt-policykit
-    #lxqt.qps
-
-    librewolf
-    ungoogled-chromium
-
-    nextcloud-client
-  ];
-
-  # Enable backlight control
-  programs.light.enable = true;
+  # Add bluetooth command line tooling
+  environment.systemPackages = [ pkgs.bluez-tools ];
 
   # Enable dconf and gcr
   programs.dconf.enable = true;
