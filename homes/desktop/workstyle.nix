@@ -2,7 +2,7 @@
 
 {
   wayland.windowManager.sway.config.startup = [
-    { command = "${pkgs.workstyle}/bin/workstyle"; always = true; }
+    { command = "${pkgs.workstyle}/bin/workstyle 2> /dev/null"; always = true; }
   ];
 
   home.file.".config/workstyle/config.toml".text = ''
