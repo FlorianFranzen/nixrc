@@ -85,6 +85,7 @@ in {
             block = "sound";
             max_vol = 100;
             format = " $icon $output_description.str(max_w:20){ $volume|} ";
+            merge_with_next = true;
             click = [{
               button = "left";
               cmd = "${pkgs.pavucontrol}/bin/pavucontrol --tab=3";
