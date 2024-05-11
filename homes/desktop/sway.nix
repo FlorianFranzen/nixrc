@@ -71,10 +71,6 @@ in {
 
           WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
       in lib.mkOptionDefault {
-        # Add an additional workspace
-        "${cfg.modifier}+0" = "workspace number 10";
-        "${cfg.modifier}+Shift+0" = "move container to workspace number 10";
-
         # Move workspace between outputs
         "${cfg.modifier}+Ctrl+${cfg.left}"  = "move workspace output left";
         "${cfg.modifier}+Ctrl+${cfg.down}"  = "move workspace output down";
@@ -171,17 +167,6 @@ in {
           Escape = "mode default";
         };
       };
-
-      # Special window settings
-      window.commands = [
-        {
-          # - Make desktop 10 floating
-          command = "floating enable";
-          criteria = {
-            workspace = "10";
-          };
-        }
-      ];
 
       # Add i3status-based top and bottom bars
       bars = [
