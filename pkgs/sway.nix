@@ -14,10 +14,7 @@ sway.override {
 
   # Set some sane default environment variables
   extraSessionCommands = ''
-    # Force use of vulkan backend
-    export WLR_RENDERER=vulkan
-
-    # Enable wayland backends
+    # Enable wayland backend of most apps
     export XDG_SESSION_TYPE=wayland
 
     # Use CLUTTER wayland backend
@@ -60,6 +57,10 @@ sway.override {
 
     # Set some default dirs
     export XDG_SCREENSHOTS_DIR=$HOME/Screenshots
+  '' + lib.optionalString (! withNvidia) ''
+
+    # Force use of vulkan backend
+    export WLR_RENDERER=vulkan
   '' + lib.optionalString withNvidia ''
 
     # Use nvidia backends
