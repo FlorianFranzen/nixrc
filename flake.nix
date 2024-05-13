@@ -7,7 +7,7 @@
     haumea.inputs.nixpkgs.follows = "nixpkgs";
 
     # Base packages and configurations
-    nixpkgs.url = "github:NixOS/nixpkgs/d08775d67c5c715f488383941ec6d01a04c224c2";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
