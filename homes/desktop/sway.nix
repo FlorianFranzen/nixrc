@@ -45,7 +45,9 @@ in {
       # Enable fancy features on fancy displays
       output."GIGA-BYTE TECHNOLOGY CO., LTD. M34WQ 0x000005B5" = {
         adaptive_sync = "on";
-        render_bit_depth = "10";
+        # Disabled as it breaks screensharing and
+        # does not actually result in HDR output
+        #render_bit_depth = "10";
       };
 
       # Set some basic sane behaviors

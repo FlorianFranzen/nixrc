@@ -25,7 +25,6 @@ in {
 
     theme = mkOption {
       type = types.str;
-      default = "random"; # TODO *cough*
     };
   };
 
@@ -42,12 +41,27 @@ in {
       borderColor = "${color8}f2";
       progressColor = "${color6}f2";
       textColor = "${color7}f2";
+
+      extraConfig = ''
+        [urgency=low]
+        border-color=${color3}f2
+
+        [urgency=normal]
+        border-color=${color4}f2
+
+        [urgency=high]
+        border-color=${color5}f2
+        default-timeout=0
+      '';
     };
 
-    services.wob.settings."" = with justColors; {
+    services.wob.settings = with justColors; {
+      "" = {
         border_color = "${color8}f2";
         background_color = "${color0}f2";
-        bar_color = "${color7}f2";
+        bar_color = "${color6}f2";
+      };
+      "style.muted".bar_color = "${color8}f2";
     };
 
     wayland.windowManager.sway.config.colors = with result.colors;
