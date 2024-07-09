@@ -46,6 +46,8 @@
         e = "emacsclient --reuse-frame --no-wait";
         te = "emacsclient --tty";
 
+        flake = "nix flake";
+
         incognito = "unset HISTFILE && echo 'History has been disabled.'";
 
         nixos-env = "sudo nix-env -p /nix/var/nix/profiles/system";
