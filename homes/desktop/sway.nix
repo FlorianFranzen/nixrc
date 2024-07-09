@@ -34,6 +34,7 @@ in {
 
         "type:pointer" = {
           natural_scroll = "enabled";
+          accel_profile = "flat";
         };
       };
 
