@@ -3,7 +3,7 @@
 {
   boot = {
     # Use current kernel for better compatibility
-    kernelPackages = pkgs.linuxPackages_6_8;
+    kernelPackages = pkgs.linuxPackages_6_10;
 
     # Blacklist false detections
     blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" ];
