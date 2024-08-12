@@ -46,9 +46,11 @@ in {
       # Enable fancy features on fancy displays
       output."GIGA-BYTE TECHNOLOGY CO., LTD. M34WQ 0x000005B5" = {
         adaptive_sync = "on";
-        # Disabled as it breaks screensharing and
-        # does not actually result in HDR output
-        #render_bit_depth = "10";
+      };
+
+      output."GIGA-BYTE TECHNOLOGY CO., LTD. AORUS FO32U2P 24150B000713" = {
+        mode = "3840x2160@240Hz";
+        adaptive_sync = "on";
       };
 
       # Set some basic sane behaviors
