@@ -3,7 +3,7 @@
   imports = 
     (with profiles; [ corp gaming media mail office podman ]) ++
     (with profiles.develop; [ minimal extra cross cad linux net ]) ++
-    (with profiles.desktops; [ gdm sway ]) ++
+    (with profiles.desktops; [ gdm hyprland sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
       common-cpu-amd
