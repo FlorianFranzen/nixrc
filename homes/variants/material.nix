@@ -1,19 +1,14 @@
 { pkgs, assets, ...}:
 
 {
-  wayland.windowManager.sway.config ={
-    # Set cursor theme
-    seat."*" = {
-      xcursor_theme = "Numix-Cursor";
-    };
-
-    # Set desktop background
-    output."*" = {
-      background = "${assets.wallpaper-nixish-dark} fill";
-    };
-  };
-
+  # Theme pywal and integrations
   pywal.theme = "base16-spacemacs";
+  pywal.background = assets.wallpaper-nixish-dark;
+
+  # Set cursor theme
+  wayland.windowManager.sway.config.seat."*" = {
+    xcursor_theme = "Numix-Cursor";
+  };
 
   # Theme status bars
   programs.i3status-rust.bars.top.theme = "modern";

@@ -1,19 +1,14 @@
 { pkgs, assets, ...}:
 
 {
-  wayland.windowManager.sway.config ={
-    # Set cursor theme
-    seat."*" = {
-      xcursor_theme = "Numix-Cursor";
-    };
-
-    # Set desktop background
-    output."*" = {
-      background = "${assets.wallpaper-snowflake-solarized} fill";
-    };
-  };
-
+  # Theme pywal and integrations
   pywal.theme = "solarized";
+  pywal.background = assets.wallpaper-snowflake-solarized;
+
+  # Set cursor theme
+  wayland.windowManager.sway.config.seat."*" = {
+    xcursor_theme = "Numix-Cursor";
+  };
 
   # Theme command line tools
   programs.bat.config.theme = "Solarized (dark)";

@@ -1,19 +1,14 @@
 { pkgs, assets, ... }:
 
 {
-  wayland.windowManager.sway.config ={
-    # Set cursor theme
-    seat."*" = {
-      xcursor_theme = "Bibata-Original-Ice";
-    };
-
-    # Set desktop background
-    output."*" = {
-      background = "${assets.wallpaper-mojave-dark} fill";
-    };
-  };
-
+  # Theme pywal and integrations
   pywal.theme = "base16-dracula";
+  pywal.background = assets.wallpaper-mojave-dark;
+
+  # Set cursor theme
+  wayland.windowManager.sway.config.seat."*" = {
+    xcursor_theme = "Bibata-Original-Ice";
+  };
 
   # Theme command line tools
   programs.bat.config.theme = "Dracula";

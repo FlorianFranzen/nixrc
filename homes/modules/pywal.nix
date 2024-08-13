@@ -26,6 +26,10 @@ in {
     theme = mkOption {
       type = types.str;
     };
+
+    background = mkOption {
+      type = types.path;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -64,35 +68,45 @@ in {
       "style.muted".bar_color = "${color8}f2";
     };
 
-    wayland.windowManager.sway.config.colors = with result.colors;
-      let
-        default = {
-          background = color0;
-          text = color7;
-          indicator = color6;
-        };
-      in {
-        focused = default // {
-          border = color5;
-          childBorder = color5;
-        };
-        focusedInactive = default // {
-          border = color4;
-          childBorder = color4;
-        };
-        placeholder = default // {
-          border = color2;
-          childBorder = color2;
-        };
-        unfocused = default // {
-          border = color3;
-          childBorder = color3;
-        };
-        urgent = default // {
-          border = color8;
-          childBorder = color8;
-        };
-        background = color0;
+    wayland.windowManager = {
+      hyprland.extraConfig = ''
+        exec-once = ${pkgs.swaybg}/bin/swaybg -m fill -i ${cfg.background}
+      '';
+
+      sway.config = {
+        colors = with result.colors;
+          let
+            default = {
+              background = color0;
+              text = color7;
+              indicator = color6;
+            };
+          in {
+            focused = default // {
+              border = color5;
+              childBorder = color5;
+            };
+            focusedInactive = default // {
+              border = color4;
+              childBorder = color4;
+            };
+            placeholder = default // {
+              border = color2;
+              childBorder = color2;
+            };
+            unfocused = default // {
+              border = color3;
+              childBorder = color3;
+            };
+            urgent = default // {
+              border = color8;
+              childBorder = color8;
+            };
+            background = color0;
+          };
+
+        output."*".background = "${cfg.background} fill";
       };
+    };
   };
 }

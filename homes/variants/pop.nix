@@ -1,23 +1,14 @@
 { pkgs, assets, ...}:
 
 {
-  wayland.windowManager.sway.config ={
-    # Set cursor theme
-    seat."*" = {
-      xcursor_theme = "Pop";
-    };
-
-    # Set desktop background
-    output."*" = {
-      background = "${assets.wallpaper-mojave-dark} fill";
-    };
-  };
-
-  wayland.windowManager.hyprland.extraConfig = ''
-    exec-once = ${pkgs.swaybg}/bin/swaybg -m fill -i ${assets.wallpaper-mojave-dark}
-  '';
-
+  # Theme pywal and integrations
   pywal.theme = "pop";
+  pywal.background = assets.wallpaper-mojave-dark};
+
+  # Set cursor theme
+  wayland.windowManager.sway.config.seat."*" = {
+    xcursor_theme = "Pop";
+  };
 
   # Theme status bars
   programs.i3status-rust.bars.top.theme = "dracula";
