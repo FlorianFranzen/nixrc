@@ -3,13 +3,16 @@
 {
   boot = {
     # Use current kernel for better compatibility
-    kernelPackages = pkgs.linuxPackages_6_10;
+    kernelPackages = pkgs.linuxPackages_ws;
+
+    # Allow access to cpu power information
+    extraModulePackages = [ pkgs.linuxPackages_ws.zenergy ];
 
     # Blacklist false detections
     blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" ];
 
     # Support cpu and mainboard sensors
-    kernelModules = [ "kvm-amd" "nct6775" ];
+    kernelModules = [ "kvm-amd" "nct6775" "zenergy" ];
 
     # Support some additional filesystems
     supportedFilesystems = [ "ntfs" "zfs" ];

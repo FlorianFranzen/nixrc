@@ -19,6 +19,10 @@ in {
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
 
+  linuxPackages_ws = prev.linuxPackages_zen.extend (kself: ksuper: {
+    zenergy = ksuper.callPackage ./zenergy.nix {};
+  });
+
   # Printer driver to be upstreamed
   cups-brother-mfcl2710dw = prev.callPackage ./cups-brother-mfcl2710dw.nix {};
 
