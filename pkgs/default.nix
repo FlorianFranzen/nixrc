@@ -46,6 +46,10 @@ in {
   # Add radicle link
   radicle-link = final.callPackage ./radicle-link.nix {};
 
+  retroarch = prev.retroarch.override {
+    cores = with final.libretro; [ mupen64plus dolphin ];
+  };
+
   # Add rotki tracker
   rotki = final.callPackage ./rotki.nix {};
 
