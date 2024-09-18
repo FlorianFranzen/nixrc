@@ -8,7 +8,7 @@ let
   nvidiaPackage = kernelPkgs.nvidiaPackages.beta;
 
   # Specialization that boots with nvidia driver
-  mkConfig = hwOverride: {
+  mkConfig = enableOpen: {
     # Enable prime offloading (incl. nvidia-offload wrapper)
     imports = [ profiles.hardware.common-gpu-nvidia ];
 
@@ -26,13 +26,24 @@ let
     hardware.nvidiaOptimus.disable = false;
 
     # Add full opengl support
-    hardware.opengl = {
-      extraPackages = with pkgs; [ nvidiaPackage.out nvidiaPackage.open libvdpau-va-gl vaapiVdpau ];
-      extraPackages32 = with pkgs; [ nvidiaPackage.lib32 libvdpau-va-gl vaapiVdpau ];
+    hardware.graphics = {
+      extraPackages = with pkgs; [
+        (if enableOpen then nvidiaPackage.open else nvidiaPackage.out)
+        libvdpau-va-gl
+        vaapiVdpau
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        (if enableOpen then nvidiaPackage.open else nvidiaPackage.lib32)
+        libvdpau-va-gl
+        vaapiVdpau
+      ];
     };
 
     # Enable various hardware integrations
     hardware.nvidia = {
+      # Allow control of version via input args
+      open = enableOpen;
+
       # Set hardware addresses
       prime = {
         amdgpuBusId = "PCI:5:0:0";
@@ -53,7 +64,7 @@ let
         enable = true;
         finegrained = true;
       };
-    } // hwOverride;
+    };
 
     # Provide command line utils
     environment.systemPackages = [
@@ -92,7 +103,7 @@ let
 in {
   # Specialization that boots with proprietary and open nvidia driver
   specialisation = {
-    nvidia.configuration = mkConfig {};
-    nvopen.configuration = mkConfig { open = true; }; 
+    nvidia.configuration = mkConfig true;
+    nvidia-closed.configuration = mkConfig false;
   };
 }
