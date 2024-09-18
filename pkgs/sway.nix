@@ -1,13 +1,22 @@
 { lib
 , sway
 , sway-unwrapped
-, wlroots
+, wlroots_0_17
 , withNvidia ? false 
 }:
 
-sway.override {
+let
+  # Patched wlroots and sway to emulate explicit sync
+  sway-unwrapped-nvidia = sway-unwrapped.override { 
+    wlroots = wlroots_0_17.overrideAttrs (old: {
+      patches = old.patches ++ [
+        ./wlroots.nvidia.patch
+      ];
+    });
+  };
+in sway.override {
   # Allow override unwrapped binary
-  sway-unwrapped = sway-unwrapped.override { inherit wlroots; };
+  sway-unwrapped = if withNvidia then sway-unwrapped-nvidia else sway-unwrapped;
 
   # Enable nvidia support
   extraOptions = lib.optional withNvidia "--unsupported-gpu";
