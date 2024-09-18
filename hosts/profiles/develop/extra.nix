@@ -10,6 +10,7 @@
   # Useful packages for development
   environment.systemPackages = with pkgs; [
     nil
+    nixfmt-rfc-style
     nix-diff
     nix-du
     nix-index

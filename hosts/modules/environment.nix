@@ -41,8 +41,9 @@
     };
 
     vim = {
-      package = pkgs.vim-full.override { guiSupport = false; };
       defaultEditor = true;
+      enable = true;
+      package = pkgs.vim-full.override { guiSupport = false; };
     };
 
     zsh.enable = true;

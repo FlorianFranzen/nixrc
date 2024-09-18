@@ -18,7 +18,6 @@
     goverlay
     joycond
     mangohud
-    minecraft
     mindustry
     openra
     ryujinx

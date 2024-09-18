@@ -14,11 +14,12 @@ let
 in {
   # Support bbswitch on AMD CPUs on recent kernel
   # Speaker support seems to become broken somewhere between 6.2 and 6.6  
-  linuxPackages_amd = prev.linuxPackages_6_8.extend (kself: ksuper: {
+  linuxPackages_amd = prev.linuxPackages_6_10.extend (kself: ksuper: {
     ideapad-laptop = ksuper.callPackage ./ideapad-laptop.nix {}; 
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
 
+  # Workstation specific kernerl packages
   linuxPackages_ws = prev.linuxPackages_zen.extend (kself: ksuper: {
     zenergy = ksuper.callPackage ./zenergy.nix {};
   });

@@ -12,7 +12,7 @@
     '';
 
     # Use same nix version on all hosts
-    package = pkgs.hydra-unstable.nix;
+    package = pkgs.hydra.nix;
 
     # Allow copy closure by admins
     settings.trusted-users = [ "root" "@wheel" ];
