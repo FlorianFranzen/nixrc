@@ -3,7 +3,7 @@
 {
   # Theme pywal and integrations
   pywal.theme = "pop";
-  pywal.background = assets.wallpaper-mojave-dark};
+  pywal.background = assets.wallpaper-mojave-dark;
 
   # Set cursor theme
   wayland.windowManager.sway.config.seat."*" = {

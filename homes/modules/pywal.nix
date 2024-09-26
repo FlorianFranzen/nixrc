@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, assets, ... }:
 
 with lib;
 
@@ -29,6 +29,7 @@ in {
 
     background = mkOption {
       type = types.path;
+      default = assets.wallpaper-nixish-dark;
     };
   };
 

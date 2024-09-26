@@ -3,7 +3,7 @@
   imports = 
     (with profiles; [ corp gaming media mail office podman ]) ++
     (with profiles.develop; [ minimal extra cross cad linux net ]) ++
-    (with profiles.desktops; [ gdm hyprland sway ]) ++
+    (with profiles.desktops; [ sddm kde sway ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
       common-cpu-amd
@@ -18,7 +18,7 @@
     ]);
 
   # Install full desktop environment
-  home-manager.users.florian = homes.desktop-gruvbox;
+  home-manager.users.florian = homes.desktop-full-gruvbox;
 
   # Provided updated cpu microcode and basic firmwares
   hardware.cpu.amd.updateMicrocode = true;
@@ -38,5 +38,5 @@
   nixpkgs.hostPlatform = "x86_64-linux";
 
   # Current state version
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

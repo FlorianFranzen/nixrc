@@ -107,14 +107,24 @@
         }) homes.variants;
 
       # Fancier config for full desktop environment
-      desktop-modules = attrValues homes.desktop;
+      desktop-base = attrValues (filterAttrs (n: _: n != "light" && n != "full") homes.desktop);
 
-      desktops = mapAttrs' (name: config: {
-          name = "desktop-${name}";
-          value = mkModule (terminal-modules ++ desktop-modules ++ [ config ]); 
+      # Split into base, light and full
+      desktop-light = attrValues homes.desktop.light;
+      desktop-full = attrValues homes.desktop.full;
+
+      # Combine base either light or full for complete config
+      desktops-light = mapAttrs' (name: config: {
+          name = "desktop-light-${name}";
+          value = mkModule (terminal-modules ++ desktop-base ++ desktop-light ++ [ config ]);
         }) homes.variants;
 
-    in (terminals // desktops);
+      desktops-full = mapAttrs' (name: config: {
+          name = "desktop-full-${name}";
+          value = mkModule (terminal-modules ++ desktop-base ++ desktop-full ++ [ config ]);
+        }) homes.variants;
+
+    in (terminals // desktops-light // desktops-full);
 
     # Various assets used in home config
     homeAssets = {

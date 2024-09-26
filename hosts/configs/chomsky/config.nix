@@ -14,14 +14,14 @@
     (with profiles.desktops; [ gdm sway ]) ++ 
     (with profiles.networks; [ iwd ]) ++ 
     (with profiles.hardware; [
-      common-cpu-intel-sandy-bridge
+      common-gpu-intel-sandy-bridge
       common-pc-ssd
       pipewire
       smartcard
     ]);
 
-  # Install full desktop environment
-  home-manager.users.florian = homes.desktop-solarized;
+  # Install light desktop environment
+  home-manager.users.florian = homes.desktop-light-solarized;
 
   boot = {
     # Latest kernel without wifi issues

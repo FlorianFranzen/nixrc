@@ -14,18 +14,6 @@
   # Add sway to supported sessions
   services.displayManager.sessionPackages = [ pkgs.sway ];
 
-  # Enable desktop portal for screen sharing
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.sway = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ]; 
-    };
-  };
-
   # Enable xwayland support
   programs.xwayland.enable = true;
 

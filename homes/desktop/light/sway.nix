@@ -6,6 +6,13 @@ let
   exec = pkg: exec' pkg pkg.pname;
   exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
 
+  thunar = with pkgs; xfce.thunar.override { 
+    thunarPlugins = [
+      xfce.thunar-volman
+      xfce.thunar-archive-plugin
+    ];
+  };
+ 
   gap = 20;
 in {
 
@@ -108,7 +115,7 @@ in {
         "${cfg.modifier}+Shift+BackSpace" = "${exec pkgs.firefox} --private-window";
 
         # File browser key
-        "${cfg.modifier}+Delete" = "exec thunar";
+        "${cfg.modifier}+Delete" = exec' thunar "thunar";
 
         # Screenshot keys
         "${cfg.modifier}+Print"       = "${exec pkgs.sway-contrib.grimshot} --notify save window";

@@ -4,7 +4,8 @@
   # Include base desktop profile
   imports = [ ./base.nix ];
 
-  hardware.opengl.enable = true;
+  # Install some base necessities
+  hardware.graphics.enable = true;
 
   fonts.enableDefaultPackages = true;
 
@@ -12,12 +13,8 @@
 
   security.polkit.enable = true;
 
+  # Add hyprland to login screen selection
   services.displayManager.sessionPackages = [ pkgs.hyprland ];
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  };
 
   # Allow swaylock to check passwords
   security.pam.services.swaylock = {};

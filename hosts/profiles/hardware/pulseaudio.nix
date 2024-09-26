@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Enable sound.
-  sound.enable = true;
-
   # Enable pulseaudio with bluetooth 
   hardware.pulseaudio = {
     enable = true;

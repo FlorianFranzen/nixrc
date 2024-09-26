@@ -18,6 +18,6 @@
     # Dictionaries
     "aspell-dict-en-science"
     # Some corpoware
-    "slack" "teams-on-linux" "zoom"
+    "slack" "zoom"
   ];
 }

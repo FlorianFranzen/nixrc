@@ -11,8 +11,8 @@
            pipewire
          ]);
 
-  # Install full desktop environment
-  home-manager.users.florian = homes.desktop-pop;
+  # Install light desktop environment
+  home-manager.users.florian = homes.desktop-light-pop;
 
   # Fix nouveau boot
   boot.kernelParams = [ "nouveau.modeset=0" ];
