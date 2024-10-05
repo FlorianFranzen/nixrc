@@ -185,6 +185,10 @@
 
                 # Configure home-manager module
                 home-manager = {
+                  # Automatically backup instead of error
+                  backupFileExtension = "conflict";
+
+                  # Full integrate with NixOS
                   useGlobalPkgs = true;
                   useUserPackages = true;
 
