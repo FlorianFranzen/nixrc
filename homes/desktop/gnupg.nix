@@ -16,6 +16,5 @@
     enableExtraSocket = true;
     enableScDaemon = true;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
   };
 }
