@@ -14,9 +14,9 @@
       MINTEMP=hwmon4/pwm5=50 hwmon4/pwm6=40
       MAXTEMP=hwmon4/pwm5=90 hwmon4/pwm6=80
       MINSTART=hwmon4/pwm5=32 hwmon4/pwm6=32
-      MINSTOP=hwmon4/pwm5=24 hwmon4/pwm6=24
-      MINPWM=hwmon4/pwm5=24 hwmon4/pwm6=24
-      MAXPWM=hwmon4/pwm5=192 hwmon4/pwm6=192
+      MINSTOP=hwmon4/pwm5=16 hwmon4/pwm6=16
+      MINPWM=hwmon4/pwm5=0 hwmon4/pwm6=0
+      MAXPWM=hwmon4/pwm5=255 hwmon4/pwm6=255
     '';
   };
 }
