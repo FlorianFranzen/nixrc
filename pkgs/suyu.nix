@@ -1,6 +1,7 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, fetchgit
+, nix-update-script
 , wrapQtAppsHook
 , autoconf
 , boost
@@ -11,6 +12,7 @@
 , cubeb
 , discord-rpc
 , enet
+, ffmpeg-headless
 , fmt
 , glslang
 , libopus
@@ -33,42 +35,16 @@
 , yasm
 , zlib
 , zstd
+, ...
 }:
 stdenv.mkDerivation(finalAttrs: {
-  pname = "yuzu";
-  version = "1732";
+  pname = "suyu";
+  version = "0.0.3";
 
-  src = fetchFromGitHub {
-    owner = "yuzu-emu-mirror";
-    repo = "yuzu-mainline";
-    rev = "mainline-0-${finalAttrs.version}";
-    hash = "sha256-OZColuXMgiRQzvHEK8PucT2q738o9nhOmhzz/5IxkH0=";
-    fetchSubmodules = false; # We do fetch these but must substitute mirror URLs beforehand
-    leaveDotGit = true;
-
-    # We must use mirrors because upstream yuzu got nuked.
-    # Sadly, the regular nix-prefetch-git doesn't support changing submodule urls.
-    # This substitutes mirrors and fetches the submodules manually.
-    postFetch = ''
-      pushd $out
-      # Git won't allow working on submodules otherwise...
-      git restore --staged .
-
-      cp .gitmodules{,.bak}
-
-      substituteInPlace .gitmodules \
-        --replace-fail yuzu-emu yuzu-emu-mirror \
-        --replace-fail merryhime yuzu-mirror \
-
-      git submodule update --init --recursive -j ''${NIX_BUILD_CORES:-1} --progress --depth 1 --checkout --force
-
-      mv .gitmodules{.bak,}
-
-      # Remove .git dirs
-      find . -name .git -type f -exec rm -rf {} +
-      rm -rf .git/
-      popd
-    '';
+  src = fetchgit {
+    url = "https://git.suyu.dev/suyu/suyu";
+    rev = "v${finalAttrs.version}";
+    sha256 = "wLUPNRDR22m34OcUSB1xHd+pT7/wx0pHYAZj6LnEN4g=";
   };
 
   nativeBuildInputs = [
@@ -93,12 +69,14 @@ stdenv.mkDerivation(finalAttrs: {
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
 
-    # vendored ffmpeg deps
+    # ffmpeg deps (also includes vendored)
+    # we do not use internal ffmpeg because cuda errors
     autoconf
     yasm
     libva  # for accelerated video decode on non-nvidia
     nv-codec-headers-12  # for accelerated video decode on nvidia
-    # end vendored ffmpeg deps
+    ffmpeg-headless
+    # end ffmpeg deps
 
     fmt
     # intentionally omitted: gamemode - loaded dynamically at runtime
@@ -128,7 +106,7 @@ stdenv.mkDerivation(finalAttrs: {
 
   cmakeFlags = [
     # actually has a noticeable performance impact
-    "-DYUZU_ENABLE_LTO=ON"
+    "-DSUYU_ENABLE_LTO=ON"
 
     # build with qt6
     "-DENABLE_QT6=ON"
@@ -137,23 +115,23 @@ stdenv.mkDerivation(finalAttrs: {
     # use system libraries
     # NB: "external" here means "from the externals/ directory in the source",
     # so "off" means "use system"
-    "-DYUZU_USE_EXTERNAL_SDL2=OFF"
-    "-DYUZU_USE_EXTERNAL_VULKAN_HEADERS=OFF"
-    "-DYUZU_USE_EXTERNAL_VULKAN_UTILITY_LIBRARIES=OFF"
+    "-DSUYU_USE_EXTERNAL_SDL2=OFF"
+    "-DSUYU_USE_EXTERNAL_VULKAN_HEADERS=OFF"
+    "-DSUYU_USE_EXTERNAL_VULKAN_UTILITY_LIBRARIES=OFF"
 
-    # don't use system ffmpeg, yuzu uses internal APIs
-    "-DYUZU_USE_BUNDLED_FFMPEG=ON"
+    # # don't use system ffmpeg, suyu uses internal APIs
+    # "-DSUYU_USE_BUNDLED_FFMPEG=ON"
 
     # don't check for missing submodules
-    "-DYUZU_CHECK_SUBMODULES=OFF"
+    "-DSUYU_CHECK_SUBMODULES=OFF"
 
     # enable some optional features
-    "-DYUZU_USE_QT_WEB_ENGINE=ON"
-    "-DYUZU_USE_QT_MULTIMEDIA=ON"
+    "-DSUYU_USE_QT_WEB_ENGINE=ON"
+    "-DSUYU_USE_QT_MULTIMEDIA=ON"
     "-DUSE_DISCORD_PRESENCE=ON"
 
     # We dont want to bother upstream with potentially outdated compat reports
-    "-DYUZU_ENABLE_COMPATIBILITY_REPORTING=OFF"
+    "-DSUYU_ENABLE_COMPATIBILITY_REPORTING=OFF"
     "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
   ];
 
@@ -178,31 +156,34 @@ stdenv.mkDerivation(finalAttrs: {
     ln -s ${nx_tzdb} build/externals/nx_tzdb/nx_tzdb
   '';
 
-  # This must be done after cmake finishes as it overwrites the file
   postConfigure = ''
     ln -sf ${compat-list} ./dist/compatibility_list/compatibility_list.json
   '';
 
-  postInstall = ''
-    install -Dm444 $src/dist/72-yuzu-input.rules $out/lib/udev/rules.d/72-yuzu-input.rules
-  '';
+
+  postInstall = "
+    install -Dm444 $src/dist/72-suyu-input.rules $out/lib/udev/rules.d/72-suyu-input.rules
+  ";
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex" "mainline-0-(.*)" ];
+  };
 
   meta = with lib; {
-    homepage = "https://yuzu-emu.org";
-    changelog = "https://yuzu-emu.org/entry";
+    homepage = "https://suyu.dev";
+    changelog = "https://suyu.dev/blog";
     description = "An experimental Nintendo Switch emulator written in C++";
     longDescription = ''
       An experimental Nintendo Switch emulator written in C++.
-      Using the mainline branch is recommended for general usage.
-      Using the early-access branch is recommended if you would like to try out experimental features, with a cost of stability.
+      Using the master/ branch is recommended for general usage.
+      Using the dev branch is recommended if you would like to try out experimental features, with a cost of stability.
     '';
-    mainProgram = "yuzu";
+    mainProgram = "suyu";
     platforms = [ "aarch64-linux" "x86_64-linux" ];
     license = with licenses; [
       gpl3Plus
       # Icons
       asl20 mit cc0
     ];
-    maintainers = with maintainers; [];
   };
 })

@@ -22,6 +22,7 @@
     openra
     ryujinx
     superTuxKart
+    suyu
     (warzone2100.override { withVideos = true; })
     wineWowPackages.wayland
     winetricks

@@ -74,6 +74,12 @@ in {
   wscreensaver-bridge = final.callPackage ./wscreensaver-bridge.nix {};
 
   # ...
+  suyu = final.qt6.callPackage ./suyu.nix {
+    compat-list = final.callPackage ./suyu.compat-list.nix {};
+    nx_tzdb = final.callPackage ./suyu.nx_tzdb.nix {};
+  };
+
+  # ...
   yuzu = final.qt6.callPackage ./yuzu.nix {
     compat-list = final.callPackage ./yuzu.compat-list.nix {};
     nx_tzdb = final.callPackage ./yuzu.nx_tzdb.nix {};
