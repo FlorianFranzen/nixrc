@@ -70,9 +70,9 @@
       genAttrs names (name: pkgs.${system}.${name})
     );
 
-    # Import all host profiles, modules and configs as paths
-    hosts = haumea.lib.load {
-      src = ./hosts;
+    # Import all nixos profiles, modules and host configs as paths
+    nixos = haumea.lib.load {
+      src = ./nixos;
       loader = haumea.lib.loaders.path;
     };
 
@@ -136,8 +136,8 @@
     };
 
     # Output each system toplevel build as a check
-    hostChecks = mapAttrs' (name: config: {
-      name = "host-${name}";
+    nixosChecks = mapAttrs' (name: config: {
+      name = "nixos-${name}";
       value = config.config.system.build.toplevel;
     }) self.nixosConfigurations;
 
@@ -148,13 +148,13 @@
     }) self.homeConfigurations;
 
   in {
-    # All nix files under hosts/modules
-    nixosModules = hosts.modules;
+    # All nix files under nixos/modules
+    nixosModules = nixos.modules;
 
-    # All nix files under hosts/profiles
-    nixosProfiles = hosts.profiles;
+    # All nix files under nixos/profiles
+    nixosProfiles = nixos.profiles;
 
-    # For each set of modules under hosts/configs/<hostname>
+    # For each set of modules under nixos/hosts/<hostname>
     nixosConfigurations = mapAttrs
       (name: configs:
         nixpkgs.lib.nixosSystem {
@@ -202,8 +202,8 @@
                   };
                 };
               })
-          ] ++ (attrValues self.nixosModules) # Shared modules in hosts/modules
-            ++ (attrValues configs); # Individual config in hosts/configs/<name>
+          ] ++ (attrValues self.nixosModules) # Shared modules in nixos/modules
+            ++ (attrValues configs); # Individual config in nixos/hosts/<name>
 
           # Provide profiles and home configurations as additional module inputs
           specialArgs = {
@@ -218,7 +218,7 @@
             inherit username;
           };
         }
-      ) hosts.configs;
+      ) nixos.hosts;
 
     # All nix files under homes/modules
     homeModules = homes.modules;
@@ -245,7 +245,7 @@
       ) homeVariants;
 
     # System and home config build checks
-    checks.x86_64-linux = hostChecks // homeChecks;
+    checks.x86_64-linux = nixosChecks // homeChecks;
 
     # Import custom packages via overlay
     overlays.default = import ./pkgs;
