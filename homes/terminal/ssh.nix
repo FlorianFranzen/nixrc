@@ -2,10 +2,13 @@
 
   programs.ssh = {
     enable = true;
+
+    controlMaster = "auto";
+    controlPersist = "10m";
+
     matchBlocks = {
-      specteam-nix = {
-        hostname = "specteam-nix.w3f.tech";
-        user = "admin";
+      "fawkes.local" = {
+        hostname = "10.64.0.10";
         forwardAgent = true;
       };
     };
