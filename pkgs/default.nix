@@ -85,6 +85,9 @@ in {
     nx_tzdb = final.callPackage ./yuzu.nx_tzdb.nix {};
   };
 
+  # ...
+  teddycloud = final.callPackage ./teddycloud.nix {};
+
   # Update zeal slightly
   zeal-qt6 = callOverride ./zeal.nix {};
 }

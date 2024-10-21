@@ -3,6 +3,7 @@
 {
   imports = with profiles; [
     develop.minimal
+    services.teddycloud
   ];
 
   # Enable direct access to serial ports
