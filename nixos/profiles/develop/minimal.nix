@@ -21,9 +21,9 @@
     hydra-check
     jq
     libfaketime
-    linux-manual
     moreutils
     ncdu
+    nix-output-monitor
     patchelf
     ripgrep
     socat

@@ -14,7 +14,6 @@
     nix-diff
     nix-du
     nix-index
-    nix-output-monitor
     nix-prefetch
     nix-top
     nix-tree

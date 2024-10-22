@@ -43,7 +43,7 @@
     vim = {
       defaultEditor = true;
       enable = true;
-      package = pkgs.vim-full.override { guiSupport = false; };
+      package = pkgs.neovim;
     };
 
     zsh.enable = true;
