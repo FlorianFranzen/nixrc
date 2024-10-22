@@ -2,16 +2,11 @@
 { ...  }:
 
 {
+  # Btrfs mirror with subvolume for root, home and nix store
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
       fsType = "btrfs";
       options = [ "subvol=@" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
@@ -20,6 +15,38 @@
       options = [ "subvol=@home" "compress=zstd" "noatime" ];
     };
 
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
+    };
+
+  # Uses specific subvolumes to reduce snapshot and backup sizes
+  fileSystems."/home/florian/Backups" =
+    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+      fsType = "btrfs";
+      options = [ "subvol=@backups" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/home/florian/Cloud" =
+    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+      fsType = "btrfs";
+      options = [ "subvol=@cloud" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/home/florian/ROMs" =
+    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+      fsType = "btrfs";
+      options = [ "subvol=@roms" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/home/florian/.local/share/Steam" =
+    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+      fsType = "btrfs";
+      options = [ "subvol=@steam" "compress=zstd" "noatime" ];
+    };
+
+  # Mirrored UEFI boot partitions
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/18C3-DE52";
       fsType = "vfat";
@@ -30,11 +57,20 @@
       fsType = "vfat";
     };
 
+  # Btrfs mirror root mounting point used by btrbk
+  fileSystems."/tardis/system" =
+    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+    };
+
+  # Regurlary scrub btrfs mirror
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/" ];
+    fileSystems = [ "/tardis/system" ];
   };
 
+  # One swap partition per drive
   swapDevices =
     [ { device = "/dev/disk/by-uuid/adbaba96-3f04-45d3-ad7a-82ab8af0f863"; }
       { device = "/dev/disk/by-uuid/83222a20-7d97-49d8-a127-6ff4cc20f855"; }
