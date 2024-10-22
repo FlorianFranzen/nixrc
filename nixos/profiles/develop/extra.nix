@@ -40,8 +40,6 @@
     jupyter
     python3Packages.ipython
 
-    julia_16-bin
-
     python3Packages.binwalk
     python3Packages.base58
     wabt
