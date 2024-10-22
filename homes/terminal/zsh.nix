@@ -42,6 +42,7 @@
 
       shellAliases = {
         cat = "bat --plain";
+        vim = "nvim";
 
         e = "emacsclient --reuse-frame --no-wait";
         te = "emacsclient --tty";
