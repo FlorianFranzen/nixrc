@@ -90,4 +90,14 @@ in {
 
   # Update zeal slightly
   zeal-qt6 = callOverride ./zeal.nix {};
+
+  # Fix backend used (and screensharing)
+  zoom-us = prev.runCommand "zoom-wayland" {} ''
+    source ${prev.dieHook}/nix-support/setup-hook
+    source ${prev.makeWrapper}/nix-support/setup-hook
+    makeWrapper ${prev.zoom-us}/bin/zoom $out/bin/zoom --set XDG_CURRENT_DESKTOP gnome
+    cp -r ${prev.zoom-us}/share $out/share
+    chmod +w $out/share/applications/Zoom.desktop
+    sed "s@${prev.zoom-us}@$out@" ${prev.zoom-us}/share/applications/Zoom.desktop > $out/share/applications/Zoom.desktop
+  '';
 }
