@@ -22,6 +22,8 @@
     ledger-live-desktop
     solo2-cli
     yubikey-manager
+    # FIXME: Upstream bug
+    pcscliteWithPolkit.out
   ];
 
   # Disable ssh agent by default to give users the choice
