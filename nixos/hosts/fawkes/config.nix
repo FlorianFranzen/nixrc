@@ -38,5 +38,5 @@
   nixpkgs.hostPlatform = "x86_64-linux";
 
   # Current state version
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
