@@ -27,13 +27,8 @@
   # Add bluetooth command line tooling
   environment.systemPackages = [ pkgs.bluez-tools ];
 
-  # Enable dconf and gcr
-  programs.dconf.enable = true;
-  services.dbus.packages = [ pkgs.dconf pkgs.gcr ];
-
-  # Enable dbus disk, fs and power integration
+  # Enable dbus disk and power integration
   services.udisks2.enable = true;
-  services.gvfs.enable = true;
   services.upower.enable = true;
 
   # Fix DNS resolution in browsers

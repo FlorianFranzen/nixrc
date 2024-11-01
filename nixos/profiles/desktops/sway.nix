@@ -4,6 +4,13 @@
   # Include base desktop profile
   imports = [ ./base.nix ];
 
+  # Enable dconf and gcr
+  programs.dconf.enable = true;
+  services.dbus.packages = [ pkgs.dconf pkgs.gcr ];
+
+  # Enable fs integration
+  services.gvfs.enable = true;
+
   # Some general packages to improve wayland
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
