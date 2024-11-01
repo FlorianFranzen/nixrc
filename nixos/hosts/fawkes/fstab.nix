@@ -12,7 +12,7 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
       fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+      options = [ "subvol=@home" "compress=zstd" ];
     };
 
   fileSystems."/nix" =
@@ -61,7 +61,7 @@
   fileSystems."/tardis/system" =
     { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
       fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+      options = [ "compress=zstd" "noatime" ];
     };
 
   # Regurlary scrub btrfs mirror

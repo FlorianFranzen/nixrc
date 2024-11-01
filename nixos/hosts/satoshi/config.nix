@@ -19,68 +19,26 @@
       zsa
     ]);
 
-  # EFI boot variables are safe to be modified
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Install light desktop environment
+  home-manager.users.florian = homes.desktop-light-solarized;
 
-  # Install signed bootloader to efi mirror
-  boot.lanzaboote.extraEfiSysMountPoints = [ "/boot-mirror" ];
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
   # Add some fancontrol 
   services.thermald.enable = true;
 
-  # Install light desktop environment
-  home-manager.users.florian = homes.desktop-light-solarized;
+  # Enable microcode updates
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
 
-  # Disable GPU unless overriden in specialization
+  # Disable GPU unless overridden in specialization
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
-
-  boot = {
-    # Recent and patched kernel for full hardware support
-    kernelPackages = pkgs.linuxPackages_amd;
-
-    # Use patched ideapad-laptop
-    extraModulePackages = [ pkgs.linuxPackages_amd.ideapad-laptop ];
-
-    kernelParams = [
-      # Fix backlight control
-      "amdgpu.backlight=0"
-      # Enable kernel rfkill hack
-      "ideapad-laptop.no_rfkill=1"
-    ];
-
-    # Avoid touchpad race condition
-    extraModprobeConfig = ''
-      softdep i2c_hid pre: pinctrl_amd
-      softdep usbhid pre: pinctrl_amd
-    '';
-
-    # Add additional filesystem support
-    supportedFilesystems = [ "ntfs" "zfs" ];
-
-    # Use unstable zfs to support newer kernels
-    zfs.package = pkgs.zfs_unstable;
-  };
-
-  # Support printing on home printer
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.cups-brother-mfcl2710dw ];
-  };
-
-  # Support scanning on home printer
-  hardware.sane = {
-    enable = true;
-    brscan4 = {
-      enable = true;
-      netDevices.gutenberg = {
-        nodename = "gutenberg.fritz.box";
-        model = "MFC-L2710DW";
-      };
-    };
-  };
-
-  # Give default user scanner access
-  users.extraUsers.florian.extraGroups = [ "scanner" ];
 
   # Use AMD CPU compatible bumblebee
   nixpkgs.overlays = [
@@ -91,5 +49,5 @@
   nixpkgs.hostPlatform = "x86_64-linux";
 
   # Set current state version
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.11";
 }
