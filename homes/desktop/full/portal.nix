@@ -2,7 +2,7 @@
 
 {
   xdg.portal = {
-    extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
     config.kde.default = [ "kde" ];
   };
 }

@@ -30,6 +30,9 @@ in {
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 
+  # Tiling engine for Kwin 6
+  krohnkite = final.callPackage ./krohnkite.nix {};
+
   # WSL boot shim maker
   mkSyschdemd = final.callPackage ./syschdemd.nix {};
 

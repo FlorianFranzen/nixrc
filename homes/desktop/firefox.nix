@@ -7,7 +7,7 @@
     enable = true;
 
     package = pkgs.firefox.override {
-      nativeMessagingHosts = with pkgs; [ browserpass tridactyl-native vdhcoapp libsForQt5.plasma-browser-integration ];
+      nativeMessagingHosts = with pkgs; [ browserpass tridactyl-native vdhcoapp kdePackages.plasma-browser-integration ];
     };
 
     profiles.default = {

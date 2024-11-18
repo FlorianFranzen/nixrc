@@ -5,6 +5,7 @@
   #      should not ready add anything. But some tuning might be necessary
   #      depending on how variants are being used, e.g. for theming. 
 
-  # Forcefully disable pywal theme engine in default variant
-  pywal.enable = lib.mkForce true;
+  # Forcefully disable pywal and gtk theming in default variant
+  pywal.enable = lib.mkForce false;
+  gtk.enable = lib.mkForce false;
 }

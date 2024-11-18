@@ -1,8 +1,5 @@
 {
-  # Enable gtk customization
-  gtk.enable = true;
-
-  # Use gtk theme for qt
+  # Use gtk theme for qt as well
   qt = {
     enable = true;
     platformTheme.name = "gtk3";
