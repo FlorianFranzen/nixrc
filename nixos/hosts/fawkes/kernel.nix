@@ -9,7 +9,7 @@
     extraModulePackages = [ pkgs.linuxPackages_ws.zenergy ];
 
     # Blacklist false detections
-    blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" ];
+    blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" "cdc_acm" ];
 
     # Support cpu and mainboard sensors
     kernelModules = [ "kvm-amd" "nct6775" "zenergy" ];

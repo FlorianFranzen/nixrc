@@ -24,10 +24,17 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.firmware = [ pkgs.linux-firmware ];
 
-  # Provide access to mainboard RGB controller
+  # Keep firmware up to date
+  services.fwupd.enable = true;
+
   services.udev.extraRules = ''
+    # Provide access to mainboard RGB controller
     SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="19af", TAG+="uaccess"
+    # Provide access to gigabyte display
+    SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="1100", TAG+="uaccess"
   '';
+
+  # TODO: Run openrgb -d 0 -z 2 -s 40 -m static -c 882200
 
   # Make hip available at known-path
   systemd.tmpfiles.rules = [

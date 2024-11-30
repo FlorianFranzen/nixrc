@@ -53,7 +53,7 @@
     };
 
   fileSystems."/boot-mirror" =
-    { device = "/dev/disk/by-uuid/19E4-40FD";
+    { device = "/dev/disk/by-uuid/4F0A-FB18";
       fsType = "vfat";
     };
 
@@ -73,6 +73,6 @@
   # One swap partition per drive
   swapDevices =
     [ { device = "/dev/disk/by-uuid/adbaba96-3f04-45d3-ad7a-82ab8af0f863"; }
-      { device = "/dev/disk/by-uuid/83222a20-7d97-49d8-a127-6ff4cc20f855"; }
+      { device = "/dev/disk/by-uuid/628cf232-00fb-45a6-9e3f-4556ba4e7524"; }
     ];
 }
