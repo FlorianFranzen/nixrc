@@ -3,8 +3,10 @@
 
   inputs = {
     # Nix Import helper
-    haumea.url = "github:nix-community/haumea/v0.2.2";
-    haumea.inputs.nixpkgs.follows = "nixpkgs";
+    haumea = {
+      url = "github:nix-community/haumea/v0.2.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Base packages and configurations
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -13,16 +15,29 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Secure boot support
-    lanzaboote.url = "github:FlorianFranzen/lanzaboote/v0.3.0-mirror";
-    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote = {
+      url = "github:FlorianFranzen/lanzaboote/v0.3.0-mirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Home management 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Additional kde config modules
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     # Firefox Addons
-    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -32,6 +47,7 @@
     hardware,
     lanzaboote,
     home-manager,
+    plasma-manager,
     firefox-addons,
   } @ inputs: let
 
@@ -81,6 +97,11 @@
       src = ./homes;
       loader = haumea.lib.loaders.path;
     };
+
+    # All external and custom home modules
+    homeModules = [
+      plasma-manager.homeManagerModules.plasma-manager
+    ] ++ attrValues self.homeModules;
 
     # Helpers to parse home directory structure:
     #  - homes/terminal  default base config
@@ -192,8 +213,8 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
 
-                  # Shared modules in homes/modules
-                  sharedModules = attrValues self.homeModules;
+                  # External and shared modules in homes/modules
+                  sharedModules = homeModules;
 
                   # Provide profiles as additional module inputs
                   extraSpecialArgs = {
@@ -229,9 +250,8 @@
       (name: config:
         home-manager.lib.homeManagerConfiguration {
 
-          # Shared modules in homes/modules and user modules in homes/configs/<name>
-          # Optionally extended by variant modules in homes/configs/<name>/<variant>
-          modules = (attrValues self.homeModules) ++ [ config ];
+          # External and shared modules in homes/modules combined with user config
+          modules = homeModules ++ [ config ];
 
           # FIXME: Properly "systemize" output
           pkgs = pkgs.x86_64-linux;
