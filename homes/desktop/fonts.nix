@@ -17,7 +17,7 @@ in {
   # Install default font 
   home.packages = with pkgs; [
     jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
     noto-fonts-emoji
   ];
 
