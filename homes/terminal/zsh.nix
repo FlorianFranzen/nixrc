@@ -44,9 +44,6 @@
         cat = "bat --plain";
         vim = "nvim";
 
-        e = "emacsclient --reuse-frame --no-wait";
-        te = "emacsclient --tty";
-
         flake = "nix flake";
 
         incognito = "unset HISTFILE && echo 'History has been disabled.'";
@@ -63,7 +60,7 @@
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "systemd" ];
+        plugins = [ "emacs" "systemd" ];
       };
 
       plugins = [

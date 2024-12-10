@@ -1,6 +1,9 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, lib, ... }:
 
 {
+  # Install included doom config files
+  home.file.".config/doom".source = ../../emacs;
+
   # Install various dependencies
   home.packages = with pkgs; [
     editorconfig-core-c

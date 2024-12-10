@@ -108,7 +108,8 @@ in {
         "${cfg.modifier}+Shift+q" = exec pkgs.wlogout;
 
         # Add emacs pgtk ui
-        "${cfg.modifier}+Shift+Return" = "exec emacsclient --create-frame";
+        "${cfg.modifier}+Shift+Return" = "exec emacs";
+        "${cfg.modifier}+Alt+Return"   = "exec emacsclient --create-frame";
 
         # Web browser keys
         "${cfg.modifier}+BackSpace"       = exec pkgs.firefox;
