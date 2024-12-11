@@ -1,14 +1,14 @@
 { lib
 , sway
 , sway-unwrapped
-, wlroots_0_17
+, wlroots_0_18
 , withNvidia ? false 
 }:
 
 let
   # Patched wlroots and sway to emulate explicit sync
   sway-unwrapped-nvidia = sway-unwrapped.override { 
-    wlroots = wlroots_0_17.overrideAttrs (old: {
+    wlroots = wlroots_0_18.overrideAttrs (old: {
       patches = old.patches ++ [
         ./wlroots.nvidia.patch
       ];

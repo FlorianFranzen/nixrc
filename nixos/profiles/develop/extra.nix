@@ -40,7 +40,7 @@
     jupyter
     python3Packages.ipython
 
-    python3Packages.binwalk
+    binwalk
     python3Packages.base58
     wabt
 
