@@ -17,6 +17,6 @@
   programs.emacs = {
     enable = true;
     # Do not include any ui toolkit by default
-    package = lib.mkDefault pkgs.emacs29-nox;
+    package = lib.mkDefault pkgs.emacs30-nox;
   };
 }

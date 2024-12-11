@@ -11,7 +11,7 @@
     hotkeys.commands = {
       launch-foot = {
 	key = "Meta+Enter";
-	command = "${pkgs.emacs29-pgtk}/bin/emacs";
+	command = "${pkgs.emacs30-pgtk}/bin/emacs";
       };
       launch-emacs = {
 	key = "Meta+Shift+Enter";

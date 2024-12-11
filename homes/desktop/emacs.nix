@@ -2,6 +2,6 @@
 
 {
   # Special wayland friendly version
-  programs.emacs.package = pkgs.emacs29-pgtk;
+  programs.emacs.package = pkgs.emacs30-pgtk;
 }
 
