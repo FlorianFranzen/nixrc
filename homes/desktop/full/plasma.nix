@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   home.packages = [ pkgs.krohnkite ];
@@ -10,20 +15,24 @@
 
     hotkeys.commands = {
       launch-foot = {
-	key = "Meta+Enter";
-	command = "${pkgs.emacs30-pgtk}/bin/emacs";
+        key = "Meta+Enter";
+        command = "${pkgs.foot}/bin/foot";
       };
       launch-emacs = {
-	key = "Meta+Shift+Enter";
-	command = "${pkgs.foot}/bin/foot";
+        key = "Meta+Shift+Enter";
+        command = "${pkgs.emacs30-pgtk}/bin/emacs";
+      };
+      launch-emacsclient = {
+        key = "Meta+Alt+Enter";
+        command = "${pkgs.emacs30-pgtk}/bin/emacsclient --create-frame";
       };
       launch-firefox = {
-	key = "Meta+Backspace";
-	command = "${pkgs.firefox}/bin/firefox";
+        key = "Meta+Backspace";
+        command = "${pkgs.firefox}/bin/firefox";
       };
       launch-firefox-private = {
-	key = "Meta+Shift+Backspace";
-	command = "${pkgs.firefox}/bin/firefox --private-window";
+        key = "Meta+Shift+Backspace";
+        command = "${pkgs.firefox}/bin/firefox --private-window";
       };
     };
 
@@ -32,6 +41,25 @@
     kwin.virtualDesktops = {
       number = 8;
       rows = 2;
+    };
+
+    powerdevil = {
+      AC = {
+        autoSuspend.action = "nothing";
+
+        powerButtonAction = "showLogoutScreen";
+        powerProfile = "performance";
+
+        dimDisplay = {
+          enable = true;
+          idleTimeout = 300;
+        };
+
+        turnOffDisplay = {
+          idleTimeout = 600;
+          idleTimeoutWhenLocked = 30;
+        };
+      };
     };
 
     shortcuts = {
@@ -57,10 +85,22 @@
         KrohnkiteToggleFloat = "Meta+Space";
         KrohnkiteFloatAll = "Meta+Shift+Space";
 
-        KrohnkiteFocusLeft = [ "Meta+H" "Meta+Left" ];
-        KrohnkiteFocusDown = [ "Meta+J" "Meta+Down" ];
-        KrohnkiteFocusUp = [ "Meta+K" "Meta+Up" ];
-        KrohnkiteFocusRight = ["Meta+L" "Meta+Right" ];
+        KrohnkiteFocusLeft = [
+          "Meta+H"
+          "Meta+Left"
+        ];
+        KrohnkiteFocusDown = [
+          "Meta+J"
+          "Meta+Down"
+        ];
+        KrohnkiteFocusUp = [
+          "Meta+K"
+          "Meta+Up"
+        ];
+        KrohnkiteFocusRight = [
+          "Meta+L"
+          "Meta+Right"
+        ];
 
         KrohnkiteDecrease = "Meta+Shift+I";
         KrohnkiteIncrease = "Meta+I";
@@ -72,10 +112,22 @@
         KrohnkiteRotatePart = "Meta+Shift+R";
         KrohnkiteSetMaster = "Meta+T";
 
-        KrohnkiteShiftLeft = [ "Meta+Shift+H" "Meta+Shift+Left" ];
-        KrohnkiteShiftDown = [ "Meta+Shift+J" "Meta+Shift+Down" ];
-        KrohnkiteShiftUp = [ "Meta+Shift+K" "Meta+Shift+Up" ];
-        KrohnkiteShiftRight = ["Meta+Shift+L" "Meta+Shift+Right" ];
+        KrohnkiteShiftLeft = [
+          "Meta+Shift+H"
+          "Meta+Shift+Left"
+        ];
+        KrohnkiteShiftDown = [
+          "Meta+Shift+J"
+          "Meta+Shift+Down"
+        ];
+        KrohnkiteShiftUp = [
+          "Meta+Shift+K"
+          "Meta+Shift+Up"
+        ];
+        KrohnkiteShiftRight = [
+          "Meta+Shift+L"
+          "Meta+Shift+Right"
+        ];
 
         # Desktop switching
         "Switch to Desktop 1" = "Meta+1";
@@ -117,11 +169,11 @@
         view_zoom_in = "Meta+=";
         view_zoom_out = "Meta+-";
 
-      	# Unbind conflicts
+        # Unbind conflicts
         "Edit Tiles" = "none";
         "Grid View" = "none";
-	"Overview" = "none";
-	"Show Desktop" = "none";
+        "Overview" = "none";
+        "Show Desktop" = "none";
       };
 
       # Plasmashell integration
@@ -130,8 +182,8 @@
         "previous activity" = "Meta+Shift+S";
         "show-on-mouse-pos" = "Meta+V";
 
-      	# Unbind conflicts
-	"stop current activity" = "none"; 
+        # Unbind conflicts
+        "stop current activity" = "none";
         "activate task manager entry 1" = "none";
         "activate task manager entry 2" = "none";
         "activate task manager entry 3" = "none";

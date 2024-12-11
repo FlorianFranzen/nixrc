@@ -35,5 +35,10 @@ in {
 
   programs.foot.settings.main.font = "${iconFont}:size=${toString size}";
 
+  programs.plasma.fonts.fixedWidth = {
+    family = monoFont;
+    pointSize = size;
+  };
+
   services.mako.font = "${iconFont} ${toString size}";
 }
