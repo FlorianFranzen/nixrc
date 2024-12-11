@@ -83,12 +83,6 @@ in {
   };
 
   # ...
-  yuzu = final.qt6.callPackage ./yuzu.nix {
-    compat-list = final.callPackage ./yuzu.compat-list.nix {};
-    nx_tzdb = final.callPackage ./yuzu.nx_tzdb.nix {};
-  };
-
-  # ...
   teddycloud = final.callPackage ./teddycloud.nix {};
 
   # Update zeal slightly
