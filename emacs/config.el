@@ -52,6 +52,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Organizer/")
 
+;; use gpg agent socket for ssh agent
+(setenv "SSH_AUTH_SOCK" (format "/run/user/%d/gnupg/S.gpg-agent.ssh" (user-uid)))
+
 ;; Allow access to session via socket
 (server-start)
 
