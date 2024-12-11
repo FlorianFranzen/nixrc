@@ -15,6 +15,8 @@ let
  
   gap = 20;
 in {
+  # Keep better track of current media player
+  services.playerctld.enable = true;
 
   wayland.windowManager.sway = {
     # Enable and use default package after overlays
@@ -143,6 +145,9 @@ in {
         "--locked XF86AudioPlay"  = "${exec pkgs.playerctl} play-pause";
         "--locked XF86AudioPause" = "${exec pkgs.playerctl} play-pause";
         "--locked XF86AudioStop"  = "${exec pkgs.playerctl} stop";
+
+        "--locked ${cfg.modifier}+XF86AudioPrev" = "${exec' pkgs.playerctl "playerctld"} unshift";
+        "--locked ${cfg.modifier}+XF86AudioNext" = "${exec' pkgs.playerctl "playerctld"} shift";
 
         # Screen brightness controls
         "--locked XF86MonBrightnessUp"   = "${exec pkgs.light} -A 10";
