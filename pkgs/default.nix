@@ -85,9 +85,6 @@ in {
   # ...
   teddycloud = final.callPackage ./teddycloud.nix {};
 
-  # Update zeal slightly
-  zeal-qt6 = callOverride ./zeal.nix {};
-
   # Fix backend used (and screensharing)
   zoom-us = prev.runCommand "zoom-wayland" {} ''
     source ${prev.dieHook}/nix-support/setup-hook
