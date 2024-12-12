@@ -7,7 +7,12 @@
     enable = true;
 
     package = pkgs.firefox.override {
-      nativeMessagingHosts = with pkgs; [ browserpass tridactyl-native vdhcoapp kdePackages.plasma-browser-integration ];
+      nativeMessagingHosts = with pkgs; [
+        browserpass
+        kdePackages.plasma-browser-integration
+        tridactyl-native
+        vdhcoapp
+      ];
     };
 
     profiles.default = {
@@ -24,7 +29,6 @@
         polkadot-js
         metamask
         mailvelope
-        plasma-integration
       ];
 
       # TODO https://github.com/arkenfox/user.js
