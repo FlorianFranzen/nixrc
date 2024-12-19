@@ -3,16 +3,18 @@
 {
   imports = (with profiles.services; [ hydra jellyfin ])
          ++ (with profiles.develop; [ minimal cross linux ])
-         ++ (with profiles.desktops; [ lightdm hyprland ])
          ++ (with profiles.hardware; [ 
            common-cpu-intel common-gpu-intel 
            common-gpu-nvidia-disable
            common-pc-ssd
-           pipewire
          ]);
 
-  # Install light desktop environment
-  home-manager.users.florian = homes.desktop-light-pop;
+  # Provided updated cpu microcode and basic firmwares
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
+
+  # Install terminal environment
+  home-manager.users.florian = homes.terminal-pop;
 
   # Fix nouveau boot
   boot.kernelParams = [ "nouveau.modeset=0" ];
