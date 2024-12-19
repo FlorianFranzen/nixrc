@@ -10,34 +10,27 @@
 
   # Main SSD partition with various BTRFS subvolumes
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/7d69236c-bae0-4171-b06f-25f3b367510b";
+    { device = "/dev/disk/by-uuid/730d4516-29c2-4ee2-a6a7-063dbba40a3b";
       fsType = "btrfs";
-      options = [ "subvol=@nixos" "compress=zstd" ];
+      options = [ "subvol=@" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/7d69236c-bae0-4171-b06f-25f3b367510b";
+    { device = "/dev/disk/by-uuid/730d4516-29c2-4ee2-a6a7-063dbba40a3b";
       fsType = "btrfs";
       options = [ "subvol=@home" "compress=zstd" ];
     };
 
-  fileSystems."/var/lib/jellyfin" =
-    { device = "/dev/disk/by-uuid/7d69236c-bae0-4171-b06f-25f3b367510b";
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/730d4516-29c2-4ee2-a6a7-063dbba40a3b";
       fsType = "btrfs";
-      options = [ "subvol=@jellyfin" "compress=zstd" ];
+      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
   # EFI Boot Partition (ESP)
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/920B-CD82";
+    { device = "/dev/disk/by-uuid/8CB9-8FD9";
       fsType = "vfat";
-    };
-
-  # TODO: Investigate if this makes any sense
-  fileSystems."/tmp" =
-    { device = "/dev/disk/by-uuid/7d69236c-bae0-4171-b06f-25f3b367510b";
-      fsType = "btrfs";
-      options = [ "subvol=@tmp" ];
     };
 
   swapDevices =

@@ -1,8 +1,7 @@
 { config, pkgs, lib, profiles, homes, ... }:
 
 {
-  imports = (with profiles.services; [ hydra jellyfin ])
-         ++ (with profiles.develop; [ minimal cross linux ])
+  imports = (with profiles.develop; [ minimal cross linux ])
          ++ (with profiles.hardware; [ 
            common-cpu-intel common-gpu-intel 
            common-gpu-nvidia-disable
