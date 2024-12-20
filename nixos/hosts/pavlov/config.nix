@@ -14,15 +14,19 @@
 
   # Install terminal environment
   home-manager.users.florian = homes.terminal-pop;
+ 
+  boot = {
+    # Load driver to support CX ADC cards
+    extraModulePackages = [ pkgs.linuxPackages.cxadc ];
 
-  # Fix nouveau boot
-  boot.kernelParams = [ "nouveau.modeset=0" ];
+    kernelModules = [ "cxadc" ]; 
 
-  # Enable ZFS support
-  boot.supportedFilesystems = [ "zfs" ];
+    # Enable ZFS support
+    supportedFilesystems = [ "zfs" ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+    # Use the systemd-boot EFI boot loader.
+    loader.systemd-boot.enable = true;
+  };
 
   # Enable Wake on LAN
   networking.interfaces.enp3s0.wakeOnLan.enable = true;

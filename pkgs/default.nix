@@ -24,6 +24,11 @@ in {
     zenergy = ksuper.callPackage ./zenergy.nix {};
   });
 
+  # Experimental hardware support
+  linuxPackages = prev.linuxPackages.extend (kself: ksuper: {
+    cxadc = ksuper.callPackage ./cxadc.nix {};
+  });
+
   # Printer driver to be upstreamed
   cups-brother-mfcl2710dw = prev.callPackage ./cups-brother-mfcl2710dw.nix {};
 
