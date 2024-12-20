@@ -98,6 +98,12 @@
       loader = haumea.lib.loaders.path;
     };
 
+    # Combination of upstream and custom hardware-based profiles
+    hardwareProfiles = hardware.nixosModules // self.nixosProfiles.hardware // {
+      # Expose unstable upstream modules
+      common-gpu-nvidia-kepler = "${hardware}/common/gpu/nvidia/kepler/default.nix";
+    };
+
     # All external and custom home modules
     homeModules = [
       plasma-manager.homeManagerModules.plasma-manager
@@ -229,8 +235,8 @@
           # Provide profiles and home configurations as additional module inputs
           specialArgs = {
             profiles = self.nixosProfiles // {
-              # Inject and overlay nixos-hardware in/with profiles
-              hardware = hardware.nixosModules // self.nixosProfiles.hardware;
+              # Overwrite hardware with upstream-combined variant
+              hardware = hardwareProfiles;
             };
             # Provide raw module configs for use with home-manager nixos module
             homes = homeVariants;
