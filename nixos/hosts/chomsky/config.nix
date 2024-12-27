@@ -1,67 +1,44 @@
 { config, pkgs, lib, profiles, homes, ...}:
 
 {
-  imports = 
-    (with profiles; [ laptop media mail office podman ]) ++
+  imports =
+    (with profiles; [ corp gaming laptop media mail office podman ]) ++
+    (with profiles.desktops; [ gdm sway ]) ++ 
     (with profiles.develop; [
       minimal
       embedded
       extra
-      cad
-      manufac
-      linux 
+      cross
+      linux
     ]) ++ 
-    (with profiles.desktops; [ gdm sway ]) ++ 
-    (with profiles.networks; [ iwd ]) ++ 
+    (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
-      common-gpu-intel-sandy-bridge
-      common-pc-ssd
+      framework-16-7040-amd
+      secure-boot
       pipewire
       smartcard
+      wooting
+      zsa
     ]);
 
   # Install light desktop environment
   home-manager.users.florian = homes.desktop-light-solarized;
 
   boot = {
-    # Latest kernel without wifi issues
-    kernelPackages = pkgs.linuxPackages_latest;
-
-    # Various kernel and module quirks
-    kernelParams = [
-      "i915.modeset=1"
-      "i915.enable_fbc=1"
-#      "usbcore.autosupend=1h"
-      "i915.lvds_channel_mode=2"
-    ];
-
-    extraModprobeConfig = ''
-      options sdhci debug_quirks2=4
-      options snd-intel-dspcfg dsp_driver=1
-    '';
-
-    # Disable broken dedicated GPU
-    blacklistedKernelModules = [ "admgpu" ];
-
-    # Install boot loader to well-known location
-    loader.grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev";
-      enableCryptodisk = true;
-      efiInstallAsRemovable = true;
-    };
+    # Up-to-date kernel with better responsiveness
+    kernelPackages = pkgs.linuxPackages_zen;
   };
 
-  # Use more optimized fan control
-  services.mbpfan.enable = true;
+  # Enables DHCP on each ethernet and wireless interface. 
+  networking.useDHCP = lib.mkDefault true;
 
-  # Hard disk protection in case of fall
-  services.hdapsd.enable = lib.mkDefault true;
+  # Enable microcode updates
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
 
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
 
   # Set current state version
-  system.stateVersion = "22.11";
+  system.stateVersion = "25.05"; 
 }
