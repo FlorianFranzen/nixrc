@@ -52,6 +52,10 @@ in {
         scale = "1.25";
       };
 
+      output."BOE 0x0BC9 Unknown" = {
+        scale = "1.25";
+      };
+
       # Enable fancy features on fancy displays
       output."GIGA-BYTE TECHNOLOGY CO., LTD. M34WQ 0x000005B5" = {
         adaptive_sync = "on";
