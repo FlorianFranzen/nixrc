@@ -29,4 +29,7 @@
 
   # Allow swaylock to check passwords
   security.pam.services.swaylock = {};
+
+  # Run stand-alone GTK polkit agent
+  security.soteria.enable = true;
 }
