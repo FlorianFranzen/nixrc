@@ -20,11 +20,11 @@
       };
       launch-emacs = {
         key = "Meta+Shift+Enter";
-        command = "${pkgs.emacs30-pgtk}/bin/emacs";
+        command = "${pkgs.emacs29-pgtk}/bin/emacs";
       };
       launch-emacsclient = {
         key = "Meta+Alt+Enter";
-        command = "${pkgs.emacs30-pgtk}/bin/emacsclient --create-frame";
+        command = "${pkgs.emacs29-pgtk}/bin/emacsclient --create-frame";
       };
       launch-firefox = {
         key = "Meta+Backspace";
