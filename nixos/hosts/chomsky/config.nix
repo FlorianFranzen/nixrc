@@ -39,6 +39,9 @@
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  # Enable firmware update service
+  services.fwupd.enable = true;
+
   # Set current state version
   system.stateVersion = "25.05"; 
 }
