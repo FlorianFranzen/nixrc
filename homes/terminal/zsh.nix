@@ -19,6 +19,15 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+      stdlib = ''
+        # Ensure cargo build cache is stored in tmp dir
+        cargo_tmp_target() {
+          export CARGO_TARGET_DIR="/tmp/cargo-$(basename $PWD)-$(md5sum <<< $PWD | tr -d ' -')/"
+          if test ! -d $CARGO_TARGET_DIR; then mkdir $CARGO_TARGET_DIR; fi
+          if test ! -e target -o -L target; then ln -sf $CARGO_TARGET_DIR target; fi
+          export WASM_BUILD_WORKSPACE_HINT=$PWD
+        }
+      '';
     };
 
     # Shell config
