@@ -38,7 +38,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme
       (cond
-        ((string= (system-name) "satoshi") 'doom-solarized-dark)
+        ((string= (system-name) "chomsky") 'doom-solarized-dark)
         ((string= (system-name) "fawkes") 'doom-gruvbox)
         (t 'doom-nord)
 ))
