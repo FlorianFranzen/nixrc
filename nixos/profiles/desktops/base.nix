@@ -35,5 +35,5 @@
   networking.resolvconf.dnsExtensionMechanism = false;
 
   # Give default user additional access to devices
-  users.extraUsers.${username}.extraGroups = [ "audio" "video" ];
+  users.extraUsers.${username}.extraGroups = [ "audio" "cdrom" "video" ];
 }
