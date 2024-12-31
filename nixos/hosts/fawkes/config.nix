@@ -41,6 +41,11 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
+  programs.corectrl = {
+    enable = true;
+    gpuOverclock.enable = true;
+  };
+
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
 
