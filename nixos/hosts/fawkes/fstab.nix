@@ -57,17 +57,15 @@
       fsType = "vfat";
     };
 
-  # Btrfs mirror root mounting point used by btrbk
-  fileSystems."/tardis/system" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" ];
-    };
-
   # Regurlary scrub btrfs mirror
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = [ "/tardis/system" ];
+  };
+
+  services.tardis = {
+    enable = true;
+    device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
   };
 
   # One swap partition per drive
