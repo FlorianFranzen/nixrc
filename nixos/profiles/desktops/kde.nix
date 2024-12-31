@@ -6,6 +6,7 @@
 
   # Add additional image formats
   environment.systemPackages = [
+    pkgs.kdePackages.kde-cli-tools
     pkgs.kdePackages.qtimageformats
   ];
 
