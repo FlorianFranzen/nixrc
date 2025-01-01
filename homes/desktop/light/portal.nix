@@ -9,15 +9,7 @@
       pkgs.xdg-desktop-portal-wlr
     ];
     # Use gtk for all but screensharing
-    config.hyprland = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-    };
-    config.sway = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-    };
+    config.hyprland.default = [ "hyprland" "gtk" ];
+    config.sway.default = [ "wlr" "gtk" ];
   };
 }

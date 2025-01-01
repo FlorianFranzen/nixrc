@@ -24,6 +24,9 @@
     input.General.ClassicBondedOnly = false;
   };
 
+  # Link desktop portal configs
+  environment.pathsToLink = [ "/share/xdg-desktop-portal" ];
+
   # Add bluetooth command line tooling
   environment.systemPackages = [ pkgs.bluez-tools ];
 
