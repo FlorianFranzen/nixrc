@@ -3,15 +3,15 @@
 {
   programs.plasma.hotkeys.commands = {
     launch-foot = {
-      key = "Meta+Enter";
+      key = "Meta+Return";
       command = "${pkgs.foot}/bin/foot";
     };
     launch-emacs = {
-      key = "Meta+Shift+Enter";
+      key = "Meta+Shift+Return";
       command = "${pkgs.emacs29-pgtk}/bin/emacs";
     };
     launch-emacsclient = {
-      key = "Meta+Alt+Enter";
+      key = "Meta+Alt+Return";
       command = "${pkgs.emacs29-pgtk}/bin/emacsclient --create-frame";
     };
     launch-firefox = {
