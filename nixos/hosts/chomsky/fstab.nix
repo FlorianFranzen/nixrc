@@ -40,6 +40,13 @@
       options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
+  # Additional subvolumes in home folder
+  fileSystems."/home/florian/.local/share/Steam" =
+    { device = "/dev/disk/by-uuid/20f93c80-4b4b-423c-bae0-b63c8cf63cd3";
+      fsType = "btrfs";
+      options = [ "subvol=@steam" "compress=zstd" "noatime" ];
+    };
+
   # Regurlary scrub btrfs mirror
   services.btrfs.autoScrub = {
     enable = true;
