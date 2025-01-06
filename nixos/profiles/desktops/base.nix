@@ -3,7 +3,7 @@
 
 {
   # Enable ntfs support
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "exfat" "ntfs" ];
 
   # Enable bluetooth
   hardware.bluetooth = {
