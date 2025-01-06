@@ -36,11 +36,22 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.firmware = [ pkgs.linux-firmware ];
 
-  # Set processor architecture
-  nixpkgs.hostPlatform = "x86_64-linux";
-
   # Enable firmware update service
   services.fwupd.enable = true;
+
+  # Make hip available at known-path
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+
+  # Unlock full performance and power management
+  programs.corectrl = {
+    enable = true;
+    gpuOverclock.enable = true;
+  };
+
+  # Set processor architecture
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   # Set current state version
   system.stateVersion = "25.05"; 
