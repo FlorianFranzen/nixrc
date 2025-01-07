@@ -4,7 +4,7 @@
 , nix-update-script
 , wrapQtAppsHook
 , autoconf
-, boost
+, boost183
 , catch2_3
 , cmake
 , compat-list
@@ -61,7 +61,7 @@ stdenv.mkDerivation(finalAttrs: {
     vulkan-headers
     vulkan-utility-libraries
 
-    boost
+    boost183
     catch2_3
     cpp-jwt
     cubeb
