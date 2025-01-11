@@ -20,9 +20,14 @@
         volume = {
           "/tardis/system" = {
             subvolume = {
+              "@roms" = {};
+            };
+            target = "/tardis/external/fawkes";
+          };
+          "/tardis/data" = {
+            subvolume = {
               "@backups" = {};
               "@cloud" = {};
-              "@roms" = {};
             };
             target = "/tardis/external/fawkes";
           };
