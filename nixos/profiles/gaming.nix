@@ -15,6 +15,7 @@
     cemu
     clonehero
     discord
+    dolphin-emu
     goverlay
     joycond
     mangohud
