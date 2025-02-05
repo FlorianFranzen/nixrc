@@ -7,6 +7,9 @@
   # Enable ccache
   programs.ccache.enable = true;
 
+  # Test nix-index
+  programs.nix-index.enable = true;
+
   # Useful packages for development
   environment.systemPackages = with pkgs; [
     nil

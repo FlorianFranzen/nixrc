@@ -2,7 +2,7 @@
 
 {
   # Enable missing command indexing
-  programs.command-not-found.enable = true;
+  programs.command-not-found.enable = false;
 
   # Helper to run precompiled binaries
   programs.nix-ld.enable = true;
