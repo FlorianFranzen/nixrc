@@ -7,7 +7,8 @@
   # Enable ccache
   programs.ccache.enable = true;
 
-  # Test nix-index
+  # Replace command-not-found with nix-index
+  programs.command-not-found.enable = false;
   programs.nix-index.enable = true;
 
   # Useful packages for development
