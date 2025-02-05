@@ -20,8 +20,13 @@
       FastConnectable = true;
     };
 
-    # Allow the sharing of gamepads
-    input.General.ClassicBondedOnly = false;
+    input.General = {
+      # Allow the sharing of gamepads
+      ClassicBondedOnly = false;
+
+      # Force use of userspace hid
+      UserspaceHID = true;
+    };
   };
 
   # Link desktop portal configs
