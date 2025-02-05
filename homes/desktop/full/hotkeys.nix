@@ -22,5 +22,9 @@
       key = "Meta+Shift+Backspace";
       command = "${pkgs.firefox}/bin/firefox --private-window";
     };
+    launch-chromium = {
+      key = "Meta+Alt+Backspace";
+      command = "${pkgs.ungoogled-chromium}/bin/chromium --private-window";
+    };
   };
 }

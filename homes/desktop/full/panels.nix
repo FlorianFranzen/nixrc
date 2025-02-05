@@ -45,8 +45,8 @@
       widgets = [
         "org.kde.plasma.pager"
         "org.kde.plasma.icontasks"
-        "org.kde.plasma.marginsseparator"
         "org.kde.windowtitle"
+        "org.kde.plasma.marginsseparator"
         "org.kde.plasma.mediacontroller"
         "org.kde.plasma.systemtray"
         "org.kde.plasma.digitalclock"
