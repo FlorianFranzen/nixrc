@@ -35,6 +35,11 @@ in {
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 
+  gruvbox-plus-icons = prev.gruvbox-plus-icons.overrideAttrs (_: {
+    # Disable symlink check
+    noBrokenSymlinksHookInstalled = true;
+  });
+
   # Tiling engine for Kwin 6
   krohnkite = final.callPackage ./krohnkite.nix {};
 

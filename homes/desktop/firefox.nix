@@ -16,7 +16,7 @@
     };
 
     profiles.default = {
-      extensions = with pkgs.firefox-addons; [
+      extensions.packages = with pkgs.firefox-addons; [
         multi-account-containers
         tab-stash
         browserpass

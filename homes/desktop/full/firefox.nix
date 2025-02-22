@@ -1,5 +1,5 @@
 { pkgs, ... }:
 
 {
-  programs.firefox.profiles.default.extensions = with pkgs.firefox-addons; [ plasma-integration ];
+  programs.firefox.profiles.default.extensions.packages = with pkgs.firefox-addons; [ plasma-integration ];
 }
