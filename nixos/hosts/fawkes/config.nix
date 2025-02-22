@@ -36,11 +36,7 @@
 
   # TODO: Run openrgb -d 0 -z 2 -s 40 -m static -c 882200
 
-  # Make hip available at known-path
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
-
+  # Enable full performace of cpu and gpu
   programs.corectrl = {
     enable = true;
     gpuOverclock.enable = true;
