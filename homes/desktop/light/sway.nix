@@ -6,6 +6,8 @@ let
   exec = pkg: exec' pkg pkg.pname;
   exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
 
+  browser = config.programs.firefox.package;
+
   thunar = with pkgs; xfce.thunar.override { 
     thunarPlugins = [
       xfce.thunar-volman
@@ -118,8 +120,8 @@ in {
         "${cfg.modifier}+Alt+Return"   = "exec emacsclient --create-frame";
 
         # Web browser keys
-        "${cfg.modifier}+BackSpace"       = exec pkgs.firefox;
-        "${cfg.modifier}+Shift+BackSpace" = "${exec pkgs.firefox} --private-window";
+        "${cfg.modifier}+BackSpace"       = exec browser;
+        "${cfg.modifier}+Shift+BackSpace" = "${exec browser} --private-window";
 
         # File browser key
         "${cfg.modifier}+Delete" = exec' thunar "thunar";

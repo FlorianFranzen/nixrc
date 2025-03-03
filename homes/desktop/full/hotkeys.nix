@@ -1,30 +1,36 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
-{
+let
+  binpath = pkg: binpath' pkg pkg.pname;
+  binpath' = pkg: bin: "${pkg}/bin/${bin}";
+
+  browser = config.programs.firefox.package;
+  editor = config.programs.emacs.package;
+in {
   programs.plasma.hotkeys.commands = {
     launch-foot = {
       key = "Meta+Return";
-      command = "${pkgs.foot}/bin/foot";
+      command = binpath pkgs.foot;
     };
     launch-emacs = {
       key = "Meta+Shift+Return";
-      command = "${pkgs.emacs29-pgtk}/bin/emacs";
+      command = binpath' editor "emacs";
     };
     launch-emacsclient = {
       key = "Meta+Alt+Return";
-      command = "${pkgs.emacs29-pgtk}/bin/emacsclient --create-frame";
+      command = "${binpath' editor "emacsclient"} --create-frame";
     };
-    launch-firefox = {
+    launch-librewolf = {
       key = "Meta+Backspace";
-      command = "${pkgs.firefox}/bin/firefox";
+      command = binpath browser;
     };
-    launch-firefox-private = {
+    launch-librewolf-private = {
       key = "Meta+Shift+Backspace";
-      command = "${pkgs.firefox}/bin/firefox --private-window";
+      command = "${binpath browser} --private-window";
     };
     launch-chromium = {
       key = "Meta+Alt+Backspace";
-      command = "${pkgs.ungoogled-chromium}/bin/chromium --private-window";
+      command = "${binpath' pkgs.ungoogled-chromium "chromium"} --private-window";
     };
   };
 }
