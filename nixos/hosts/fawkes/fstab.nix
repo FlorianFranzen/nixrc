@@ -47,6 +47,13 @@
     options = [ "subvol=@cloud" "compress=zstd" "noatime" ];
   };
 
+  # SERVICES: Additional subvolumes for services
+  fileSystems."/var/lib/libvirt" = {
+    device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
+    fsType = "btrfs";
+    options = [ "subvol=@libvirt" "compress=zstd" "noatime" ];
+  };
+
   # Mirrored UEFI boot partitions
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/18C3-DE52";
