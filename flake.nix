@@ -9,7 +9,7 @@
     };
 
     # Base packages and configurations
-    nixpkgs.url = "github:FlorianFranzen/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
