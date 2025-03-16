@@ -2,10 +2,7 @@
   "nodes": {
     "crane": {
       "inputs": {
-        "nixpkgs": [
-          "lanzaboote",
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1717535930,
@@ -101,11 +98,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1710146030,
-        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -197,7 +194,6 @@
         "crane": "crane",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
-        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -205,16 +201,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1736209962,
-        "narHash": "sha256-lETE6VVjeWK9NXE3gVAqmDPfU3ZZ9ZMyx2J0cwebPTs=",
+        "lastModified": 1740274749,
+        "narHash": "sha256-FOX+5Y/MWtudV1z5qcySgXQT1L2x/DEsp91sAslwW1s=",
         "owner": "FlorianFranzen",
         "repo": "lanzaboote",
-        "rev": "4df5cd3e61b311f8bcc369b37d1edd8074c4af66",
+        "rev": "c9ba161148a1d46d8b0972a9cb928d4260e82b4e",
         "type": "github"
       },
       "original": {
         "owner": "FlorianFranzen",
-        "ref": "v0.4.1-mirror",
+        "ref": "v0.4.2-mirror",
         "repo": "lanzaboote",
         "type": "github"
       }
@@ -247,6 +243,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1741851582,
+        "narHash": "sha256-cPfs8qMccim2RBgtKGF+x9IBCduRvd/N5F4nYpU0TVE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6607cf789e541e7873d40d3a8f7815ea92204f32",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -308,16 +320,13 @@
         "haumea": "haumea",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "plasma-manager": "plasma-manager"
       }
     },
     "rust-overlay": {
       "inputs": {
-        "flake-utils": [
-          "lanzaboote",
-          "flake-utils"
-        ],
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "lanzaboote",
           "nixpkgs"
