@@ -15,6 +15,6 @@
     package = pkgs.hydra.nix;
 
     # Allow copy closure by admins
-    settings.trusted-users = [ "root" "@wheel" ];
+    settings.trusted-users = [ "@wheel" ];
   };
 }
