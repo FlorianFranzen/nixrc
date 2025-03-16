@@ -223,6 +223,9 @@ in {
     };
 
     extraConfig = ''
+      bindswitch --locked lid:on output eDP-2 disable
+      bindswitch --locked lid:off output eDP-2 enable
+
       bindgesture swipe:right workspace prev
       bindgesture swipe:left workspace next
 
