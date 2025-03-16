@@ -39,6 +39,9 @@
   # Enable firmware update service
   services.fwupd.enable = true;
 
+  # Disable default power button binding
+  services.logind.extraConfig = "HandlePowerKey=ignore";
+
   # Make hip available at known-path
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
