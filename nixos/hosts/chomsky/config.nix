@@ -26,7 +26,13 @@
 
   boot = {
     # Up-to-date kernel with better responsiveness
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_lqx;
+
+    # Allow access to cpu power information
+    extraModulePackages = [ pkgs.linuxPackages_lqx.zenergy ];
+
+    # Support cpu and mainboard sensors
+    kernelModules = [ "kvm-amd" "zenergy" ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. 
