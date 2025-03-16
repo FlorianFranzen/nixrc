@@ -3,10 +3,10 @@
 {
   boot = {
     # Use current kernel for better compatibility
-    kernelPackages = pkgs.linuxPackages_ws;
+    kernelPackages = pkgs.linuxPackages_zen;
 
     # Allow access to cpu power information
-    extraModulePackages = [ pkgs.linuxPackages_ws.zenergy ];
+    extraModulePackages = [ pkgs.linuxPackages_zen.zenergy ];
 
     # Blacklist false detections
     blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" "cdc_acm" ];

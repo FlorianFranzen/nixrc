@@ -19,11 +19,6 @@ in {
     bbswitch = callOverrideWith ksuper ./bbswitch.nix {};
   });
 
-  # Workstation specific kernerl packages
-  linuxPackages_ws = prev.linuxPackages_zen.extend (kself: ksuper: {
-    zenergy = ksuper.callPackage ./zenergy.nix {};
-  });
-
   # Experimental hardware support
   linuxPackages = prev.linuxPackages.extend (kself: ksuper: {
     cxadc = ksuper.callPackage ./cxadc.nix {};
