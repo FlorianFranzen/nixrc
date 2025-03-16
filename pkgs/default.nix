@@ -75,6 +75,9 @@ in {
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
 
+  # MHL to MIDI converter
+  traktor-kontrol = final.callPackage ./traktor-kontrol.nix {};
+
   # joypad idle inhibition
   wljoywake = final.callPackage ./wljoywake.nix {};
 

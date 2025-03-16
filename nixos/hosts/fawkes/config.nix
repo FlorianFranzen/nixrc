@@ -12,6 +12,7 @@
       common-pc-ssd
       android
       pipewire
+      traktor-kontrol
       smartcard
       wooting
       zsa
