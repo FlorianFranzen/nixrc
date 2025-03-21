@@ -54,6 +54,12 @@
     options = [ "subvol=@libvirt" "compress=zstd" "noatime" ];
   };
 
+  fileSystems."/var/lib/private/ollama" = {
+    device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+    fsType = "btrfs";
+    options = [ "subvol=@ollama" "compress=zstd" "noatime" ];
+  };
+
   # Mirrored UEFI boot partitions
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/18C3-DE52";
