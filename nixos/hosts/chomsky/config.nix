@@ -26,10 +26,10 @@
 
   boot = {
     # Up-to-date kernel with better responsiveness
-    kernelPackages = pkgs.linuxPackages_lqx;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     # Allow access to cpu power information
-    extraModulePackages = [ pkgs.linuxPackages_lqx.zenergy ];
+    extraModulePackages = [ pkgs.linuxPackages_latest.zenergy ];
 
     # Support cpu and mainboard sensors
     kernelModules = [ "kvm-amd" "zenergy" ];
