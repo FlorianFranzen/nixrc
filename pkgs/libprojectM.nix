@@ -2,13 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libprojectM";
-  version = "4.0.0";
+  version = "4.1.4";
 
   src = fetchFromGitHub {
     owner = "projectM-visualizer";
     repo = "projectm";
     rev = "v${version}";
-    sha256 = "sha256-JRMVXfjpMBdnpU+w9o9aa+yL4mnqEcr/wovme3isM64=";
+    sha256 = "sha256-gf1k9iSDARp6/M2/Po1wdOEY6y/QG2nq5uhSFU6bxAM=";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake ];

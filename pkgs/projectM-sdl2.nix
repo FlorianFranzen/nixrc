@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, poco, SDL2, libprojectM }:
+{ stdenv, fetchFromGitHub, cmake, poco, SDL2, utf8proc, libprojectM }:
 
 let
   presets = fetchFromGitHub {
@@ -17,13 +17,14 @@ let
 
 in stdenv.mkDerivation {
   name = "projectm-sdl2";
-  version = "2024-01-19";
+  version = "2025-03-17";
 
   src = fetchFromGitHub {
     owner = "projectM-visualizer";
-    repo = "frontend-sdl2";
-    rev = "854eebaa26d91042ba8f097ec5e409bdcea78383";
-    sha256 = "sha256-fcbpzjj5P6V8I2l76nKZaclCXjark/BWw9HRewI7kHU=";
+    repo = "frontend-sdl-cpp";
+    rev = "080e48b303fe9d7eebaba6d266ddef0543bba0d3";
+    sha256 = "sha256-5thnZhw22U2IVn6VNDEIw1fEaTnTwJv8pkgAdWdrHu8=";
+    fetchSubmodules = true;
   };
 
   patches = [
@@ -37,6 +38,7 @@ in stdenv.mkDerivation {
   buildInputs = [ 
     poco
     SDL2
+    utf8proc
     libprojectM 
   ];
 

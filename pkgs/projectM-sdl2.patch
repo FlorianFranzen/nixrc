@@ -10,3 +10,14 @@ index 0309873..4488d17 100644
          )
  
  if(MSVC)
+diff --git a/ImGui.cmake b/ImGui.cmake
+index f578fc6..5e49779 100644
+--- a/ImGui.cmake
++++ b/ImGui.cmake
+@@ -57,6 +57,5 @@ target_link_libraries(ImGuiDemo
+         PRIVATE
+         ImGui
+         SDL2::SDL2
+-        SDL2::SDL2main
+         OpenGL::GL
+         )
