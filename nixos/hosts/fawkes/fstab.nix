@@ -3,61 +3,116 @@
 
 {
   # SYSTEM: Btrfs mirror with subvolume for root, home and nix store
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "subvol=@" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+    fsType = "btrfs";
+    options = [
+      "subvol=@"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+    fsType = "btrfs";
+    options = [
+      "subvol=@home"
+      "compress=zstd"
+    ];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+    fsType = "btrfs";
+    options = [
+      "subvol=@nix"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
 
   # SYSTEM: Additional subvolumes mounted into home to reduce snapshot sizes
-  fileSystems."/home/florian/ROMs" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "subvol=@roms" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/home/florian/.local/share/Steam" = {
+    device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
+    fsType = "btrfs";
+    options = [
+      "subvol=@steam"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
 
-  fileSystems."/home/florian/.local/share/Steam" =
-    { device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
-      fsType = "btrfs";
-      options = [ "subvol=@steam" "compress=zstd" "noatime" ];
-    };
-  
-  # DATA: Additional subvolumes mounted into home to reduce snapshot sizes e
+  # DATA: Additional subvolumes on second drive mounted into home
   fileSystems."/home/florian/Backups" = {
     device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
     fsType = "btrfs";
-    options = [ "subvol=@backups" "compress=zstd" "noatime" ];
+    options = [
+      "subvol=@backups"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   fileSystems."/home/florian/Cloud" = {
     device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
     fsType = "btrfs";
-    options = [ "subvol=@cloud" "compress=zstd" "noatime" ];
+    options = [
+      "subvol=@cloud"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
+
+  fileSystems."/home/florian/ROMs" = {
+    device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
+    fsType = "btrfs";
+    options = [
+      "subvol=@roms"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
+
+  fileSystems."/home/florian/Videos" = {
+    device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
+    fsType = "btrfs";
+    options = [
+      "subvol=@videos"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
+
+  fileSystems."/home/florian/.local/share/MoreSteam" = {
+    device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
+    fsType = "btrfs";
+    options = [
+      "subvol=@steam"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   # SERVICES: Additional subvolumes for services
   fileSystems."/var/lib/libvirt" = {
     device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
     fsType = "btrfs";
-    options = [ "subvol=@libvirt" "compress=zstd" "noatime" ];
+    options = [
+      "subvol=@libvirt"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   fileSystems."/var/lib/private/ollama" = {
     device = "/dev/disk/by-uuid/931bb88a-13a4-406c-9478-ebfb8e8ed2d8";
     fsType = "btrfs";
-    options = [ "subvol=@ollama" "compress=zstd" "noatime" ];
+    options = [
+      "subvol=@ollama"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   # Mirrored UEFI boot partitions
@@ -74,7 +129,10 @@
   # Regurlary scrub btrfs mirrors
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/tardis/system" "/tardis/data" ];
+    fileSystems = [
+      "/tardis/system"
+      "/tardis/data"
+    ];
   };
 
   # Enable daily home snapshots
@@ -87,7 +145,10 @@
   fileSystems."/tardis/data" = {
     device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   # One swap partition per drive

@@ -18,16 +18,12 @@
         snapshot_dir = "snapshots";
 
         volume = {
-          "/tardis/system" = {
-            subvolume = {
-              "@roms" = {};
-            };
-            target = "/tardis/external/fawkes";
-          };
           "/tardis/data" = {
             subvolume = {
-              "@backups" = {};
-              "@cloud" = {};
+              "@backups" = { };
+              "@cloud" = { };
+              "@roms" = { };
+              "@videos" = { };
             };
             target = "/tardis/external/fawkes";
           };
