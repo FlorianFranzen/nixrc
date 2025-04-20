@@ -42,6 +42,9 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.firmware = [ pkgs.linux-firmware ];
 
+  # Enable input module support
+  hardware.inputmodule.enable = true;
+
   # Enable firmware update service
   services.fwupd.enable = true;
 
