@@ -47,15 +47,17 @@
       options = [ "subvol=@steam" "compress=zstd" "noatime" ];
     };
 
+  # Btrfs root mount point used by btrbk
+  fileSystems."/tardis/system" = {
+    device = "/dev/disk/by-uuid/20f93c80-4b4b-423c-bae0-b63c8cf63cd3";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" ];
+  };
+
   # Regurlary scrub btrfs mirror
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = [ "/tardis/system" ];
-  };
-
-  services.tardis = {
-    enable = true;
-    device = "/dev/disk/by-uuid/20f93c80-4b4b-423c-bae0-b63c8cf63cd3";
   };
 
   # Only use the SSD with DRAM for (encrypted) swap
