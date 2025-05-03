@@ -27,6 +27,13 @@
       options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
+  # Data HDD mirror with additional BTRFS subvolumes
+  fileSystems."/data" =
+    { device = "/dev/disk/by-uuid/aa222bd4-8f66-47cb-9abf-53004b68cbba";
+      fsType = "btrfs";
+      options = [ "subvol=@data" "compress=zstd" "noatime" ];
+    };
+
   # EFI Boot Partition (ESP)
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/8CB9-8FD9";
