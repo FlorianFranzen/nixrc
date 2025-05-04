@@ -31,5 +31,11 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/${modPath}
     cp ./${modName}.ko $out/lib/modules/${kernel.modDirVersion}/${modPath}
+
+    mkdir -p $out/lib/udev/rules.d
+    cp ./cxadc.rules $out/lib/udev/rules.d/50-cxadc.rules
+
+    mkdir -p $out/lib/modprobe.d
+    cp ./cxadc.conf $out/lib/modprobe.d/
   '';
 }
