@@ -36,28 +36,25 @@ in {
   config = mkIf cfg.enable {
     home.file.".cache/wal".source = cache;
 
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       # Load color scheme
       (cat ${cache}/sequences &)
     '';
 
-    services.mako = with result.colors; {
+    services.mako.settings = with result.colors; {
       backgroundColor = "${color0}f2";
       borderColor = "${color8}f2";
       progressColor = "${color6}f2";
       textColor = "${color7}f2";
 
-      extraConfig = ''
-        [urgency=low]
-        border-color=${color3}f2
+      "urgency=low".border-color = "${color3}f2";
 
-        [urgency=normal]
-        border-color=${color4}f2
+      "urgency=normal".border-color = "${color4}f2";
 
-        [urgency=high]
-        border-color=${color5}f2
-        default-timeout=0
-      '';
+      "urgency=high" = {
+        border-color = "${color5}f2";
+        default-timeout = 0;
+      };
     };
 
     services.wob.settings = with justColors; {

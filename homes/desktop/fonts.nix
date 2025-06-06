@@ -40,5 +40,5 @@ in {
     pointSize = size;
   };
 
-  services.mako.font = "${iconFont} ${toString size}";
+  services.mako.settings.font = "${iconFont} ${toString size}";
 }

@@ -12,7 +12,7 @@
 
     lsd = {
       enable = true;
-      enableAliases = true;
+      enableZshIntegration = true;
     };
 
     # Enable direnv with nix integration
@@ -41,7 +41,7 @@
         BROWSER = "firefox";
       };
 
-      initExtra = ''
+      initContent = ''
         # Load color scheme
         [[ -f ~/.cache/wal/sequences ]] && (cat ~/.cache/wal/sequences &)
 
