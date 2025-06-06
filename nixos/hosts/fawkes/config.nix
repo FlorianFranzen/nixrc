@@ -25,6 +25,9 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.firmware = [ pkgs.linux-firmware ];
 
+  # Enable full performace of cpu and gpu
+  hardware.amdgpu.overdrive.enable = true;
+
   # Keep firmware up to date
   services.fwupd.enable = true;
 
@@ -37,11 +40,13 @@
 
   # TODO: Run openrgb -d 0 -z 2 -s 40 -m static -c 882200
 
-  # Enable full performace of cpu and gpu
-  programs.corectrl = {
-    enable = true;
-    gpuOverclock.enable = true;
-  };
+  # Install cpu and gpu clock tooling
+  programs.corectrl.enable = true;
+
+  # Install additional tooling
+  environment.systemPackages = [
+    pkgs.cryptsetup
+  ];
 
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";
