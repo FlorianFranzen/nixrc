@@ -106,7 +106,7 @@
 
     # All external and custom home modules
     homeModules = [
-      plasma-manager.homeManagerModules.plasma-manager
+      plasma-manager.homeModules.plasma-manager
     ] ++ attrValues self.homeModules;
 
     # Helpers to parse home directory structure:

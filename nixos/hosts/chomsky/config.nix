@@ -49,7 +49,7 @@
   services.fwupd.enable = true;
 
   # Disable default power button binding
-  services.logind.extraConfig = "HandlePowerKey=ignore";
+  services.logind.settings.Login.HandlePowerKey = "ignore";
 
   # Make hip available at known-path
   systemd.tmpfiles.rules = [
