@@ -64,6 +64,16 @@
     ];
   };
 
+  fileSystems."/home/florian/Music" = {
+    device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
+    fsType = "btrfs";
+    options = [
+      "subvol=@music"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
+
   fileSystems."/home/florian/ROMs" = {
     device = "/dev/disk/by-uuid/160cf71a-2e13-4dbf-98fb-db9936884885";
     fsType = "btrfs";
