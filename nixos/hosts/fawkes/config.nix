@@ -38,7 +38,19 @@
     SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="1100", TAG+="uaccess"
   '';
 
-  # TODO: Run openrgb -d 0 -z 2 -s 40 -m static -c 882200
+  # Configure static lighting color with OpenRGB
+  systemd.services.openrgb-setup = {
+    description = "Configure OpenRGB devices after boot";
+
+    script = ''
+      # Case lighting on port 2 with 40 leds
+      ${pkgs.openrgb}/bin/openrgb -d 0 -z 2 -s 40 -m static -c 882200
+    '';
+
+    serviceConfig.Type = "oneshot";
+
+    wantedBy = [ "multi-user.target" ];
+  };
 
   # Install cpu and gpu clock tooling
   programs.corectrl.enable = true;
