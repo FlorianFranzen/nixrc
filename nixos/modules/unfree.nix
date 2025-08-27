@@ -18,6 +18,6 @@
     # Dictionaries
     "aspell-dict-en-science"
     # Some corpoware
-    "slack" "zoom"
+    "hubstaff" "slack"
   ];
 }

@@ -7,8 +7,8 @@
   environment.systemPackages = with pkgs; [
     obs-studio
 
+    hubstaff
     slack
-    zoom-us
   ];
 
 }
