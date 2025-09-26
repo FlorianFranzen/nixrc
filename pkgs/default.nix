@@ -44,6 +44,9 @@ in {
   # WSL boot shim maker
   mkSyschdemd = final.callPackage ./syschdemd.nix {};
 
+  # input font but patched
+  input-nerdfont = final.callPackage ./input-nerdfont.nix {};
+
   # Patched to include git submodules
   nixSubmodule = callOverride ./nix-submodule.nix {};
 

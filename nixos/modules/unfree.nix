@@ -17,7 +17,11 @@
     "cups-brother-mfcl2710dw" "brscan4" "brother-udev-rule-type1" "brscan4-etc-files"
     # Dictionaries
     "aspell-dict-en-science"
+    # Fonts
+    "input-fonts"
     # Some corpoware
     "hubstaff" "slack"
   ];
+
+  nixpkgs.config.input-fonts.acceptLicense = true;
 }
