@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, poco, SDL2, utf8proc, libprojectM }:
+{ stdenv, fetchFromGitHub, cmake, poco, libGL, SDL2, utf8proc, libprojectM, xorg }:
 
 let
   presets = fetchFromGitHub {
@@ -37,9 +37,11 @@ in stdenv.mkDerivation {
 
   buildInputs = [ 
     poco
+    libGL
     SDL2
     utf8proc
     libprojectM 
+    xorg.libX11
   ];
 
   cmakeFlags = [
