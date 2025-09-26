@@ -27,11 +27,12 @@
     clonehero
     discord
     dolphin-emu
+    easyeffects
     goverlay
     joycond
     mangohud
     mindustry
-    ryujinx
+    ryubing
     superTuxKart
     suyu
     (warzone2100.override { withVideos = true; })
