@@ -12,7 +12,7 @@
       common-pc-ssd
       android
       pipewire
-      traktor-kontrol
+      focusrite-scarlett
       smartcard
       wooting
       zsa

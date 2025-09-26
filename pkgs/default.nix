@@ -30,6 +30,9 @@ in {
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 
+  # Focusrite Scarlett support
+  fcp-support = final.callPackage ./fcp-support.nix {};
+
   gruvbox-plus-icons = prev.gruvbox-plus-icons.overrideAttrs (_: {
     # Disable symlink check
     noBrokenSymlinksHookInstalled = true;
