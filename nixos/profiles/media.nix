@@ -12,5 +12,7 @@
 
     ffmpeg
     mkvtoolnix
+
+    spotify
   ];
 }
