@@ -18,11 +18,11 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  services.pulseaudio.enable = true;
 
   # 32bit video and audio support
   hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
+  services.pulseaudio.support32Bit = true;
 
   users.users.steam = {
     isSystemUser = true;

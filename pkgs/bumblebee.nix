@@ -4,5 +4,7 @@ bumblebee.overrideAttrs (old: rec {
   name = "${old.pname}-${version}";
   version = "${old.version}-amd";
 
+  __intentionallyOverridingVersion = true;
+
   patches = old.patches ++ [ ./bumblebee.internal_amd.patch ];
 })

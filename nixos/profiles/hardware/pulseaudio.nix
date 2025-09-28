@@ -2,7 +2,7 @@
 
 {
   # Enable pulseaudio with bluetooth 
-  hardware.pulseaudio = {
+  services.pulseaudio = {
     enable = true;
     package = pkgs.pulseaudioFull; # Only full has bluetooth
    };

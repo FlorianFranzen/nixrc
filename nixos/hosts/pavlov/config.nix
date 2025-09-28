@@ -35,8 +35,8 @@
   # Enable Wake on LAN
   networking.interfaces.enp3s0.wakeOnLan.enable = true;
 
-  # Suspend on power button press
-  services.logind.extraConfig = "HandlePowerKey=suspend";
+  # Allow susped via power button
+  services.logind.settings.Login.HandlePowerKey = "suspend";
 
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";

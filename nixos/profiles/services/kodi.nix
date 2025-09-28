@@ -26,7 +26,7 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  services.pulseaudio.enable = true;
 
   users.users.kodi = {
     isSystemUser = true;

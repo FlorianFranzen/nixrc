@@ -18,8 +18,8 @@
     lm_sensors smartmontools
   ];
 
-  # Disable power button
-  services.logind.extraConfig = "HandlePowerKey=suspend";
+  # Allow susped via power button
+  services.logind.settings.Login.HandlePowerKey = "suspend";
 
   # Cool HDD array based on SMART temp
   services.thinkfan = {

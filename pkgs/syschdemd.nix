@@ -1,9 +1,9 @@
 # (c) under Apache 2.0 License, from github:Trundle/NixOS-WSL
-{ lib, substituteAll, daemonize }:
+{ stdenv, lib, replaceVarsWith, daemonize }:
 
 { wrapperDir, fsPackages, defaultUser }:
 
-substituteAll {
+replaceVarsWith {
   name = "syschdemd";
   src = ./syschdemd.sh;
   dir = "bin";
@@ -11,7 +11,10 @@ substituteAll {
 
   buildInputs = [ daemonize ];
 
-  inherit daemonize defaultUser wrapperDir;
+  replacements = {
+    inherit (stdenv) shell;
+    inherit daemonize defaultUser wrapperDir;
 
-  fsPackagesPath = lib.makeBinPath fsPackages;
+    fsPackagesPath = lib.makeBinPath fsPackages;
+  };
 }
