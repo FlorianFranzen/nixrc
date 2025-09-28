@@ -58,8 +58,8 @@
 
     nmap
 
-    keybase-gui
-    zeal-qt6
+    #keybase-gui
+    zeal
   ];
 
   users.extraUsers.${username}.extraGroups = [ "dialout" ];
