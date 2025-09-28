@@ -44,7 +44,7 @@
 
     script = ''
       # Case lighting on port 2 with 40 leds
-      ${pkgs.openrgb}/bin/openrgb -d 0 -z 2 -s 40 -m static -c 882200
+      ${pkgs.openrgb}/bin/openrgb -d "ASUS ProArt X670E-CREATOR WIFI" -z 2 -s 40 -m static -c 882200
     '';
 
     serviceConfig.Type = "oneshot";
