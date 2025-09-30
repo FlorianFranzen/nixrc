@@ -42,10 +42,10 @@ in {
     '';
 
     services.mako.settings = with result.colors; {
-      backgroundColor = "${color0}f2";
-      borderColor = "${color8}f2";
-      progressColor = "${color6}f2";
-      textColor = "${color7}f2";
+      background-color = "${color0}f2";
+      border-color = "${color8}f2";
+      progress-color = "${color6}f2";
+      text-color = "${color7}f2";
 
       "urgency=low".border-color = "${color3}f2";
 
