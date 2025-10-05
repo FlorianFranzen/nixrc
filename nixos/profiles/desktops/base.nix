@@ -38,10 +38,6 @@
   # Fix DNS resolution in browsers
   networking.resolvconf.dnsExtensionMechanism = false;
 
-  # Enable dbus disk and power integration
-  services.udisks2.enable = true;
-  services.upower.enable = true;
-
   # Give default user additional access to devices
   users.extraUsers.${username}.extraGroups = [ "audio" "cdrom" "video" ];
 }

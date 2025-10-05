@@ -7,9 +7,13 @@
   # Enable dconf and gcr
   programs.dconf.enable = true;
   services.dbus.packages = [ pkgs.dconf pkgs.gcr ];
-
+  
   # Enable fs integration
   services.gvfs.enable = true;
+
+  # Enable dbus disk and power integration
+  services.udisks2.enable = true;
+  services.upower.enable = true;
 
   # Some general packages to improve wayland
   environment.systemPackages = with pkgs; [

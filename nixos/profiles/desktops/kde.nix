@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+  # Include base desktop profile
+  imports = [ ./base.nix ];
+
   # Use ozone wayland backedn
   environment.variables.NIXOS_OZONE_WL = 1;
 
