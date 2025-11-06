@@ -45,6 +45,11 @@
   # Enable input module support
   hardware.inputmodule.enable = true;
 
+  # Install input module programs
+  environment.systemPackages = with pkgs; [
+    led-battery-monitor
+  ];
+
   # Enable firmware update service
   services.fwupd.enable = true;
 
