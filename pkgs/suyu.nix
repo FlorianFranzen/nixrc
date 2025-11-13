@@ -13,7 +13,7 @@
 , discord-rpc
 , enet
 , ffmpeg-headless
-, fmt
+, fmt_10
 , glslang
 , libopus
 , libusb1
@@ -47,6 +47,10 @@ stdenv.mkDerivation(finalAttrs: {
     hash = "sha256-GgLCbQI7u9neFxQq4borNhlg72FIYn+J5XkaK/7hpnQ=";
   };
 
+  patches = [
+    ./suyu.GuiPrivate.patch
+  ];
+
   nativeBuildInputs = [
     cmake
     glslang
@@ -78,7 +82,7 @@ stdenv.mkDerivation(finalAttrs: {
     ffmpeg-headless
     # end ffmpeg deps
 
-    fmt
+    fmt_10
     # intentionally omitted: gamemode - loaded dynamically at runtime
     # intentionally omitted: httplib - upstream requires an older version than what we have
     libopus
@@ -133,6 +137,9 @@ stdenv.mkDerivation(finalAttrs: {
     # We dont want to bother upstream with potentially outdated compat reports
     "-DSUYU_ENABLE_COMPATIBILITY_REPORTING=OFF"
     "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
+
+    # Fix cmake compatibility error
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ];
 
   # Does some handrolled SIMD

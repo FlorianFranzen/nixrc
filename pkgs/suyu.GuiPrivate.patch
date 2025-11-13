@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 67bdf6afe9..5e203e9263 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -375,7 +375,7 @@ endif()
+ 
+ function(set_suyu_qt_components)
+     # Best practice is to ask for all components at once, so they are from the same version
+-    set(SUYU_QT_COMPONENTS2 Core Widgets Concurrent)
++    set(SUYU_QT_COMPONENTS2 Core Widgets Concurrent GuiPrivate)
+     if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+         list(APPEND SUYU_QT_COMPONENTS2 DBus)
+     endif()
+diff --git a/src/suyu/CMakeLists.txt b/src/suyu/CMakeLists.txt
+index a951a555aa..a0f16de36d 100644
+--- a/src/suyu/CMakeLists.txt
++++ b/src/suyu/CMakeLists.txt
+@@ -382,7 +382,7 @@ elseif(WIN32)
+ endif()
+ 
+ target_link_libraries(suyu PRIVATE common core input_common frontend_common network video_core)
+-target_link_libraries(suyu PRIVATE Boost::headers glad Qt${QT_MAJOR_VERSION}::Widgets)
++target_link_libraries(suyu PRIVATE Boost::headers glad Qt${QT_MAJOR_VERSION}::Widgets Qt${QT_MAJOR_VERSION}::GuiPrivate)
+ target_link_libraries(suyu PRIVATE ${PLATFORM_LIBRARIES} Threads::Threads)
+ 
+ target_link_libraries(suyu PRIVATE Vulkan::Headers)
