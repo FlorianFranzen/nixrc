@@ -4,19 +4,14 @@
   programs.git = {
     enable = true;
 
-    userEmail = "Florian.Franzen@gmail.com";
-    userName = "Florian Franzen";
+    settings = {
+      user.email = "Florian.Franzen@gmail.com";
+      user.name = "Florian Franzen";
 
-    difftastic = {
-      enable = true;
-      background = lib.mkDefault "dark";
-    };
+      alias = {
+        lg = "log --graph --decorate --pretty=oneline --abbrev-commit";
+      };
 
-    aliases = {
-      lg = "log --graph --decorate --pretty=oneline --abbrev-commit";
-    };
-
-    extraConfig = {
       advice.skippedCherryPicks = false;
 
       bitbucket.user = "FlorianFranzen";
@@ -47,5 +42,11 @@
 
       status.submoduleSummary = true;
     };
+  };
+
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options.background = lib.mkDefault "dark";
   };
 }

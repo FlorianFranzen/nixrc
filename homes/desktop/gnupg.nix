@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.sequoia ];
+  home.packages = [ pkgs.sequoia-sq ];
 
   programs.gpg = {
     enable = true;    

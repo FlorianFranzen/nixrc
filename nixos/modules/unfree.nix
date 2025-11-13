@@ -46,4 +46,10 @@
     ];
 
   nixpkgs.config.input-fonts.acceptLicense = true;
+
+  # Needed by some barely maintained software
+  nixpkgs.config.permittedInsecurePackages = [
+    "jitsi-meet-1.0.8792"
+    "qtwebengine-5.15.19"
+  ];
 }

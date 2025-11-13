@@ -6,7 +6,7 @@
 
      element-desktop
      signal-desktop
-     tdesktop
+     telegram-desktop
      mumble
 
      offlineimap

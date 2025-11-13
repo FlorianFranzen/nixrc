@@ -25,13 +25,13 @@
 
     nixpkgs-fmt
     nixpkgs-review
+    
+    mesa-demos
 
-    glxinfo
-
-    gitAndTools.git-extras
-    gitAndTools.git-filter-repo
-    gitAndTools.git-gone
-    gitAndTools.git-ignore
+    git-extras
+    git-filter-repo
+    git-gone
+    git-ignore
     git-lfs
 
     github-cli
