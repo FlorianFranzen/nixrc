@@ -164,16 +164,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1740274749,
-        "narHash": "sha256-FOX+5Y/MWtudV1z5qcySgXQT1L2x/DEsp91sAslwW1s=",
+        "lastModified": 1763010552,
+        "narHash": "sha256-7nNWc8ReFV+Z4RM9DtIA1wUl/zB5DH/u2ML3Y7C7UOM=",
         "owner": "FlorianFranzen",
         "repo": "lanzaboote",
-        "rev": "c9ba161148a1d46d8b0972a9cb928d4260e82b4e",
+        "rev": "3ff1a0062eddd390898e0eeb0e62d581aaf29ef9",
         "type": "github"
       },
       "original": {
         "owner": "FlorianFranzen",
-        "ref": "v0.4.2-mirror",
+        "ref": "v0.4.3-mirror",
         "repo": "lanzaboote",
         "type": "github"
       }

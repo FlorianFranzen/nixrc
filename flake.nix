@@ -16,7 +16,7 @@
 
     # Secure boot support
     lanzaboote = {
-      url = "github:FlorianFranzen/lanzaboote/v0.4.2-mirror";
+      url = "github:FlorianFranzen/lanzaboote/v0.4.3-mirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
