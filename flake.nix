@@ -87,8 +87,8 @@
       # Turn firefox addons collection to overlay
       firefox-addons-overlay = (
         final: prev: {
-          buildFirefoxXpiAddon = firefox-addons.lib.${prev.system}.buildFirefoxXpiAddon;
-          firefox-addons = firefox-addons.packages.${prev.system};
+          buildFirefoxXpiAddon = firefox-addons.lib.${prev.stdenv.hostPlatform.system}.buildFirefoxXpiAddon;
+          firefox-addons = firefox-addons.packages.${prev.stdenv.hostPlatform.system};
         }
       );
 
