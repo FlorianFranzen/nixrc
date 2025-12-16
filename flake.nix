@@ -26,17 +26,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Additional kde config modules
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+    # Nixified doom emacs distribution
+    doom-emacs = {
+     url = "github:marienz/nix-doom-emacs-unstraightened";
+     inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Firefox Addons
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    # Additional kde config modules
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 
@@ -48,8 +54,9 @@
       hardware,
       lanzaboote,
       home-manager,
+      doom-emacs,
+      firefox-addons, 
       plasma-manager,
-      firefox-addons,
     }@inputs:
     let
 
@@ -57,10 +64,7 @@
       inherit (builtins)
         attrNames
         attrValues
-        filter
-        foldl'
         mapAttrs
-        isAttrs
         ;
 
       inherit (nixpkgs.lib)
@@ -138,6 +142,7 @@
 
       # All external and custom home modules
       homeModules = [
+        doom-emacs.homeModule
         plasma-manager.homeModules.plasma-manager
       ]
       ++ attrValues self.homeModules;

@@ -2,6 +2,6 @@
 
 {
   # Special wayland friendly version
-  programs.emacs.package = pkgs.emacs-pgtk;
+  programs.doom-emacs.emacs = pkgs.emacs-pgtk;
 }
 
