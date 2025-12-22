@@ -50,6 +50,12 @@ in {
   # input font but patched
   input-nerdfont = final.callPackage ./input-nerdfont.nix {};
 
+  # Trick version detection in home manger to create valid config
+  i3status-rust = prev.i3status-rust.overrideAttrs (old: {
+    version = "0.30.0-fake${old.version}";
+    __intentionallyOverridingVersion = true;
+  });
+
   # Patched to include git submodules
   nixSubmodule = callOverride ./nix-submodule.nix {};
 

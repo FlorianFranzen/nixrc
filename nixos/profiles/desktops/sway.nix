@@ -17,6 +17,7 @@
 
   # Some general packages to improve wayland
   environment.systemPackages = with pkgs; [
+    swaybg
     qt5.qtwayland
     qt6.qtwayland
     vulkan-validation-layers

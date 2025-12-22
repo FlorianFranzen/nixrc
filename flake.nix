@@ -14,35 +14,41 @@
     # Hardware profiles
     hardware.url = "github:NixOS/nixos-hardware";
 
-    # Secure boot support
-    lanzaboote = {
-      url = "github:FlorianFranzen/lanzaboote/v0.4.3-mirror";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Home management
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Secure boot support
+    lanzaboote = {
+      url = "github:FlorianFranzen/lanzaboote/v0.4.3-mirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Unstable wayland packages
+    wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nixified doom emacs distribution
     doom-emacs = {
-     url = "github:marienz/nix-doom-emacs-unstraightened";
-     inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Additional kde config modules
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     # Firefox Addons
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
-    # Additional kde config modules
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
   };
 
@@ -52,11 +58,12 @@
       haumea,
       nixpkgs,
       hardware,
-      lanzaboote,
       home-manager,
+      lanzaboote,
+      wayland,
       doom-emacs,
-      firefox-addons, 
       plasma-manager,
+      firefox-addons,
     }@inputs:
     let
 
@@ -81,6 +88,15 @@
         "x86_64-linux"
       ];
 
+      
+      # List inputs to be exported via registry and channels
+      exportedInputs = [
+        "self"
+        "nixpkgs"
+        "home-manager"
+        "wayland"
+      ];
+      
       # Main user name to use in system and home-manager outputs
       username = "florian";
 
@@ -94,6 +110,7 @@
 
       # Provide default list of overlays
       overlays = [
+        wayland.overlay
         firefox-addons-overlay
         self.overlays.default
       ];
@@ -252,7 +269,7 @@
                 nix.settings.nix-path = "nixpkgs=${inputs.nixpkgs}";
 
                 # Provide certain inputs via the registry
-                nix.registry = lib.genAttrs [ "self" "nixpkgs" "home-manager" ] (name: {
+                nix.registry = lib.genAttrs exportedInputs (name: {
                   flake = inputs.${name};
                 });
 
