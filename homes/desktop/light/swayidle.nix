@@ -19,8 +19,6 @@ in
       { timeout = 900; command = cmd_off; resumeCommand = cmd_on; }
     ];
 
-    events = [
-      { event = "before-sleep"; command = cmd_lock; }
-    ];
+    events.before-sleep = cmd_lock;
   };
 }
