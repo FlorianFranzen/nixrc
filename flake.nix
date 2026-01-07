@@ -88,7 +88,6 @@
         "x86_64-linux"
       ];
 
-      
       # List inputs to be exported via registry and channels
       exportedInputs = [
         "self"
@@ -96,7 +95,7 @@
         "home-manager"
         "wayland"
       ];
-      
+
       # Main user name to use in system and home-manager outputs
       username = "florian";
 
@@ -260,7 +259,9 @@
 
                 # Set flake based properties
                 networking.hostName = name;
-                system.configurationRevision = lib.mkIf (self ? rev) self.rev;
+                system.configurationRevision = lib.mkIf (self ? shortRev || self ? dirtyShortRev) (
+                  if self ? shortRev then self.shortRev else self.dirtyShortRev
+                );
 
                 # Provide backward compatibility
                 nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
