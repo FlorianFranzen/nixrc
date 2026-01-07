@@ -29,8 +29,11 @@
     };
   };
 
-  # Link desktop portal configs
-  environment.pathsToLink = [ "/share/xdg-desktop-portal" ];
+  # Link desktop portal configs and applications
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
 
   # Add bluetooth command line tooling
   environment.systemPackages = [ pkgs.bluez-tools ];

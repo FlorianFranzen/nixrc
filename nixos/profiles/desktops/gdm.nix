@@ -1,17 +1,9 @@
 { lib, ... }:
 
 {
-  services.xserver = {
-    # TODO: Make this work without X11
+  # Enable GDM display manager
+  services.displayManager.gdm = {
     enable = true;
-
-    # Enable GDM display manager
-    displayManager.gdm = {
-      enable = true;
-      autoSuspend = false;
-    };
+    autoSuspend = false;
   };
-
-  # Do not enable ask password with xserver
-  programs.ssh.enableAskPassword = lib.mkDefault false;
 }

@@ -5,7 +5,10 @@
   environment = {
     # Optimize necessary packages in system profile
     defaultPackages = with pkgs; [
-      git perl rsync strace
+      git
+      perl
+      rsync
+      strace
     ];
 
     # Link common completion files
@@ -40,12 +43,12 @@
       clock24 = true;
     };
 
-    vim = {
+    neovim = {
       defaultEditor = true;
       enable = true;
-      package = pkgs.neovim;
+      vimAlias = true;
     };
 
     zsh.enable = true;
   };
-}	
+}

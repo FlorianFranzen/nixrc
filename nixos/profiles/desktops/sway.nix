@@ -17,10 +17,12 @@
 
   # Some general packages to improve wayland
   environment.systemPackages = with pkgs; [
+    slurp
     swaybg
     qt5.qtwayland
     qt6.qtwayland
     vulkan-validation-layers
+    wofi
   ];
 
   # Add sway to supported sessions

@@ -16,6 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    helvum
     pulseaudio # for pactl
     pavucontrol
   ];

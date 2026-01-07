@@ -51,14 +51,10 @@
 
       shellAliases = {
         cat = "bat --plain";
-        vim = "nvim";
-
+        ekill = "emacsclient -e '(kill-emacs)'";
         flake = "nix flake";
-
         incognito = "unset HISTFILE && echo 'History has been disabled.'";
-
         nixos-env = "sudo nix-env -p /nix/var/nix/profiles/system";
-
         tree = "lsd --tree";
       };
 
