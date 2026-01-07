@@ -33,14 +33,16 @@
     # Shell config
     zsh = {
       enable = true;
+      enableCompletion = true;
 
       defaultKeymap = "viins";
 
+      # Set additional defaults
       localVariables = {
-        # Set additional defaults
         BROWSER = "firefox";
       };
 
+      # Configure theming
       initContent = ''
         # Load color scheme
         [[ -f ~/.cache/wal/sequences ]] && (cat ~/.cache/wal/sequences &)
@@ -49,6 +51,7 @@
         source ${./zsh.p10k.sh}
       '';
 
+      # Provide some additional aliases
       shellAliases = {
         cat = "bat --plain";
         ekill = "emacsclient -e '(kill-emacs)'";
@@ -60,8 +63,7 @@
 
       # Configure plugins
       autosuggestion.enable = true;
-      enableCompletion = true;
-      #enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
 
       oh-my-zsh = {
         enable = true;
