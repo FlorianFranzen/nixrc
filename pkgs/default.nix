@@ -38,9 +38,6 @@ in {
     noBrokenSymlinksHookInstalled = true;
   });
 
-  # Tiling engine for Kwin 6
-  krohnkite = final.callPackage ./krohnkite.nix {};
-
   # Battery monitor for Framework led input modules
   led-battery-monitor = final.callPackage ./led-battery-monitor.nix {};
 

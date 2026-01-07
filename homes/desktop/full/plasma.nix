@@ -6,7 +6,7 @@
 }:
 
 {
-  home.packages = [ pkgs.krohnkite ];
+  home.packages = [ pkgs.kdePackages.krohnkite ];
 
   programs.plasma = {
     enable = true;
