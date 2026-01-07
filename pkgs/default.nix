@@ -70,6 +70,7 @@ in {
   # Add radicle link
   radicle-link = final.callPackage ./radicle-link.nix {};
 
+  # Include some useful plugins in retroarch by default
   retroarch = prev.retroarch.override {
     cores = with final.libretro; [ mupen64plus dolphin ];
   };
