@@ -30,13 +30,15 @@
     easyeffects
     goverlay
     joycond
+    lutris
     mangohud
     mindustry
     ryubing
     superTuxKart
     suyu
     (warzone2100.override { withVideos = true; })
-    wineWowPackages.wayland
+    samba
+    wineWowPackages.waylandFull
     winetricks
   ];
 }
