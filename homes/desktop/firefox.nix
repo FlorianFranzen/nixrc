@@ -11,7 +11,6 @@
         browserpass
         kdePackages.plasma-browser-integration
         tridactyl-native
-        vdhcoapp
       ];
     };
 
