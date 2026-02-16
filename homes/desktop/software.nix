@@ -7,5 +7,6 @@
     librewolf
     ungoogled-chromium
     nextcloud-client
+    zed-editor-fhs
   ];
 }
