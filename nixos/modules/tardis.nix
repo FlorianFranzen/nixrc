@@ -31,7 +31,7 @@ in {
       options = [ "compress=zstd" "noatime" ];
     };
 
-    # Daily snapshot service wit environment.systemPackages = with pkgs;h optional external backup
+    # Daily snapshot service with optional external backup
     services.btrbk.instances.tardis-daily = {
       onCalendar = "daily";
 

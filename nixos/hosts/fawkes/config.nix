@@ -1,4 +1,4 @@
-{ config, pkgs, lib, profiles, homes, ... }:
+{ pkgs, profiles, homes, ... }:
 {
   imports = 
     (with profiles; [ corp gaming media mail office podman virtual ]) ++
@@ -35,7 +35,7 @@
     # Provide access to mainboard RGB controller
     SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="19af", TAG+="uaccess"
     # Provide access to gigabyte display
-    SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="1100", TAG+="uaccess"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="1100", MODE="0660", TAG+="uaccess"
   '';
 
   # Configure static lighting color with OpenRGB
@@ -59,6 +59,12 @@
   environment.systemPackages = [
     pkgs.cryptsetup
   ];
+
+  services.clamav = {
+    daemon.enable = true;
+    fangfrisch.enable = true;
+    updater.enable = true;
+  };
 
   # Set processor architecture
   nixpkgs.hostPlatform = "x86_64-linux";

@@ -15,7 +15,7 @@
     gimp
     inkscape
     ledger
-    calibre
+    #calibre
    ];
 
   environment.etc."aspell.conf".text = ''
@@ -24,4 +24,3 @@
     extra-dicts en_US-science.rws
   '';
 }
-

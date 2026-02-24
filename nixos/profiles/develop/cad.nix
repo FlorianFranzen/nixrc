@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Useful packages for "hardware" developement
   environment.systemPackages = with pkgs; [
-     openscad
+     #openscad
      librecad
-     freecad
+     #freecad
      kicad
   ];
 }
