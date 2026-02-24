@@ -16,4 +16,7 @@
 
   # Do not filter DHCP
   networking.firewall.checkReversePath = false;
+
+  # Give default users access to libvirtd
+  users.extraUsers.${username}.extraGroups = [ "libvirtd" ];
 }
