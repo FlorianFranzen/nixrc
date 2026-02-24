@@ -34,11 +34,11 @@
     mangohud
     mindustry
     ryubing
-    superTuxKart
+    supertuxkart
     suyu
     (warzone2100.override { withVideos = true; })
     samba
-    wineWowPackages.waylandFull
+    wineWow64Packages.waylandFull
     winetricks
   ];
 }

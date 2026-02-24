@@ -7,7 +7,7 @@
   # Enable wireshark and ui
   programs.wireshark = {
     enable = true;
-    package = pkgs.wireshark-qt;
+    package = pkgs.wireshark;
   };
 
   users.extraUsers.${username}.extraGroups = [ "wireshark" ];
