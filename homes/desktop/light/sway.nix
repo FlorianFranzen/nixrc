@@ -8,10 +8,11 @@ let
 
   browser = config.programs.firefox.package;
 
-  thunar = with pkgs; xfce.thunar.override { 
-    thunarPlugins = [
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
+  thunar = pkgs.thunar.override {
+    thunarPlugins = with pkgs; [
+      thunar-archive-plugin
+      thunar-vcs-plugin
+      thunar-volman
     ];
   };
  
