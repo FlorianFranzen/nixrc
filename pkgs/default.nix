@@ -24,6 +24,14 @@ in {
     cxadc = ksuper.callPackage ./cxadc.nix {};
   });
 
+  linuxPackages_latest = prev.linuxPackages_latest.extend (kself: ksuper: {
+    atlantic = ksuper.callPackage ./atlantic.nix {};
+  });
+
+  linuxPackages_zen = prev.linuxPackages_zen.extend (kself: ksuper: {
+    atlantic = ksuper.callPackage ./atlantic.nix {};
+  });
+
   # Printer driver to be upstreamed
   cups-brother-mfcl2710dw = prev.callPackage ./cups-brother-mfcl2710dw.nix {};
 

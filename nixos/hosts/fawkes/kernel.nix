@@ -5,8 +5,9 @@
     # Use current kernel for better compatibility
     kernelPackages = pkgs.linuxPackages_zen;
 
-    # Allow access to cpu power information
-    extraModulePackages = [ pkgs.linuxPackages_zen.zenergy ];
+    # zenergy: allow user-space access to cpu power info
+    # atlantic: out-of-tree AQtion 10G NIC driver
+    extraModulePackages = with config.boot.kernelPackages; [ zenergy atlantic ];
 
     # Blacklist false detections
     blacklistedKernelModules = [ "asus_nb_wmi" "eeepc_wmi" "cdc_acm" ];
