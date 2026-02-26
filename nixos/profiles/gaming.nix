@@ -33,6 +33,7 @@
     lutris
     mangohud
     mindustry
+    eden
     ryubing
     supertuxkart
     suyu

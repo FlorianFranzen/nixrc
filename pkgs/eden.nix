@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchgit
+, fetchurl
 , nix-update-script
 , wrapQtAppsHook
 , autoconf
@@ -10,15 +11,16 @@
 , compat-list
 , cpp-jwt
 , cubeb
-, discord-rpc
 , enet
 , ffmpeg_7-headless
 , fmt_10
+, gamemode
 , glslang
 , libopus
 , libusb1
 , libva
 , lz4
+, mbedtls
 , nlohmann_json
 , nv-codec-headers-12
 , nx_tzdb
@@ -29,28 +31,100 @@
 , qtwayland
 , qtwebengine
 , SDL2
+, spirv-headers
+, spirv-tools
 , vulkan-headers
 , vulkan-loader
+, vulkan-memory-allocator
 , vulkan-utility-libraries
 , xbyak
 , yasm
 , zlib
 , zstd
+, quazip
 , ...
 }:
-stdenv.mkDerivation(finalAttrs: {
+
+let
+  # Unpack a fetchurl tarball into a plain directory suitable for *_CUSTOM_DIR.
+  # SHA-512 hashes come directly from cpmfile.json (CPM verifies the same files).
+  unpackSrc = { name, src, patches ? [], nativeBuildInputs ? [] }:
+    stdenv.mkDerivation {
+      inherit name src patches nativeBuildInputs;
+      dontBuild = true;
+      dontConfigure = true;
+      installPhase = "cp -r . $out";
+    };
+
+  simpleini-src = unpackSrc {
+    name = "simpleini-4.25-src";
+    src = fetchurl {
+      url = "https://github.com/brofield/simpleini/archive/refs/tags/v4.25.tar.gz";
+      hash = "sha512-uTfBintid9d8p+v7IWr0mEgQ93r0wy0QG3aFNppL1ethQGIj+CaY4WfmMRpyjQdBWrWWOf3xnv9xrW3Cq/2piQ==";
+    };
+  };
+
+  frozen-src = unpackSrc {
+    name = "frozen-61dce5ae-src";
+    src = fetchurl {
+      url = "https://github.com/serge-sans-paille/frozen/archive/61dce5ae18.tar.gz";
+      hash = "sha512-uN/nQcgrwXjfyXSdSrWhMM7nGNnue3HZtUfPX38jAn7QFSrSUAEqhUY5n8weEhh+/GjYnWcxJWxNLffQTu+NXA==";
+    };
+  };
+
+  httplib-src = unpackSrc {
+    name = "httplib-0.30.1-src";
+    src = fetchurl {
+      url = "https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.30.1.tar.gz";
+      hash = "sha512-oiniTMpK/njlwKouSC8VEIrDQQH9jb2Sc2XxXow33sTeOMUnfWNQF9aSpbMg4bkp+L/MB29SuOTc2rj+U7/fLg==";
+    };
+  };
+
+  # Eden-specific discord-rpc fork with status_display_type API (not in nixpkgs 3.4.0)
+  discord-rpc-src = unpackSrc {
+    name = "discord-rpc-0d8b2d6a37-src";
+    src = fetchurl {
+      url = "https://github.com/eden-emulator/discord-rpc/archive/0d8b2d6a37.tar.gz";
+      hash = "sha512-ghPEPcsPfUefWGEJHREe0S+97B5i5tcp1lpLwYHYL0ijXV/TzVwpHyOTrHyWgeq8a3Zgl1X1U3YoTIqNZ+FI8w==";
+    };
+  };
+
+  # Release artifact — hash comes from the upstream .sha512sum sidecar file
+  sirit-src = unpackSrc {
+    name = "sirit-1.0.3-src";
+    nativeBuildInputs = [ zstd ];
+    src = fetchurl {
+      url = "https://github.com/eden-emulator/sirit/releases/download/v1.0.3/sirit-source-1.0.3.tar.zst";
+      hash = "sha512-PvuH+LMqd30UHieN874c2ZVk2kuulE9iZegLow0WMpHB/E/nFpHvFr91qLjglwhXMvihFLg9PQdaxSJZZDfZwg==";
+    };
+  };
+
+  # Sources requiring upstream patches that CPM would normally apply in-tree
+  unordered-dense-src = unpackSrc {
+    name = "unordered-dense-7b55cab8-src";
+    src = fetchurl {
+      url = "https://github.com/martinus/unordered_dense/archive/7b55cab841.tar.gz";
+      hash = "sha512-0hBvZkD2v7gXVeS4v7ZJguRuxKUHys2zj5QBIyEszzWiC0PHDG8B17+4wkbRoW94RdgFKXGUnOqd7xR14/oCyA==";
+    };
+  };
+
+  mcl-src = unpackSrc {
+    name = "mcl-7b08d834-src";
+    src = fetchurl {
+      url = "https://github.com/azahar-emu/mcl/archive/7b08d83418.tar.gz";
+      hash = "sha512-nGumJMsi72IveARqgqu5m/UCYoS6F9+sr0ashCy9Ow9RX1ukWhWYx2cTGKeKLmSNtyzo0Q51N/NOOYAL3LV2lA==";
+    };
+  };
+
+in stdenv.mkDerivation(finalAttrs: {
   pname = "eden";
-  version = "0.0.4";
+  version = "0.2.0-rc1";
 
   src = fetchgit {
     url = "https://git.eden-emu.dev/eden-emu/eden";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-z+YEb3VjRyzrOXfL25jGPzn7s24p0oJKcHBrU6yIOfE=";
+    hash = "sha256-6vUtNI4lqPffcCpctVv0tDfoqTShaUDGNPEOmfmnkbU=";
   };
-
-  #patches = [
-  #  ./suyu.GuiPrivate.patch
-  #];
 
   nativeBuildInputs = [
     cmake
@@ -70,7 +144,7 @@ stdenv.mkDerivation(finalAttrs: {
     catch2_3
     cpp-jwt
     cubeb
-    discord-rpc
+    # intentionally omitted: discord-rpc - provided via CPM custom dir (eden fork) below
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
 
@@ -84,22 +158,25 @@ stdenv.mkDerivation(finalAttrs: {
     # end ffmpeg deps
 
     fmt_10
-    # intentionally omitted: gamemode - loaded dynamically at runtime
-    # intentionally omitted: httplib - upstream requires an older version than what we have
+    # headers needed at compile time even though the lib is loaded dynamically at runtime
+    gamemode
+    # intentionally omitted: httplib - provided via CPM custom dir below
     libopus
     libusb1
     # intentionally omitted: LLVM - heavy, only used for stack traces in the debugger
     lz4
+    mbedtls
     nlohmann_json
     qtbase
     qtmultimedia
     qtwayland
     qtwebengine
+    quazip
     # intentionally omitted: renderdoc - heavy, developer only
     SDL2
-    # not packaged in nixpkgs: simpleini
-    # intentionally omitted: stb - header only libraries, vendor uses git snapshot
-    # not packaged in nixpkgs: vulkan-memory-allocator
+    spirv-headers
+    spirv-tools
+    vulkan-memory-allocator
     xbyak
     zlib
     zstd
@@ -111,25 +188,27 @@ stdenv.mkDerivation(finalAttrs: {
 
   cmakeFlags = [
     # actually has a noticeable performance impact
-    "-DYUZU_ENABLE_LTO=ON"
+    "-DENABLE_LTO=ON"
 
-    # disable cmake package manager
-    "-DCPM_LOCAL_PACKAGES_ONLY=ON"
+    # disable cmake package manager downloads; force system packages for all CPM deps
     "-DYUZU_USE_CPM=OFF"
+    "-DCPMUTIL_FORCE_SYSTEM=ON"
 
     # build with qt6
     "-DENABLE_QT6=ON"
     "-DENABLE_QT_TRANSLATION=ON"
 
-    # use system libraries
-    # NB: "external" here means "from the externals/ directory in the source",
-    # so "off" means "use system"
+    # use system libraries; "external" = vendored in externals/, so OFF = use system
     "-DYUZU_USE_EXTERNAL_SDL2=OFF"
     "-DYUZU_USE_EXTERNAL_VULKAN_HEADERS=OFF"
     "-DYUZU_USE_EXTERNAL_VULKAN_UTILITY_LIBRARIES=OFF"
 
-    # # don't use system ffmpeg, suyu uses internal APIs
-    # "-DYUZU_USE_BUNDLED_FFMPEG=ON"
+    # explicitly disable all bundled (download) options
+    "-DYUZU_USE_BUNDLED_QT=OFF"
+    "-DYUZU_USE_BUNDLED_FFMPEG=OFF"
+    "-DYUZU_USE_BUNDLED_SDL2=OFF"
+    "-DYUZU_USE_BUNDLED_OPENSSL=OFF"
+    "-DYUZU_USE_BUNDLED_SIRIT=OFF"
 
     # don't check for missing submodules
     "-DYUZU_CHECK_SUBMODULES=OFF"
@@ -145,6 +224,19 @@ stdenv.mkDerivation(finalAttrs: {
 
     # Fix cmake compatibility error
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+
+    # provide pre-downloaded timezone database; DOWNLOAD_TIME_ZONE_DATA=ON (default)
+    # skips the build-from-source path; TZDB_PATH overrides the CPM download path
+    "-DYUZU_TZDB_PATH=${nx_tzdb}"
+
+    # pre-fetched sources for CPM packages not available in nixpkgs
+    # (patch-free sources: CPM has no patches for these)
+    "-DDiscordRPC_CUSTOM_DIR=${discord-rpc-src}"
+    "-DSimpleIni_CUSTOM_DIR=${simpleini-src}"
+    "-Dfrozen_CUSTOM_DIR=${frozen-src}"
+    "-Dsirit_CUSTOM_DIR=${sirit-src}"
+    # httplib, unordered_dense, mcl have CPM-managed patches; set via preConfigure
+    # after copying to a writable staging area so patch(1) can write temp files
   ];
 
   # Does some handrolled SIMD
@@ -163,34 +255,43 @@ stdenv.mkDerivation(finalAttrs: {
       "-DTITLE_BAR_FORMAT_RUNNING=${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) | {}"
     )
 
-    # provide pre-downloaded tz data
-    mkdir -p build/externals/nx_tzdb
-    ln -s ${nx_tzdb} build/externals/nx_tzdb/nx_tzdb
+    # CPM applies cpmfile.json patches to _CUSTOM_DIR sources in-place via
+    # FetchContent PATCH_COMMAND.  Nix store paths are read-only, so copy the
+    # affected sources to a writable staging area and point CPM there instead.
+    mkdir -p "$NIX_BUILD_TOP/cpm-sources"
+    cp -r ${httplib-src}        "$NIX_BUILD_TOP/cpm-sources/httplib"
+    cp -r ${unordered-dense-src} "$NIX_BUILD_TOP/cpm-sources/unordered-dense"
+    cp -r ${mcl-src}            "$NIX_BUILD_TOP/cpm-sources/mcl"
+    chmod -R u+w "$NIX_BUILD_TOP/cpm-sources"
+    cmakeFlagsArray+=(
+      "-Dhttplib_CUSTOM_DIR=$NIX_BUILD_TOP/cpm-sources/httplib"
+      "-Dunordered_dense_CUSTOM_DIR=$NIX_BUILD_TOP/cpm-sources/unordered-dense"
+      "-Dmcl_CUSTOM_DIR=$NIX_BUILD_TOP/cpm-sources/mcl"
+    )
   '';
 
   postConfigure = ''
     ln -sf ${compat-list} ./dist/compatibility_list/compatibility_list.json
   '';
 
-
   postInstall = "
-    install -Dm444 $src/dist/72-suyu-input.rules $out/lib/udev/rules.d/72-suyu-input.rules
+    install -Dm444 $src/dist/72-yuzu-input.rules $out/lib/udev/rules.d/72-eden-input.rules
   ";
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex" "mainline-0-(.*)" ];
+    extraArgs = [ "--version-regex" "v(.*)" ];
   };
 
   meta = with lib; {
-    homepage = "https://suyu.dev";
-    changelog = "https://suyu.dev/blog";
-    description = "An experimental Nintendo Switch emulator written in C++";
+    homepage = "https://eden-emu.dev";
+    changelog = "https://git.eden-emu.dev/eden-emu/eden/releases";
+    description = "An experimental Nintendo Switch emulator forked from yuzu";
     longDescription = ''
-      An experimental Nintendo Switch emulator written in C++.
-      Using the master/ branch is recommended for general usage.
-      Using the dev branch is recommended if you would like to try out experimental features, with a cost of stability.
+      Eden is an experimental Nintendo Switch emulator written in C++,
+      forked from yuzu. It aims to provide accurate emulation with
+      active development and community support.
     '';
-    mainProgram = "suyu";
+    mainProgram = "eden";
     platforms = [ "aarch64-linux" "x86_64-linux" ];
     license = with licenses; [
       gpl3Plus
