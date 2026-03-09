@@ -135,6 +135,16 @@
       };
 
       # Application launch shortcuts
+      "services/firefox.desktop" = {
+        new-private-window = "Meta+Shift+Backspace";
+        new-window = "Meta+Backspace";
+        profile-manager-window = "Meta+Alt+Backspace";
+      };
+      "services/chromium-browser.desktop".new-window = "Meta+Ctrl+Backspace";
+
+      "services/footclient.desktop"._launch = "Meta+Return";
+      "services/dev.zed.Zed.desktop".NewWorkspace = "Meta+Ctrl+Return";
+
       "services/org.kde.dolphin.desktop"."_launch" = "Meta+Del";
       "services/org.kde.krunner.desktop"."_launch" = "Meta+D";
     };
