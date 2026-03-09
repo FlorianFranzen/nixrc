@@ -1,26 +1,6 @@
-{ lib
-, sway
-, sway-unwrapped
-, wlroots_0_18
-, withNvidia ? false 
-}:
+{ sway }:
 
-let
-  # Patched wlroots and sway to emulate explicit sync
-  sway-unwrapped-nvidia = sway-unwrapped.override { 
-    wlroots = wlroots_0_18.overrideAttrs (old: {
-      patches = old.patches ++ [
-        ./wlroots.nvidia.patch
-      ];
-    });
-  };
-in sway.override {
-  # Allow override unwrapped binary
-  sway-unwrapped = if withNvidia then sway-unwrapped-nvidia else sway-unwrapped;
-
-  # Enable nvidia support
-  extraOptions = lib.optional withNvidia "--unsupported-gpu";
-
+sway.override {
   # Set some sane default environment variables
   extraSessionCommands = ''
     # Enable wayland backend of most apps
@@ -66,17 +46,9 @@ in sway.override {
 
     # Set some default dirs
     export XDG_SCREENSHOTS_DIR=$HOME/Screenshots
-  '' + lib.optionalString (! withNvidia) ''
 
     # Force use of vulkan backend
     export WLR_RENDERER=vulkan
-  '' + lib.optionalString withNvidia ''
-
-    # Use nvidia backends
-    export GBM_BACKEND=nvidia-drm
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export LIBVA_DRIVER_NAME=nvidia
-    export WLR_NO_HARDWARE_CURSORS=1
   '';
 
   withBaseWrapper = true;

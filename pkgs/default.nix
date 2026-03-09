@@ -93,8 +93,6 @@ in {
   # Provide a more complete sway environment
   sway = callOverride ./sway.nix {};
 
-  sway-nvidia = callOverride ./sway.nix { withNvidia = true; };
-
   # Add swayest workstyle
   sworkstyle = final.callPackage ./sworkstyle.nix {};
 
