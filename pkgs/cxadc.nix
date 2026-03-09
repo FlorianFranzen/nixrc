@@ -10,13 +10,13 @@ let
   modPath = "misc"; 
 in stdenv.mkDerivation rec {
   name = "${modName}-${version}-module-${kernel.modDirVersion}";
-  version = "2024-11-19";
+  version = "2026-01-15";
 
   src = fetchFromGitHub {
     owner = "happycube";
     repo = "cxadc-linux3";
-    rev = "6ffc17cfb504b8d71da6fa84891e706558af3d40";
-    hash = "sha256-9k5uiRdhTdZs+SqluvefJL9z+9t+KjpPyZQTcv0ko3E=";
+    rev = "c6f3b23e431cdda2e939d73008e643b54bda56b7";
+    hash = "sha256-6icpVYvRM+N7DG68wDCPxZ57bDLIp03bn1CEUIUlHa4=";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
@@ -25,8 +25,6 @@ in stdenv.mkDerivation rec {
     substituteInPlace Makefile \
       --replace "/lib/modules" "${kernel.dev}/lib/modules"
   '';
-
-  makeFlags = kernel.makeFlags;
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/${modPath}
