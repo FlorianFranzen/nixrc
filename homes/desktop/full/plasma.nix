@@ -68,7 +68,10 @@
       };
 
       # Enable compose key
-      kxkbrc.Layout.Options = "compose:ralt";
+      kxkbrc.Layout = {
+        Options = "compose:ralt";
+        ResetOldOptions = true;
+      };
 
       # Use proper locals
       plasma-localerc.Formats.LANG = "en_US.UTF-8";
