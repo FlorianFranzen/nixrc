@@ -135,9 +135,21 @@
         in
         genAttrs supportedSystems (system: genAttrs names (name: pkgs.${system}.${name}));
 
-      # Import all nixos profiles, modules and host configs as paths
-      nixos = haumea.lib.load {
-        src = ./nixos;
+      # Import all nixos host configs as paths
+      hosts = haumea.lib.load {
+        src = ./hosts;
+        loader = haumea.lib.loaders.path;
+      };
+
+      # Import all custom nixos modules
+      nixosModules = haumea.lib.load {
+        src = ./modules;
+        loader = haumea.lib.loaders.path;
+      };
+
+      # Import all nixos profiles
+      nixosProfiles = haumea.lib.load {
+        src = ./profiles;
         loader = haumea.lib.loaders.path;
       };
 
@@ -235,11 +247,8 @@
 
     in
     {
-      # All nix files under nixos/modules
-      nixosModules = nixos.modules;
-
-      # All nix files under nixos/profiles
-      nixosProfiles = nixos.profiles;
+      # All nix files under modules and profiles
+      inherit nixosModules nixosProfiles;
 
       # For each set of modules under nixos/hosts/<hostname>
       nixosConfigurations = mapAttrs (
@@ -311,7 +320,7 @@
             inherit username;
           };
         }
-      ) nixos.hosts;
+      ) hosts;
 
       # All nix files under homes/modules
       homeModules = homes.modules;
