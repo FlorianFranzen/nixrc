@@ -9,11 +9,12 @@
 
       # Desktop and Window management
       kwin = {
-        # Alerting and overviews
+        # Alerting and expose overviews
         "Activate Window Demanding Attention" = "Meta+S";
 
-        ExposeClass = "Meta+G";
-        ExposeAll = "Meta+Shift+G";
+        Expose = "Meta+G";
+        ExposeAll = "Meta+Ctrl+G";
+        ExposeClass = "Meta+Shift+G";
 
         # Opacity controls
         "Decrease Opacity" = "Meta+[";
@@ -135,15 +136,20 @@
       };
 
       # Application launch shortcuts
+      "services/chromium-browser.desktop".new-window = "Meta+Ctrl+Backspace";
+
+      "services/dev.zed.Zed.desktop".NewWorkspace = "Meta+Ctrl+Return";
+
+      "services/emacs.desktop"._launch = "Meta+Shift+Return";
+      "services/emacsclient.desktop".new-window = "Meta+Alt+Return";
+
       "services/firefox.desktop" = {
         new-private-window = "Meta+Shift+Backspace";
         new-window = "Meta+Backspace";
         profile-manager-window = "Meta+Alt+Backspace";
       };
-      "services/chromium-browser.desktop".new-window = "Meta+Ctrl+Backspace";
 
       "services/footclient.desktop"._launch = "Meta+Return";
-      "services/dev.zed.Zed.desktop".NewWorkspace = "Meta+Ctrl+Return";
 
       "services/org.kde.dolphin.desktop"."_launch" = "Meta+Del";
       "services/org.kde.krunner.desktop"."_launch" = "Meta+D";

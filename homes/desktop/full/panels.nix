@@ -1,15 +1,19 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.kdePackages.applet-window-buttons6 ];
-
   programs.plasma.panels = [
     {
       alignment = "center";
       floating = true;
-      height = 64;
+      height = 60;
+      lengthMode = "custom";
       location = "top";
       extraSettings = ''
+        const width = screenGeometry(panel.screen).width - 40;
+        panel.width = width;
+        panel.minimumLength = width;
+        panel.maximumLength = width;
+
         var titles = panel.widgets("org.kde.windowtitle");
         for(var i = 0; i < titles.length; i++) {
           var w = titles[i];
@@ -18,6 +22,7 @@
           w.writeConfig("fontSize", 16);
           w.writeConfig("isBold", true);
         }
+
         var pagers = panel.widgets("org.kde.plasma.pager");
         for(var i = 0; i < pagers.length; i++) {
           var w = pagers[i];
@@ -25,6 +30,7 @@
           w.writeConfig("displayText", "Number");
           w.writeConfig("showWindowIcons", true);
         }
+
         var activities = panel.widgets("org.kde.plasma.activitypager");
         for(var i = 0; i < activities.length; i++) {
           var w = activities[i];
@@ -33,6 +39,7 @@
           w.writeConfig("pagerLayout", "Horizontal");
           w.writeConfig("showWindowIcons", true);
         }
+
         var clocks = panel.widgets("org.kde.plasma.digitalclock");
         for(var i = 0; i < clocks.length; i++) {
           var w = clocks[i];
@@ -41,6 +48,8 @@
           w.writeConfig("firstDayOfWeek", 1);
           w.writeConfig("use24hFormat", 2);
         }
+
+        panel.reloadConfig();
       '';
       widgets = [
         "org.kde.plasma.pager"
