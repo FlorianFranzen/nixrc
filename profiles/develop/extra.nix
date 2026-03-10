@@ -54,7 +54,7 @@
     encfs
     ntfs3g
 
-    neofetch
+    fastfetch
 
     nmap
 

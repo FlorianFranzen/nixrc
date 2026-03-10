@@ -16,7 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    helvum
+    crosspipe
     pulseaudio # for pactl
     pavucontrol
   ];
