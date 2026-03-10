@@ -20,13 +20,16 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  
+
   preBuild = ''
     substituteInPlace Makefile \
       --replace "/lib/modules" "${kernel.dev}/lib/modules"
   '';
 
   installPhase = ''
+    mkdir -p $out/bin
+    cp ./leveladj ./levelmon $out/bin
+
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/${modPath}
     cp ./${modName}.ko $out/lib/modules/${kernel.modDirVersion}/${modPath}
 
