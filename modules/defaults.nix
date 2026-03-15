@@ -9,15 +9,16 @@
 
   # Enable SSH login via key by default
   services.openssh.enable = lib.mkDefault true;
+  services.openssh.settings.KbdInteractiveAuthentication = lib.mkDefault false;
   services.openssh.settings.PasswordAuthentication = lib.mkDefault false;
+  services.openssh.settings.PermitRootLogin = lib.mkDefault "no";
 
   # Only allow nix managed keys (local or remote)
   services.openssh.authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
 
   # Allow key-based auth (local and via ssh)
-  security.pam.sshAgentAuth = {
-    enable = lib.mkDefault true;
-  };
+  security.pam.rssh.enable = lib.mkDefault true;
+  security.pam.services.sudo.rssh = true;
 
   # Enable time synchronization
   services.timesyncd.enable = lib.mkDefault true;
