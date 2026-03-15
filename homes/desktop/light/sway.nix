@@ -157,8 +157,8 @@ in {
         "--locked ${cfg.modifier}+XF86AudioNext" = "${exec' pkgs.playerctl "playerctld"} shift";
 
         # Screen brightness controls
-        "--locked XF86MonBrightnessUp"   = "${exec pkgs.light} -A 10";
-        "--locked XF86MonBrightnessDown" = "${exec pkgs.light} -U 10";
+        "--locked XF86MonBrightnessUp"   = "${exec pkgs.brightnessctl} s +10%";
+        "--locked XF86MonBrightnessDown" = "${exec pkgs.brightnessctl} s 10%-";
       };
 
       modes = lib.mkOptionDefault {
