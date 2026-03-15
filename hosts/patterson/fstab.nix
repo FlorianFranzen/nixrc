@@ -3,14 +3,33 @@
 {
   # Root filesystem, boot and swap on NVME
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/61032b39-177e-48d6-b708-6f4f01b598d0";
-      fsType = "ext4";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/A11E-17EB";
+      fsType = "vfat";
     };
 
-    "/boot" = {
-      device = "/dev/disk/by-uuid/3599-BE57";
-      fsType = "vfat";
+    "/" = {
+      device = "/dev/disk/by-uuid/d439c801-650c-4e46-898e-ffeb99e96239";
+      fsType = "btrfs";
+      options = [ "subvol=@" "compress=zstd" "noatime" ];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/d439c801-650c-4e46-898e-ffeb99e96239";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" ];
+    };
+
+    "/nix" = {
+      device = "/dev/disk/by-uuid/d439c801-650c-4e46-898e-ffeb99e96239";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
+    };
+
+    "/var/lib/teddycloud" = {
+      device = "/dev/disk/by-uuid/d439c801-650c-4e46-898e-ffeb99e96239";
+      fsType = "btrfs";
+      options = [ "subvol=@teddycloud" "compress=zstd" "noatime" ];
     };
   };
 
