@@ -1,9 +1,10 @@
-{ config, pkgs, lib, profiles, homes, ... }:
+{ config, pkgs, profiles, homes, ... }:
 
 {
   imports = (with profiles.develop; [ minimal cross linux ])
          ++ (with profiles.hardware; [ 
-           common-cpu-intel common-gpu-intel
+           common-cpu-intel
+           common-gpu-intel
            common-gpu-nvidia-kepler
            common-pc-ssd
          ]);
@@ -19,23 +20,7 @@
   # Install terminal environment
   home-manager.users.florian = homes.terminal-pop;
  
-  boot = {
-    # Load driver to support CX ADC cards
-    extraModulePackages = [ pkgs.linuxPackages.cxadc ];
-
-    kernelModules = [ "cxadc" ]; 
-
-    # Enable ZFS support
-    supportedFilesystems = [ "zfs" ];
-
-    # Use the systemd-boot EFI boot loader.
-    loader.systemd-boot.enable = true;
-  };
-
-  # Enable Wake on LAN
-  networking.interfaces.enp3s0.wakeOnLan.enable = true;
-
-  # Allow susped via power button
+  # Allow suspend via power button
   services.logind.settings.Login.HandlePowerKey = "suspend";
 
   # Set processor architecture
