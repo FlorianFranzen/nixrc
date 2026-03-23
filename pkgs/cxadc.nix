@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp ./leveladj ./levelmon $out/bin
+    cp ./leveladj ./levelmon ./utils/cx* $out/bin
 
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/${modPath}
     cp ./${modName}.ko $out/lib/modules/${kernel.modDirVersion}/${modPath}
