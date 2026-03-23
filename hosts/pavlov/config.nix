@@ -19,7 +19,13 @@
 
   # Install terminal environment
   home-manager.users.florian = homes.terminal-pop;
- 
+
+  # Install cxadc cli tools and flac compression
+  environment.systemPackages = [ pkgs.linuxPackages.cxadc pkgs.flac ];
+
+  environment.etc."modprobe.d/cxadc.conf".source =
+      "${config.boot.kernelPackages.cxadc}/lib/modprobe.d/cxadc.conf";
+
   # Allow suspend via power button
   services.logind.settings.Login.HandlePowerKey = "suspend";
 
