@@ -5,11 +5,11 @@
     # Configure default gateway
     defaultGateway = {
       address = "10.64.2.254";
-      interface = "enp3s0";
+      interface = "enp4s0";
     };
 
     # Configure main ethernet interface
-    interfaces.enp3s0 = {
+    interfaces.enp4s0 = {
       ipv4.addresses = [{
         address = "10.64.2.10";
         prefixLength = 24;
