@@ -15,9 +15,12 @@ in {
   environment.etc."modprobe.d/cxadc.conf".source = "${kernelPkgs.cxadc}/lib/modprobe.d/cxadc.conf";
 
   # Install included cli tools and other needed packages
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     kernelPkgs.cxadc
-    pkgs.flac
+    ffmpeg-headless
+    flac
+    pv
+    sox
   ];
 
   # Enable alsa integration for clockgen mod
