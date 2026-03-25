@@ -237,6 +237,9 @@ in {
       bindgesture pinch:outward fullscreen enable
     '';
 
+    # Provide additional env vars to systemd
+    systemd.variables = lib.mkOptionDefault [ "XDG_SESSION_ID" ];
+
     # Match base system dbus implementation
     systemd.dbusImplementation = "broker";
   };
