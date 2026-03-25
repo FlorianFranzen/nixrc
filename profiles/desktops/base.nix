@@ -1,5 +1,5 @@
 # Base config to run a desktop environment
-{ pkgs, username, ... }:
+{ lib, pkgs, username, ... }:
 
 {
   # Enable ntfs support
@@ -37,6 +37,9 @@
 
   # Add bluetooth command line tooling
   environment.systemPackages = [ pkgs.bluez-tools ];
+
+  # Use more reliable dbus implementation by default
+  services.dbus.implementation = lib.mkDefault "broker";
 
   # Fix DNS resolution in browsers
   networking.resolvconf.dnsExtensionMechanism = false;

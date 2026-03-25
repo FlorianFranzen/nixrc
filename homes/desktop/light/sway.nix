@@ -236,5 +236,8 @@ in {
       bindgesture pinch:inward fullscreen disable
       bindgesture pinch:outward fullscreen enable
     '';
+
+    # Match base system dbus implementation
+    systemd.dbusImplementation = "broker";
   };
 }
