@@ -8,6 +8,11 @@
       interface = "eth0";
     };
 
+    defaultGateway6 = {
+      address = "fd64:0:0:2::fffe";
+      interface = "eth0";
+    };
+
     # Configure main ethernet interface
     interfaces.eth0 = {
       ipv4.addresses = [{
@@ -15,11 +20,16 @@
         prefixLength = 24;
       }];
 
+      ipv6.addresses = [{
+        address = "fd64:0:0:2::a";
+        prefixLength = 64;
+      }];
+
       wakeOnLan.enable = true;
     };
 
     # Configure default nameserver
-    nameservers = [ "10.64.2.254" ];
+    nameservers = [ "10.64.2.254" "fd64:0:0:2::fffe" ];
 
     # Disable default DHCP
     useDHCP = false;
