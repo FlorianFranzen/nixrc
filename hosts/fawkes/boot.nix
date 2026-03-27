@@ -10,7 +10,7 @@
 
     # Write copy of boot loader to second ssd of mirror
     mirroredBoots = [{
-      devices = [ "/dev/disk/by-uuid/19E4-40FD" ];
+      devices = [ "/dev/disk/by-uuid/4F0A-FB18" ];
       path = "/boot-mirror"; 
     }];
   };

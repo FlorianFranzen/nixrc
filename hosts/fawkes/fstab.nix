@@ -127,7 +127,7 @@
 
   # Mirrored UEFI boot partitions
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/18C3-DE52";
+    device = "/dev/disk/by-uuid/C39C-D5FE";
     fsType = "vfat";
   };
 
@@ -163,7 +163,7 @@
 
   # One swap partition per drive
   swapDevices = [
-    { device = "/dev/disk/by-uuid/adbaba96-3f04-45d3-ad7a-82ab8af0f863"; }
+    { device = "/dev/disk/by-uuid/ca722c11-e2c6-4c56-9b36-e05e1c54abdc"; }
     { device = "/dev/disk/by-uuid/628cf232-00fb-45a6-9e3f-4556ba4e7524"; }
   ];
 }
