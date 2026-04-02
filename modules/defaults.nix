@@ -7,6 +7,9 @@
     lib.substring 0 8 (builtins.hashString "md5" config.networking.hostName)
   ));
 
+  # Use x86 64-bit architecture by default
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
   # Enable SSH login via key by default
   services.openssh.enable = lib.mkDefault true;
   services.openssh.settings.KbdInteractiveAuthentication = lib.mkDefault false;
@@ -22,6 +25,9 @@
 
   # Enable time synchronization
   services.timesyncd.enable = lib.mkDefault true;
+
+  # Keep default system state version in sync
+  system.stateVersion = lib.mkDefault "25.11";
 
   # Set default your time zone.
   time.timeZone = lib.mkDefault "Europe/Zurich";

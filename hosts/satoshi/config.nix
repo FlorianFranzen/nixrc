@@ -44,10 +44,4 @@
   nixpkgs.overlays = [
     (self: super: { bumblebee = super.bumblebee_amd; })
   ];
-
-  # Set processor architecture
-  nixpkgs.hostPlatform = "x86_64-linux";
-
-  # Set current state version
-  system.stateVersion = "24.11";
 }

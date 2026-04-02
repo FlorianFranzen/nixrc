@@ -53,10 +53,4 @@ in {
 
   # Don't allow emergency mode, because we don't have a console.
   systemd.enableEmergencyMode = false;
-
-  # Set processor architecture
-  nixpkgs.hostPlatform = "x86_64-linux";
-
-  # Set current state version
-  system.stateVersion = "22.11";
 }

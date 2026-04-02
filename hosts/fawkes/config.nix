@@ -65,10 +65,4 @@
     fangfrisch.enable = true;
     updater.enable = true;
   };
-
-  # Set processor architecture
-  nixpkgs.hostPlatform = "x86_64-linux";
-
-  # Current state version
-  system.stateVersion = "24.11";
 }

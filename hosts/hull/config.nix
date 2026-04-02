@@ -62,11 +62,5 @@
       };
     };
   };
-
-  # Set processor architecture
-  nixpkgs.hostPlatform = "x86_64-linux";
-
-  # Current state version
-  system.stateVersion = "22.11";
 }
 

@@ -11,8 +11,5 @@
 
   # Set processor architecture
   nixpkgs.hostPlatform = "aarch64-linux";
-
-  # Current state version
-  system.stateVersion = "25.11";
 }
 
