@@ -176,9 +176,11 @@
       ++ attrValues self.homeModules;
 
       # Helpers to parse home directory structure:
-      #  - homes/terminal  default base config
-      #  - homes/desktop   default desktop environment
-      #  - homes/variants  variants, themes, special environments
+      #  - homes/terminal       default base config
+      #  - homes/desktop        base desktop environment
+      #  - homes/desktop/light  light desktop environment
+      #  - homes/desktop/full   full desktop environment
+      #  - homes/variants       variants, themes, special environments
       homeVariants =
         let
           # Create a module for specified username and imports
@@ -203,14 +205,13 @@
             value = mkModule (terminal-modules ++ [ config ]);
           }) homes.variants;
 
-          # Fancier config for full desktop environment
+          # Split into base, light and full config files
           desktop-base = attrValues (filterAttrs (n: _: n != "light" && n != "full") homes.desktop);
 
-          # Split into base, light and full
           desktop-light = attrValues homes.desktop.light;
           desktop-full = attrValues homes.desktop.full;
 
-          # Combine base either light or full for complete config
+          # Combine base with either light or full for complete config
           desktops-light = mapAttrs' (name: config: {
             name = "desktop-light-${name}";
             value = mkModule (terminal-modules ++ desktop-base ++ desktop-light ++ [ config ]);
