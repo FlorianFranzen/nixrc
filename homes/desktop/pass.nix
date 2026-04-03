@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ pwgen xkcdpass zbar ];
+  home.packages = with pkgs; [ pwgen wofi-pass xkcdpass zbar ];
 
   programs = {
     password-store = {
@@ -13,7 +13,9 @@
         exts.pass-update
       ]);
       settings = { 
+        PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
         PASSWORD_STORE_GENERATED_LENGTH = "32";
+        PASS_FIELD_USERNAME = "login";
       };
     };
 
@@ -21,5 +23,10 @@
       enable = true;
       browsers = [ "chromium" "firefox" ];
     };
+  };
+
+  services.pass-secret-service = {
+    enable = true;
+    storePath = "${config.xdg.dataHome}/password-store";
   };
 }
