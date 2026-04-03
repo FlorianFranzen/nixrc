@@ -149,7 +149,7 @@
         profile-manager-window = "Meta+Alt+Backspace";
       };
 
-      "services/footclient.desktop"._launch = "Meta+Return";
+      "services/com.mitchellh.ghostty.desktop".new-window = "Meta+Return";
 
       "services/org.kde.dolphin.desktop"."_launch" = "Meta+Del";
       "services/org.kde.krunner.desktop"."_launch" = "Meta+D";

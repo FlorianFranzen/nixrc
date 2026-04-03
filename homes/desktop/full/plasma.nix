@@ -45,8 +45,8 @@
 
       # Define default applications
       kdeglobals.General = {
-        TerminalApplication = "foot";
-        TerminalService = "org.codeberg.dnkl.foot.desktop";
+        TerminalApplication = "${pkgs.ghostty}/bin/ghostty +new-window"; 
+        TerminalService = "com.mitchellh.ghostty.desktop";
       };
 
       # Disable session restore

@@ -44,6 +44,9 @@ in
 
   programs.foot.settings.main.font = "${iconFont}:size=${toString size}";
 
+  programs.ghostty.settings.font-family = iconFont;
+  programs.ghostty.settings.font-size = size;
+
   programs.plasma.fonts = {
     fixedWidth = {
       family = monoFont;
