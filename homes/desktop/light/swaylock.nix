@@ -10,7 +10,6 @@
       indicator-radius = 100;
       indicator-thickness = 5;
 
-      ignore-empty-password = true;
       indicator-caps-lock = true;
 
       screenshots = true;

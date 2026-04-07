@@ -83,6 +83,9 @@ in {
         outer = 0;
       };
 
+      floating.titlebar = false;
+      window.titlebar = false;
+
       # Basic keybindings
       modifier = "Mod4";
 
@@ -193,6 +196,19 @@ in {
         };
       };
 
+      # Configure switch bindings
+      bindswitches = {
+        "lid:on" = {
+          action = "output eDP-1 disable";
+          locked = true;
+        };
+        "lid:off" = {
+          action = "output eDP-1 enable";
+          locked = true;
+        };
+      };
+
+
       # Add i3status-based top and bottom bars
       bars = [
         {
@@ -223,10 +239,8 @@ in {
       ];
     };
 
+    # Configure gesture bindings
     extraConfig = ''
-      bindswitch --locked lid:on output eDP-2 disable
-      bindswitch --locked lid:off output eDP-2 enable
-
       bindgesture swipe:right workspace prev
       bindgesture swipe:left workspace next
 
