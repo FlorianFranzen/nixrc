@@ -49,7 +49,7 @@
       bind = SUPER_SHIFT, Q, exec, ${pkgs.wlogout}/bin/wlogout
 
       # Application keybindings
-      bind = SUPER, Return, exec, ${pkgs.foot}/bin/foot
+      bind = SUPER, Return, exec, ${pkgs.foot}/bin/footclient
 
       bind = SUPER, Backspace, exec, ${pkgs.firefox}/bin/firefox
       bind = SUPER_SHIFT, Backspace, exec, ${pkgs.firefox}/bin/firefox --private-window

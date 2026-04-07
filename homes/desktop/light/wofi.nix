@@ -9,7 +9,7 @@
       image_size = 32;
       matching = "multi-contains";
       insensitive = true;
-      term = "foot";
+      term = "footclient";
     };
 
     style = ''
