@@ -10,13 +10,13 @@
 }:
 
 let
-  version = "0.6.7";
+  version = "0.6.8";
   
   src = fetchFromGitHub {
     owner = "toniebox-reverse-engineering";
     repo = "teddycloud";
     rev = "tc_v${version}";
-    hash = "sha256-D3UtHf2pdHT3oIiEXsXHCJZOOgBmzcockPhiONq4pZA=";
+    hash = "sha256-elY4hUKCQthEZBNkZ/2FRIYKHpN+sj79q+iebfG2auA=";
     fetchSubmodules = true;
   };
 
@@ -26,7 +26,7 @@ let
     pname = "teddycloud-web";
     inherit version src;
     sourceRoot = "source/teddycloud_web";
-    npmDepsHash = "sha256-BsfmxSxCLKjOy3fIAoxa/ZGOLGnkrfNEQjXLA84JIE4=";
+    npmDepsHash = "sha256-7DigeYP/JpK0pX2psWA23QKWCdpVqoxaV/UXq2bqFL8=";
   };
 
 in stdenv.mkDerivation {
