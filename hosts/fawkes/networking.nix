@@ -15,6 +15,9 @@
           { Gateway = "fd64::fffe"; Metric = 10; }
 	];
         dns = [ "10.64.0.254" "fd64::fffe" ];
+
+        # Buggy, so not always connected
+        linkConfig.RequiredForOnline = "no";
       };
       # Main 2.5G interface
       "20-eno1" = {
