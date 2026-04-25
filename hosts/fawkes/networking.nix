@@ -32,6 +32,9 @@
     };
   };
 
+  # Fix weird systemd-resolved logic by setting global DNS as well
+  services.resolved.settings.Resolve.DNS = [ "10.64.0.254" "fd64::fffe" ];
+
   networking = {
     # Disable generic receive offload
     localCommands = ''
