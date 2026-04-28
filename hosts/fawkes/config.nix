@@ -28,6 +28,9 @@
   # Enable full performace of cpu and gpu
   hardware.amdgpu.overdrive.enable = true;
 
+  # Enable ROCM support in nixpkgs
+  nixpkgs.config.rocmSupport = true;
+
   # Keep firmware up to date
   services.fwupd.enable = true;
 

@@ -5,6 +5,9 @@
     # Use current kernel for better compatibility
     kernelPackages = pkgs.linuxPackages_zen;
 
+    # Improve ROCM stability by disabling buggy preemption
+    kernelParams = [ "amdgpu.mcbp=0" ];
+
     # zenergy: allow user-space access to cpu power info
     # atlantic: out-of-tree AQtion 10G NIC driver
     extraModulePackages = with config.boot.kernelPackages; [ zenergy atlantic ];
