@@ -26,6 +26,7 @@ in {
 
   linuxPackages_latest = prev.linuxPackages_latest.extend (kself: ksuper: {
     atlantic = ksuper.callPackage ./atlantic.nix {};
+    zfs_unstable = ksuper.callPackage ./zfs.nix {};
   });
 
   linuxPackages_zen = prev.linuxPackages_zen.extend (kself: ksuper: {

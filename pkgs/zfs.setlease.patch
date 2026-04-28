@@ -1,0 +1,464 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Mon, 23 Feb 2026 06:39:06 +1100
+Subject: [PATCH] Linux 7.0: explicitly set setlease handler to kernel
+ implementation
+
+The upcoming 7.0 kernel will no longer fall back to generic_setlease(),
+instead returning EINVAL if .setlease is NULL. So, we set it explicitly.
+
+To ensure that we catch any future kernel change, adds a sanity test for
+F_SETLEASE and F_GETLEASE too. Since this is a Linux-specific test,
+also a small adjustment to the test runner to allow OS-specific helper
+programs.
+
+Sponsored-by: TrueNAS
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18215
+(cherry picked from commit 168023b60316badde853a8264b3bdbe071bab0c1)
+Signed-off-by: Thomas Lamprecht <t.lamprecht@proxmox.com>
+---
+ config/kernel-filelock.m4                     |  23 ++++
+ config/kernel.m4                              |   2 +
+ module/os/linux/zfs/zpl_file.c                |   4 +
+ scripts/zfs-tests.sh                          |  16 ++-
+ tests/runfiles/linux.run                      |   4 +
+ tests/zfs-tests/cmd/.gitignore                |   1 +
+ tests/zfs-tests/cmd/Makefile.am               |   1 +
+ tests/zfs-tests/cmd/setlease.c                | 126 ++++++++++++++++++
+ tests/zfs-tests/include/commands.cfg          |   5 +-
+ tests/zfs-tests/tests/Makefile.am             |   3 +
+ .../tests/functional/lease/cleanup.ksh        |  26 ++++
+ .../tests/functional/lease/lease_setlease.ksh |  44 ++++++
+ .../tests/functional/lease/setup.ksh          |  27 ++++
+ 13 files changed, 275 insertions(+), 7 deletions(-)
+ create mode 100644 config/kernel-filelock.m4
+ create mode 100644 tests/zfs-tests/cmd/setlease.c
+ create mode 100755 tests/zfs-tests/tests/functional/lease/cleanup.ksh
+ create mode 100755 tests/zfs-tests/tests/functional/lease/lease_setlease.ksh
+ create mode 100755 tests/zfs-tests/tests/functional/lease/setup.ksh
+
+diff --git a/config/kernel-filelock.m4 b/config/kernel-filelock.m4
+new file mode 100644
+index 0000000000000000000000000000000000000000..5e8d7c78469227eb769a91a3a8add4d55c1ba58c
+--- /dev/null
++++ b/config/kernel-filelock.m4
+@@ -0,0 +1,23 @@
++dnl # SPDX-License-Identifier: CDDL-1.0
++dnl #
++dnl # 6.3 API change
++dnl # locking support functions (eg generic_setlease) were moved out of
++dnl # linux/fs.h to linux/filelock.h
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_FILELOCK_HEADER], [
++	ZFS_LINUX_TEST_SRC([filelock_header], [
++		#include <linux/fs.h>
++		#include <linux/filelock.h>
++	], [])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_FILELOCK_HEADER], [
++	AC_MSG_CHECKING([for standalone filelock header])
++	ZFS_LINUX_TEST_RESULT([filelock_header], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_FILELOCK_HEADER, 1, [linux/filelock.h exists])
++	], [
++		AC_MSG_RESULT(no)
++	])
++])
++
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index eb2e827d5cbf92537993d6d79340431e7b6a3b35..df168506691dec7b9479da12e9ac9e08694853c4 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -140,6 +140,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_NAMESPACE
+ 	ZFS_AC_KERNEL_SRC_INODE_GENERIC_DROP
+ 	ZFS_AC_KERNEL_SRC_KASAN_ENABLED
++	ZFS_AC_KERNEL_SRC_FILELOCK_HEADER
+ 	case "$host_cpu" in
+ 		powerpc*)
+ 			ZFS_AC_KERNEL_SRC_CPU_HAS_FEATURE
+@@ -264,6 +265,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_NAMESPACE
+ 	ZFS_AC_KERNEL_INODE_GENERIC_DROP
+ 	ZFS_AC_KERNEL_KASAN_ENABLED
++	ZFS_AC_KERNEL_FILELOCK_HEADER
+ 	case "$host_cpu" in
+ 		powerpc*)
+ 			ZFS_AC_KERNEL_CPU_HAS_FEATURE
+diff --git a/module/os/linux/zfs/zpl_file.c b/module/os/linux/zfs/zpl_file.c
+index f7691c02d1634164c751df9eab36a641fc53a86e..30f3e3855355332aa10402791429cb4dc326f077 100644
+--- a/module/os/linux/zfs/zpl_file.c
++++ b/module/os/linux/zfs/zpl_file.c
+@@ -43,6 +43,9 @@
+ #ifdef HAVE_VFS_FILEMAP_DIRTY_FOLIO
+ #include <linux/writeback.h>
+ #endif
++#ifdef HAVE_FILELOCK_HEADER
++#include <linux/filelock.h>
++#endif
+ 
+ /*
+  * When using fallocate(2) to preallocate space, inflate the requested
+@@ -1242,6 +1245,7 @@ const struct file_operations zpl_file_operations = {
+ 	.mmap		= zpl_mmap,
+ 	.fsync		= zpl_fsync,
+ 	.fallocate	= zpl_fallocate,
++	.setlease	= generic_setlease,
+ 	.copy_file_range	= zpl_copy_file_range,
+ #ifdef HAVE_VFS_CLONE_FILE_RANGE
+ 	.clone_file_range	= zpl_clone_file_range,
+diff --git a/scripts/zfs-tests.sh b/scripts/zfs-tests.sh
+index 09a15bafc27e87a036d547832d80549ffc7da5a6..697c3f304d8150b157935b08e161e7aec531fa54 100755
+--- a/scripts/zfs-tests.sh
++++ b/scripts/zfs-tests.sh
+@@ -294,6 +294,16 @@ constrain_path() {
+ 	SYSTEM_DIRS="/usr/local/bin /usr/local/sbin"
+ 	SYSTEM_DIRS="$SYSTEM_DIRS /usr/bin /usr/sbin /bin /sbin $LIBEXEC_DIR"
+ 
++	SYSTEM_FILES="$SYSTEM_FILES_COMMON"
++	ZFSTEST_FILES="$ZFSTEST_FILES_COMMON"
++	if [ "$UNAME" = "FreeBSD" ] ; then
++		SYSTEM_FILES="$SYSTEM_FILES $SYSTEM_FILES_FREEBSD"
++		ZFSTEST_FILES="$ZFSTEST_FILES $ZFSTEST_FILES_FREEBSD"
++	else
++		SYSTEM_FILES="$SYSTEM_FILES $SYSTEM_FILES_LINUX"
++		ZFSTEST_FILES="$ZFSTEST_FILES $ZFSTEST_FILES_LINUX"
++	fi
++
+ 	if [ "$INTREE" = "yes" ]; then
+ 		# Constrained path set to $(top_builddir)/tests/zfs-tests/bin
+ 		STF_PATH="$BIN_DIR"
+@@ -326,12 +336,6 @@ constrain_path() {
+ 	fi
+ 
+ 	# Standard system utilities
+-	SYSTEM_FILES="$SYSTEM_FILES_COMMON"
+-	if [ "$UNAME" = "FreeBSD" ] ; then
+-		SYSTEM_FILES="$SYSTEM_FILES $SYSTEM_FILES_FREEBSD"
+-	else
+-		SYSTEM_FILES="$SYSTEM_FILES $SYSTEM_FILES_LINUX"
+-	fi
+ 	create_links "$SYSTEM_DIRS" "$SYSTEM_FILES"
+ 
+ 	# Exceptions
+diff --git a/tests/runfiles/linux.run b/tests/runfiles/linux.run
+index a65633dd8cfb276ff68894f4bcd3ecffcc1bc862..2717bf53d0b1ad1fbb5447a0d8ee20d98efff54b 100644
+--- a/tests/runfiles/linux.run
++++ b/tests/runfiles/linux.run
+@@ -141,6 +141,10 @@ pre =
+ post =
+ tags = ['functional', 'largest_pool']
+ 
++[tests/functional/lease:Linux]
++tests = ['lease_setlease']
++tags = ['functional', 'lease']
++
+ [tests/functional/longname:Linux]
+ tests = ['longname_001_pos', 'longname_002_pos', 'longname_003_pos']
+ tags = ['functional', 'longname']
+diff --git a/tests/zfs-tests/cmd/.gitignore b/tests/zfs-tests/cmd/.gitignore
+index 62f1684acfb4bfafe8e511e2d69f1af13b73ced1..335e4ceba28200b137abce25038a8989263c7663 100644
+--- a/tests/zfs-tests/cmd/.gitignore
++++ b/tests/zfs-tests/cmd/.gitignore
+@@ -58,3 +58,4 @@
+ /sha2_test
+ /idmap_util
+ /statx
++/setlease
+diff --git a/tests/zfs-tests/cmd/Makefile.am b/tests/zfs-tests/cmd/Makefile.am
+index 85c3cf3c35a8cdfb6ba7f95ab48d942cdc85e0d9..f07e7fda14fd2c63b500dc14b08922373ea1a189 100644
+--- a/tests/zfs-tests/cmd/Makefile.am
++++ b/tests/zfs-tests/cmd/Makefile.am
+@@ -132,6 +132,7 @@ scripts_zfs_tests_bin_PROGRAMS += %D%/statx
+ scripts_zfs_tests_bin_PROGRAMS += %D%/xattrtest
+ scripts_zfs_tests_bin_PROGRAMS += %D%/zed_fd_spill-zedlet
+ scripts_zfs_tests_bin_PROGRAMS += %D%/idmap_util
++scripts_zfs_tests_bin_PROGRAMS += %D%/setlease
+ 
+ %C%_idmap_util_LDADD = libspl.la
+ 
+diff --git a/tests/zfs-tests/cmd/setlease.c b/tests/zfs-tests/cmd/setlease.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..12bcbd91beb53750a616aa1604a5d7bd9450af6c
+--- /dev/null
++++ b/tests/zfs-tests/cmd/setlease.c
+@@ -0,0 +1,126 @@
++// SPDX-License-Identifier: CDDL-1.0
++/*
++ * CDDL HEADER START
++ *
++ * The contents of this file are subject to the terms of the
++ * Common Development and Distribution License (the "License").
++ * You may not use this file except in compliance with the License.
++ *
++ * You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
++ * or https://opensource.org/licenses/CDDL-1.0.
++ * See the License for the specific language governing permissions
++ * and limitations under the License.
++ *
++ * When distributing Covered Code, include this CDDL HEADER in each
++ * file and include the License file at usr/src/OPENSOLARIS.LICENSE.
++ * If applicable, add the following below this CDDL HEADER, with the
++ * fields enclosed by brackets "[]" replaced with your own identifying
++ * information: Portions Copyright [yyyy] [name of copyright owner]
++ *
++ * CDDL HEADER END
++ */
++
++/*
++ * Copyright (c) 2026, TrueNAS.
++ */
++
++/*
++ * This is a sanity check test for the F_SETLEASE and F_GETLEASE fcntl() calls.
++ * We use the generic kernel implementation, but we want to be alerted if it
++ * ever breaks.
++ *
++ * This is not a comprehensive test. It would be nice if it could be!
++ */
++
++#ifndef _GNU_SOURCE
++#define	_GNU_SOURCE
++#endif
++
++#include <stdio.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <string.h>
++
++static int
++get_lease(int fd) {
++	int r = fcntl(fd, F_GETLEASE);
++	if (r < 0) {
++		perror("fcntl(GETLEASE)");
++		exit(2);
++	}
++	return (r);
++}
++
++static int
++set_lease(int fd, int lease) {
++	return (fcntl(fd, F_SETLEASE, lease) < 0 ? errno : 0);
++}
++
++static const char *lease_str[] = {
++	[F_RDLCK] = "RDLCK",
++	[F_WRLCK] = "WRLCK",
++	[F_UNLCK] = "UNLCK",
++};
++
++static void
++assert_lease(int fd, int expect) {
++	int got = get_lease(fd);
++	if (got != expect) {
++		fprintf(stderr, "ASSERT_LEASE: expected %s [%d], got %s [%d]\n",
++		    lease_str[expect], expect, lease_str[got], got);
++		abort();
++	}
++	printf("ok: lease is %s\n", lease_str[got]);
++}
++
++static void
++assert_set_lease(int fd, int lease) {
++	int err = set_lease(fd, lease);
++	if (err != 0) {
++		fprintf(stderr, "ASSERT_SET_LEASE: tried %s [%d], error: %s\n",
++		    lease_str[lease], lease, strerror(err));
++		abort();
++	}
++	printf("ok: set lease to %s\n", lease_str[lease]);
++}
++
++int
++main(int argc, char **argv)
++{
++	if (argc != 2) {
++		fprintf(stderr, "usage: %s <filename>\n", argv[0]);
++		exit(1);
++	}
++
++	/* create and open file, read+write */
++	int fd = open(argv[1], O_CREAT|O_RDONLY, S_IRWXU|S_IRWXG|S_IRWXO);
++	if (fd < 0) {
++		perror("open");
++		exit(2);
++	}
++	printf("ok: opened file RDONLY\n");
++
++	/* fd starts with no lease */
++	assert_lease(fd, F_UNLCK);
++
++	/* fd is readonly, so can take read lease */
++	assert_set_lease(fd, F_RDLCK);
++	/* confirm read lease */
++	assert_lease(fd, F_RDLCK);
++
++	/* no other openers, so can take write lease */
++	assert_set_lease(fd, F_WRLCK);
++	/* confirm write lease */
++	assert_lease(fd, F_WRLCK);
++
++	/* release lease */
++	assert_set_lease(fd, F_UNLCK);
++	/* confirm lease released */
++	assert_lease(fd, F_UNLCK);
++
++	close(fd);
++
++	return (0);
++}
+diff --git a/tests/zfs-tests/include/commands.cfg b/tests/zfs-tests/include/commands.cfg
+index 1c4d25e152a73d3ea17d59280b66b0df7ef65c37..4ba9aa7c8b676975cb147fc74124488097936823 100644
+--- a/tests/zfs-tests/include/commands.cfg
++++ b/tests/zfs-tests/include/commands.cfg
+@@ -182,7 +182,7 @@ export ZFS_FILES='zdb
+     zfs_ids_to_path
+     zpool_influxdb'
+ 
+-export ZFSTEST_FILES='badsend
++export ZFSTEST_FILES_COMMON='badsend
+     btree_test
+     chg_usr_exec
+     clonefile
+@@ -241,3 +241,6 @@ export ZFSTEST_FILES='badsend
+     zfs_diff-socket
+     dosmode_readonly_write
+     idmap_util'
++
++export ZFSTEST_FILES_LINUX='
++    setlease'
+diff --git a/tests/zfs-tests/tests/Makefile.am b/tests/zfs-tests/tests/Makefile.am
+index 99477a74326a5e47bffabdcd89c850f9a3ed3cf4..d14592ffa5d69e37b098213d2ccd97ae0a9d83d5 100644
+--- a/tests/zfs-tests/tests/Makefile.am
++++ b/tests/zfs-tests/tests/Makefile.am
+@@ -1655,6 +1655,9 @@ nobase_dist_datadir_zfs_tests_tests_SCRIPTS += \
+ 	functional/io/psync.ksh \
+ 	functional/io/setup.ksh \
+ 	functional/io/sync.ksh \
++	functional/lease/cleanup.ksh \
++	functional/lease/lease_setlease.ksh \
++	functional/lease/setup.ksh \
+ 	functional/l2arc/cleanup.ksh \
+ 	functional/l2arc/l2arc_arcstats_pos.ksh \
+ 	functional/l2arc/l2arc_l2miss_pos.ksh \
+diff --git a/tests/zfs-tests/tests/functional/lease/cleanup.ksh b/tests/zfs-tests/tests/functional/lease/cleanup.ksh
+new file mode 100755
+index 0000000000000000000000000000000000000000..5e73dd34936e1c6ebc7c1c8a1a7d8274677a4191
+--- /dev/null
++++ b/tests/zfs-tests/tests/functional/lease/cleanup.ksh
+@@ -0,0 +1,26 @@
++#!/bin/ksh -p
++# SPDX-License-Identifier: CDDL-1.0
++#
++# CDDL HEADER START
++#
++# The contents of this file are subject to the terms of the
++# Common Development and Distribution License (the "License").
++# You may not use this file except in compliance with the License.
++#
++# You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
++# or https://opensource.org/licenses/CDDL-1.0.
++# See the License for the specific language governing permissions
++# and limitations under the License.
++#
++# When distributing Covered Code, include this CDDL HEADER in each
++# file and include the License file at usr/src/OPENSOLARIS.LICENSE.
++# If applicable, add the following below this CDDL HEADER, with the
++# fields enclosed by brackets "[]" replaced with your own identifying
++# information: Portions Copyright [yyyy] [name of copyright owner]
++#
++# CDDL HEADER END
++#
++
++. $STF_SUITE/include/libtest.shlib
++
++default_cleanup
+diff --git a/tests/zfs-tests/tests/functional/lease/lease_setlease.ksh b/tests/zfs-tests/tests/functional/lease/lease_setlease.ksh
+new file mode 100755
+index 0000000000000000000000000000000000000000..8647d01995c32f58d3e37fafea0013b7795af0d7
+--- /dev/null
++++ b/tests/zfs-tests/tests/functional/lease/lease_setlease.ksh
+@@ -0,0 +1,44 @@
++#!/bin/ksh -p
++# SPDX-License-Identifier: CDDL-1.0
++#
++# CDDL HEADER START
++#
++# The contents of this file are subject to the terms of the
++# Common Development and Distribution License (the "License").
++# You may not use this file except in compliance with the License.
++#
++# You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
++# or https://opensource.org/licenses/CDDL-1.0.
++# See the License for the specific language governing permissions
++# and limitations under the License.
++#
++# When distributing Covered Code, include this CDDL HEADER in each
++# file and include the License file at usr/src/OPENSOLARIS.LICENSE.
++# If applicable, add the following below this CDDL HEADER, with the
++# fields enclosed by brackets "[]" replaced with your own identifying
++# information: Portions Copyright [yyyy] [name of copyright owner]
++#
++# CDDL HEADER END
++#
++
++#
++# Copyright (c) 2026, TrueNAS.
++#
++
++. $STF_SUITE/include/libtest.shlib
++
++verify_runnable "both"
++
++leasefile=/$TESTPOOL/leasefile
++
++function cleanup
++{
++	rm -f $leasefile
++}
++
++log_assert "F_SETLEASE is supported"
++log_onexit cleanup
++
++log_must setlease $leasefile
++
++log_pass "F_SETLEASE is supported"
+diff --git a/tests/zfs-tests/tests/functional/lease/setup.ksh b/tests/zfs-tests/tests/functional/lease/setup.ksh
+new file mode 100755
+index 0000000000000000000000000000000000000000..09da91b0f93f70f98a91107ca687549801a67074
+--- /dev/null
++++ b/tests/zfs-tests/tests/functional/lease/setup.ksh
+@@ -0,0 +1,27 @@
++#!/bin/ksh -p
++# SPDX-License-Identifier: CDDL-1.0
++#
++# CDDL HEADER START
++#
++# The contents of this file are subject to the terms of the
++# Common Development and Distribution License (the "License").
++# You may not use this file except in compliance with the License.
++#
++# You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
++# or https://opensource.org/licenses/CDDL-1.0.
++# See the License for the specific language governing permissions
++# and limitations under the License.
++#
++# When distributing Covered Code, include this CDDL HEADER in each
++# file and include the License file at usr/src/OPENSOLARIS.LICENSE.
++# If applicable, add the following below this CDDL HEADER, with the
++# fields enclosed by brackets "[]" replaced with your own identifying
++# information: Portions Copyright [yyyy] [name of copyright owner]
++#
++# CDDL HEADER END
++#
++
++. $STF_SUITE/include/libtest.shlib
++
++DISK=${DISKS%% *}
++default_setup $DISK
