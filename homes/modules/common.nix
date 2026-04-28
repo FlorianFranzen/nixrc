@@ -8,6 +8,6 @@
     extraOutputsToInstall = [ "doc" ];
 
     # Force needed to override default set in homeManagerConfiguration
-    stateVersion = lib.mkForce "25.11";
+    stateVersion = lib.mkForce "26.05";
   };
 }

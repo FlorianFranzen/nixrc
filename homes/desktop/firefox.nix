@@ -14,21 +14,77 @@
       ];
     };
 
+    policies = {
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+        EmailTracking = true;
+      };
+      UserMessaging = {
+        WhatsNew = false;
+        ExtensionRecommendations = false;
+        FeatureRecommendations = false;
+        UrlbarInterventions = false;
+        SkipOnboarding = true;
+        MoreFromMozilla = false;
+        Labs = false;
+        Locked = true;
+      };
+      DisablePocket = true;
+      DisableTelemetry = true;
+      AutofillAddressEnabled = false;
+      AutofillCreditCardEnabled = false;
+      DisableMasterPasswordCreation = true;
+      PasswordManagerEnabled = false;
+      PrimaryPassword = false;
+      OfferToSaveLogins = false;
+      NoDefaultBookmarks = true;
+      FirefoxHome = {
+        Search = true;
+        TopSites = true;
+        SponsoredTopSites = false;
+        Highlights = false;
+        Pocket = false;
+        SponsoredPocket = false;
+        Snippets = false;
+        Locked = true;
+      };
+      SearchSuggestEnabled = true;
+      FirefoxSuggest = {
+        WebSuggestions = true;
+        SponsoredSuggestions = false;
+        ImproveSuggest = false;
+        Locked = true;
+      };
+      PictureInPicture = true;
+      HardwareAcceleration = true;
+    };
+
     profiles.default = {
       extensions.packages = with pkgs.firefox-addons; [
-        multi-account-containers
-        tab-stash
         browserpass
+        canvasblocker
+        clearurls
+        decentraleyes
+        mailvelope
+        metamask
+        multi-account-containers
+        polkadot-js
+        simple-tab-groups
+        sponsorblock
+        tab-stash
         tridactyl
         ublock-origin
-        privacy-badger
-        decentraleyes
-        clearurls
-        sponsorblock
-        polkadot-js
-        metamask
-        mailvelope
+        #unhook
       ];
+
+      search = {
+        force = true;
+        default = "ddg";
+        order = [ "ddg" "wikipedia" ];
+      };
 
       # TODO https://github.com/arkenfox/user.js
       settings = {
@@ -42,11 +98,22 @@
 
         "browser.startup.page" = 3;
 
+        "browser.safebrowsing.enabled" = false;
+        "browser.safebrowsing.downloads.enabled" = false;
+        "browser.safebrowsing.malware.enabled" = false;
+
+        "datareporting.healthreport.service.enabled" = false;
         "datareporting.healthreport.uploadEnabled" = false;
 
         "dom.security.https_only_mode" = true;
+        "dom.webgpu.enabled" = true;
 
-        "media.ffmpeg.vaapi.enabled" = "true";
+        "general.smoothScroll" = true;
+
+        "loop.enabled" = false;
+
+        "media.eme.enabled" = true;
+        "media.ffmpeg.vaapi.enabled" = true;
 
         "permissions.fullscreen.allowed" = true;
 
@@ -59,6 +126,9 @@
         "signon.rememberSignons" = false;
 
         "svg.context-properties.content.enabled" = true;
+
+        "toolkit.telemetry.unified" = false;
+        "toolkit.telemetry.enabled" = false;
 
         "webgl.force-enabled" = true;
       };
