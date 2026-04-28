@@ -41,9 +41,6 @@
   # Use more reliable dbus implementation by default
   services.dbus.implementation = lib.mkDefault "broker";
 
-  # Fix DNS resolution in browsers
-  networking.resolvconf.dnsExtensionMechanism = false;
-
   # Give default user additional access to devices
   users.extraUsers.${username}.extraGroups = [ "audio" "cdrom" "video" ];
 }
