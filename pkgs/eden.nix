@@ -20,12 +20,13 @@
 , libusb1
 , libva
 , lz4
-, mbedtls
 , nlohmann_json
 , nv-codec-headers-12
 , nx_tzdb
+, openssl
 , pkg-config
 , qtbase
+, qtcharts
 , qtmultimedia
 , qttools
 , qtwayland
@@ -73,10 +74,10 @@ let
   };
 
   httplib-src = unpackSrc {
-    name = "httplib-0.30.1-src";
+    name = "httplib-0.37.0-src";
     src = fetchurl {
-      url = "https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.30.1.tar.gz";
-      hash = "sha512-oiniTMpK/njlwKouSC8VEIrDQQH9jb2Sc2XxXow33sTeOMUnfWNQF9aSpbMg4bkp+L/MB29SuOTc2rj+U7/fLg==";
+      url = "https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.37.0.tar.gz";
+      hash = "sha512-XvqBQKrf/hBdzzmTW3MkdulXVfbHRzraPQtk3yvALFV2M645SKJbReHPZ+iaP/Yyn7MDYuSsAzuaHR5FOqLt7Q==";
     };
   };
 
@@ -91,11 +92,11 @@ let
 
   # Release artifact — hash comes from the upstream .sha512sum sidecar file
   sirit-src = unpackSrc {
-    name = "sirit-1.0.3-src";
+    name = "sirit-1.0.4-src";
     nativeBuildInputs = [ zstd ];
     src = fetchurl {
-      url = "https://github.com/eden-emulator/sirit/releases/download/v1.0.3/sirit-source-1.0.3.tar.zst";
-      hash = "sha512-PvuH+LMqd30UHieN874c2ZVk2kuulE9iZegLow0WMpHB/E/nFpHvFr91qLjglwhXMvihFLg9PQdaxSJZZDfZwg==";
+      url = "https://github.com/eden-emulator/sirit/releases/download/v1.0.4/sirit-source-1.0.4.tar.zst";
+      hash = "sha512-iViFeqlDJr7KClRyCAvSJiCDKyV+n4Oi90lHz4ymNp11pxDvr5Ev1EWgiASvZCfvZy7yLiB6ZG1IctPoA3BJOQ==";
     };
   };
 
@@ -118,12 +119,12 @@ let
 
 in stdenv.mkDerivation(finalAttrs: {
   pname = "eden";
-  version = "0.2.0-rc1";
+  version = "0.2.0-rc2";
 
   src = fetchgit {
     url = "https://git.eden-emu.dev/eden-emu/eden";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-6vUtNI4lqPffcCpctVv0tDfoqTShaUDGNPEOmfmnkbU=";
+    hash = "sha256-keLkB5qeQch+tM2J6zVh9oQGhP5TuxItqrZRN24apJw=";
   };
 
   nativeBuildInputs = [
@@ -165,9 +166,10 @@ in stdenv.mkDerivation(finalAttrs: {
     libusb1
     # intentionally omitted: LLVM - heavy, only used for stack traces in the debugger
     lz4
-    mbedtls
     nlohmann_json
+    openssl
     qtbase
+    qtcharts
     qtmultimedia
     qtwayland
     qtwebengine
