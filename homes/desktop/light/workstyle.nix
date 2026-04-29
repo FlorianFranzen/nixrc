@@ -28,6 +28,7 @@
     "signal" = "󰭹"
     "steam" = ""
     "skype" = ""
+    "spotify" = ""
     "zoom" = "󰵰"
     "zotero" = ""
 
