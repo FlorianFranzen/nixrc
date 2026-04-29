@@ -26,7 +26,7 @@
           subvolume = {
             "@home" = { };
           };
-          target = "ssh://fawkes/tardis/external/chomsky";
+          target = "ssh://fawkes/tardis/external/lovelace";
         };
       };
     };
