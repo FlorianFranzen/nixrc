@@ -48,22 +48,11 @@ in {
 
   # Focusrite Scarlett support
   fcp-support = final.callPackage ./fcp-support.nix {};
-
+  
   gruvbox-plus-icons = prev.gruvbox-plus-icons.overrideAttrs (_: {
     # Disable symlink check
     noBrokenSymlinksHookInstalled = true;
   });
-
-  # Fix flaky openldap test
-  openldap = prev.openldap.overrideAttrs {
-    doCheck = !prev.stdenv.hostPlatform.isi686;
-  };
-
-  # Battery monitor for Framework led input modules
-  led-battery-monitor = final.callPackage ./led-battery-monitor.nix {};
-
-  # WSL boot shim maker
-  mkSyschdemd = final.callPackage ./syschdemd.nix {};
 
   # input font but patched
   input-nerdfont = final.callPackage ./input-nerdfont.nix {};
@@ -74,44 +63,27 @@ in {
     __intentionallyOverridingVersion = true;
   });
 
+  # Battery monitor for Framework led input modules
+  led-battery-monitor = final.callPackage ./led-battery-monitor.nix {};
+
+  # WSL boot shim maker
+  mkSyschdemd = final.callPackage ./syschdemd.nix {};
+
+  # Fix flaky openldap test
+  openldap = prev.openldap.overrideAttrs {
+    doCheck = !prev.stdenv.hostPlatform.isi686;
+  };
+
   # Milkdrop Vizualizer
   projectM-sdl2 = final.callPackage ./projectM-sdl2.nix {
     libprojectM = final.callPackage ./libprojectM.nix {};
   };
 
-  # Qt6 theming plugin
-  qt6gtk2 = final.qt6Packages.callPackage ./qt6gtk2.nix {};
-
   # Add radicle link
   radicle-link = final.callPackage ./radicle-link.nix {};
 
-  # Include some useful plugins in retroarch by default
-  retroarch = prev.retroarch.override {
-    cores = with final.libretro; [ mupen64plus dolphin ];
-  };
-
   # Add rotki tracker
   rotki = final.callPackage ./rotki.nix {};
-
-  # Provide a more complete sway environment
-  sway = callOverride ./sway.nix {};
-
-  # Add swayest workstyle
-  sworkstyle = final.callPackage ./sworkstyle.nix {};
-
-  # MHL to MIDI converter
-  traktor-kontrol = final.callPackage ./traktor-kontrol.nix {};
-
-  # joypad idle inhibition
-  wljoywake = final.callPackage ./wljoywake.nix {};
-
-  # Fix udev rules
-  wooting-udev-rules = prev.wooting-udev-rules.overrideAttrs (_: {
-    src = [ ./wooting.rules ];
-  });
-
-  # dbus integration for idle inhibiting
-  wscreensaver-bridge = final.callPackage ./wscreensaver-bridge.nix {};
 
   # ...
   suyu = final.qt6.callPackage ./suyu.nix {
@@ -119,16 +91,15 @@ in {
     nx_tzdb = final.callPackage ./suyu.nx_tzdb.nix {};
   };
 
-  # ...
-  teddycloud = final.callPackage ./teddycloud.nix {};
+  # Provide a more complete sway environment
+  sway = callOverride ./sway.nix {};
 
-  # Fix backend used (and screensharing)
-  zoom-us = prev.runCommand "zoom-wayland" {} ''
-    source ${prev.dieHook}/nix-support/setup-hook
-    source ${prev.makeWrapper}/nix-support/setup-hook
-    makeWrapper ${prev.zoom-us}/bin/zoom $out/bin/zoom --set XDG_CURRENT_DESKTOP gnome
-    cp -r ${prev.zoom-us}/share $out/share
-    chmod +w $out/share/applications/Zoom.desktop
-    sed "s@${prev.zoom-us}@$out@" ${prev.zoom-us}/share/applications/Zoom.desktop > $out/share/applications/Zoom.desktop
-  '';
+  # Open-source tonies server
+  teddycloud = final.callPackage ./teddycloud.nix {};
+  
+  # MHL to MIDI converter
+  traktor-kontrol = final.callPackage ./traktor-kontrol.nix {};
+
+  # dbus integration for idle inhibiting
+  wscreensaver-bridge = final.callPackage ./wscreensaver-bridge.nix {};
 }
