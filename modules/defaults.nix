@@ -14,7 +14,7 @@
   services.openssh.enable = lib.mkDefault true;
   services.openssh.settings.KbdInteractiveAuthentication = lib.mkDefault false;
   services.openssh.settings.PasswordAuthentication = lib.mkDefault false;
-  services.openssh.settings.PermitRootLogin = lib.mkDefault "no";
+  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
   # Only allow nix managed keys (local or remote)
   services.openssh.authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
@@ -27,7 +27,7 @@
   services.timesyncd.enable = lib.mkDefault true;
 
   # Keep default system state version in sync
-  system.stateVersion = lib.mkDefault "25.11";
+  system.stateVersion = lib.mkDefault "26.05";
 
   # Set default your time zone.
   time.timeZone = lib.mkDefault "Europe/Zurich";

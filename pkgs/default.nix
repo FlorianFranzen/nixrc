@@ -69,9 +69,6 @@ in {
     __intentionallyOverridingVersion = true;
   });
 
-  # Patched to include git submodules
-  nixSubmodule = callOverride ./nix-submodule.nix {};
-
   # Milkdrop Vizualizer
   projectM-sdl2 = final.callPackage ./projectM-sdl2.nix {
     libprojectM = final.callPackage ./libprojectM.nix {};
