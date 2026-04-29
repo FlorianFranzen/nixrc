@@ -354,8 +354,8 @@
 
       # Export all packages from overlay as well as some installers
       packages = recursiveUpdate overlayPackages {
-        # FIXME: Properly "systemize" installer
-        x86_64-linux.iso = self.nixosConfigurations.installer.config.system.build.isoImage;
+        x86_64-linux.iso = self.nixosConfigurations.installer-x86_64.config.system.build.isoImage;
+        aarch64-linux.iso = self.nixosConfigurations.installer-aarch64.config.system.build.isoImage;
       };
     };
 }
