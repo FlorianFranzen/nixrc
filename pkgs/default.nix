@@ -54,6 +54,11 @@ in {
     noBrokenSymlinksHookInstalled = true;
   });
 
+  # Fix flaky openldap test
+  openldap = prev.openldap.overrideAttrs {
+    doCheck = !prev.stdenv.hostPlatform.isi686;
+  };
+
   # Battery monitor for Framework led input modules
   led-battery-monitor = final.callPackage ./led-battery-monitor.nix {};
 
