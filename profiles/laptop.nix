@@ -1,8 +1,9 @@
 { lib, ... }:
 
 {
-  # Enable bluetooh manager
+  # Enable bluetooh manager (applet option broken)
   services.blueman.enable = true;
+  services.blueman.withApplet = false;
 
   security.polkit.extraConfig = ''
     /* Allow users in wheel group to use blueman feature requiring root without authentication */
