@@ -78,6 +78,7 @@
         tridactyl
         ublock-origin
         #unhook
+        zotero-connector
       ];
 
       search = {
