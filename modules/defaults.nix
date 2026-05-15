@@ -1,5 +1,5 @@
 # Default config for all hosts
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Automatically generate default host id if zfs is enabled
@@ -22,6 +22,9 @@
   # Allow key-based auth (local and via ssh)
   security.pam.rssh.enable = lib.mkDefault true;
   security.pam.services.sudo.rssh = true;
+ 
+  # Add cacert to global trust store
+  security.pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
 
   # Enable time synchronization
   services.timesyncd.enable = lib.mkDefault true;
