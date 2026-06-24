@@ -68,6 +68,7 @@
         canvasblocker
         clearurls
         decentraleyes
+        ghosttext
         mailvelope
         metamask
         multi-account-containers

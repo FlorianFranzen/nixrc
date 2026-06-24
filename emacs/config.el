@@ -55,6 +55,15 @@
 ;; use gpg agent socket for ssh agent
 (setenv "SSH_AUTH_SOCK" (format "/run/user/%d/gnupg/S.gpg-agent.ssh" (user-uid)))
 
+;; Provide editior support to browser
+(use-package atomic-chrome
+  :ensure t
+  :init
+  (setq atomic-chrome-default-major-mode 'markdown-mode)
+  (setq atomic-chrome-extension-type-list '(ghost-text))
+  :config
+  (atomic-chrome-start-server))
+
 ;; Allow access to session via socket
 (server-start)
 
