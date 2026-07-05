@@ -30,7 +30,7 @@
   services.timesyncd.enable = lib.mkDefault true;
 
   # Keep default system state version in sync
-  system.stateVersion = lib.mkDefault "26.05";
+  system.stateVersion = lib.mkDefault "26.11";
 
   # Set default your time zone.
   time.timeZone = lib.mkDefault "Europe/Zurich";
