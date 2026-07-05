@@ -39,13 +39,6 @@ in {
   # Special version of bumblebee for AMD CPUs
   bumblebee_amd = callOverride ./bumblebee.nix {};
 
-  # ...
-  eden = final.qt6.callPackage ./eden.nix {
-    compat-list = final.callPackage ./suyu.compat-list.nix {};
-    nx_tzdb = final.callPackage ./suyu.nx_tzdb.nix {};
-    quazip = final.qt6Packages.quazip;
-  };
-
   # Focusrite Scarlett support
   fcp-support = final.callPackage ./fcp-support.nix {};
   
@@ -84,12 +77,6 @@ in {
 
   # Add rotki tracker
   rotki = final.callPackage ./rotki.nix {};
-
-  # ...
-  suyu = final.qt6.callPackage ./suyu.nix {
-    compat-list = final.callPackage ./suyu.compat-list.nix {};
-    nx_tzdb = final.callPackage ./suyu.nx_tzdb.nix {};
-  };
 
   # Provide a more complete sway environment
   sway = callOverride ./sway.nix {};

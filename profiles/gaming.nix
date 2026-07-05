@@ -36,7 +36,6 @@
     eden
     ryubing
     supertuxkart
-    suyu
     (warzone2100.override { withVideos = true; })
     samba
     wineWow64Packages.waylandFull
