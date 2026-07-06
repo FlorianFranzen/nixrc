@@ -67,10 +67,8 @@ in {
     doCheck = !prev.stdenv.hostPlatform.isi686;
   };
 
-  # Milkdrop Vizualizer
-  projectM-sdl2 = final.callPackage ./projectM-sdl2.nix {
-    libprojectM = final.callPackage ./libprojectM.nix {};
-  };
+  # Milkdrop Vizualizer with injected data
+  projectm-sdl-cpp = callOverride ./projectm-sdl-cpp.nix {};
 
   # Add radicle link
   radicle-link = final.callPackage ./radicle-link.nix {};
