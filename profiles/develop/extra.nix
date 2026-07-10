@@ -51,7 +51,7 @@
     hugo
 
     sshfs
-    encfs
+    gocryptfs
     ntfs3g
 
     fastfetch
