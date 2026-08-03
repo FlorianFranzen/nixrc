@@ -51,6 +51,7 @@
     hugo
 
     sshfs
+    cryptsetup
     gocryptfs
     ntfs3g
 

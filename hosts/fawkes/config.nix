@@ -36,11 +36,7 @@
   # Install cpu and gpu clock tooling
   programs.corectrl.enable = true;
 
-  # Install additional tooling
-  environment.systemPackages = [
-    pkgs.cryptsetup
-  ];
-
+  # Enable virus scanner
   services.clamav = {
     daemon.enable = true;
     fangfrisch.enable = true;
