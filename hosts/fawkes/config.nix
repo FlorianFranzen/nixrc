@@ -33,25 +33,6 @@
   # Keep firmware up to date
   services.fwupd.enable = true;
 
-  services.udev.extraRules = ''
-    # Provide access to mainboard RGB controller
-    SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="19af", TAG+="uaccess"
-  '';
-
-  # Configure static lighting color with OpenRGB
-  systemd.services.openrgb-setup = {
-    description = "Configure OpenRGB devices after boot";
-
-    script = ''
-      # Case lighting on port 2 with 40 leds
-      ${pkgs.openrgb}/bin/openrgb -d "ASUS ProArt X670E-CREATOR WIFI" -z 2 -s 40 -m static -c 882200
-    '';
-
-    serviceConfig.Type = "oneshot";
-
-    wantedBy = [ "multi-user.target" ];
-  };
-
   # Install cpu and gpu clock tooling
   programs.corectrl.enable = true;
 
