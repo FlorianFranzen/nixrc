@@ -41,7 +41,10 @@ in {
 
   # Focusrite Scarlett support
   fcp-support = final.callPackage ./fcp-support.nix {};
-  
+
+  # Command line tool to control monitor
+  gbmonctl = final.callPackage ./gbmonctl.nix {};
+
   gruvbox-plus-icons = prev.gruvbox-plus-icons.overrideAttrs (_: {
     # Disable symlink check
     noBrokenSymlinksHookInstalled = true;

@@ -11,10 +11,11 @@
       common-gpu-amd
       common-pc-ssd
       android
-      pipewire
       focusrite-scarlett
-      smartcard
+      gbmonctl
+      pipewire
       rocm
+      smartcard
       wooting
       zsa
     ]);
@@ -35,8 +36,6 @@
   services.udev.extraRules = ''
     # Provide access to mainboard RGB controller
     SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="19af", TAG+="uaccess"
-    # Provide access to gigabyte display
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="1100", MODE="0660", TAG+="uaccess"
   '';
 
   # Configure static lighting color with OpenRGB
