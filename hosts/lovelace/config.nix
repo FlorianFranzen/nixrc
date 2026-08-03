@@ -53,6 +53,9 @@
   # Enable firmware update service
   services.fwupd.enable = true;
 
+  # Enable CPU powersaving
+  services.auto-epp.enable = true;
+
   # Disable default power button binding
   services.logind.settings.Login.HandlePowerKey = "ignore";
 
