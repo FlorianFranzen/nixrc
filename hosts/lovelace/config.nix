@@ -14,8 +14,9 @@
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
       framework-16-7040-amd
-      secure-boot
       pipewire
+      rocm
+      secure-boot
       smartcard
       wooting
       zsa
@@ -58,11 +59,6 @@
 
   # Disable default power button binding
   services.logind.settings.Login.HandlePowerKey = "ignore";
-
-  # Make hip available at known-path
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
 
   # Unlock full performance and power management
   programs.corectrl = {
