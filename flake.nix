@@ -50,6 +50,12 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  
+    # Color scheme
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -64,6 +70,7 @@
       doom-emacs,
       plasma-manager,
       firefox-addons,
+      catppuccin,
     }@inputs:
     let
 
@@ -172,6 +179,7 @@
       homeModules = [
         doom-emacs.homeModule
         plasma-manager.homeModules.plasma-manager
+        catppuccin.homeModules.catppuccin
       ]
       ++ attrValues self.homeModules;
 
@@ -260,6 +268,7 @@
             # Additional upstream modules
             lanzaboote.nixosModules.lanzaboote
             home-manager.nixosModules.home-manager
+	    catppuccin.nixosModules.catppuccin
             # Module for various flake integration
             (
               { lib, ... }:

@@ -23,7 +23,10 @@
     ]);
 
   # Install light desktop environment
-  home-manager.users.florian = homes.desktop-light-solarized;
+  home-manager.users.florian = homes.desktop-light-catppuccin;
+
+  # Enable system theming
+  catppuccin.enable = true;
 
   boot = {
     # Up-to-date kernel with better responsiveness
