@@ -7,6 +7,7 @@
     pandoc
     pdftk
     tectonic
+    texlab
 
     (aspellWithDicts (d: [ d.en d.en-computers d.en-science d.de d.es d.fr ]))
 
