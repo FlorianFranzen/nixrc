@@ -36,8 +36,9 @@
   services.resolved.settings.Resolve.DNS = [ "10.64.0.254" "fd64::fffe" ];
 
   networking = {
-    # Disable generic receive offload
+    # Disable generic and large receive offload
     localCommands = ''
+      ${pkgs.ethtool}/bin/ethtool -K eno2 lro off
       ${pkgs.ethtool}/bin/ethtool -K eno2 gro off
     '';
 
