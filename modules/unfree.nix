@@ -29,6 +29,7 @@
       "minecraft-launcher"
       "clonehero"
       "discord"
+      "discord-unwrapped"
       # Media apps
       "spotify"
       # Printer and scanner drivers
