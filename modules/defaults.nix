@@ -37,4 +37,9 @@
 
   # Allow locally managed user by default
   users.mutableUsers = lib.mkDefault true;
+
+  # Disable theming by default
+  catppuccin.enable = lib.mkDefault false;
+  catppuccin.autoEnable = lib.mkDefault false;
 }	
+

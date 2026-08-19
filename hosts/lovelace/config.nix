@@ -27,6 +27,7 @@
 
   # Enable system theming
   catppuccin.enable = true;
+  catppuccin.autoEnable = true;
 
   boot = {
     # Up-to-date kernel with better responsiveness
