@@ -14,6 +14,7 @@
       focusrite-scarlett
       gbmonctl
       pipewire
+      pipewire-virtual
       rocm
       smartcard
       wooting
