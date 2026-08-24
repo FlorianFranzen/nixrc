@@ -11,9 +11,10 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       # Unfree nvidia driver
-      "nvidia-x11"
+      "nvidia-kernel-modules"
       "nvidia-persistenced"
       "nvidia-settings"
+      "nvidia-x11"
       # Unfree wooting utility
       "wootility"
       # Nitrokey firmware updates
