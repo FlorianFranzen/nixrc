@@ -117,7 +117,7 @@ in {
 
         # Add logout screen
         "${cfg.modifier}+q"       = "kill";
-        "${cfg.modifier}+Shift+q" = exec pkgs.wlogout;
+        "${cfg.modifier}+Shift+q" = "${exec pkgs.wlogout} -b 2";
 
         # Add emacs pgtk ui
         "${cfg.modifier}+Shift+Return" = "exec emacs";

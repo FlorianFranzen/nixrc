@@ -46,7 +46,7 @@
 
       # Kill and exit
       bind = SUPER, Q, killactive
-      bind = SUPER_SHIFT, Q, exec, ${pkgs.wlogout}/bin/wlogout
+      bind = SUPER_SHIFT, Q, exec, ${pkgs.wlogout}/bin/wlogout -b 2
 
       # Application keybindings
       bind = SUPER, Return, exec, ${pkgs.foot}/bin/footclient
