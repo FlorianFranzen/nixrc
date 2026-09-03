@@ -31,4 +31,12 @@
       };
     };
   };
+
+  services.btrbk.sshAccess = [
+    {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBTdvxKKQnoCUpsvBfUWYHDwA2tMpFj3zwT2s3kfuWWO mind-the-gap";
+      roles = [ "info" "target" "delete" ];
+      extraArgs = [ "--log" "--restrict-path" "/tardis/external/lovelace" ];
+    }
+  ];
 }
