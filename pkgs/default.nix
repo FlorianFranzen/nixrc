@@ -45,6 +45,12 @@ in {
   # Command line tool to control monitor
   gbmonctl = final.callPackage ./gbmonctl.nix {};
 
+  # Command & Conquer: Generals - Zero Hour (engine only, needs your own game data)
+  cnc-generals-zerohour = final.callPackage ./generals.nix {};
+
+  # Header-only image library, needed by cnc-generals-zerohour; not in nixpkgs
+  gli = final.callPackage ./gli.nix {};
+
   gruvbox-plus-icons = prev.gruvbox-plus-icons.overrideAttrs (_: {
     # Disable symlink check
     noBrokenSymlinksHookInstalled = true;
