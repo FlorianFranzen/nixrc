@@ -26,12 +26,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Unstable wayland packages
-    wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Nixified doom emacs distribution
     doom-emacs = {
       url = "github:marienz/nix-doom-emacs-unstraightened";
@@ -66,7 +60,6 @@
       hardware,
       home-manager,
       lanzaboote,
-      wayland,
       doom-emacs,
       plasma-manager,
       firefox-addons,
@@ -100,7 +93,6 @@
         "self"
         "nixpkgs"
         "home-manager"
-        "wayland"
       ];
 
       # Main user name to use in system and home-manager outputs
@@ -116,7 +108,6 @@
 
       # Provide default list of overlays
       overlays = [
-        wayland.overlay
         firefox-addons-overlay
         self.overlays.default
       ];
