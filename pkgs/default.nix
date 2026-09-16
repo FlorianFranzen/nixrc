@@ -88,6 +88,11 @@ in {
   # MHL to MIDI converter
   traktor-kontrol = final.callPackage ./traktor-kontrol.nix {};
 
+  # Unreal Tournament 2004 with the OldUnreal patch.
+  # Vendored from https://github.com/NixOS/nixpkgs/pull/519077 - drop once merged.
+  ut2004Packages = lib.recurseIntoAttrs (final.callPackage ./ut2004/packages.nix {});
+  ut2004 = final.callPackage ./ut2004/package.nix {};
+
   # dbus integration for idle inhibiting
   wscreensaver-bridge = final.callPackage ./wscreensaver-bridge.nix {};
 }

@@ -31,6 +31,9 @@
       "clonehero"
       "discord"
       "discord-unwrapped"
+      "ut2004"
+      "ut2004-data"
+      "ut2004-image"
       # Media apps
       "spotify"
       # Printer and scanner drivers
