@@ -31,11 +31,15 @@
   # Enable full performace of cpu and gpu
   hardware.amdgpu.overdrive.enable = true;
 
+  # Enable thunderbolt and usb 4
+  services.hardware.bolt.enable = true;
+
   # Keep firmware up to date
   services.fwupd.enable = true;
 
   # Install cpu and gpu clock tooling
   programs.corectrl.enable = true;
+  services.lact.enable = true;
 
   # Enable virus scanner
   services.clamav = {
