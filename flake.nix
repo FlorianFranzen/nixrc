@@ -98,17 +98,9 @@
       # Main user name to use in system and home-manager outputs
       username = "florian";
 
-      # Turn firefox addons collection to overlay
-      firefox-addons-overlay = (
-        final: prev: {
-          buildFirefoxXpiAddon = firefox-addons.lib.${prev.stdenv.hostPlatform.system}.buildFirefoxXpiAddon;
-          firefox-addons = firefox-addons.packages.${prev.stdenv.hostPlatform.system};
-        }
-      );
-
       # Provide default list of overlays
       overlays = [
-        firefox-addons-overlay
+        firefox-addons.overlays.default
         self.overlays.default
       ];
 
@@ -119,7 +111,11 @@
           inherit overlays system;
 
           config = {
-            allowUnfreePredicate = pkg: builtins.elem (getName pkg) [ "input-fonts" ];
+            allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
+              "input-fonts"
+              "video-downloadhelper"
+              "youtube-recommended-videos"
+            ];
 
             input-fonts.acceptLicense = true;
           };

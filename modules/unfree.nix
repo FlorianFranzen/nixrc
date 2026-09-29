@@ -33,6 +33,9 @@
       "discord-unwrapped"
       # Media apps
       "spotify"
+      # Firefox addons
+      "video-downloadhelper"
+      "youtube-recommended-videos"
       # Printer and scanner drivers
       "cups-brother-mfcl2710dw"
       "brscan4"

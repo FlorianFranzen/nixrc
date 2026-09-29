@@ -78,7 +78,8 @@
         tab-stash
         tridactyl
         ublock-origin
-        #unhook
+        video-downloadhelper
+        youtube-recommended-videos
         zotero-connector
       ];
 
