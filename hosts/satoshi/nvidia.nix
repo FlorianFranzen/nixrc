@@ -30,12 +30,12 @@ let
       extraPackages = with pkgs; [
         (if enableOpen then nvidiaPackage.open else nvidiaPackage.out)
         libvdpau-va-gl
-        vaapiVdpau
+        libva-vdpau-driver
       ];
       extraPackages32 = with pkgs.pkgsi686Linux; [
         (if enableOpen then nvidiaPackage.open else nvidiaPackage.lib32)
         libvdpau-va-gl
-        vaapiVdpau
+        libva-vdpau-driver
       ];
     };
 

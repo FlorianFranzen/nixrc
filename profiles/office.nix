@@ -16,7 +16,7 @@
     gimp
     inkscape
     ledger
-    #calibre
+    (calibre.override { speechSupport = false; })
    ];
 
   environment.etc."aspell.conf".text = ''

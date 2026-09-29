@@ -5,7 +5,7 @@
     mpd
     mpc
     mpdris2
-    #(ncmpcpp.override { visualizerSupport = true; })
+    (ncmpcpp.override { visualizerSupport = true; })
 
     mpv
     vlc

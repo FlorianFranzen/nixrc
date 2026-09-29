@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    cura
+    cura-appimage
     prusa-slicer
     super-slicer
   ];

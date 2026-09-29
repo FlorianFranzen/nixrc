@@ -3,9 +3,9 @@
 {
   # Useful packages for "hardware" developement
   environment.systemPackages = with pkgs; [
-     #openscad
+     openscad-unstable
      librecad
-     #freecad
+     freecad
      kicad
   ];
 }
