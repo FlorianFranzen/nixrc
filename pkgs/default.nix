@@ -32,6 +32,9 @@ in {
     atlantic = ksuper.callPackage ./atlantic.nix {};
   });
 
+  # Self-hosted AI workspace to be upstreamed
+  odysseus = prev.callPackage ./odysseus.nix {};
+
   # Printer driver to be upstreamed
   cups-brother-mfcl2710dw = prev.callPackage ./cups-brother-mfcl2710dw.nix {};
 
