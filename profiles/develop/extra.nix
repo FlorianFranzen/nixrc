@@ -13,6 +13,7 @@
 
   # Useful packages for development
   environment.systemPackages = with pkgs; [
+    nh
     nil
     nixfmt
     nix-diff
