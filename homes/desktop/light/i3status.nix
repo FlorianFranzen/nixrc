@@ -105,6 +105,10 @@ in {
             mac = "38:18:4C:D3:F5:A0";
           }
           {
+            block = "bluetooth";
+            mac = "2C:BE:EE:6B:F2:F0";
+          }
+          {
             block = "net";
             format = " $icon {$ssid ($signal_strength $frequency)|$device} ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) ";
             format_alt = " $icon $ip $ipv6 ";
