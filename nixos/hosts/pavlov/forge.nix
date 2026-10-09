@@ -13,18 +13,12 @@
     signing.format = "none";
 
     cache = {
-      # HDD-backed static binary cache (nested subvolume, excluded from
-      # btrbk because it is nested under @data).
-      dir = "/data/cache";
-      secretKeyFile = "/var/lib/ftl/keys/cache.secret";
-      # nix key convert-secret-to-public < cache.secret; also referenced by
-      # every client's ftl.client.substituters entry.
-      # publicKey = "pavlov-1:...";
+      publicKey = "pavlov-1:6S3Kv1gWT/xoWcm0cRyz91M8JeGoD0oCD+T0SfamjVM=";
     };
 
     repos.nixrc = {
       url = "https://github.com/FlorianFranzen/nixrc.git";
-      branch = "master";
+      branch = "ftl";
       keepGenerations = 5;
       lanes = {
         nixpkgs = {
@@ -61,7 +55,6 @@
 
   ftl.cache = {
     enable = true;
-    cacheDir = "/data/cache";
     port = 8080;
   };
 }
