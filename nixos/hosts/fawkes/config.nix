@@ -1,0 +1,51 @@
+{ pkgs, profiles, homes, ... }:
+{
+  imports = 
+    (with profiles; [ corp gaming media mail office podman virtual ]) ++
+    (with profiles.develop; [ minimal extra cross linux net ]) ++
+    (with profiles.desktops; [ sddm kde ]) ++
+    (with profiles.services; [ odysseus ]) ++
+    (with profiles.networks; [ iwd ]) ++
+    (with profiles.hardware; [
+      common-cpu-amd
+      common-cpu-amd-pstate
+      common-gpu-amd
+      common-pc-ssd
+      android
+      focusrite-scarlett
+      gbmonctl
+      pipewire
+      pipewire-virtual
+      rocm
+      smartcard
+      wooting
+      zsa
+    ]);
+
+  # Install full desktop environment
+  home-manager.users.florian = homes.desktop-full-gruvbox;
+
+  # Provided updated cpu microcode and basic firmwares
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
+
+  # Enable full performace of cpu and gpu
+  hardware.amdgpu.overdrive.enable = true;
+
+  # Enable thunderbolt and usb 4
+  services.hardware.bolt.enable = true;
+
+  # Keep firmware up to date
+  services.fwupd.enable = true;
+
+  # Install cpu and gpu clock tooling
+  programs.corectrl.enable = true;
+  services.lact.enable = true;
+
+  # Enable virus scanner
+  services.clamav = {
+    daemon.enable = true;
+    fangfrisch.enable = true;
+    updater.enable = true;
+  };
+}
