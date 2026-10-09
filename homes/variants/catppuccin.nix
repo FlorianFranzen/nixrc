@@ -5,7 +5,7 @@
   catppuccin = {
     autoEnable = true;
     enable = true;
-    accent = "peach";
+    accent = "green";
     flavor = "mocha";
 
     firefox.force = true;
@@ -15,7 +15,7 @@
   home.packages = [
     (pkgs.catppuccin-kde.override {
       flavour = [ "mocha" ];
-      accents = [ "peach" ];
+      accents = [ "green" ];
     })
   ];
 
@@ -59,9 +59,9 @@
   # Set gtk look and feel
   gtk = {
     theme = {
-      name = "catppuccin-mocha-peach-standard";
+      name = "catppuccin-mocha-green-standard";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ "peach" ];
+        accents = [ "green" ];
         variant = "mocha";
       };
     };
