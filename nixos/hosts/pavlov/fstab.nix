@@ -28,6 +28,12 @@
       options = [ "subvol=@data" "compress=zstd" "noatime" ];
     };
 
+    "/var/lib/ftl/cache" = {
+      device = "/dev/disk/by-uuid/aa222bd4-8f66-47cb-9abf-53004b68cbba";
+      fsType = "btrfs";
+      options = [ "subvol=@ftl" "noatime" ];
+    };
+
     # EFI Boot Partition (ESP)
     "/boot" = {
       device = "/dev/disk/by-uuid/8CB9-8FD9";

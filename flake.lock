@@ -215,11 +215,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791500691,
-        "narHash": "sha256-6QHOqH0PkjxUituAJMyr+cySPVBLT2fpxvIInJtl/4o=",
+        "lastModified": 1791507814,
+        "narHash": "sha256-aL7eoNSuPSEJ4maAoGjcscDu4iFg7T7nlGz56mmxbv8=",
         "owner": "FlorianFranzen",
         "repo": "ftl",
-        "rev": "a8f42988c787466cb7a439088a2e5465688c9f6c",
+        "rev": "0ef7029c97b8ebcc9baac837f5e68be908f4c104",
         "type": "github"
       },
       "original": {
