@@ -9,7 +9,7 @@
     tectonic
     texlab
 
-    (aspellWithDicts (d: [ d.en d.en-computers d.en-science d.de d.es d.fr ]))
+    (aspellWithDicts (d: [ d.en d.de d.es d.fr ]))
 
     libreoffice-fresh
     zotero
@@ -21,7 +21,5 @@
 
   environment.etc."aspell.conf".text = ''
     master en_US
-    extra-dicts en-computers.rws
-    extra-dicts en_US-science.rws
   '';
 }
