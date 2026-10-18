@@ -3,7 +3,7 @@
 {
   imports =
     (with profiles; [ corp gaming laptop media mail office podman ]) ++
-    (with profiles.desktops; [ gdm sway ]) ++ 
+    (with profiles.desktops; [ noctalia-greeter umbriel ]) ++
     (with profiles.develop; [
       minimal
       embedded
@@ -22,8 +22,8 @@
       zsa
     ]);
 
-  # Install sway desktop environment
-  home-manager.users.florian = homes.desktop-sway-catppuccin;
+  # Install noctalia desktop environment
+  home-manager.users.florian = homes.desktop-noctalia-catppuccin;
 
   # Enable system theming
   catppuccin.enable = true;
