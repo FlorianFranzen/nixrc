@@ -3,19 +3,6 @@
 let
   final = config.wayland.windowManager.sway;
 
-  exec = pkg: exec' pkg pkg.pname;
-  exec' = pkg: bin: "exec ${pkg}/bin/${bin}";
-
-  browser = config.programs.firefox.package;
-
-  thunar = pkgs.thunar.override {
-    thunarPlugins = with pkgs; [
-      thunar-archive-plugin
-      thunar-vcs-plugin
-      thunar-volman
-    ];
-  };
- 
   gap = 20;
 in {
   # Keep better track of current media player
@@ -86,83 +73,8 @@ in {
       floating.titlebar = false;
       window.titlebar = false;
 
-      # Basic keybindings
+      # Keybindings live in keybinds.nix, rendered from the shared set
       modifier = "Mod4";
-
-      # Extended key bindings
-      keybindings = let
-          cfg = final.config;
-
-          WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
-      in lib.mkOptionDefault {
-        # Move workspace between outputs
-        "${cfg.modifier}+Ctrl+${cfg.left}"  = "move workspace output left";
-        "${cfg.modifier}+Ctrl+${cfg.down}"  = "move workspace output down";
-        "${cfg.modifier}+Ctrl+${cfg.up}"    = "move workspace output up";
-        "${cfg.modifier}+Ctrl+${cfg.right}" = "move workspace output right";
-
-        "${cfg.modifier}+Ctrl+Left"  = "move workspace output left";
-        "${cfg.modifier}+Ctrl+Down"  = "move workspace output down";
-        "${cfg.modifier}+Ctrl+Up"    = "move workspace output up";
-        "${cfg.modifier}+Ctrl+Right" = "move workspace output right";
-
-        # Fullscreen container in split parent  
-        "${cfg.modifier}+Shift+f" = "split v; focus parent; fullscreen toggle; focus child";    
-
-        # Regular PATH-based run menu
-        "${cfg.modifier}+Shift+d" = "${exec pkgs.wofi} --show run";
-
-        # Lock screen
-        "${cfg.modifier}+o" = exec' pkgs.swaylock-effects "swaylock";
-
-        # Add logout screen
-        "${cfg.modifier}+q"       = "kill";
-        "${cfg.modifier}+Shift+q" = "${exec pkgs.wlogout} -b 2";
-
-        # Add emacs pgtk ui
-        "${cfg.modifier}+Shift+Return" = "exec emacs";
-        "${cfg.modifier}+Alt+Return"   = "exec emacsclient --create-frame";
-
-        # Web browser keys
-        "${cfg.modifier}+BackSpace"       = exec browser;
-        "${cfg.modifier}+Shift+BackSpace" = "${exec browser} --private-window";
-
-        # File browser key
-        "${cfg.modifier}+Delete" = exec' thunar "thunar";
-
-        # Screenshot keys
-        "${cfg.modifier}+Print"       = "${exec pkgs.sway-contrib.grimshot} --notify save window";
-        "${cfg.modifier}+Shift+Print" = "${exec pkgs.sway-contrib.grimshot} --notify save area";
-
-        # Transparency control
-        "${cfg.modifier}+bracketleft"  = "opacity minus 0.05";
-        "${cfg.modifier}+bracketright" = "opacity plus 0.05";
-
-        # Mark and switch
-        "${cfg.modifier}+m" = "mode mark";
-        "${cfg.modifier}+t" = "mode switch";
-
-        # Volume control
-        "--locked XF86AudioLowerVolume" = "${exec pkgs.pamixer} --decrease 5 --get-volume > ${WOBSOCK}";
-        "--locked XF86AudioRaiseVolume" = "${exec pkgs.pamixer} --increase 5 --get-volume > ${WOBSOCK}";
-
-        "--locked XF86AudioMute"        = "${exec pkgs.pamixer} --toggle-mute";
-        "--locked XF86AudioMicMute"     = "${exec pkgs.pamixer} --default-source --toggle-mute";
-
-        # Playback controls
-        "--locked XF86AudioPrev"  = "${exec pkgs.playerctl} previous";
-        "--locked XF86AudioNext"  = "${exec pkgs.playerctl} next";
-        "--locked XF86AudioPlay"  = "${exec pkgs.playerctl} play-pause";
-        "--locked XF86AudioPause" = "${exec pkgs.playerctl} play-pause";
-        "--locked XF86AudioStop"  = "${exec pkgs.playerctl} stop";
-
-        "--locked ${cfg.modifier}+XF86AudioPrev" = "${exec' pkgs.playerctl "playerctld"} unshift";
-        "--locked ${cfg.modifier}+XF86AudioNext" = "${exec' pkgs.playerctl "playerctld"} shift";
-
-        # Screen brightness controls
-        "--locked XF86MonBrightnessUp"   = "${exec pkgs.brightnessctl} s +10%";
-        "--locked XF86MonBrightnessDown" = "${exec pkgs.brightnessctl} s 10%-";
-      };
 
       modes = lib.mkOptionDefault {
         # Mark and switch
