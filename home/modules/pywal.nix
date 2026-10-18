@@ -67,10 +67,6 @@ in {
     };
 
     wayland.windowManager = {
-      hyprland.extraConfig = ''
-        exec-once = ${pkgs.swaybg}/bin/swaybg -m fill -i ${cfg.background}
-      '';
-
       sway.config = {
         colors = with result.colors;
           let

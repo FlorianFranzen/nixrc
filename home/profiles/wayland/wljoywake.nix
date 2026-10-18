@@ -4,7 +4,6 @@
   systemd.user.services.wljoywake = {
     Unit = {
       Description = "Wayland idle inhibit on joystick input";
-      After = [ "swayidle.service" ];
       PartOf = [ "graphical-session.target" ];
     };
 

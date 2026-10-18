@@ -22,8 +22,8 @@
       zsa
     ]);
 
-  # Install light desktop environment
-  home-manager.users.florian = homes.desktop-light-catppuccin;
+  # Install sway desktop environment
+  home-manager.users.florian = homes.desktop-sway-catppuccin;
 
   # Enable system theming
   catppuccin.enable = true;
@@ -38,6 +38,11 @@
 
     # Support cpu and mainboard sensors
     kernelModules = [ "kvm-amd" "zenergy" ];
+
+    # Disable panel replay in addition to PSR (0x10 from nixos-hardware),
+    # DMCUB hangs in dmub_replay_get_state freeze the display otherwise.
+    # Appended last so it overrides the upstream value on the cmdline.
+    kernelParams = lib.mkAfter [ "amdgpu.dcdebugmask=0x410" ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. 

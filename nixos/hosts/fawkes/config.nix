@@ -22,8 +22,8 @@
       zsa
     ]);
 
-  # Install full desktop environment
-  home-manager.users.florian = homes.desktop-full-gruvbox;
+  # Install KDE desktop environment
+  home-manager.users.florian = homes.desktop-kde-gruvbox;
 
   # Provided updated cpu microcode and basic firmwares
   hardware.cpu.amd.updateMicrocode = true;

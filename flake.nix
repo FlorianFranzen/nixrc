@@ -112,19 +112,21 @@
       };
 
       home = {
-        # Terminal base, plus light (sway) or full (KDE) desktop, each
-        # combined with every theme in home/variants
+        # Terminal base, plus a desktop stack (sway or KDE), each combined
+        # with every theme in home/variants. "wayland" holds what the
+        # wlroots stacks share.
         bases = {
           terminal = [ "terminal" ];
-          desktop-light = [
+          desktop-sway = [
             "terminal"
             "desktop"
-            "desktop/light"
+            "wayland"
+            "sway"
           ];
-          desktop-full = [
+          desktop-kde = [
             "terminal"
             "desktop"
-            "desktop/full"
+            "kde"
           ];
         };
 
