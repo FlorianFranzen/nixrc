@@ -2,7 +2,7 @@
 
 {
   # Install default managed home folder
-  home-manager.users.florian = lib.mkDefault homes.terminal-solarized;
+  home-manager.users.florian = lib.mkDefault homes.terminal-flexoki;
 
   # Setup sytem user account
   users.users.florian = {

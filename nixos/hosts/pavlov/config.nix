@@ -18,7 +18,7 @@
   nixpkgs.config.nvidia.acceptLicense = true;
 
   # Install terminal environment
-  home-manager.users.florian = homes.terminal-pop;
+  home-manager.users.florian = homes.terminal-selenized;
 
   # Install cxadc cli tools and flac compression
   environment.systemPackages = [ pkgs.linuxPackages.cxadc pkgs.flac ];

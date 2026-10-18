@@ -1,64 +1,82 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
-  # Enable custom configuration module
-  catppuccin = {
-    autoEnable = true;
+  theme = {
     enable = true;
-    accent = "green";
-    flavor = "mocha";
+    name = "catppuccin";
 
-    firefox.force = true;
-  };
+    noctalia.source = "builtin";
+    noctalia.builtin = "Catppuccin";
 
-  # Install additional theming
-  home.packages = [
-    (pkgs.catppuccin-kde.override {
-      flavour = [ "mocha" ];
-      accents = [ "green" ];
-    })
-  ];
+    # Mocha / Latte
+    palette.dark = {
+      background = "#1e1e2e";
+      foreground = "#cdd6f4";
+      cursor = "#f5e0dc";
+      selectionBg = "#585b70";
 
-  # Disable pywal
-  pywal.enable = lib.mkForce false;
+      black = "#45475a";
+      red = "#f38ba8";
+      green = "#a6e3a1";
+      yellow = "#f9e2af";
+      blue = "#89b4fa";
+      magenta = "#f5c2e7";
+      cyan = "#94e2d5";
+      white = "#bac2de";
 
-  # Custominze sway further
-  wayland.windowManager.sway.config = {
-    # Set desktop background
-    output."*".background = "${pkgs.nixos-artwork.wallpapers.catppuccin-mocha.passthru.gnomeFilePath} fill";
-    
-    # Set cursor theme
-    seat."*" = {
-      xcursor_theme = "Catppuccin\\ Latte\\ Light";
+      brightBlack = "#585b70";
+      brightRed = "#f38ba8";
+      brightGreen = "#a6e3a1";
+      brightYellow = "#f9e2af";
+      brightBlue = "#89b4fa";
+      brightMagenta = "#f5c2e7";
+      brightCyan = "#94e2d5";
+      brightWhite = "#a6adc8";
+
+      accent = "#a6e3a1";
+      secondary = "#fab387";
+      tertiary = "#94e2d5";
+      surfaceVariant = "#313244";
+      foregroundDim = "#a6adc8";
+      outline = "#6c7086";
     };
-  };
 
-  # Theme status bars
-  programs.i3status-rust.bars.top.theme = "ctp-mocha";
-  programs.i3status-rust.bars.bottom.theme = "ctp-mocha";
+    palette.light = {
+      background = "#eff1f5";
+      foreground = "#4c4f69";
+      cursor = "#dc8a78";
+      selectionBg = "#acb0be";
 
-  # KDE plasma theming
-  programs.plasma.workspace = {
-    colorScheme = "CatppuccinMochaPeach";
-    cursor = {
-      size = 36;
-      theme = "Catppuccin Latte Light";
+      black = "#5c5f77";
+      red = "#d20f39";
+      green = "#40a02b";
+      yellow = "#df8e1d";
+      blue = "#1e66f5";
+      magenta = "#ea76cb";
+      cyan = "#179299";
+      white = "#acb0be";
+
+      brightBlack = "#6c6f85";
+      brightRed = "#d20f39";
+      brightGreen = "#40a02b";
+      brightYellow = "#df8e1d";
+      brightBlue = "#1e66f5";
+      brightMagenta = "#ea76cb";
+      brightCyan = "#179299";
+      brightWhite = "#bcc0cc";
+
+      accent = "#40a02b";
+      secondary = "#fe640b";
+      tertiary = "#179299";
+      surfaceVariant = "#ccd0da";
+      foregroundDim = "#6c6f85";
+      outline = "#9ca0b0";
     };
-    iconTheme = "Papirus-Dark";
-    theme = "CatppuccinMocha-Modern";
-    wallpaper = pkgs.nixos-artwork.wallpapers.catppuccin-mocha.passthru.kdeFilePath;
 
-    # FIXME: Needs to be packaged and installed
-    windowDecorations = {
-      library = "org.kde.kwin.aurorae";
-      theme = "__aurorae__svg__ActiveAccentFrame";
-    };
-  };
-  programs.plasma.configFile.kdeglobals.KDE.widgetStyle = "Fusion";
+    wallpaper.dark = pkgs.nixos-artwork.wallpapers.catppuccin-mocha.passthru.gnomeFilePath;
+    wallpaper.light = pkgs.nixos-artwork.wallpapers.catppuccin-latte.passthru.gnomeFilePath;
 
-  # Set gtk look and feel
-  gtk = {
-    theme = {
+    gtk = {
       name = "catppuccin-mocha-green-standard";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "green" ];
@@ -70,8 +88,27 @@
       name = "Catppuccin Latte Light";
       package = pkgs.catppuccin-cursors.latteLight;
     };
-  };
 
-  # Support Qt theming
-  qt.style.name = "kvantum";
+    i3status = "ctp-mocha";
+
+    plasma = {
+      packages = [
+        (pkgs.catppuccin-kde.override {
+          flavour = [ "mocha" ];
+          accents = [ "green" ];
+        })
+      ];
+      workspace = {
+        colorScheme = "CatppuccinMochaGreen";
+        iconTheme = "Papirus-Dark";
+        theme = "CatppuccinMocha-Modern";
+        wallpaper = pkgs.nixos-artwork.wallpapers.catppuccin-mocha.passthru.kdeFilePath;
+      };
+    };
+
+    catppuccin = {
+      flavor = "mocha";
+      accent = "green";
+    };
+  };
 }
