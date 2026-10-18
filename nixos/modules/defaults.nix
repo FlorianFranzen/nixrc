@@ -23,6 +23,9 @@
   security.pam.rssh.enable = lib.mkDefault true;
   security.pam.services.sudo.rssh = true;
  
+  # Make every terminal's terminfo available, e.g. for foot over ssh
+  environment.enableAllTerminfo = lib.mkDefault true;
+
   # Add cacert to global trust store
   security.pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
 
