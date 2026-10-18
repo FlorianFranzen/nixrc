@@ -1,52 +1,77 @@
-{ pkgs, static, ...}:
+{ pkgs, static, ... }:
 
 {
-  # Install additional theming
-  home.packages = [ 
-    pkgs.kde-gruvbox 
-  ];
+  theme = {
+    enable = true;
+    name = "gruvbox";
 
-  # Theme pywal and integrations
-  pywal.theme = "gruvbox";
-  pywal.background = static.wallpapers.astronaut-gruvbox;
+    noctalia.source = "builtin";
+    noctalia.builtin = "Gruvbox";
 
-  # Set cursor theme
-  wayland.windowManager.sway.config ={
-    seat."*" = {
-      xcursor_theme = "Capitaine\\ Cursors\\ (Gruvbox)\\ -\\ White";
+    # Medium contrast dark / light from the original vim scheme
+    palette.dark = {
+      background = "#282828";
+      foreground = "#ebdbb2";
+
+      black = "#282828";
+      red = "#cc241d";
+      green = "#98971a";
+      yellow = "#d79921";
+      blue = "#458588";
+      magenta = "#b16286";
+      cyan = "#689d6a";
+      white = "#a89984";
+
+      brightBlack = "#928374";
+      brightRed = "#fb4934";
+      brightGreen = "#b8bb26";
+      brightYellow = "#fabd2f";
+      brightBlue = "#83a598";
+      brightMagenta = "#d3869b";
+      brightCyan = "#8ec07c";
+      brightWhite = "#ebdbb2";
+
+      accent = "#fe8019";
+      secondary = "#8ec07c";
+      tertiary = "#d3869b";
+      surfaceVariant = "#3c3836";
+      foregroundDim = "#a89984";
+      outline = "#665c54";
     };
-  };
 
-  # Theme command line tools
-  programs.bat.config.theme = "gruvbox-dark";
-  programs.broot.settings.imports = [ "skins/dark-gruvbox.hjson" ];
+    palette.light = {
+      background = "#fbf1c7";
+      foreground = "#3c3836";
 
-  # Theme status bars
-  programs.i3status-rust.bars.top.theme = "gruvbox-dark";
-  programs.i3status-rust.bars.bottom.theme = "gruvbox-dark";
+      black = "#fbf1c7";
+      red = "#cc241d";
+      green = "#98971a";
+      yellow = "#d79921";
+      blue = "#458588";
+      magenta = "#b16286";
+      cyan = "#689d6a";
+      white = "#7c6f64";
 
-  # KDE plasma theming
-  programs.plasma.workspace = {
-    colorScheme = "Gruvbox";
-    cursor = {
-      size = 36;
-      theme = "Capitaine Cursors (Gruvbox) - White";
+      brightBlack = "#928374";
+      brightRed = "#9d0006";
+      brightGreen = "#79740e";
+      brightYellow = "#b57614";
+      brightBlue = "#076678";
+      brightMagenta = "#8f3f71";
+      brightCyan = "#427b58";
+      brightWhite = "#3c3836";
+
+      accent = "#af3a03";
+      secondary = "#427b58";
+      tertiary = "#8f3f71";
+      surfaceVariant = "#ebdbb2";
+      foregroundDim = "#7c6f64";
+      outline = "#bdae93";
     };
-    iconTheme = "Gruvbox-Plus-Dark";
-    theme = "breeze-dark"; 
-    wallpaper = "${static.wallpapers.astronaut-gruvbox}";
-      
-    # FIXME: Needs to be packaged and installed
-    windowDecorations = {
-      library = "org.kde.kwin.aurorae";
-      theme = "__aurorae__svg__ActiveAccentFrame";
-    };
-  };
-  programs.plasma.configFile.kdeglobals.KDE.widgetStyle = "Fusion";
 
-  # Set gtk look and feel
-  gtk = {
-    theme = {
+    wallpaper.dark = static.wallpapers.astronaut-gruvbox;
+
+    gtk = {
       name = "gruvbox-dark-gtk";
       package = pkgs.gruvbox-dark-gtk;
     };
@@ -59,6 +84,20 @@
     cursorTheme = {
       name = "Capitaine Cursors (Gruvbox) - White";
       package = pkgs.capitaine-cursors-themed;
+    };
+
+    bat = "gruvbox-dark";
+    broot = "skins/dark-gruvbox.hjson";
+    i3status = "gruvbox-dark";
+
+    plasma = {
+      packages = [ pkgs.kde-gruvbox ];
+      workspace = {
+        colorScheme = "Gruvbox";
+        iconTheme = "Gruvbox-Plus-Dark";
+        theme = "breeze-dark";
+        wallpaper = "${static.wallpapers.astronaut-gruvbox}";
+      };
     };
   };
 }
