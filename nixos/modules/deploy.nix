@@ -34,5 +34,5 @@ in
   };
 
   # Layers are built from the same repository
-  ftl.layers.repo = repo;
+  fleet.layers.repo = repo;
 }

@@ -1,9 +1,10 @@
-# Pipeline builder + binary cache role (phase 3: build/status/cache only —
-# promotion, signing and the deploy key arrive with phase 4).
+# The ftl pipeline (builder, status and binary cache) of this repository;
+# service.nix says which host runs it.  Phase 3: build/status/cache only;
+# promotion, signing and the deploy key arrive with phase 4.
 { ... }:
 
 {
-  ftl.builder = {
+  fleet.builder = {
     enable = true;
 
     # Phase 4: set promote = true once the builder smartcard and deploy key
@@ -53,7 +54,7 @@
     };
   };
 
-  ftl.cache = {
+  fleet.cache = {
     enable = true;
     port = 8080;
   };

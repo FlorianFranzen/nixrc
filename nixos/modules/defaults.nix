@@ -39,7 +39,9 @@
   time.timeZone = lib.mkDefault "Europe/Zurich";
 
   # Allow locally managed user by default
-  users.mutableUsers = lib.mkDefault true;
+  # Workstations keep the passwords set on them (ftl's access module would
+  # make every account key-only).
+  users.mutableUsers = true;
 
   # Disable theming by default
   catppuccin.enable = lib.mkDefault false;

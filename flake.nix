@@ -5,11 +5,9 @@
     # Base packages and configurations
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Flake template library: layout -> outputs, update pipeline, cache
-    ftl = {
-      url = "github:FlorianFranzen/ftl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Fleet template library: layout -> outputs, update pipeline, cache (no
+    # inputs of its own)
+    ftl.url = "github:FlorianFranzen/ftl";
 
     # Pull-based deployment of the base system
     comin = {
@@ -64,8 +62,10 @@
   # Layout (see the ftl README):
   #   pkgs/    own packages (<name>/package.nix), overlay.nix, config.nix
   #   nixos/   hosts/<name>/ (host.nix = metadata), modules/, profiles/, layers/
+  #   nixos/services/<name>/  where something runs (service.nix) and its modules
   #   home/    modules/, profiles/<dir>/, variants/ -> <base>-<variant>
   #   static/  wallpapers, doom config, keys (module argument `static`)
+  #   users/   <name>/user.nix, ssh.pub: accounts on the hosts
   outputs =
     {
       self,

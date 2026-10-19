@@ -209,17 +209,12 @@
       }
     },
     "ftl": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
       "locked": {
-        "lastModified": 1791507814,
-        "narHash": "sha256-aL7eoNSuPSEJ4maAoGjcscDu4iFg7T7nlGz56mmxbv8=",
+        "lastModified": 1792373777,
+        "narHash": "sha256-fM1q8mrrz4mH1CKspyVawMlholfNL6MVKmOK9W305EA=",
         "owner": "FlorianFranzen",
         "repo": "ftl",
-        "rev": "0ef7029c97b8ebcc9baac837f5e68be908f4c104",
+        "rev": "79a5364204a7e826e0f6c1b9b62bc6f3f99aa38a",
         "type": "github"
       },
       "original": {

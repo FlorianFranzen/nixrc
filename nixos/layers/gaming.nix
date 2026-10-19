@@ -2,7 +2,7 @@
 # behind the base system when a bump breaks one of them. System-level support
 # (steam, gamescope, 32-bit audio/graphics) stays in profiles/gaming.nix.
 {
-  kind = "apps";
+  kind = "packages";
 
   packages =
     pkgs: with pkgs; [

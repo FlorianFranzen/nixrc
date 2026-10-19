@@ -1,6 +1,6 @@
 # Useful packages for "hardware" development, installed as an ftl layer.
 {
-  kind = "apps";
+  kind = "packages";
 
   packages =
     pkgs: with pkgs; [
