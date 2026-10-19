@@ -154,6 +154,8 @@ in
     };
 
     sequences = {
+      # Builder, so a noctalia template can render the same with colour tokens
+      for = mkOption { type = types.functionTo types.str; readOnly = true; default = toSequences; };
       dark = mkOption { type = types.str; readOnly = true; default = toSequences cfg.palette.dark; };
       light = mkOption { type = types.str; readOnly = true; default = toSequences cfg.palette.light; };
       reset = mkOption {

@@ -112,9 +112,9 @@
       };
 
       home = {
-        # Terminal base, plus a desktop stack (sway or KDE), each combined
-        # with every theme in home/variants. "wayland" holds what the
-        # wlroots stacks share.
+        # Terminal base, plus a desktop stack (sway, KDE or noctalia on
+        # umbriel), each combined with every theme in home/variants.
+        # "wayland" holds what the wlroots stacks share.
         bases = {
           terminal = [ "terminal" ];
           desktop-sway = [
@@ -127,6 +127,12 @@
             "terminal"
             "desktop"
             "kde"
+          ];
+          desktop-noctalia = [
+            "terminal"
+            "desktop"
+            "wayland"
+            "noctalia"
           ];
         };
 
