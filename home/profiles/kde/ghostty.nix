@@ -8,6 +8,9 @@
     settings = {
       quit-after-last-window-closed = false;
       shell-integration-features = "sudo,ssh-env,ssh-terminfo,title";
+
+      # Bound to toggle_fullscreen by default
+      keybind = [ "ctrl+enter=unbind" ];
     };
 
     systemd.enable = true;
