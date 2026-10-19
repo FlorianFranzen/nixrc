@@ -77,4 +77,6 @@ in
   };
 
   services.mako.settings.font = "${iconFont} ${toString size}";
+
+  programs.noctalia.settings.shell.font_family = generalFont;
 }
