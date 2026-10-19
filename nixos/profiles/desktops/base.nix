@@ -1,5 +1,5 @@
 # Base config to run a desktop environment
-{ lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, ... }:
 
 {
   # Enable ntfs support
@@ -40,6 +40,21 @@
 
   # Use more reliable dbus implementation by default
   services.dbus.implementation = lib.mkDefault "broker";
+
+  # Userspace console on the ttys: unicode, nerd font glyphs and true colour,
+  # so a starship prompt looks the same as in a terminal emulator
+  services.kmscon = {
+    enable = config.home-manager.users.${username}.programs.starship.enable or false;
+    config = {
+      hwaccel = config.hardware.graphics.enable;
+      font-name = "JetBrainsMono Nerd Font";
+      font-size = 12;
+      xkb-layout = "eu";
+      xkb-options = "compose:ralt";
+    };
+  };
+
+  fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
 
   # Give default user additional access to devices
   users.extraUsers.${username}.extraGroups = [ "audio" "cdrom" "video" ];
