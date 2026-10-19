@@ -1,4 +1,4 @@
-{ config, pkgs, profiles, homes, ... }:
+{ config, pkgs, profiles, ... }:
 
 {
   imports = (with profiles.develop; [ minimal cross linux ])
@@ -17,8 +17,6 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   nixpkgs.config.nvidia.acceptLicense = true;
 
-  # Install terminal environment
-  home-manager.users.florian = homes.terminal-selenized;
 
   # Install cxadc cli tools and flac compression
   environment.systemPackages = [ pkgs.linuxPackages.cxadc pkgs.flac ];

@@ -1,9 +1,9 @@
-{ pkgs, profiles, homes, ... }:
+{ pkgs, profiles, ... }:
 {
   imports = 
     (with profiles; [ corp gaming media mail office podman virtual ]) ++
     (with profiles.develop; [ minimal extra cross linux net ]) ++
-    (with profiles.desktops; [ sddm kde ]) ++
+    (with profiles.desktops; [ sddm ]) ++
     (with profiles.services; [ odysseus ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
@@ -22,8 +22,6 @@
       zsa
     ]);
 
-  # Install KDE desktop environment
-  home-manager.users.florian = homes.desktop-kde-gruvbox;
 
   # Provided updated cpu microcode and basic firmwares
   hardware.cpu.amd.updateMicrocode = true;

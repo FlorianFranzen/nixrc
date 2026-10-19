@@ -1,9 +1,9 @@
-{ config, pkgs, lib, profiles, homes, ...}:
+{ config, pkgs, lib, profiles, ...}:
 
 {
   imports =
     (with profiles; [ corp gaming laptop media mail office podman ]) ++
-    (with profiles.desktops; [ noctalia-greeter umbriel ]) ++
+    (with profiles.desktops; [ noctalia-greeter ]) ++
     (with profiles.develop; [
       minimal
       embedded
@@ -22,8 +22,6 @@
       zsa
     ]);
 
-  # Install noctalia desktop environment
-  home-manager.users.florian = homes.desktop-noctalia-catppuccin;
 
   # Enable system theming
   catppuccin.enable = true;

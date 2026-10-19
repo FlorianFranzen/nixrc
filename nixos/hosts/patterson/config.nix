@@ -1,4 +1,4 @@
-{ profiles, homes, ... }:
+{ profiles, ... }:
 
 {
   imports = with profiles; [
@@ -6,8 +6,6 @@
     services.teddycloud
   ];
 
-  # Terminal only home with its own colours
-  home-manager.users.florian = homes.terminal-dracula;
 
   # Optimize power usage
   powerManagement.cpuFreqGovernor = "ondemand";
