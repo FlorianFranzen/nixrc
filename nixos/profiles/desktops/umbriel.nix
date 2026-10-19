@@ -8,9 +8,8 @@
   # itself is configured in home-manager
   programs.umbriel.enable = true;
 
-  # Enable dconf and gcr
+  # Enable dconf
   programs.dconf.enable = true;
-  services.dbus.packages = [ pkgs.dconf pkgs.gcr_4 ];
 
   # Enable fs integration
   services.gvfs.enable = true;
