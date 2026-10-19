@@ -31,4 +31,7 @@
 
   # Enable SmartCard daemon
   services.pcscd.enable = true;
+
+  # Notify when a key waits for touch (any gpg-agent smartcard operation)
+  programs.yubikey-touch-detector.enable = true;
 }
