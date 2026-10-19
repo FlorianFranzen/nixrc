@@ -42,18 +42,17 @@
         BROWSER = "firefox";
       };
 
-      # Configure theming
+      # Over ssh paint the terminal in this host's colours, restore on exit
       initContent = ''
-        # Load color scheme
-        [[ -f ~/.cache/wal/sequences ]] && (cat ~/.cache/wal/sequences &)
-
-        # Load powerlevel10k config
-        source ${./zsh.p10k.sh}
+        if [[ -n $SSH_CONNECTION && -f ~/.config/zsh/sequences ]]; then
+          command cat ~/.config/zsh/sequences
+          zshexit() { command cat ~/.config/zsh/sequences-reset; }
+        fi
       '';
 
       # Provide some additional aliases
       shellAliases = {
-	evil-claude = "NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#claude-code --impure";
+        evil-claude = "NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#claude-code --impure";
         cat = "bat --plain";
         ekill = "emacsclient -e '(kill-emacs)'";
         flake = "nix flake";
@@ -70,14 +69,6 @@
         enable = true;
         plugins = [ "emacs" "systemd" ];
       };
-
-      plugins = [
-        {
-          name = "powerlevel10k";
-          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-          src = pkgs.zsh-powerlevel10k;
-        }
-      ];
     };
   };
 }
