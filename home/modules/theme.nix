@@ -116,6 +116,23 @@ in
 
     name = mkOption { type = types.str; description = "Variant name, e.g. gruvbox."; };
 
+    managedBy = mkOption {
+      type = types.enum [ "nix" "noctalia" ];
+      default = "nix";
+      description = ''
+        Who writes the app theme files: nix renders them from the palette at
+        build time, noctalia renders its templates at runtime (and follows
+        light/dark mode).
+      '';
+    };
+
+    # Builders for configs that exist both as nix output and noctalia template,
+    # called with a function from palette role to colour string
+    starship = mkOption {
+      type = types.functionTo types.attrs;
+      description = "Starship settings, given a role -> colour function.";
+    };
+
     noctalia = {
       source = mkOption {
         type = types.enum [ "builtin" "custom" ];

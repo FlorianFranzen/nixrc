@@ -15,5 +15,12 @@ in
       autoEnable = true;
       inherit (theme.catppuccin) flavor accent;
     };
+
+    # Terminal colour sequences, emitted by zsh over ssh (see zsh.nix); on
+    # noctalia hosts the shell renders this file itself
+    xdg.configFile = {
+      "zsh/sequences" = lib.mkIf (theme.managedBy == "nix") { text = theme.sequences.dark; };
+      "zsh/sequences-reset".text = theme.sequences.reset;
+    };
   };
 }
