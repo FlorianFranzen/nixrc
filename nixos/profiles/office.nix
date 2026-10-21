@@ -11,7 +11,7 @@
 
     (aspellWithDicts (d: [ d.en d.de d.es d.fr ]))
 
-    libreoffice-fresh
+    libreoffice
     zotero
     gimp
     inkscape
