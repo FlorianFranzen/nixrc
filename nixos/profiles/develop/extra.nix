@@ -61,6 +61,7 @@
     nmap
 
     #keybase-gui
+    wireguard-tools
     zeal
   ];
 
