@@ -10,11 +10,6 @@
     pulse.enable = true;
   };
 
-  # Enable pulseaudio clients
-  nixpkgs.config = {
-    pulseaudio = true;
-  };
-
   environment.systemPackages = with pkgs; [
     crosspipe
     pulseaudio # for pactl
