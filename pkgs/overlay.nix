@@ -27,7 +27,7 @@ in {
     cxadc = ksuper.callPackage ./linux-modules/cxadc/package.nix {};
   });
 
-  linuxPackages_latest = prev.linuxPackages_latest.extend (kself: ksuper: {
+  linuxPackages_7_2 = prev.linuxPackages_7_2.extend (kself: ksuper: {
     atlantic = ksuper.callPackage ./linux-modules/atlantic/package.nix {};
   });
 

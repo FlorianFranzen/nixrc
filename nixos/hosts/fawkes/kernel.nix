@@ -3,7 +3,7 @@
 {
   boot = {
     # Use current kernel for better compatibility
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_7_2;
 
     # Improve ROCM stability by disabling buggy preemption
     kernelParams = [ "amdgpu.mcbp=0" ];

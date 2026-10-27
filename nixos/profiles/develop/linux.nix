@@ -8,6 +8,6 @@
     usbutils
     acpitool
     ethtool
-    linux-manual
+    #linux-manual
   ];
 }
