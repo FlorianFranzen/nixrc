@@ -99,12 +99,12 @@ let
       {
         match.app_id = "^dev.noctalia.Noctalia$";
         default_floating = true;
-        default_size = [ 1020 900 ];
+        default_floating_size_px = { width = 1020;  height = 900; };
       }
       {
         match.app_id = "^dev.noctalia.UmbrielSharePicker$";
         default_floating = true;
-        default_size = [ 800 600 ];
+        default_floating_size_px = { width = 800; height = 600; };
       }
 
       # Keep picture in picture in a corner
@@ -143,7 +143,7 @@ in
   config = {
     # Validate the config at build time
     xdg.configFile."umbriel/config.toml".source = pkgs.runCommand "umbriel-config.toml" { } ''
-      ${pkgs.umbriel}/bin/umbriel validate -c ${configFile}
+      ${pkgs.umbriel}/bin/umbriel config validate -c ${configFile}
       cp ${configFile} $out
     '';
   };

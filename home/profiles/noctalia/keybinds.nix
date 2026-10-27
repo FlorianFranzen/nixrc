@@ -73,12 +73,12 @@ in
       moveRight = "window-move-or-output-right";
 
       # Tiling
-      grow = "window-modify-width:0.1";
-      shrink = "window-modify-width:-0.1";
+      grow = "window-modify-width-right:0.1";
+      shrink = "window-modify-width-right:-0.1";
       nextLayout = "workspace-set-layout:toggle";
-      prevLayout = "window-cycle-width-back";
-      rotate = "window-cycle-width";
-      rotatePart = "window-cycle-height";
+      prevLayout = "window-cycle-primary-extent-back";
+      rotate = "window-cycle-primary-extent";
+      rotatePart = "window-cycle-secondary-extent";
       setMaster = "column-move-to-first";
 
       # Window switching
