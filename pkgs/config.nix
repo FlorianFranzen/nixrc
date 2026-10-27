@@ -31,7 +31,8 @@
       "discord-unwrapped"
       # Media apps
       "spotify"
-      # Firefox addons
+      # Firefox + addons
+      "firefox-esr-140-bin-unwrapped"
       "video-downloadhelper"
       "youtube-recommended-videos"
       # Printer and scanner drivers
@@ -48,8 +49,10 @@
 
   input-fonts.acceptLicense = true;
 
-  # Needed by some barely maintained software
   permittedInsecurePackages = [
+    # Needed by zotero
+    "firefox-esr-140-bin-unwrapped-140.17.0esr"
+    # Needed by some barely maintained software
     "jitsi-meet-1.0.8792"
     "qtwebengine-5.15.19"
   ];
