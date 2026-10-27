@@ -9,15 +9,15 @@
   zlib,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (final: {
   pname = "fcp-support";
-  version = "2025-04-10";
+  version = "1.0beta1";
 
   src = fetchFromGitHub {
     owner = "geoffreybennett";
     repo = "fcp-support";
-    rev = "edae476e670254083741a0a14bc7a482d95a5ccb";
-    hash = "sha256-iokiRxtHdlNHau5TzFBmr7LFlrBUWG9NIZNXSmVL/DM=";
+    rev = final.version;
+    hash = "sha256-pyGtQkbaroWIXRVrSeR+1oeOJrjBfOUM7El0PUsr6mQ=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -30,5 +30,5 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
-}
+  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=/" ];
+})
