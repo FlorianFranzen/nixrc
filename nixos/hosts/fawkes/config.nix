@@ -4,7 +4,7 @@
     (with profiles; [ corp gaming media mail office podman virtual ]) ++
     (with profiles.develop; [ minimal extra cross linux net ]) ++
     (with profiles.desktops; [ sddm ]) ++
-    (with profiles.services; [ odysseus ]) ++
+    #(with profiles.services; [ odysseus ]) ++
     (with profiles.networks; [ iwd ]) ++
     (with profiles.hardware; [
       common-cpu-amd
