@@ -10,7 +10,5 @@
   # Optimize power usage
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  # Set processor architecture
-  nixpkgs.hostPlatform = "aarch64-linux";
 }
 

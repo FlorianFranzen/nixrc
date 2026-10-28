@@ -2,26 +2,14 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Automatically generate default host id if zfs is enabled
-  networking.hostId = lib.mkIf config.boot.zfs.enabled (lib.mkOverride 999 (
-    lib.substring 0 8 (builtins.hashString "md5" config.networking.hostName)
-  ));
-
-  # Use x86 64-bit architecture by default
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  # Enable SSH login via key by default
-  services.openssh.enable = lib.mkDefault true;
-  services.openssh.settings.KbdInteractiveAuthentication = lib.mkDefault false;
-  services.openssh.settings.PasswordAuthentication = lib.mkDefault false;
-  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
+  # hostId, hostPlatform, key-only sshd and sudo via pam_rssh come from ftl
+  # (the access module and the host metadata)
 
   # Only allow nix managed keys (local or remote)
   services.openssh.authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
 
-  # Allow key-based auth (local and via ssh)
-  security.pam.rssh.enable = lib.mkDefault true;
-  security.pam.services.sudo.rssh = true;
+  # Admins copy closures to the hosts (until they push through sudo)
+  fleet.nix.trustWheel = true;
  
   # Make every terminal's terminfo available, e.g. for foot over ssh
   environment.enableAllTerminfo = lib.mkDefault true;
@@ -38,10 +26,8 @@
   # Set default your time zone.
   time.timeZone = lib.mkDefault "Europe/Zurich";
 
-  # Allow locally managed user by default
-  # Workstations keep the passwords set on them (ftl's access module would
-  # make every account key-only).
-  users.mutableUsers = true;
+  # Workstations keep the passwords set on them; sshd stays key-only
+  fleet.access.localPasswords = true;
 
   # Disable theming by default
   catppuccin.enable = lib.mkDefault false;
