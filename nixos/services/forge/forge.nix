@@ -13,13 +13,9 @@
     promote = false;
     signing.format = "none";
 
-    cache = {
-      publicKey = "pavlov-1:6S3Kv1gWT/xoWcm0cRyz91M8JeGoD0oCD+T0SfamjVM=";
-    };
-
     repos.nixrc = {
       url = "https://github.com/FlorianFranzen/nixrc.git";
-      branch = "ftl";
+      branch = "master";
       keepGenerations = 5;
       lanes = {
         nixpkgs = {

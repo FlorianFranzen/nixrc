@@ -6,22 +6,15 @@
 # ftl-layers.json and installed by ftl-layers after each comin deployment.
 { lib, static, ... }:
 
-let
-  repo = "https://github.com/FlorianFranzen/nixrc.git";
-in
 {
+  # comin follows the flake's repo (mkFlake's `repo`) at this branch; layers
+  # are built from the same repository
+  fleet.comin.branch = "master";
+
   services.comin = {
     # Disabled until master is signed end-to-end (user and builder keys) and
     # the pipeline is live; enable per host or here afterwards.
     enable = lib.mkDefault false;
-
-    remotes = [
-      {
-        name = "origin";
-        url = repo;
-        branches.main.name = "master";
-      }
-    ];
 
     # Only deploy commits signed by the user's or the builder's key
     # (florian.asc: signing subkey 0x9D6358DA6827C1ED of 0x9E496CBDB62766C1).
@@ -32,7 +25,4 @@ in
     # Servers switch automatically; laptops confirm (see profiles/laptop.nix)
     deployConfirmer.mode = lib.mkDefault "without";
   };
-
-  # Layers are built from the same repository
-  fleet.layers.repo = repo;
 }
