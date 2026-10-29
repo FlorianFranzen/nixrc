@@ -50,7 +50,13 @@ in
         enabled = true;
         lock_before_suspend = true;
         blurred_desktop = true;
+
+        # A nudge right after the idle lock unlocks without a password
+        grace_period_seconds = 10;
       };
+
+      # Shell feedback sounds (volume, notifications, charger, screenshots)
+      audio.enable_sounds = true;
 
       idle.behavior = {
         lock = {

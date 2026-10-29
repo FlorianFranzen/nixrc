@@ -6,9 +6,19 @@ let
   toml = pkgs.formats.toml { };
 
   settings = {
+    # Bundled effect presets; selected below
+    include.files = map (e: "${pkgs.umbriel}/share/umbriel/effects/${e}/effect.toml") [
+      "border/pulse"
+      "animation/reveal"
+      "animation/squash"
+    ];
+
     # Colours are rendered by noctalia (see theming.nix) so they follow
     # light/dark mode; until the first render the file is simply absent
     include.optional.files = [ "noctalia.toml" ];
+
+    # Breathing accent border on the focused window
+    effects.border = "pulse";
 
     general = {
       xwayland = true;
@@ -93,6 +103,11 @@ let
       enabled = true;
       dim = 0.1;
     };
+
+    # Shader based open, close and move transitions
+    animation.windows_in.effect = "reveal";
+    animation.windows_out.effect = "reveal";
+    animation.windows_move.effect = "squash";
 
     window_rule = [
       # Blur every window
