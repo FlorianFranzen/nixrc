@@ -36,10 +36,15 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+;; On the noctalia desktop the shell renders a theme from its palette and
+;; reloads it on light/dark changes (see home/profiles/noctalia/theming.nix)
+(defvar noctalia-theme-dir (expand-file-name "~/.config/emacs/themes/"))
+(add-to-list 'custom-theme-load-path noctalia-theme-dir)
+
 (setq doom-theme
       (cond
+        ((file-exists-p (concat noctalia-theme-dir "noctalia-theme.el")) 'noctalia)
         ((string= (system-name) "fawkes") 'doom-gruvbox)
-        ((string= (system-name) "lovelace") 'doom-solarized-dark)
         (t 'doom-nord)
 ))
 

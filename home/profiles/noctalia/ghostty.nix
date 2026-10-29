@@ -14,6 +14,9 @@
 
       # Rendered by noctalia's ghostty template, reloaded on change
       theme = "noctalia";
+
+      # Lift low contrast text, mostly the light palettes' yellow and green
+      minimum-contrast = 3;
     };
 
     systemd.enable = true;
