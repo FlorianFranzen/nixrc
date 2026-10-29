@@ -52,7 +52,7 @@
 
       # Provide some additional aliases
       shellAliases = {
-        evil-claude = "NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#claude-code --impure";
+        evil-claude = "NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#claude-code --impure --";
         cat = "bat --plain";
         ekill = "emacsclient -e '(kill-emacs)'";
         flake = "nix flake";
