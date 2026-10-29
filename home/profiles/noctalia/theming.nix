@@ -47,8 +47,11 @@ let
       text = theme.sequences.for tokens;
       output = "$XDG_CONFIG_HOME/zsh/sequences";
     };
+    # Noctalia's own umbriel template, taken from the package so it follows
+    # umbriel's config keys, but run as a user template (no hook editing
+    # the read-only config.toml)
     umbriel = {
-      source = ./umbriel-theme.toml;
+      source = "${config.programs.noctalia.package}/share/noctalia/assets/templates/umbriel/umbriel.toml";
       output = "$XDG_CONFIG_HOME/umbriel/noctalia.toml";
     };
   };

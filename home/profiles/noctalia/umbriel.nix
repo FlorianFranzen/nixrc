@@ -66,6 +66,9 @@ let
       border_width = 2;
       corner_radius = 12;
 
+      # Tab groups use the shell font
+      tab_bar.font = "Inter 10";
+
       blur = {
         enabled = true;
         optimized = true;
